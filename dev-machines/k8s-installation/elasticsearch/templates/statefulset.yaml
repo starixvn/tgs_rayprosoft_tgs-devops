@@ -152,6 +152,7 @@ spec:
       # to continue with backwards compatibility this is being kept
       # whilst also allowing for yaml to be specified too.
       {{- if eq "string" (printf "%T" .Values.extraVolumes) }}
+      {{- if eq "string" (printf "%T" .Values.extraVolumes) }}
 {{ tpl .Values.extraVolumes . | indent 8 }}
       {{- else }}
 {{ toYaml .Values.extraVolumes | indent 8 }}
@@ -310,10 +311,10 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name
-          #{{- if has "master" .Values.roles }}
-          #- name: cluster.initial_master_nodes
-          #  value: "{{ template "elasticsearch.endpoints" . }}"
-          #{{- end }}
+          {{- if has "master" .Values.roles }}
+          - name: cluster.initial_master_nodes
+            value: "{{ template "elasticsearch.endpoints" . }}"
+          {{- end }}
           {{- if gt (len (include "elasticsearch.roles" .)) 0 }}
           - name: node.roles
             value: "{{ template "elasticsearch.roles" . }}"
