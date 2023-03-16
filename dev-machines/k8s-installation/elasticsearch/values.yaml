@@ -17,9 +17,9 @@ roles:
   - data_warm
   - data_cold
   - ingest
-  - ml
-  - remote_cluster_client
-  - transform
+  #- ml
+  #- remote_cluster_client
+  #- transform
 
 replicas: 1
 minimumMasterNodes: 1
