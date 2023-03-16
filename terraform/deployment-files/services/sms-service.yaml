@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"sms-service"},"name":"sms-service","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"sms-service"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:25Z"
+  labels:
+    app: sms-service
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: sms-service
+  namespace: staging
+  resourceVersion: "771859"
+  uid: 6c66ebeb-7250-463d-be80-3ff21c135f1e
+spec:
+  clusterIP: 172.20.239.205
+  clusterIPs:
+  - 172.20.239.205
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: sms-service
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

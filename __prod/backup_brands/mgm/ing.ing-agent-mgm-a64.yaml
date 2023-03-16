@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQ4NDUzMTI5LCJleHAiOjE2NDg0NTY3MjksImlhdCI6MTY0ODQ1MzEyOSwiaXNzIjoidGdzIn0.A1jqDNE-KdxBj5tdYOlInb0FtV17QkcSiv23eG1jiDasyXHi3QFYnePW8EXRR9BwsVqphqNihPJQ20QrCL5qiG4brPVfNBNuUEeRngOYKClxqxkhENb2jW56tY4Aaj-LQd2Mn8Y6S_VdXOy7QK6U3D2gnayGJBNy1TXGFmF_mePEjISByVtcLE-xy4gvggDXXjKDEyIcybf5YZqsvxapmMyh7IHMNXIs1TDGDDnO7clksdY0sfH-9HmRFMcpayF0iuaKehdDfylxcmIZEHQj6XyloKJmhVlT2ySH9qkb1IZcBT3Q7-nRLQHrEBxgnLs6IUvhjAeH7R3A1hv2Q0oKqg;\nproxy_set_header Agent-Invitation-Code ivhhvm;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-03-28T07:38:50Z","generation":1,"labels":{"tgs.agent.username":"A64","tgs.brandcode":"MGM","tgs.invitation":"ivhhvm"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:cert-manager.io/cluster-issuer":{},"f:nginx.ingress.kubernetes.io/configuration-snippet":{},"f:nginx.ingress.kubernetes.io/proxy-body-size":{},"f:nginx.ingress.kubernetes.io/ssl-redirect":{}},"f:labels":{".":{},"f:tgs.agent.username":{},"f:tgs.brandcode":{},"f:tgs.invitation":{}}},"f:spec":{"f:ingressClassName":{},"f:rules":{},"f:tls":{}}},"manager":"unknown","operation":"Update","time":"2022-03-28T07:38:50Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:loadBalancer":{"f:ingress":{}}}},"manager":"nginx-ingress-controller","operation":"Update","subresource":"status","time":"2022-06-01T07:42:16Z"}],"name":"ing-agent-mgm-a64","namespace":"prod","resourceVersion":"341025865","uid":"3d9afd48-6c59-4e46-b79b-5ef90cb61112"},"spec":{"ingressClassName":"nginx","rules":[{"host":"tiger918.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}},{"host":"www.tiger918.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}}],"tls":[{"hosts":["tiger918.com","www.tiger918.com"],"secretName":"agent-mgm-a64"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQ4NDUzMTI5LCJleHAiOjE2NDg0NTY3MjksImlhdCI6MTY0ODQ1MzEyOSwiaXNzIjoidGdzIn0.A1jqDNE-KdxBj5tdYOlInb0FtV17QkcSiv23eG1jiDasyXHi3QFYnePW8EXRR9BwsVqphqNihPJQ20QrCL5qiG4brPVfNBNuUEeRngOYKClxqxkhENb2jW56tY4Aaj-LQd2Mn8Y6S_VdXOy7QK6U3D2gnayGJBNy1TXGFmF_mePEjISByVtcLE-xy4gvggDXXjKDEyIcybf5YZqsvxapmMyh7IHMNXIs1TDGDDnO7clksdY0sfH-9HmRFMcpayF0iuaKehdDfylxcmIZEHQj6XyloKJmhVlT2ySH9qkb1IZcBT3Q7-nRLQHrEBxgnLs6IUvhjAeH7R3A1hv2Q0oKqg;
+      proxy_set_header Agent-Invitation-Code ivhhvm;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-03-28T07:38:50Z"
+  generation: 2
+  labels:
+    tgs.agent.username: A64
+    tgs.brandcode: MGM
+    tgs.invitation: ivhhvm
+  name: ing-agent-mgm-a64
+  namespace: prod
+  resourceVersion: "432439331"
+  uid: 3d9afd48-6c59-4e46-b79b-5ef90cb61112
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: tiger918.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  - host: www.tiger918.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - tiger918.com
+    - www.tiger918.com
+    secretName: agent-mgm-a64
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

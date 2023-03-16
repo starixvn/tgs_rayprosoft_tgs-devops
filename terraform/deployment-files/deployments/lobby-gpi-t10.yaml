@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "111"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"creationTimestamp":"2022-05-31T08:30:53Z","generation":77,"labels":{"app":"lobby-gpi-t10","type":"lobby"},"name":"lobby-gpi-t10","namespace":"staging"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"lobby-gpi-t10"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"lobby-gpi-t10","type":"lobby"}},"spec":{"containers":[{"env":[{"name":"CLIENT","value":"I7nKiimrZQOqnJ6ryjUw74c0Hi64KC6Myunhob4cHh8VOUIuZh4p63czefxyyzbZ"},{"name":"CURRENCY","value":"CNY"},{"name":"BRAND","value":"PGG"},{"name":"DEFAULT_LANGUAGE","value":"zh-CN"},{"name":"THEME","value":"wapT10"},{"name":"WAPTEMPLATE","value":"10"},{"name":"SOURCE_URL","value":"https://images.srvptt.com/"}],"image":"pgtgs/lobby-t10:20221004.171","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"name":"lobby-gpi-t10","ports":[{"containerPort":80,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"10m","memory":"60Mi"},"requests":{"cpu":"2m","memory":"12Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/data","name":"site-data"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-credentials"},{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"emptyDir":{},"name":"site-data"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-09-02T03:17:14Z","lastUpdateTime":"2022-09-02T03:17:14Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2022-09-20T01:55:08Z","lastUpdateTime":"2022-10-04T08:31:33Z","message":"ReplicaSet \"lobby-gpi-t10-6bb57c74\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":77,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    kubernetes.io/change-cause: kubectl set image deployment/lobby-gpi-t10 lobby-gpi-t10=pgtgs/lobby-t10:staging-2023-0104-0813
+      --record=true --namespace=staging
+  creationTimestamp: "2022-10-07T08:56:54Z"
+  generation: 111
+  labels:
+    app: lobby-gpi-t10
+    type: lobby
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: lobby-gpi-t10
+  namespace: staging
+  resourceVersion: "38890459"
+  uid: 78088fe1-7d30-4c08-a4a0-11ca660dbbba
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: lobby-gpi-t10
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lobby-gpi-t10
+        type: lobby
+    spec:
+      containers:
+      - env:
+        - name: CLIENT
+          value: I7nKiimrZQOqnJ6ryjUw74c0Hi64KC6Myunhob4cHh8VOUIuZh4p63czefxyyzbZ
+        - name: CURRENCY
+          value: CNY
+        - name: BRAND
+          value: PGG
+        - name: DEFAULT_LANGUAGE
+          value: zh-CN
+        - name: THEME
+          value: wapT10
+        - name: WAPTEMPLATE
+          value: "10"
+        - name: SOURCE_URL
+          value: https://images.srvptt.com/
+        image: pgtgs/lobby-t10:staging-2023-0104-0813
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: lobby-gpi-t10
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 10m
+            memory: 60Mi
+          requests:
+            cpu: 2m
+            memory: 12Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: site-data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registry-credentials
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - emptyDir: {}
+        name: site-data
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-11-24T00:21:43Z"
+    lastUpdateTime: "2022-11-24T00:21:43Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-10-11T05:04:48Z"
+    lastUpdateTime: "2023-01-04T08:21:12Z"
+    message: ReplicaSet "lobby-gpi-t10-668f468646" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 111
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

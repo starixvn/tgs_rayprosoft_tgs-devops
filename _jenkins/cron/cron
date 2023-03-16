@@ -1,0 +1,5 @@
+0 0 * * * root /bin/sh /var/lib/jenkins/JenkinsFullBackup.sh > /dev/null 2>&1
+0 0 * * * root /bin/bash /var/lib/jenkins/cloudflare-backup.sh
+0 1 * * * root /usr/bin/docker system prune -f
+#0 18 * * * root /usr/bin/rsnapshot alpha
+0 3 * * * root /root/sys_update.sh

@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: mongodb-express
+    meta.helm.sh/release-namespace: staging
+  creationTimestamp: "2022-10-06T06:34:05Z"
+  generation: 3
+  labels:
+    app.kubernetes.io/instance: mongodb-express
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mongo-express
+    app.kubernetes.io/version: 0.54.0
+    helm.sh/chart: mongo-express-2.7.1
+  name: mongodb-express-mongo-express
+  namespace: staging
+  resourceVersion: "19707368"
+  uid: e43a4ac5-6429-49f8-937c-0d1e5f52deca
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: stg-mongodb-express.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: mongodb-express-mongo-express
+            port:
+              number: 8081
+        path: /
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

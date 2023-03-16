@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5NzQxNTk5LCJleHAiOjE2NDk3NDUxOTksImlhdCI6MTY0OTc0MTU5OSwiaXNzIjoidGdzIn0.S_XMA9UByRrrtu8NZF2yD3ZIy9iBo_e9NTK_HqVnI5ylrUakuP9JDqKJWqSeQV1fWWmKE0H9z8R1Qp__YLI2dKu4YP1-KxC8iexr6yGs-hhcorwHuD3xnUyfj7DGVDSkTa3WzGEITeG4uN-F4VGY06y8u_0hJizTx6jgYjF0UIsVZ1udwazPlFsN3yq8YyvWIXrIpsjkADyOEjK2LoRJ__7SS07ASafvYE7nWJYZ4hKZn4HRgWaiEa-Q-iKpViP_BtmP4Nha9T1I9RMBT2n7is1LMH5efBK6Mok0BmjUKoCiijpG6VdLzO55N1mb6ohCYZd14l816Ww0HLQcMqlxzA;\nproxy_set_header Agent-Invitation-Code 20lqkt;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-04-12T05:33:19Z","generation":1,"labels":{"tgs.agent.username":"ricky","tgs.brandcode":"GMO","tgs.invitation":"20lqkt"},"name":"ing-agent-gmo-ricky","namespace":"prod","resourceVersion":"341005181","uid":"0a0a312e-8906-485d-a19f-b55b2e06c4ab"},"spec":{"ingressClassName":"nginx","rules":[{"host":"hkg28sa01.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.hkg28sa01.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["hkg28sa01.com","www.hkg28sa01.com"],"secretName":"agent-gmo-ricky"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.31.66"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5NzQxNTk5LCJleHAiOjE2NDk3NDUxOTksImlhdCI6MTY0OTc0MTU5OSwiaXNzIjoidGdzIn0.S_XMA9UByRrrtu8NZF2yD3ZIy9iBo_e9NTK_HqVnI5ylrUakuP9JDqKJWqSeQV1fWWmKE0H9z8R1Qp__YLI2dKu4YP1-KxC8iexr6yGs-hhcorwHuD3xnUyfj7DGVDSkTa3WzGEITeG4uN-F4VGY06y8u_0hJizTx6jgYjF0UIsVZ1udwazPlFsN3yq8YyvWIXrIpsjkADyOEjK2LoRJ__7SS07ASafvYE7nWJYZ4hKZn4HRgWaiEa-Q-iKpViP_BtmP4Nha9T1I9RMBT2n7is1LMH5efBK6Mok0BmjUKoCiijpG6VdLzO55N1mb6ohCYZd14l816Ww0HLQcMqlxzA;
+      proxy_set_header Agent-Invitation-Code 20lqkt;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-04-12T05:33:19Z"
+  generation: 2
+  labels:
+    tgs.agent.username: ricky
+    tgs.brandcode: GMO
+    tgs.invitation: 20lqkt
+  name: ing-agent-gmo-ricky
+  namespace: prod
+  resourceVersion: "432439842"
+  uid: 0a0a312e-8906-485d-a19f-b55b2e06c4ab
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hkg28sa01.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hkg28sa01.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hkg28sa01.com
+    - www.hkg28sa01.com
+    secretName: agent-gmo-ricky
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"agent-gpi","namespace":"staging"},"spec":{"ports":[{"name":"web","port":80,"protocol":"TCP"}],"selector":{"app":"agent-gpi"}}}
+  creationTimestamp: "2022-10-07T08:57:17Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: agent-gpi
+  namespace: staging
+  resourceVersion: "770826"
+  uid: 7480b238-7c38-4041-87a6-5f982017f4d5
+spec:
+  clusterIP: 172.20.158.208
+  clusterIPs:
+  - 172.20.158.208
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: agent-gpi
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

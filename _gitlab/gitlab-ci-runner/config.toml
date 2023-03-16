@@ -1,0 +1,61 @@
+concurrent = 1
+check_interval = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "gitlab-runner-1"
+  url = "https://gitlab.com/"
+  id = 17281451
+  token = "iBMsvXjjHDe75zkFdsCa"
+  token_obtained_at = 2022-08-31T07:05:32Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "shell"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+
+[[runners]]
+  name = "gitlab-runner-2"
+  url = "https://gitlab.com/"
+  id = 17281475
+  token = "TVPA4ZnAyW73xMkSy66L"
+  token_obtained_at = 2022-08-31T07:07:01Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "shell"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+
+[[runners]]
+  name = "gitlab-runner-3"
+  url = "https://gitlab.com/"
+  id = 17281578
+  token = "fyETJkhNWMYurgM26Kzh"
+  token_obtained_at = 2022-08-31T07:08:54Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "shell"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+
+[[runners]]
+  name = "gitlab-runner-4"
+  url = "https://gitlab.com/"
+  id = 17281607
+  token = "Ju6fvPzEV3rqNLNhsxaU"
+  token_obtained_at = 2022-08-31T07:09:49Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "shell"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]

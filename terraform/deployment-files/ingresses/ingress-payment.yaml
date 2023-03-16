@@ -1,0 +1,115 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/rewrite-target":"/$2","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"name":"ingress-payment","namespace":"staging"},"spec":{"ingressClassName":"nginx","rules":[{"host":"stg-payment.rpgp.cc","http":{"paths":[{"backend":{"service":{"name":"payment-leepay","port":{"number":80}}},"path":"/leepay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-primepay","port":{"number":80}}},"path":"/primepay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-applepay","port":{"number":80}}},"path":"/applepay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-umpay","port":{"number":80}}},"path":"/umpay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-maticpay","port":{"number":80}}},"path":"/maticpay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-help2pay","port":{"number":80}}},"path":"/help2pay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-skypay","port":{"number":80}}},"path":"/skypay-vn(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-skypay","port":{"number":81}}},"path":"/skypay-cn(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-zeronineninepay","port":{"number":80}}},"path":"/zeronineninepay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-tupay","port":{"number":80}}},"path":"/tupay(/|$)(.*)","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"payment-malakipay","port":{"number":80}}},"path":"/malakipay(/|$)(.*)","pathType":"ImplementationSpecific"}]}}]}}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-11-02T06:58:16Z"
+  generation: 5
+  name: ingress-payment
+  namespace: staging
+  resourceVersion: "19707242"
+  uid: 22e8a7b7-01a4-4ee5-b62a-5fa69b1920f5
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: stg-payment.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: payment-leepay
+            port:
+              number: 80
+        path: /leepay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-primepay
+            port:
+              number: 80
+        path: /primepay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-applepay
+            port:
+              number: 80
+        path: /applepay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-umpay
+            port:
+              number: 80
+        path: /umpay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-maticpay
+            port:
+              number: 80
+        path: /maticpay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-help2pay
+            port:
+              number: 80
+        path: /help2pay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-skypay
+            port:
+              number: 80
+        path: /skypay-vn(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-skypay
+            port:
+              number: 81
+        path: /skypay-cn(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-zeronineninepay
+            port:
+              number: 80
+        path: /zeronineninepay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-tupay
+            port:
+              number: 80
+        path: /tupay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-malakipay
+            port:
+              number: 80
+        path: /malakipay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: payment-alfapay
+            port:
+              number: 80
+        path: /alfapay(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: tgs-payment-wandapay
+            port:
+              number: 80
+        path: /wandapay(/|$)(.*)
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

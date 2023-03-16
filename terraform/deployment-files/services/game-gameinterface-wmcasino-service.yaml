@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gameinterface-wmcasino-service","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gameinterface-wmcasino-service","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gameinterface-wmcasino-service-0.1.0","tgs.game.kind":"gameinterface","tgs.gameprovider.kind":"wm","tgs.kind":"game"},"name":"game-gameinterface-wmcasino-service","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"},{"name":"grpc","port":9090,"protocol":"TCP","targetPort":9090}],"selector":{"app":"game-gameinterface-wmcasino-service","app.kubernetes.io/name":"game-gameinterface-wmcasino-service","tgs.game.kind":"gameinterface","tgs.gameprovider.kind":"wm","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:18Z"
+  labels:
+    app: game-gameinterface-wmcasino-service
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gameinterface-wmcasino-service
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gameinterface-wmcasino-service-0.1.0
+    tgs.game.kind: gameinterface
+    tgs.gameprovider.kind: wm
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gameinterface-wmcasino-service
+  namespace: staging
+  resourceVersion: "29468490"
+  uid: 44f2e312-7434-4a63-83c8-7442b6ad295f
+spec:
+  clusterIP: 172.20.48.200
+  clusterIPs:
+  - 172.20.48.200
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - name: grpc
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: game-gameinterface-wmcasino-service
+    app.kubernetes.io/name: game-gameinterface-wmcasino-service
+    tgs.game.kind: gameinterface
+    tgs.gameprovider.kind: wm
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

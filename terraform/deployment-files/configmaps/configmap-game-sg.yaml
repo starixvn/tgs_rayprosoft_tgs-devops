@@ -1,0 +1,53 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      },
+      "LoggerServiceConfig": {
+        "BatchInsertWaitingSeconds": 1,
+        "BatchInsertCounts": 100,
+        "LogLevel": "ALL",
+        "UnrestrictedLoggers": []
+      },
+      "AllowedHosts": "*",
+      "Game": {
+        "CashBaseUrl": "http://cashservice-api"
+      },
+      "FeatureManagement": {
+        "SG": false,
+      },
+      "ConnectionStrings": {
+        "Tgs": "Server=pgpool;Port=9999;Database=tgsstaging;User Id=tgs_app;Password=VSr4DuVQEzfPC7Tcz",
+        "RedisConfigurationString": "redis-master,abortConnect=false,connectTimeout=3000",
+        "MongoDBMessagingConnectionString": "mongodb://root:1qaz2wsx@mongodb/messaging?retryWrites=true&w=majority&authSource=admin"
+      },
+      "NatsSetting": {
+        "Urls": "nats://nats:4222",
+        "ConnectTimeoutMs": 2000,
+        "PingInterval": 5000,
+        "PingMaxOutStanding": 3,
+        "SubscriptionBatchSize": 128
+      },
+      "TCGFtpApi": {
+        "Url": "http://game-tcg-ftp"
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"Logging\": {\n    \"LogLevel\": {\n      \"Default\": \"Information\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  },\n  \"LoggerServiceConfig\": {\n    \"BatchInsertWaitingSeconds\": 1,\n    \"BatchInsertCounts\": 100,\n    \"LogLevel\": \"ALL\",\n    \"UnrestrictedLoggers\": []\n  },\n  \"AllowedHosts\": \"*\",\n  \"Game\": {\n    \"CashBaseUrl\": \"http://cashservice-api\"\n  },\n  \"FeatureManagement\": {\n    \"SG\": false,\n  },\n  \"ConnectionStrings\": {\n    \"Tgs\": \"Server=pgpool;Port=9999;Database=tgsstaging;User Id=tgs_app;Password=VSr4DuVQEzfPC7Tcz\",\n    \"RedisConfigurationString\": \"redis-master,abortConnect=false,connectTimeout=3000\",\n    \"MongoDBMessagingConnectionString\": \"mongodb://root:1qaz2wsx@mongodb/messaging?retryWrites=true\u0026w=majority\u0026authSource=admin\"\n  },\n  \"NatsSetting\": {\n    \"Urls\": \"nats://nats:4222\",\n    \"ConnectTimeoutMs\": 2000,\n    \"PingInterval\": 5000,\n    \"PingMaxOutStanding\": 3,\n    \"SubscriptionBatchSize\": 128\n  },\n  \"TCGFtpApi\": {\n    \"Url\": \"http://game-tcg-ftp\"\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-sg","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:44Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-game-sg
+  namespace: staging
+  resourceVersion: "768967"
+  uid: b2a639c5-8fd3-4e31-a303-90270c349e45

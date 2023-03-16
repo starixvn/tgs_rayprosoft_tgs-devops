@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gamerecord-saba-service","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-saba-service","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-saba-service-0.1.0","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"saba","tgs.gamerecord.kind":"service","tgs.kind":"game"},"name":"game-gamerecord-saba-service","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-gamerecord-saba-service","app.kubernetes.io/name":"game-gamerecord-saba-service","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"saba","tgs.gamerecord.kind":"service","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-11-01T06:47:42Z"
+  labels:
+    app: game-gamerecord-saba-service
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-saba-service
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-saba-service-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: saba
+    tgs.gamerecord.kind: service
+    tgs.kind: game
+  name: game-gamerecord-saba-service
+  namespace: staging
+  resourceVersion: "32866733"
+  uid: 31754081-91ed-44ff-87ee-5f0f708a37b6
+spec:
+  clusterIP: 172.20.211.125
+  clusterIPs:
+  - 172.20.211.125
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-gamerecord-saba-service
+    app.kubernetes.io/name: game-gamerecord-saba-service
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: saba
+    tgs.gamerecord.kind: service
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjUyOTI5MDM5LCJleHAiOjE2NTI5MzI2MzksImlhdCI6MTY1MjkyOTAzOSwiaXNzIjoidGdzIn0.Ovl4_YST-RmSut8f2bF_YBtAn2XgfLYEbVJqjbszE5c1hl_2feVisJKtn8L7KnefSY9o6vE5oPTBzC5cBCXrRjmwXV5ah5gKM72B-cHXDbKTwkmLychEM4xVl1sfE4-VBHN8fqkYiOEzoj8Kl4_sGW1Ndra-kPItRs56kFwQMwI6DXHgm3W8glCf7hJWJPqEmIWD_2_2jF2rghaW1z3L2tU9vrLjmFLlpltr8hy7rZzuPBTg0qpu203Ocstvukh8LpOHdxz7IrDXqkcR3QZCOQJrkHL5kFilrY6j6AopXhsgA_ABXldGhPRPnYlJ2YhAOJmyPX-ykCn1Y0MSXdnjHg;\nproxy_set_header Agent-Invitation-Code jip79w;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-05-19T02:57:20Z","generation":1,"labels":{"tgs.agent.username":"cc99n","tgs.brandcode":"GMO","tgs.invitation":"jip79w"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:cert-manager.io/cluster-issuer":{},"f:nginx.ingress.kubernetes.io/configuration-snippet":{},"f:nginx.ingress.kubernetes.io/proxy-body-size":{},"f:nginx.ingress.kubernetes.io/ssl-redirect":{}},"f:labels":{".":{},"f:tgs.agent.username":{},"f:tgs.brandcode":{},"f:tgs.invitation":{}}},"f:spec":{"f:ingressClassName":{},"f:rules":{},"f:tls":{}}},"manager":"unknown","operation":"Update","time":"2022-05-19T02:57:20Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:loadBalancer":{"f:ingress":{}}}},"manager":"nginx-ingress-controller","operation":"Update","subresource":"status","time":"2022-06-01T07:43:36Z"}],"name":"ing-agent-gmo-cc99n","namespace":"prod","resourceVersion":"340973473","uid":"7686ffe9-2950-4289-9082-7aa38daa1395"},"spec":{"ingressClassName":"nginx","rules":[{"host":"cc99n.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.cc99n.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["cc99n.com","www.cc99n.com"],"secretName":"agent-gmo-cc99n"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.31.66"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjUyOTI5MDM5LCJleHAiOjE2NTI5MzI2MzksImlhdCI6MTY1MjkyOTAzOSwiaXNzIjoidGdzIn0.Ovl4_YST-RmSut8f2bF_YBtAn2XgfLYEbVJqjbszE5c1hl_2feVisJKtn8L7KnefSY9o6vE5oPTBzC5cBCXrRjmwXV5ah5gKM72B-cHXDbKTwkmLychEM4xVl1sfE4-VBHN8fqkYiOEzoj8Kl4_sGW1Ndra-kPItRs56kFwQMwI6DXHgm3W8glCf7hJWJPqEmIWD_2_2jF2rghaW1z3L2tU9vrLjmFLlpltr8hy7rZzuPBTg0qpu203Ocstvukh8LpOHdxz7IrDXqkcR3QZCOQJrkHL5kFilrY6j6AopXhsgA_ABXldGhPRPnYlJ2YhAOJmyPX-ykCn1Y0MSXdnjHg;
+      proxy_set_header Agent-Invitation-Code jip79w;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-05-19T02:57:20Z"
+  generation: 2
+  labels:
+    tgs.agent.username: cc99n
+    tgs.brandcode: GMO
+    tgs.invitation: jip79w
+  name: ing-agent-gmo-cc99n
+  namespace: prod
+  resourceVersion: "432440669"
+  uid: 7686ffe9-2950-4289-9082-7aa38daa1395
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: cc99n.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.cc99n.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - cc99n.com
+    - www.cc99n.com
+    secretName: agent-gmo-cc99n
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

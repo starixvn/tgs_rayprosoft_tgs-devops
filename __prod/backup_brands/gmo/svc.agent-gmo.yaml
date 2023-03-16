@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"agent-gmo","namespace":"prod"},"spec":{"ports":[{"name":"web","port":80,"protocol":"TCP"}],"selector":{"app":"agent-gmo"}}}
+  creationTimestamp: "2022-03-07T08:49:46Z"
+  name: agent-gmo
+  namespace: prod
+  resourceVersion: "187847290"
+  uid: 58c4798d-3609-4891-ba2e-b4f0e5652d35
+spec:
+  clusterIP: 172.20.17.191
+  clusterIPs:
+  - 172.20.17.191
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: agent-gmo
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{},"name":"viplevel-upgradeserver","namespace":"staging"},"spec":{"ingressClassName":"nginx","rules":[{"host":"stg-viplevel-upgradeserver.rpgp.cc","http":{"paths":[{"backend":{"service":{"name":"viplevel-upgradeserver","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+  creationTimestamp: "2022-10-07T08:57:17Z"
+  generation: 2
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: viplevel-upgradeserver
+  namespace: staging
+  resourceVersion: "19707102"
+  uid: 1a40e446-7299-4d0b-87e4-444306f3aa70
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: stg-viplevel-upgradeserver.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: viplevel-upgrade
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

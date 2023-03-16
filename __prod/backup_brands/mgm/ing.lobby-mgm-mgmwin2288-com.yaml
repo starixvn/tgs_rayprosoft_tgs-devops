@@ -1,0 +1,101 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQxMjYxNzk2LCJleHAiOjE2NDEyNjUzOTYsImlhdCI6MTY0MTI2MTc5NiwiaXNzIjoidGdzIn0.loS_qzXE-dYBoewkrfXtE1zeZ-eAPk_7kzNjioqXYTt5JEoi7wEJdLM-t_2DgYd8ueAvx71FGkXdFhN708sNPQZw1TVl7LwpcI3QZdeNtVv43SgYT1jJgEGT6HPaAYFkaikIfPS8OsrJQFir7ruCZ7fvnabnph6tP-st1xjSbWdim44_SIFZ9mY95uSwEi0Irfci08Zmu_lMvdVPDeQHK8TKvyMuaCz04NmrnPrdk05zmsXyZwxVtEiSgW6tCp1jHTlK29oNfGbl3xE1rv5o_2J5sBuLA9QD_7XUV59NH06KQOTZF27xzKO4qASEUQ--5xAv2cCevEcSR_Pz8hmsCg;\nproxy_set_header Agent-Invitation-Code 92j9oh;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-02-21T09:36:31Z","generation":2,"name":"lobby-mgm-mgmwin2288-com","namespace":"prod","resourceVersion":"388725210","uid":"a56a2d90-0df5-4c8e-b9b0-e3cf4f9a558a"},"spec":{"ingressClassName":"nginx","rules":[{"host":"mgmwin2288.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.mgmwin2288.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.18.139"},{"ip":"10.139.18.184"},{"ip":"10.139.29.233"},{"ip":"10.139.8.111"},{"ip":"10.139.9.127"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQxMjYxNzk2LCJleHAiOjE2NDEyNjUzOTYsImlhdCI6MTY0MTI2MTc5NiwiaXNzIjoidGdzIn0.loS_qzXE-dYBoewkrfXtE1zeZ-eAPk_7kzNjioqXYTt5JEoi7wEJdLM-t_2DgYd8ueAvx71FGkXdFhN708sNPQZw1TVl7LwpcI3QZdeNtVv43SgYT1jJgEGT6HPaAYFkaikIfPS8OsrJQFir7ruCZ7fvnabnph6tP-st1xjSbWdim44_SIFZ9mY95uSwEi0Irfci08Zmu_lMvdVPDeQHK8TKvyMuaCz04NmrnPrdk05zmsXyZwxVtEiSgW6tCp1jHTlK29oNfGbl3xE1rv5o_2J5sBuLA9QD_7XUV59NH06KQOTZF27xzKO4qASEUQ--5xAv2cCevEcSR_Pz8hmsCg;
+      proxy_set_header Agent-Invitation-Code 92j9oh;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-02-21T09:36:31Z"
+  generation: 3
+  name: lobby-mgm-mgmwin2288-com
+  namespace: prod
+  resourceVersion: "432439050"
+  uid: a56a2d90-0df5-4c8e-b9b0-e3cf4f9a558a
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mgmwin2288.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.mgmwin2288.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

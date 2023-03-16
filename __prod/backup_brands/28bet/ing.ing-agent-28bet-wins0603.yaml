@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiMjhiZXQiLCJzdWIiOiI5MDQ5NTJiYi0wYTZlLTRmMjgtYTg1MC0xNTQ2N2QwNGUyNjgiLCJuYmYiOjE2NTE3NjMzNDQsImV4cCI6MTY1MTc2Njk0NCwiaWF0IjoxNjUxNzYzMzQ0LCJpc3MiOiJ0Z3MifQ.LEy_8sRC11PRPMEcf5lpzHZQrdFMmNllIJAmJ_lr_irRWQAxSLk1yrMVzWa5wjKBuu9Julsd8u3xds6MYpi2U78C8TwUoWL2rEF7e7bbb3zqYnNvN3GWoxNF-boq1pnRV2wwX9kD0T8r27UG-o3O-KgkEt1MsED_PA-ZuHOMsS3fKnT-WJd-3qQBpCMgnS9ACMZG7C227GlA-UvVSvbUnDzeXfvIYqrBERqiGytnFwKQImk210SADKD6NHyou_cadG97Oxig_yZLhqhYDB0XFmtVgzrJUtGH5VZiK1b5sWeDWqJTVvCY6IFneIg1dQ4pdJ6fQrosehqOIPgsG5IIEw;\nproxy_set_header Agent-Invitation-Code 17tn8f;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-05-05T15:09:04Z","generation":1,"labels":{"tgs.agent.username":"wins0603","tgs.brandcode":"28bet","tgs.invitation":"17tn8f"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:cert-manager.io/cluster-issuer":{},"f:nginx.ingress.kubernetes.io/configuration-snippet":{},"f:nginx.ingress.kubernetes.io/proxy-body-size":{},"f:nginx.ingress.kubernetes.io/ssl-redirect":{}},"f:labels":{".":{},"f:tgs.agent.username":{},"f:tgs.brandcode":{},"f:tgs.invitation":{}}},"f:spec":{"f:ingressClassName":{},"f:rules":{},"f:tls":{}}},"manager":"unknown","operation":"Update","time":"2022-05-05T15:09:04Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:loadBalancer":{"f:ingress":{}}}},"manager":"nginx-ingress-controller","operation":"Update","subresource":"status","time":"2022-06-01T07:43:12Z"}],"name":"ing-agent-28bet-wins0603","namespace":"prod","resourceVersion":"340973266","uid":"5651f5b1-d238-4ac1-b4c0-bfc498255b5e"},"spec":{"ingressClassName":"nginx","rules":[{"host":"bets24.io","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-28bet","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}},{"host":"www.bets24.io","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-28bet","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}}],"tls":[{"hosts":["bets24.io","www.bets24.io"],"secretName":"agent-28bet-wins0603"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.31.66"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiMjhiZXQiLCJzdWIiOiI5MDQ5NTJiYi0wYTZlLTRmMjgtYTg1MC0xNTQ2N2QwNGUyNjgiLCJuYmYiOjE2NTE3NjMzNDQsImV4cCI6MTY1MTc2Njk0NCwiaWF0IjoxNjUxNzYzMzQ0LCJpc3MiOiJ0Z3MifQ.LEy_8sRC11PRPMEcf5lpzHZQrdFMmNllIJAmJ_lr_irRWQAxSLk1yrMVzWa5wjKBuu9Julsd8u3xds6MYpi2U78C8TwUoWL2rEF7e7bbb3zqYnNvN3GWoxNF-boq1pnRV2wwX9kD0T8r27UG-o3O-KgkEt1MsED_PA-ZuHOMsS3fKnT-WJd-3qQBpCMgnS9ACMZG7C227GlA-UvVSvbUnDzeXfvIYqrBERqiGytnFwKQImk210SADKD6NHyou_cadG97Oxig_yZLhqhYDB0XFmtVgzrJUtGH5VZiK1b5sWeDWqJTVvCY6IFneIg1dQ4pdJ6fQrosehqOIPgsG5IIEw;
+      proxy_set_header Agent-Invitation-Code 17tn8f;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-05-05T15:09:04Z"
+  generation: 2
+  labels:
+    tgs.agent.username: wins0603
+    tgs.brandcode: 28bet
+    tgs.invitation: 17tn8f
+  name: ing-agent-28bet-wins0603
+  namespace: prod
+  resourceVersion: "438538474"
+  uid: 5651f5b1-d238-4ac1-b4c0-bfc498255b5e
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: bets24.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-28bet
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  - host: www.bets24.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-28bet
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - bets24.io
+    - www.bets24.io
+    secretName: agent-28bet-wins0603
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

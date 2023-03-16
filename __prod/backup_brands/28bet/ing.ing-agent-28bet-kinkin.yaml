@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiMjhiZXQiLCJzdWIiOiI5MDQ5NTJiYi0wYTZlLTRmMjgtYTg1MC0xNTQ2N2QwNGUyNjgiLCJuYmYiOjE2NDgzNzY2NDUsImV4cCI6MTY0ODM4MDI0NSwiaWF0IjoxNjQ4Mzc2NjQ1LCJpc3MiOiJ0Z3MifQ.qmgimYhfLa6gKz-iAMy-016uElPlDvH2JRgE_C0LrLquvHg5p4cKw4IUex8KHM3dKuxI6vxFARFi_8Sl05VX_yRfyoPZPDQ-a9sD0B4jocBKX0vawJ5XEg3hILzpzoytp0Hd5LlJDsFNgfdPT6yhr09CPc3dOlV1u8VzcVTAgaxl30mYF2aOIDzH73RziYdh_UL7JDUKl3cgw7Ud3IDJeckZWOH-I_8ayaqIh4KA8ui_ftR90QaKtsOya2BOnKG9n--4pXxQuplmy6xeUQ5E8h__s_5uSmyJrImso40xHOZhvOZN96VWPhjnVq5rrOTFytJJr3oZV80hEPutmbehEw;\nproxy_set_header Agent-Invitation-Code re4v9n;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-03-27T09:23:57Z","generation":1,"labels":{"tgs.agent.username":"kinkin","tgs.brandcode":"28bet","tgs.invitation":"re4v9n"},"name":"ing-agent-28bet-kinkin","namespace":"prod","resourceVersion":"340971989","uid":"c73def81-23b7-4d7d-bf95-42f74da2f1ca"},"spec":{"ingressClassName":"nginx","rules":[{"host":"28bet10.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-28bet","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}},{"host":"www.28bet10.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-28bet","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}}],"tls":[{"hosts":["28bet10.com","www.28bet10.com"],"secretName":"agent-28bet-kinkin"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.31.66"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiMjhiZXQiLCJzdWIiOiI5MDQ5NTJiYi0wYTZlLTRmMjgtYTg1MC0xNTQ2N2QwNGUyNjgiLCJuYmYiOjE2NDgzNzY2NDUsImV4cCI6MTY0ODM4MDI0NSwiaWF0IjoxNjQ4Mzc2NjQ1LCJpc3MiOiJ0Z3MifQ.qmgimYhfLa6gKz-iAMy-016uElPlDvH2JRgE_C0LrLquvHg5p4cKw4IUex8KHM3dKuxI6vxFARFi_8Sl05VX_yRfyoPZPDQ-a9sD0B4jocBKX0vawJ5XEg3hILzpzoytp0Hd5LlJDsFNgfdPT6yhr09CPc3dOlV1u8VzcVTAgaxl30mYF2aOIDzH73RziYdh_UL7JDUKl3cgw7Ud3IDJeckZWOH-I_8ayaqIh4KA8ui_ftR90QaKtsOya2BOnKG9n--4pXxQuplmy6xeUQ5E8h__s_5uSmyJrImso40xHOZhvOZN96VWPhjnVq5rrOTFytJJr3oZV80hEPutmbehEw;
+      proxy_set_header Agent-Invitation-Code re4v9n;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-03-27T09:23:57Z"
+  generation: 2
+  labels:
+    tgs.agent.username: kinkin
+    tgs.brandcode: 28bet
+    tgs.invitation: re4v9n
+  name: ing-agent-28bet-kinkin
+  namespace: prod
+  resourceVersion: "438537959"
+  uid: c73def81-23b7-4d7d-bf95-42f74da2f1ca
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: 28bet10.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-28bet
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  - host: www.28bet10.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-28bet
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - 28bet10.com
+    - www.28bet10.com
+    secretName: agent-28bet-kinkin
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

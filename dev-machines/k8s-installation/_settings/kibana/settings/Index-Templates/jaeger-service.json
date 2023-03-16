@@ -1,0 +1,32 @@
+PUT _index_template/jaeger-service
+{
+  "priority": 100,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "jaeger-ilm-policy"
+        },
+        "number_of_shards": "3",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "operationName": {
+          "type": "keyword"
+        },
+        "serviceName": {
+          "type": "keyword"
+        }
+      }
+    },
+    "aliases": {
+      "jaeger-service-read": {}
+    }
+  },
+  "index_patterns": [
+    "jaeger-service-*"
+  ],
+  "composed_of": []
+}

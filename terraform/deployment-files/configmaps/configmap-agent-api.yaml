@@ -1,0 +1,79 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "Agent": {
+        "ValidateCodeBaseUrl": "http://validatecode-api",
+        "PaymentServiceBaseUrl": "http://payment-api",
+        "BrandCertificateBaseUrl": "http://brand-cert-api",
+        "PlayerServiceBaseUrl": "http://player-api"
+      },
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      },
+      "AllowedHosts": "*",
+      "NatsSetting": {
+        "ConnectTimeoutMs": 2000,
+        "PingInterval": 5000,
+        "PingMaxOutStanding": 3,
+        "SubscriptionBatchSize": 128
+      },
+      "CorsDomain": {
+        "Urls": []
+      },
+      "Report": {
+        "Url": "http://report-api"
+      },
+      "Promotion": {
+        "Url": "http://promotion-api"
+      },
+      "Email": {
+        "Url": "https://email.srvptt.com"
+      },
+      "RequestLocalization": {
+        "DefaultRequestCulture": "en-US",
+        "ApplyCurrentCultureToResponseHeaders": true,
+        "SupportedCultures": [ "en-US", "zh-CN", "zh-TW", "th-TH" ],
+        "SupportedUICultures": [ "en-US", "zh-CN", "zh-TW", "th-TH" ]
+      },
+      "ForwardedHeaders": {
+        "ForwardLimit": 1,
+        "ForwardedForHeaderName": "cf-connecting-ip",
+        "KnownProxies": [],
+        "KnownNetworks": ["10.0.0.0/8"]
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"Agent\": {\n    \"ValidateCodeBaseUrl\": \"http://validatecode-api\",\n    \"PaymentServiceBaseUrl\": \"http://payment-api\",\n    \"BrandCertificateBaseUrl\": \"http://brand-cert-api\",\n    \"PlayerServiceBaseUrl\": \"http://player-api\"\n  },\n  \"Logging\": {\n    \"LogLevel\": {\n      \"Default\": \"Information\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  },\n  \"AllowedHosts\": \"*\",\n  \"NatsSetting\": {\n    \"ConnectTimeoutMs\": 2000,\n    \"PingInterval\": 5000,\n    \"PingMaxOutStanding\": 3,\n    \"SubscriptionBatchSize\": 128\n  },\n  \"CorsDomain\": {\n    \"Urls\": []\n  },\n  \"Report\": {\n    \"Url\": \"http://report-api\"\n  },\n  \"Promotion\": {\n    \"Url\": \"http://promotion-api\"\n  },\n  \"Email\": {\n    \"Url\": \"https://email.srvptt.com\"\n  },\n  \"RequestLocalization\": {\n    \"DefaultRequestCulture\": \"en-US\",\n    \"ApplyCurrentCultureToResponseHeaders\": true,\n    \"SupportedCultures\": [ \"en-US\", \"zh-CN\", \"zh-TW\", \"th-TH\" ],\n    \"SupportedUICultures\": [ \"en-US\", \"zh-CN\", \"zh-TW\", \"th-TH\" ]\n  },\n  \"ForwardedHeaders\": {\n    \"ForwardLimit\": 1,\n    \"ForwardedForHeaderName\": \"cf-connecting-ip\",\n    \"KnownProxies\": [],\n    \"KnownNetworks\": [\"10.0.0.0/8\"]\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-agent-api","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:39Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-agent-api
+  namespace: staging
+  resourceVersion: "28534456"
+  uid: ab1d7933-f43b-4c89-a0c7-b565fb46a7c3

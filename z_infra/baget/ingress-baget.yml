@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-baget
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "5000m"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - baget-repo.rpgp.cc
+    secretName: baget-repo.rpgp.cc
+  rules:
+  - host: baget-repo.rpgp.cc
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: baget-assets
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: baget-assets
+spec:
+  ports:
+  - name: app
+    port: 80
+    protocol: TCP
+    targetPort: 5555
+  clusterIP: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: baget-assets
+subsets:
+- addresses:
+  - ip: 10.139.109.26
+  ports:
+  - name: app
+    port: 5555
+    protocol: TCP

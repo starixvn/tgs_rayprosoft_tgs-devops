@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-tf"},"name":"game-tf","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-tf"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:21Z"
+  labels:
+    app: game-tf
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-tf
+  namespace: staging
+  resourceVersion: "771367"
+  uid: 9454e29f-31fc-4698-89dd-e749f7dc2560
+spec:
+  clusterIP: 172.20.111.142
+  clusterIPs:
+  - 172.20.111.142
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-tf
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

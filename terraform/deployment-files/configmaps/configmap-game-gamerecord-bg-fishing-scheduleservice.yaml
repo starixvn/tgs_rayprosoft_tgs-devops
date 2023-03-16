@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "ScheduleInfo": {
+        "GameProviderCode": "BG",
+        "GameProviderConfig": "BGConfiguration",
+         "GameProviderHangfire": "bg-fishing-schedule:hangfire:",
+         "GameProviderNatsGlobPattern": "gp.gamerecord.schedule.bg.fishing"
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"BG\",\n    \"GameProviderConfig\": \"BGConfiguration\",\n     \"GameProviderHangfire\": \"bg-fishing-schedule:hangfire:\",\n     \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.bg.fishing\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-bg-fishing-scheduleservice","namespace":"staging"}}
+  creationTimestamp: "2022-12-19T05:40:37Z"
+  name: configmap-game-gamerecord-bg-fishing-scheduleservice
+  namespace: staging
+  resourceVersion: "31525297"
+  uid: 0e2240d4-b3b2-41c0-b235-9e907721c5b7

@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"report-api"},"name":"report-api","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"report-api"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:25Z"
+  labels:
+    app: report-api
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: report-api
+  namespace: staging
+  resourceVersion: "771841"
+  uid: 28b5eaa3-5989-447c-b4f3-523a12263490
+spec:
+  clusterIP: 172.20.110.71
+  clusterIPs:
+  - 172.20.110.71
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: report-api
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,189 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5ODUxNDI5LCJleHAiOjE2NDk4NTUwMjksImlhdCI6MTY0OTg1MTQyOSwiaXNzIjoidGdzIn0.WQWN99wvxrd50rYHcy2b9jJnjV811-ihx2r8gOuDN9ZMjJOCqOXkrrzM8ov0IvfP0l7X32gg9qdmL4qGq3Qh0AF8i3VAW55a8zvRpNQPh4h4OC4GnA_KjDVvQqUCpf4XdecNi6dWpKPe3r_0UDIfn58i0btyZIBVd-_idcg3g2DcBiNXI5tgxNKLHdm6pVr3MOjRAX9QO5FwhEWbihCZYaJyCatcqx_w_CQoaR4zt2Cz_83JYhAR49E1oAMIqzpGmMonGblIKLTxsIpL1C_NZzNytHrKdb6Vi_dQM-s_ry0-xcjjhiLUyZO23xevLnNXkx8bt_M0jWibo5arOL6Gyg;\nproxy_set_header Agent-Invitation-Code hr0gft;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-04-06T14:21:09Z","generation":2,"labels":{"tgs.agent.username":"him","tgs.brandcode":"GMO","tgs.invitation":"hr0gft"},"name":"ing-agent-gmo-him","namespace":"prod","resourceVersion":"340989258","uid":"105c6a7d-fc45-452b-a623-9b8e034d8c54"},"spec":{"ingressClassName":"nginx","rules":[{"host":"hkg28a02.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.hkg28a02.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"hkg8888.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.hkg8888.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["hkg28a02.com","www.hkg28a02.com","hkg8888.com","www.hkg8888.com"],"secretName":"agent-gmo-him"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.28.84"},{"ip":"10.139.31.66"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5ODUxNDI5LCJleHAiOjE2NDk4NTUwMjksImlhdCI6MTY0OTg1MTQyOSwiaXNzIjoidGdzIn0.WQWN99wvxrd50rYHcy2b9jJnjV811-ihx2r8gOuDN9ZMjJOCqOXkrrzM8ov0IvfP0l7X32gg9qdmL4qGq3Qh0AF8i3VAW55a8zvRpNQPh4h4OC4GnA_KjDVvQqUCpf4XdecNi6dWpKPe3r_0UDIfn58i0btyZIBVd-_idcg3g2DcBiNXI5tgxNKLHdm6pVr3MOjRAX9QO5FwhEWbihCZYaJyCatcqx_w_CQoaR4zt2Cz_83JYhAR49E1oAMIqzpGmMonGblIKLTxsIpL1C_NZzNytHrKdb6Vi_dQM-s_ry0-xcjjhiLUyZO23xevLnNXkx8bt_M0jWibo5arOL6Gyg;
+      proxy_set_header Agent-Invitation-Code hr0gft;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-04-06T14:21:09Z"
+  generation: 3
+  labels:
+    tgs.agent.username: him
+    tgs.brandcode: GMO
+    tgs.invitation: hr0gft
+  name: ing-agent-gmo-him
+  namespace: prod
+  resourceVersion: "432439620"
+  uid: 105c6a7d-fc45-452b-a623-9b8e034d8c54
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hkg28a02.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hkg28a02.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: hkg8888.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hkg8888.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hkg28a02.com
+    - www.hkg28a02.com
+    - hkg8888.com
+    - www.hkg8888.com
+    secretName: agent-gmo-him
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

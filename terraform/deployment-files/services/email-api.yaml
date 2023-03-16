@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"email-api"},"name":"email-api","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"email-api"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-27T03:20:44Z"
+  labels:
+    app: email-api
+  name: email-api
+  namespace: staging
+  resourceVersion: "9076411"
+  uid: 739ee00b-4004-4e8e-b756-fc8df97bbf51
+spec:
+  clusterIP: 172.20.72.177
+  clusterIPs:
+  - 172.20.72.177
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: email-api
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

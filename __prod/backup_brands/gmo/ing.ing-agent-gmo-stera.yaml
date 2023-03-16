@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5MTUyOTc4LCJleHAiOjE2NDkxNTY1NzgsImlhdCI6MTY0OTE1Mjk3OCwiaXNzIjoidGdzIn0.q8qFoQSU6aLQam5bxg81LSQHrMokZSbOkKIf2QeIeZzTfIR7N-4YuaHx_0c7BIBt391wfGrHvHGJ7scihecLht2NgewohSw39_ZSiNPPtPAU8amvtJveXArVqy9T6AGCEeaWlw1Ds7LAwDvZZQ4PtWD_vMEUlUWwTkZb_h3Tmm14lz7z0U2RvOE2iAjG2YHQ6cn7sarwM2zEdp-bRe90HPnt-p7-PeIMv9i2AJYV1HApXVe2oHJAJpPZtFIQ_fOEaUj3f-OlWqKw54I5bkuX2sHZqfI-X5pj28P675mmOxYLSZjL17cm3xiRK09XCyAT_J4Z_LwoMaheL8EqSqH73A;\nproxy_set_header Agent-Invitation-Code lvf2xw;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-04-05T10:02:58Z","generation":1,"labels":{"tgs.agent.username":"stera","tgs.brandcode":"GMO","tgs.invitation":"lvf2xw"},"name":"ing-agent-gmo-stera","namespace":"prod","resourceVersion":"341002903","uid":"393276db-2dbc-4cd3-945b-a574c358d32e"},"spec":{"ingressClassName":"nginx","rules":[{"host":"hkg28s02.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.hkg28s02.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["hkg28s02.com","www.hkg28s02.com"],"secretName":"agent-gmo-stera"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.31.66"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5MTUyOTc4LCJleHAiOjE2NDkxNTY1NzgsImlhdCI6MTY0OTE1Mjk3OCwiaXNzIjoidGdzIn0.q8qFoQSU6aLQam5bxg81LSQHrMokZSbOkKIf2QeIeZzTfIR7N-4YuaHx_0c7BIBt391wfGrHvHGJ7scihecLht2NgewohSw39_ZSiNPPtPAU8amvtJveXArVqy9T6AGCEeaWlw1Ds7LAwDvZZQ4PtWD_vMEUlUWwTkZb_h3Tmm14lz7z0U2RvOE2iAjG2YHQ6cn7sarwM2zEdp-bRe90HPnt-p7-PeIMv9i2AJYV1HApXVe2oHJAJpPZtFIQ_fOEaUj3f-OlWqKw54I5bkuX2sHZqfI-X5pj28P675mmOxYLSZjL17cm3xiRK09XCyAT_J4Z_LwoMaheL8EqSqH73A;
+      proxy_set_header Agent-Invitation-Code lvf2xw;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-04-05T10:02:58Z"
+  generation: 2
+  labels:
+    tgs.agent.username: stera
+    tgs.brandcode: GMO
+    tgs.invitation: lvf2xw
+  name: ing-agent-gmo-stera
+  namespace: prod
+  resourceVersion: "432439502"
+  uid: 393276db-2dbc-4cd3-945b-a574c358d32e
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hkg28s02.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hkg28s02.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hkg28s02.com
+    - www.hkg28s02.com
+    secretName: agent-gmo-stera
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

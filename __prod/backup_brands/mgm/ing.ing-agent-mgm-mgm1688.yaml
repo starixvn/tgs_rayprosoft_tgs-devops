@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQ5MjQxMDc5LCJleHAiOjE2NDkyNDQ2NzksImlhdCI6MTY0OTI0MTA3OSwiaXNzIjoidGdzIn0.Q1CjyDS5fLe353D_8Nowj-Mkh5kD9JAqfeCTwksf2JOuB9EPtFAWbNf44cOrloT-s2MxkAJJwh0Xo_BcypKXMfl8J3myXre3mH2AFqTTf51SZKKuVWosDUtjOJcldgGWfayISCq0BpYlPEWErf5WQ9jdNYAFj5rrRP2YcioIGMY7VDbDK11kI2412VeaFsOVUEo5XM9E9d9ZDfL7Js8yBmSrzomY6STbAKeTNqmPZEPJQ8MHKXT9Sc8XPSVhFF0Lsv4VVT9STSl-XNA9-E7-mtyA5GSyN8fCNLbVLS1hZ_vOvg3SloFcwrqK4fqGfw37Ywq2GD0r-VHbhHRmouRaBA;\nproxy_set_header Agent-Invitation-Code bf74it;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-04-06T10:31:20Z","generation":1,"labels":{"tgs.agent.username":"MGM1688","tgs.brandcode":"MGM","tgs.invitation":"bf74it"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:cert-manager.io/cluster-issuer":{},"f:nginx.ingress.kubernetes.io/configuration-snippet":{},"f:nginx.ingress.kubernetes.io/proxy-body-size":{},"f:nginx.ingress.kubernetes.io/ssl-redirect":{}},"f:labels":{".":{},"f:tgs.agent.username":{},"f:tgs.brandcode":{},"f:tgs.invitation":{}}},"f:spec":{"f:ingressClassName":{},"f:rules":{},"f:tls":{}}},"manager":"unknown","operation":"Update","time":"2022-04-06T10:31:20Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:loadBalancer":{"f:ingress":{}}}},"manager":"nginx-ingress-controller","operation":"Update","subresource":"status","time":"2022-06-01T07:42:16Z"}],"name":"ing-agent-mgm-mgm1688","namespace":"prod","resourceVersion":"341044428","uid":"3110118e-8092-4739-87fa-4bc8d676bb56"},"spec":{"ingressClassName":"nginx","rules":[{"host":"mclub2288.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}},{"host":"www.mclub2288.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}}],"tls":[{"hosts":["mclub2288.com","www.mclub2288.com"],"secretName":"agent-mgm-mgm1688"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQ5MjQxMDc5LCJleHAiOjE2NDkyNDQ2NzksImlhdCI6MTY0OTI0MTA3OSwiaXNzIjoidGdzIn0.Q1CjyDS5fLe353D_8Nowj-Mkh5kD9JAqfeCTwksf2JOuB9EPtFAWbNf44cOrloT-s2MxkAJJwh0Xo_BcypKXMfl8J3myXre3mH2AFqTTf51SZKKuVWosDUtjOJcldgGWfayISCq0BpYlPEWErf5WQ9jdNYAFj5rrRP2YcioIGMY7VDbDK11kI2412VeaFsOVUEo5XM9E9d9ZDfL7Js8yBmSrzomY6STbAKeTNqmPZEPJQ8MHKXT9Sc8XPSVhFF0Lsv4VVT9STSl-XNA9-E7-mtyA5GSyN8fCNLbVLS1hZ_vOvg3SloFcwrqK4fqGfw37Ywq2GD0r-VHbhHRmouRaBA;
+      proxy_set_header Agent-Invitation-Code bf74it;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-04-06T10:31:20Z"
+  generation: 2
+  labels:
+    tgs.agent.username: MGM1688
+    tgs.brandcode: MGM
+    tgs.invitation: bf74it
+  name: ing-agent-mgm-mgm1688
+  namespace: prod
+  resourceVersion: "432439510"
+  uid: 3110118e-8092-4739-87fa-4bc8d676bb56
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mclub2288.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  - host: www.mclub2288.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - mclub2288.com
+    - www.mclub2288.com
+    secretName: agent-mgm-mgm1688
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

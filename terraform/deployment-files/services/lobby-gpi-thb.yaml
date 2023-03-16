@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"lobby-gpi-thb","namespace":"staging"},"spec":{"ports":[{"name":"web","port":80,"protocol":"TCP","targetPort":92}],"selector":{"app":"lobby-t1-merged"}}}
+  creationTimestamp: "2022-10-07T08:57:22Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: lobby-gpi-thb
+  namespace: staging
+  resourceVersion: "771496"
+  uid: 9985a376-68ee-44fe-9362-d5f3415f6f97
+spec:
+  clusterIP: 172.20.213.4
+  clusterIPs:
+  - 172.20.213.4
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 92
+  selector:
+    app: lobby-t1-merged
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

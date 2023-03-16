@@ -1,0 +1,24 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "MaticPay": {
+        "PaymentApiUrl": "https://mgp-pay.com:8443/",
+        "NatsUrl": "nats://nats:4222",
+        "CallbackBaseUrl": "https://stg-payment.rpgp.cc/maticpay",
+        "PaymentServiceBaseUrl": "http://payment-api"
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"MaticPay\": {\n    \"PaymentApiUrl\": \"https://mgp-pay.com:8443/\",\n    \"NatsUrl\": \"nats://nats:4222\",\n    \"CallbackBaseUrl\": \"https://stg-payment.rpgp.cc/maticpay\",\n    \"PaymentServiceBaseUrl\": \"http://payment-api\"\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-payment-maticpay","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:45Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-payment-maticpay
+  namespace: staging
+  resourceVersion: "768993"
+  uid: 32c9565d-fd1a-41a7-b493-998b2eb15be0

@@ -1,0 +1,198 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "7"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"reloader.stakater.com/auto":"true"},"labels":{"app":"game-gameinterface-saba-service","app.kubernetes.io/instance":"tgs","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gameinterface-saba-service","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gameinterface-saba-service-0.1.0","tgs.game.kind":"gameinterface","tgs.gameprovider.kind":"saba","tgs.kind":"game"},"name":"game-gameinterface-saba-service","namespace":"staging"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"game-gameinterface-saba-service","app.kubernetes.io/instance":"tgs","app.kubernetes.io/name":"game-gameinterface-saba-service","tgs.game.kind":"gameinterface","tgs.gameprovider.kind":"saba","tgs.kind":"game"}},"template":{"metadata":{"annotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"52325","prometheus.io/scrape":"true"},"labels":{"app":"game-gameinterface-saba-service","app.kubernetes.io/instance":"tgs","app.kubernetes.io/name":"game-gameinterface-saba-service","tgs.game.kind":"gameinterface","tgs.gameprovider.kind":"saba","tgs.kind":"game"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","value":"Game-GameInterface-Saba-Service(staging)"},{"name":"RELEASE_NAMESPACE","value":"staging"},{"name":"NODE_IP","valueFrom":{"fieldRef":{"fieldPath":"status.hostIP"}}},{"name":"ConnectionStrings__Nats","valueFrom":{"secretKeyRef":{"key":"nats","name":"tgs-connections"}}}],"image":"pgtgs/game-gameinterface-saba-service:202211030440.24","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/healthz","port":"http"},"initialDelaySeconds":5,"periodSeconds":5},"name":"game-gameinterface-saba-service","ports":[{"containerPort":9090,"name":"grpc","protocol":"TCP"},{"containerPort":80,"name":"http","protocol":"TCP"}],"resources":{"limits":{"cpu":"100m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"128Mi"}},"securityContext":{},"startupProbe":{"failureThreshold":30,"httpGet":{"path":"/healthz","port":"http"},"periodSeconds":2},"volumeMounts":[{"mountPath":"/config/appsettings.json","name":"appsettings","readOnly":true,"subPath":"appsettings.json"}]},{"args":["--no-auth"],"env":[{"name":"DOTNETMONITOR_DiagnosticPort__ConnectionMode","value":"Listen"},{"name":"DOTNETMONITOR_DiagnosticPort__EndpointName","value":"/diag/port"},{"name":"DOTNETMONITOR_Storage__DumpTempFolder","value":"/dumps"},{"name":"DOTNETMONITOR_Urls","value":"http://+:52324"},{"name":"DOTNETMONITOR_Metrics__Endpoints","value":"http://+:52325"},{"name":"XDG_CONFIG_HOME","value":"/config"}],"image":"mcr.microsoft.com/dotnet/monitor:6.0.0","imagePullPolicy":"IfNotPresent","name":"monitor","resources":{"limits":{"cpu":"250m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"32Mi"}},"volumeMounts":[{"mountPath":"/diag","name":"diagvol"},{"mountPath":"/dumps","name":"dumpsvol"},{"mountPath":"/config/dotnet-monitor/settings.json","name":"appsettings","readOnly":true,"subPath":"monitor.settings.json"}]}],"imagePullSecrets":[{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"securityContext":{},"serviceAccountName":"game-gameinterface-saba-service","tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"configMap":{"name":"configmap-game-gameinterface-saba-service"},"name":"appsettings"},{"emptyDir":{},"name":"diagvol"},{"emptyDir":{},"name":"dumpsvol"}]}}}}
+    reloader.stakater.com/auto: "true"
+  creationTimestamp: "2022-11-02T06:37:04Z"
+  generation: 7
+  labels:
+    app: game-gameinterface-saba-service
+    app.kubernetes.io/instance: tgs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gameinterface-saba-service
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gameinterface-saba-service-0.1.0
+    tgs.game.kind: gameinterface
+    tgs.gameprovider.kind: saba
+    tgs.kind: game
+  name: game-gameinterface-saba-service
+  namespace: staging
+  resourceVersion: "35259907"
+  uid: 298db627-fe8f-46a4-8939-e5aa91a9593a
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: game-gameinterface-saba-service
+      app.kubernetes.io/instance: tgs
+      app.kubernetes.io/name: game-gameinterface-saba-service
+      tgs.game.kind: gameinterface
+      tgs.gameprovider.kind: saba
+      tgs.kind: game
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2022-12-27T05:29:08Z"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "52325"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: game-gameinterface-saba-service
+        app.kubernetes.io/instance: tgs
+        app.kubernetes.io/name: game-gameinterface-saba-service
+        tgs.game.kind: gameinterface
+        tgs.gameprovider.kind: saba
+        tgs.kind: game
+    spec:
+      containers:
+      - env:
+        - name: OTEL_SERVICE_NAME
+          value: Game-GameInterface-Saba-Service(staging)
+        - name: RELEASE_NAMESPACE
+          value: staging
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: ConnectionStrings__Nats
+          valueFrom:
+            secretKeyRef:
+              key: nats
+              name: tgs-connections
+        image: pgtgs/game-gameinterface-saba-service:202211030440.24
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: game-gameinterface-saba-service
+        ports:
+        - containerPort: 9090
+          name: grpc
+          protocol: TCP
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        securityContext: {}
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config/appsettings.json
+          name: appsettings
+          readOnly: true
+          subPath: appsettings.json
+      - args:
+        - --no-auth
+        env:
+        - name: DOTNETMONITOR_DiagnosticPort__ConnectionMode
+          value: Listen
+        - name: DOTNETMONITOR_DiagnosticPort__EndpointName
+          value: /diag/port
+        - name: DOTNETMONITOR_Storage__DumpTempFolder
+          value: /dumps
+        - name: DOTNETMONITOR_Urls
+          value: http://+:52324
+        - name: DOTNETMONITOR_Metrics__Endpoints
+          value: http://+:52325
+        - name: XDG_CONFIG_HOME
+          value: /config
+        image: mcr.microsoft.com/dotnet/monitor:6.0.0
+        imagePullPolicy: IfNotPresent
+        name: monitor
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /diag
+          name: diagvol
+        - mountPath: /dumps
+          name: dumpsvol
+        - mountPath: /config/dotnet-monitor/settings.json
+          name: appsettings
+          readOnly: true
+          subPath: monitor.settings.json
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: game-gameinterface-saba-service
+      serviceAccountName: game-gameinterface-saba-service
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-game-gameinterface-saba-service
+        name: appsettings
+      - emptyDir: {}
+        name: diagvol
+      - emptyDir: {}
+        name: dumpsvol
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-11-02T06:37:05Z"
+    lastUpdateTime: "2022-12-27T06:44:24Z"
+    message: ReplicaSet "game-gameinterface-saba-service-6fd9767474" has successfully
+      progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2022-12-27T06:56:02Z"
+    lastUpdateTime: "2022-12-27T06:56:02Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 7
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

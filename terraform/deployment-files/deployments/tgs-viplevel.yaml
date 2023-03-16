@@ -1,0 +1,183 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"generation":5,"labels":{"app.kubernetes.io/instance":"tgs","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"viplevel","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"viplevel-0.1.0"},"name":"tgs-viplevel","namespace":"staging"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app.kubernetes.io/instance":"tgs","app.kubernetes.io/name":"viplevel"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"52325","prometheus.io/scrape":"true"},"creationTimestamp":null,"labels":{"app.kubernetes.io/instance":"tgs","app.kubernetes.io/name":"viplevel"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","value":"VipLevel-Api(staging)"},{"name":"NODE_IP","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"status.hostIP"}}},{"name":"ConnectionStrings__Tgs","valueFrom":{"secretKeyRef":{"key":"tgs","name":"tgs-connections"}}},{"name":"DOTNET_DiagnosticPorts","value":"/diag/port"},{"name":"STAKATER_TGS_CONNECTIONS_SECRET","value":"a9be32f1255c82d74ea4e395732494cdda217d1f"}],"image":"pgtgs/viplevel-api:202209270635.14","imagePullPolicy":"IfNotPresent","name":"viplevel","ports":[{"containerPort":80,"name":"http","protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthz","port":"http","scheme":"HTTP"},"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"200m","memory":"512Mi"},"requests":{"cpu":"50m","memory":"150Mi"}},"securityContext":{},"startupProbe":{"failureThreshold":30,"httpGet":{"path":"/healthz","port":"http","scheme":"HTTP"},"periodSeconds":2,"successThreshold":1,"timeoutSeconds":1},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/diag","name":"diagvol"},{"mountPath":"/dumps","name":"dumpsvol"}]},{"args":["--no-auth"],"env":[{"name":"DOTNETMONITOR_DiagnosticPort__ConnectionMode","value":"Listen"},{"name":"DOTNETMONITOR_DiagnosticPort__EndpointName","value":"/diag/port"},{"name":"DOTNETMONITOR_Storage__DumpTempFolder","value":"/dumps"},{"name":"DOTNETMONITOR_Urls","value":"http://+:52324"},{"name":"DOTNETMONITOR_Metrics__Endpoints","value":"http://+:52325"},{"name":"XDG_CONFIG_HOME","value":"/config"}],"image":"mcr.microsoft.com/dotnet/monitor:6.0.0","imagePullPolicy":"IfNotPresent","name":"monitor","resources":{"limits":{"cpu":"250m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"32Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/diag","name":"diagvol"},{"mountPath":"/dumps","name":"dumpsvol"},{"mountPath":"/config/dotnet-monitor/settings.json","name":"appsettings","readOnly":true,"subPath":"monitor.settings.json"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"serviceAccount":"default","serviceAccountName":"default","terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"configMap":{"defaultMode":420,"name":"configmap-tgs-viplevel"},"name":"appsettings"},{"emptyDir":{},"name":"diagvol"},{"emptyDir":{},"name":"dumpsvol"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-09-16T01:27:49Z","lastUpdateTime":"2022-09-16T01:27:49Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2022-09-16T01:27:35Z","lastUpdateTime":"2022-09-29T02:10:47Z","message":"ReplicaSet \"tgs-viplevel-5fb9677bfc\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":5,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+  creationTimestamp: "2022-10-07T08:56:58Z"
+  generation: 2
+  labels:
+    app.kubernetes.io/instance: tgs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: viplevel
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: viplevel-0.1.0
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: tgs-viplevel
+  namespace: staging
+  resourceVersion: "22851504"
+  uid: a854bb20-f08b-4ad5-9af3-cb9f444f921d
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tgs
+      app.kubernetes.io/name: viplevel
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "52325"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: tgs
+        app.kubernetes.io/name: viplevel
+    spec:
+      containers:
+      - env:
+        - name: OTEL_SERVICE_NAME
+          value: VipLevel-Api(staging)
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: ConnectionStrings__Tgs
+          valueFrom:
+            secretKeyRef:
+              key: tgs
+              name: tgs-connections
+        - name: DOTNET_DiagnosticPorts
+          value: /diag/port
+        - name: STAKATER_TGS_CONNECTIONS_SECRET
+          value: a9be32f1255c82d74ea4e395732494cdda217d1f
+        image: pgtgs/viplevel-api:202209270635.14
+        imagePullPolicy: IfNotPresent
+        name: viplevel
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 200m
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            memory: 150Mi
+        securityContext: {}
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /diag
+          name: diagvol
+        - mountPath: /dumps
+          name: dumpsvol
+      - args:
+        - --no-auth
+        env:
+        - name: DOTNETMONITOR_DiagnosticPort__ConnectionMode
+          value: Listen
+        - name: DOTNETMONITOR_DiagnosticPort__EndpointName
+          value: /diag/port
+        - name: DOTNETMONITOR_Storage__DumpTempFolder
+          value: /dumps
+        - name: DOTNETMONITOR_Urls
+          value: http://+:52324
+        - name: DOTNETMONITOR_Metrics__Endpoints
+          value: http://+:52325
+        - name: XDG_CONFIG_HOME
+          value: /config
+        image: mcr.microsoft.com/dotnet/monitor:6.0.0
+        imagePullPolicy: IfNotPresent
+        name: monitor
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /diag
+          name: diagvol
+        - mountPath: /dumps
+          name: dumpsvol
+        - mountPath: /config/dotnet-monitor/settings.json
+          name: appsettings
+          readOnly: true
+          subPath: monitor.settings.json
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-tgs-viplevel
+        name: appsettings
+      - emptyDir: {}
+        name: diagvol
+      - emptyDir: {}
+        name: dumpsvol
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-10-11T05:04:59Z"
+    lastUpdateTime: "2022-10-11T05:05:36Z"
+    message: ReplicaSet "tgs-viplevel-599b4dcf77" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2022-11-28T17:52:03Z"
+    lastUpdateTime: "2022-11-28T17:52:03Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

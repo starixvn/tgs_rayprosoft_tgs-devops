@@ -1,0 +1,34 @@
+apiVersion: v1
+data:
+  appsettings.json: "{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"HABATF\",\n
+    \   \"GameProviderConfig\": \"HABATFConfiguration\",\n    \"GameProviderHangfire\":
+    \"habatf-schedule:hangfire:\",\n    \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.habatf\"\n
+    \ },\n  \n  \"ScheduleUrlStrings\": {\n    \"GameCommandClientBaseUrl\": \"http://game-gamecommand\"\n
+    \ }\n}\n"
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"HABATF\",\n    \"GameProviderConfig\": \"HABATFConfiguration\",\n    \"GameProviderHangfire\": \"habatf-schedule:hangfire:\",\n    \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.habatf\"\n  },\n  \n  \"ScheduleUrlStrings\": {\n    \"GameCommandClientBaseUrl\": \"http://game-gamecommand\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-habanero-scheduleservice","namespace":"staging"}}
+  creationTimestamp: "2022-11-01T02:06:51Z"
+  name: configmap-game-gamerecord-habanero-scheduleservice
+  namespace: staging
+  resourceVersion: "36078964"
+  uid: 806d0f7f-505a-4c70-b402-81dc16a4ed0f

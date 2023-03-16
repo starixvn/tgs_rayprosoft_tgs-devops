@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "ScheduleInfo": {
+        "GameProviderCode": "WGVIA",
+        "GameProviderConfig": "WGVIAConfiguration",
+         "GameProviderHangfire": "wgvia-schedule:hangfire:",
+         "GameProviderNatsGlobPattern": "gp.gamerecord.schedule.wgvia"
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"WGVIA\",\n    \"GameProviderConfig\": \"WGVIAConfiguration\",\n     \"GameProviderHangfire\": \"wgvia-schedule:hangfire:\",\n     \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.wgvia\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-wgvia-scheduleservice","namespace":"staging"}}
+  creationTimestamp: "2022-12-20T01:59:27Z"
+  name: configmap-game-gamerecord-wgvia-scheduleservice
+  namespace: staging
+  resourceVersion: "31885132"
+  uid: 6ce5d964-a454-4e8a-99c7-ab1299c854e9

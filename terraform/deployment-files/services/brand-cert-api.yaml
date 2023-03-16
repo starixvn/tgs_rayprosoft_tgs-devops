@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/name":"brand-cert-api","tgs.kind":"brand"},"name":"brand-cert-api","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app.kubernetes.io/name":"brand-cert-api","tgs.kind":"brand"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:17Z"
+  labels:
+    app.kubernetes.io/name: brand-cert-api
+    tgs.kind: brand
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: brand-cert-api
+  namespace: staging
+  resourceVersion: "770881"
+  uid: 24c8a6f9-9e2a-4eab-b490-6e6805af39d9
+spec:
+  clusterIP: 172.20.251.153
+  clusterIPs:
+  - 172.20.251.153
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: brand-cert-api
+    tgs.kind: brand
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

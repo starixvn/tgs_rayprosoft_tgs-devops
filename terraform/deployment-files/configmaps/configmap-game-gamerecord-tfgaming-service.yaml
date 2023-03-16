@@ -1,0 +1,50 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "GameRecordInfo": {
+        "GameProviderCode": "TFTF",
+        "MinIntervalMinute": 5,
+        "MaxIntervalMinute": 30,
+        "IntervalMinute": 15,
+        "LockMinute": 14,
+        "MongoDefine": "gp.gamerecord.database",
+        "MongoGlobPattern": "tgs.gp.gamerecord.database.round.tftf",
+        "GameExternalId": "tf_esports"
+      },
+      "NatsSetting": {
+        "Group": "gp.gamerecord.schedule",
+        "Subject": "gp.gamerecord.schedule.tftf"
+      },
+      "GameRecord": {
+         "GameProvidersQueryServerBaseUrl": "http://game-gameprovider-queryserver/",
+         "GameInterfaceBaseUrl": "http://game-gameinterface-tfgaming-service:9090/"
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"GameRecordInfo\": {\n    \"GameProviderCode\": \"TFTF\",\n    \"MinIntervalMinute\": 5,\n    \"MaxIntervalMinute\": 30,\n    \"IntervalMinute\": 15,\n    \"LockMinute\": 14,\n    \"MongoDefine\": \"gp.gamerecord.database\",\n    \"MongoGlobPattern\": \"tgs.gp.gamerecord.database.round.tftf\",\n    \"GameExternalId\": \"tf_esports\"\n  },\n  \"NatsSetting\": {\n    \"Group\": \"gp.gamerecord.schedule\",\n    \"Subject\": \"gp.gamerecord.schedule.tftf\"\n  },\n  \"GameRecord\": {\n     \"GameProvidersQueryServerBaseUrl\": \"http://game-gameprovider-queryserver/\",\n     \"GameInterfaceBaseUrl\": \"http://game-gameinterface-tfgaming-service:9090/\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-tfgaming-service","namespace":"staging"}}
+  creationTimestamp: "2023-01-04T02:20:36Z"
+  name: configmap-game-gamerecord-tfgaming-service
+  namespace: staging
+  resourceVersion: "38770916"
+  uid: fdd0b17b-1244-457c-9dbb-1dbc061a7452

@@ -1,0 +1,133 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "136"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"121","kubernetes.io/change-cause":"kubectl set image deployment/lobby-28bet lobby-28bet=registry.gitlab.com/rayprosoft/turnkey-gaming-system/lobby-t1:prod-2022-0920-0738 --record=true --namespace=prod"},"creationTimestamp":"2021-11-25T06:54:31Z","generation":122,"labels":{"app":"lobby-28bet","type":"lobby"},"name":"lobby-28bet","namespace":"prod","resourceVersion":"381237581","uid":"da5c8aa8-bfc3-448f-9671-e1a876743de7"},"spec":{"progressDeadlineSeconds":600,"replicas":2,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"lobby-28bet"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"kubectl.kubernetes.io/restartedAt":"2022-01-12T11:22:50Z"},"creationTimestamp":null,"labels":{"app":"lobby-28bet"}},"spec":{"containers":[{"env":[{"name":"CLIENT","value":"wnCb5qPIrNNtSBjCuND5xkpkRsnbFWfQfV6Ve8GPgmH9vUgcPdK9cO"},{"name":"CURRENCY","value":"HKD"},{"name":"BRAND","value":"28BET"},{"name":"LANGUAGES","value":"[{\"name\":\"zh-CN\",\"label\":\"简体\"},{\"name\":\"zh-TW\",\"label\":\"繁體\"},{\"name\":\"en-US\",\"label\":\"English\"},{\"name\":\"th-TH\",\"label\":\"Thai\"}]"},{"name":"DEFAULT_LANGUAGE","value":"zh-TW"},{"name":"BANNER_COUNT","value":"2"},{"name":"THEME","value":"red"},{"name":"SOURCE_URL","value":"https://images.srvptt.com/"},{"name":"DEPLOY_DATE","value":"2022-02-25-18:45"}],"image":"registry.gitlab.com/rayprosoft/turnkey-gaming-system/lobby-t1:prod-2022-0920-0738","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"name":"lobby-28bet","ports":[{"containerPort":80,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"300m","memory":"50Mi"},"requests":{"cpu":"100m","memory":"30Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/data","name":"site-data"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-credentials"},{"name":"dockerhub"}],"nodeSelector":{"dedicated":"prod"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"prod"}],"volumes":[{"emptyDir":{},"name":"site-data"}]}}},"status":{"availableReplicas":2,"conditions":[{"lastTransitionTime":"2022-09-01T06:02:37Z","lastUpdateTime":"2022-09-01T06:02:37Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2021-11-25T06:54:31Z","lastUpdateTime":"2022-09-20T09:27:35Z","message":"ReplicaSet \"lobby-28bet-5c745dfb45\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":122,"readyReplicas":2,"replicas":2,"updatedReplicas":2}}
+    kubernetes.io/change-cause: kubectl set image deployment/lobby-28bet lobby-28bet=pgtgs/lobby-t1:prod-2022-1122-1015
+      --record=true --namespace=prod
+  creationTimestamp: "2021-11-25T06:54:31Z"
+  generation: 137
+  labels:
+    app: lobby-28bet
+    type: lobby
+  name: lobby-28bet
+  namespace: prod
+  resourceVersion: "446811551"
+  uid: da5c8aa8-bfc3-448f-9671-e1a876743de7
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: lobby-28bet
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2022-01-12T11:22:50Z"
+      creationTimestamp: null
+      labels:
+        app: lobby-28bet
+    spec:
+      containers:
+      - env:
+        - name: CLIENT
+          value: wnCb5qPIrNNtSBjCuND5xkpkRsnbFWfQfV6Ve8GPgmH9vUgcPdK9cO
+        - name: CURRENCY
+          value: HKD
+        - name: BRAND
+          value: 28BET
+        - name: LANGUAGES
+          value: '[{"name":"zh-CN","label":"简体"},{"name":"zh-TW","label":"繁體"},{"name":"en-US","label":"English"},{"name":"th-TH","label":"Thai"}]'
+        - name: DEFAULT_LANGUAGE
+          value: zh-TW
+        - name: BANNER_COUNT
+          value: "2"
+        - name: THEME
+          value: red
+        - name: SOURCE_URL
+          value: https://images.srvptt.com/
+        - name: DEPLOY_DATE
+          value: 2022-02-25-18:45
+        image: pgtgs/lobby-t1:prod-2022-1122-1015
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: lobby-28bet
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 300m
+            memory: 50Mi
+          requests:
+            cpu: 100m
+            memory: 30Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: site-data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registry-credentials
+      - name: dockerhub
+      nodeSelector:
+        dedicated: prod
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: prod
+      volumes:
+      - emptyDir: {}
+        name: site-data
+status:
+  availableReplicas: 2
+  conditions:
+  - lastTransitionTime: "2022-11-13T10:21:58Z"
+    lastUpdateTime: "2022-11-13T10:21:58Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2021-11-25T06:54:31Z"
+    lastUpdateTime: "2022-11-23T02:43:57Z"
+    message: ReplicaSet "lobby-28bet-d774f9c8d" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 137
+  readyReplicas: 2
+  replicas: 2
+  updatedReplicas: 2

@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5NzQyMzU2LCJleHAiOjE2NDk3NDU5NTYsImlhdCI6MTY0OTc0MjM1NiwiaXNzIjoidGdzIn0.RbFFOIeVKUd9j1FDKvDkxUbBetqtHNaVeuMzR03gH01xgCbZinl1gbEsNm9SGbnehOkGsIqynb2qjaXSqRZ2gl74NSL6U4u5Zc7W7CVJHbfX85-0DMpvu_A7K5V83RX33PblQSgCDNltsYPcZjzsljUoc0UbqbGv42W9FuH6rxi49yoAFnxo6tifIZmW8DdpduZlZwNDb1E5ITIf5F4nDXEdzpROAQRIZdenPWtNQKc631RZ3EB9ykibhL3JiFsfsMXryFIxgr4mdAkwkMx86RVMFqmBYtoMQcQj1gFddTSiwVhuAvZWjnnrfT3nhMpmixBetMD7Z1zAunns1g5R3g;\nproxy_set_header Agent-Invitation-Code ke5jkb;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-04-12T05:45:58Z","generation":1,"labels":{"tgs.agent.username":"waijai","tgs.brandcode":"GMO","tgs.invitation":"ke5jkb"},"name":"ing-agent-gmo-waijai","namespace":"prod","resourceVersion":"341005237","uid":"51a2c1cd-bd2c-4572-87a0-fa9b1c2d6aca"},"spec":{"ingressClassName":"nginx","rules":[{"host":"hkg28sa02.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.hkg28sa02.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gmo","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["hkg28sa02.com","www.hkg28sa02.com"],"secretName":"agent-gmo-waijai"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.31.66"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjQ5NzQyMzU2LCJleHAiOjE2NDk3NDU5NTYsImlhdCI6MTY0OTc0MjM1NiwiaXNzIjoidGdzIn0.RbFFOIeVKUd9j1FDKvDkxUbBetqtHNaVeuMzR03gH01xgCbZinl1gbEsNm9SGbnehOkGsIqynb2qjaXSqRZ2gl74NSL6U4u5Zc7W7CVJHbfX85-0DMpvu_A7K5V83RX33PblQSgCDNltsYPcZjzsljUoc0UbqbGv42W9FuH6rxi49yoAFnxo6tifIZmW8DdpduZlZwNDb1E5ITIf5F4nDXEdzpROAQRIZdenPWtNQKc631RZ3EB9ykibhL3JiFsfsMXryFIxgr4mdAkwkMx86RVMFqmBYtoMQcQj1gFddTSiwVhuAvZWjnnrfT3nhMpmixBetMD7Z1zAunns1g5R3g;
+      proxy_set_header Agent-Invitation-Code ke5jkb;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-04-12T05:45:58Z"
+  generation: 2
+  labels:
+    tgs.agent.username: waijai
+    tgs.brandcode: GMO
+    tgs.invitation: ke5jkb
+  name: ing-agent-gmo-waijai
+  namespace: prod
+  resourceVersion: "432439806"
+  uid: 51a2c1cd-bd2c-4572-87a0-fa9b1c2d6aca
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hkg28sa02.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hkg28sa02.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hkg28sa02.com
+    - www.hkg28sa02.com
+    secretName: agent-gmo-waijai
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

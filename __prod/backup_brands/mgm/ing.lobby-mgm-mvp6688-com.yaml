@@ -1,0 +1,103 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQxMjYxNzk2LCJleHAiOjE2NDEyNjUzOTYsImlhdCI6MTY0MTI2MTc5NiwiaXNzIjoidGdzIn0.loS_qzXE-dYBoewkrfXtE1zeZ-eAPk_7kzNjioqXYTt5JEoi7wEJdLM-t_2DgYd8ueAvx71FGkXdFhN708sNPQZw1TVl7LwpcI3QZdeNtVv43SgYT1jJgEGT6HPaAYFkaikIfPS8OsrJQFir7ruCZ7fvnabnph6tP-st1xjSbWdim44_SIFZ9mY95uSwEi0Irfci08Zmu_lMvdVPDeQHK8TKvyMuaCz04NmrnPrdk05zmsXyZwxVtEiSgW6tCp1jHTlK29oNfGbl3xE1rv5o_2J5sBuLA9QD_7XUV59NH06KQOTZF27xzKO4qASEUQ--5xAv2cCevEcSR_Pz8hmsCg;\nproxy_set_header Agent-Invitation-Code a5fm0d;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-02-28T08:13:39Z","generation":1,"labels":{"tgs.info":"mvp6688.com-a5fm0d"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{},"f:nginx.ingress.kubernetes.io/configuration-snippet":{},"f:nginx.ingress.kubernetes.io/proxy-body-size":{},"f:nginx.ingress.kubernetes.io/ssl-redirect":{}},"f:labels":{".":{},"f:tgs.info":{}}},"f:spec":{"f:ingressClassName":{},"f:rules":{}}},"manager":"kubectl-client-side-apply","operation":"Update","time":"2022-02-28T08:13:39Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:loadBalancer":{"f:ingress":{}}}},"manager":"nginx-ingress-controller","operation":"Update","subresource":"status","time":"2022-06-01T07:41:49Z"}],"name":"lobby-mgm-mvp6688-com","namespace":"prod","resourceVersion":"341149709","uid":"b79fda5a-ffd4-4f0c-9de6-19879a6fa6a5"},"spec":{"ingressClassName":"nginx","rules":[{"host":"mvp6688.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"op-api-mgm","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.mvp6688.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"op-api-mgm","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQxMjYxNzk2LCJleHAiOjE2NDEyNjUzOTYsImlhdCI6MTY0MTI2MTc5NiwiaXNzIjoidGdzIn0.loS_qzXE-dYBoewkrfXtE1zeZ-eAPk_7kzNjioqXYTt5JEoi7wEJdLM-t_2DgYd8ueAvx71FGkXdFhN708sNPQZw1TVl7LwpcI3QZdeNtVv43SgYT1jJgEGT6HPaAYFkaikIfPS8OsrJQFir7ruCZ7fvnabnph6tP-st1xjSbWdim44_SIFZ9mY95uSwEi0Irfci08Zmu_lMvdVPDeQHK8TKvyMuaCz04NmrnPrdk05zmsXyZwxVtEiSgW6tCp1jHTlK29oNfGbl3xE1rv5o_2J5sBuLA9QD_7XUV59NH06KQOTZF27xzKO4qASEUQ--5xAv2cCevEcSR_Pz8hmsCg;
+      proxy_set_header Agent-Invitation-Code a5fm0d;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-02-28T08:13:39Z"
+  generation: 3
+  labels:
+    tgs.info: mvp6688.com-a5fm0d
+  name: lobby-mgm-mvp6688-com
+  namespace: prod
+  resourceVersion: "432439115"
+  uid: b79fda5a-ffd4-4f0c-9de6-19879a6fa6a5
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mvp6688.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.mvp6688.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

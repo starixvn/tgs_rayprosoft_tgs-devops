@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gamerecord-dg-scheduleservice","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-dg-scheduleservice","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-dg-scheduleservice-0.1.0","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"dg","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"},"name":"game-gamerecord-dg-scheduleservice","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-gamerecord-dg-scheduleservice","app.kubernetes.io/name":"game-gamerecord-dg-scheduleservice","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"dg","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-12-19T06:31:33Z"
+  labels:
+    app: game-gamerecord-dg-scheduleservice
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-dg-scheduleservice
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-dg-scheduleservice-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: dg
+    tgs.gamerecord.kind: scheduleservice
+    tgs.kind: game
+  name: game-gamerecord-dg-scheduleservice
+  namespace: staging
+  resourceVersion: "31540830"
+  uid: 3b53bf5a-daa9-4d7c-b3a8-76df3a7ff209
+spec:
+  clusterIP: 172.20.107.125
+  clusterIPs:
+  - 172.20.107.125
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-gamerecord-dg-scheduleservice
+    app.kubernetes.io/name: game-gamerecord-dg-scheduleservice
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: dg
+    tgs.gamerecord.kind: scheduleservice
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

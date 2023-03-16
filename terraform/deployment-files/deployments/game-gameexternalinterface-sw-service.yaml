@@ -1,0 +1,190 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "9"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"reloader.stakater.com/auto":"true"},"labels":{"app":"game-gameexternalinterface-sw-service","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gameexternalinterface-sw-service","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gameexternalinterface-sw-service-0.1.0","tgs.game.kind":"gameexternalinterface","tgs.gameprovider.kind":"sw","tgs.kind":"game"},"name":"game-gameexternalinterface-sw-service","namespace":"staging"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"game-gameexternalinterface-sw-service","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/name":"game-gameexternalinterface-sw-service","tgs.game.kind":"gameexternalinterface","tgs.gameprovider.kind":"sw","tgs.kind":"game"}},"template":{"metadata":{"annotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"52325","prometheus.io/scrape":"true"},"labels":{"app":"game-gameexternalinterface-sw-service","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/name":"game-gameexternalinterface-sw-service","tgs.game.kind":"gameexternalinterface","tgs.gameprovider.kind":"sw","tgs.kind":"game"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","value":"Game-GameExternalInterface-Skywind-Service(staging)"},{"name":"NODE_IP","valueFrom":{"fieldRef":{"fieldPath":"status.hostIP"}}}],"image":"pgtgs/game-gameexternalinterface-sw-service:202212260531.15","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/healthz","port":80},"initialDelaySeconds":5,"periodSeconds":5},"name":"game-gameexternalinterface-sw-service","ports":[{"containerPort":80,"name":"http","protocol":"TCP"}],"resources":{"limits":{"cpu":"100m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"128Mi"}},"securityContext":{},"startupProbe":{"failureThreshold":30,"httpGet":{"path":"/healthz","port":80},"periodSeconds":2},"volumeMounts":[{"mountPath":"/config/appsettings.json","name":"appsettings","readOnly":true,"subPath":"appsettings.json"}]},{"args":["--no-auth"],"env":[{"name":"DOTNETMONITOR_DiagnosticPort__ConnectionMode","value":"Listen"},{"name":"DOTNETMONITOR_DiagnosticPort__EndpointName","value":"/diag/port"},{"name":"DOTNETMONITOR_Storage__DumpTempFolder","value":"/dumps"},{"name":"DOTNETMONITOR_Urls","value":"http://+:52324"},{"name":"DOTNETMONITOR_Metrics__Endpoints","value":"http://+:52325"},{"name":"XDG_CONFIG_HOME","value":"/config"}],"image":"mcr.microsoft.com/dotnet/monitor:6.0.0","imagePullPolicy":"IfNotPresent","name":"monitor","resources":{"limits":{"cpu":"250m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"32Mi"}},"volumeMounts":[{"mountPath":"/diag","name":"diagvol"},{"mountPath":"/dumps","name":"dumpsvol"},{"mountPath":"/config/dotnet-monitor/settings.json","name":"appsettings","readOnly":true,"subPath":"monitor.settings.json"}]}],"imagePullSecrets":[{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"securityContext":{},"serviceAccountName":"game-gameexternalinterface-sw-service","tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"configMap":{"name":"configmap-game-gameexternalinterface-sw-service"},"name":"appsettings"},{"emptyDir":{},"name":"diagvol"},{"emptyDir":{},"name":"dumpsvol"}]}}}}
+    reloader.stakater.com/auto: "true"
+  creationTimestamp: "2022-10-07T08:56:49Z"
+  generation: 9
+  labels:
+    app: game-gameexternalinterface-sw-service
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gameexternalinterface-sw-service
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gameexternalinterface-sw-service-0.1.0
+    tgs.game.kind: gameexternalinterface
+    tgs.gameprovider.kind: sw
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gameexternalinterface-sw-service
+  namespace: staging
+  resourceVersion: "35260192"
+  uid: 05a8389f-e12b-4a51-a3eb-3087c86e1e64
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: game-gameexternalinterface-sw-service
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/name: game-gameexternalinterface-sw-service
+      tgs.game.kind: gameexternalinterface
+      tgs.gameprovider.kind: sw
+      tgs.kind: game
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2022-12-27T05:29:02Z"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "52325"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: game-gameexternalinterface-sw-service
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: game-gameexternalinterface-sw-service
+        tgs.game.kind: gameexternalinterface
+        tgs.gameprovider.kind: sw
+        tgs.kind: game
+    spec:
+      containers:
+      - env:
+        - name: OTEL_SERVICE_NAME
+          value: Game-GameExternalInterface-Skywind-Service(staging)
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        image: pgtgs/game-gameexternalinterface-sw-service:202212260531.15
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: game-gameexternalinterface-sw-service
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        securityContext: {}
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: 80
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config/appsettings.json
+          name: appsettings
+          readOnly: true
+          subPath: appsettings.json
+      - args:
+        - --no-auth
+        env:
+        - name: DOTNETMONITOR_DiagnosticPort__ConnectionMode
+          value: Listen
+        - name: DOTNETMONITOR_DiagnosticPort__EndpointName
+          value: /diag/port
+        - name: DOTNETMONITOR_Storage__DumpTempFolder
+          value: /dumps
+        - name: DOTNETMONITOR_Urls
+          value: http://+:52324
+        - name: DOTNETMONITOR_Metrics__Endpoints
+          value: http://+:52325
+        - name: XDG_CONFIG_HOME
+          value: /config
+        image: mcr.microsoft.com/dotnet/monitor:6.0.0
+        imagePullPolicy: IfNotPresent
+        name: monitor
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /diag
+          name: diagvol
+        - mountPath: /dumps
+          name: dumpsvol
+        - mountPath: /config/dotnet-monitor/settings.json
+          name: appsettings
+          readOnly: true
+          subPath: monitor.settings.json
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: game-gameexternalinterface-sw-service
+      serviceAccountName: game-gameexternalinterface-sw-service
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-game-gameexternalinterface-sw-service
+        name: appsettings
+      - emptyDir: {}
+        name: diagvol
+      - emptyDir: {}
+        name: dumpsvol
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-10-11T06:17:36Z"
+    lastUpdateTime: "2022-12-27T06:46:46Z"
+    message: ReplicaSet "game-gameexternalinterface-sw-service-bc6b47878" has successfully
+      progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2022-12-27T06:56:07Z"
+    lastUpdateTime: "2022-12-27T06:56:07Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 9
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

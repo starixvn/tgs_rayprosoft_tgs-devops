@@ -1,0 +1,43 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "VipLevelSettings": {
+        "VipLevelsCommandBaseUrl": "http://viplevel-command/"
+       }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"VipLevelSettings\": {\n    \"VipLevelsCommandBaseUrl\": \"http://viplevel-command/\"\n   }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app":"viplevel-web","app.kubernetes.io/instance":"tgs","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"viplevel-web","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"viplevel-web-0.1.0","tgs.kind":"viplevel"},"name":"configmap-viplevel-web","namespace":"staging"}}
+  creationTimestamp: "2022-12-08T03:29:01Z"
+  labels:
+    app: viplevel-web
+    app.kubernetes.io/instance: tgs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: viplevel-web
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: viplevel-web-0.1.0
+    tgs.kind: viplevel
+  name: configmap-viplevel-web
+  namespace: staging
+  resourceVersion: "26873186"
+  uid: 6f20baea-4e95-4016-ae7f-0c630c743c11

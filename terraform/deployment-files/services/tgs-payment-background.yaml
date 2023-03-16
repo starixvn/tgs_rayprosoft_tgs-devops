@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"payment-background","app.kubernetes.io/instance":"tgs","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"payment-background","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"payment-background-0.1.0","tgs.kind":"payment"},"name":"tgs-payment-background","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"payment-background","app.kubernetes.io/instance":"tgs","app.kubernetes.io/name":"payment-background","tgs.kind":"payment"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:25Z"
+  labels:
+    app: payment-background
+    app.kubernetes.io/instance: tgs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: payment-background
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: payment-background-0.1.0
+    tgs.kind: payment
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: tgs-payment-background
+  namespace: staging
+  resourceVersion: "771882"
+  uid: 2616dfe8-ec6a-44c9-9558-c1313895ad8e
+spec:
+  clusterIP: 172.20.238.226
+  clusterIPs:
+  - 172.20.238.226
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: payment-background
+    app.kubernetes.io/instance: tgs
+    app.kubernetes.io/name: payment-background
+    tgs.kind: payment
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

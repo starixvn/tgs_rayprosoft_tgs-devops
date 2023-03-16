@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gameinterface-sbo-service","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gameinterface-sbo-service","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gameinterface-sbo-service-0.1.0","tgs.game.kind":"gameinterface","tgs.gameprovider.kind":"sbo","tgs.kind":"game"},"name":"game-gameinterface-sbo-service","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"},{"name":"grpc","port":9090,"protocol":"TCP","targetPort":9090}],"selector":{"app":"game-gameinterface-sbo-service","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/name":"game-gameinterface-sbo-service","tgs.game.kind":"gameinterface","tgs.gameprovider.kind":"sbo","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:18Z"
+  labels:
+    app: game-gameinterface-sbo-service
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gameinterface-sbo-service
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gameinterface-sbo-service-0.1.0
+    tgs.game.kind: gameinterface
+    tgs.gameprovider.kind: sbo
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gameinterface-sbo-service
+  namespace: staging
+  resourceVersion: "770959"
+  uid: b9f20d96-fc7d-4c90-96a6-99f922aba736
+spec:
+  clusterIP: 172.20.102.159
+  clusterIPs:
+  - 172.20.102.159
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - name: grpc
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: game-gameinterface-sbo-service
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/name: game-gameinterface-sbo-service
+    tgs.game.kind: gameinterface
+    tgs.gameprovider.kind: sbo
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

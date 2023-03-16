@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "ScheduleInfo": {
+        "GameProviderCode": "DG",
+        "GameProviderConfig": "DGConfiguration",
+         "GameProviderHangfire": "dg-schedule:hangfire:",
+         "GameProviderNatsGlobPattern": "gp.gamerecord.schedule.dg"
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"DG\",\n    \"GameProviderConfig\": \"DGConfiguration\",\n     \"GameProviderHangfire\": \"dg-schedule:hangfire:\",\n     \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.dg\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-dg-scheduleservice","namespace":"staging"}}
+  creationTimestamp: "2022-12-19T06:31:33Z"
+  name: configmap-game-gamerecord-dg-scheduleservice
+  namespace: staging
+  resourceVersion: "31540828"
+  uid: 0ee2bf25-ce1f-4c54-9594-0174d10e8872

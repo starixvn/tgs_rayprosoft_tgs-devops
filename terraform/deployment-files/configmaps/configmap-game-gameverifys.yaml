@@ -1,0 +1,28 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+        "GameVerifys": {
+          "GameProvidersQueryServerBaseUrl": "http://game-gameprovider-queryserver"
+        }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n    \"GameVerifys\": {\n      \"GameProvidersQueryServerBaseUrl\": \"http://game-gameprovider-queryserver\"\n    }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app":"game-gameverifys","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gameverifys","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gameverifys-0.1.0","tgs.kind":"game"},"name":"configmap-game-gameverifys","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:44Z"
+  labels:
+    app: game-gameverifys
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gameverifys
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gameverifys-0.1.0
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-game-gameverifys
+  namespace: staging
+  resourceVersion: "768948"
+  uid: c6bf643c-f3c6-4659-bdce-f98d8dcdc951

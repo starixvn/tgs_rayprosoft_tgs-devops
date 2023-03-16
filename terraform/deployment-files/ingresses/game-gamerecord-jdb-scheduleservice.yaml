@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{},"name":"game-gamerecord-jdb-scheduleservice","namespace":"staging"},"spec":{"ingressClassName":"nginx","rules":[{"host":"stg-game-jdb-scheduler.rpgp.cc","http":{"paths":[{"backend":{"service":{"name":"game-gamerecord-jdb-scheduleservice","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+  creationTimestamp: "2022-10-07T08:56:59Z"
+  generation: 1
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gamerecord-jdb-scheduleservice
+  namespace: staging
+  resourceVersion: "19706872"
+  uid: 47f85863-35a1-4f8b-ac52-3e9be386c6be
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: stg-game-jdb-scheduler.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: game-gamerecord-jdb-scheduleservice
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

@@ -1,0 +1,11 @@
+global:
+  name: consul
+server:
+  storageClass: nfs-provisioner
+ui: 
+  ingress:
+    enabled: true
+    hosts: 
+    - host: consul.rpgp.cc
+      paths:
+       -  /

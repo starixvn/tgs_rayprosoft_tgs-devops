@@ -1,0 +1,198 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "22"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"reloader.stakater.com/auto":"true"},"labels":{"app":"game-gamerecord-bg-fishing-scheduleservice","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-bg-fishing-scheduleservice","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-bg-fishing-scheduleservice-0.1.0","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"bg","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"},"name":"game-gamerecord-bg-fishing-scheduleservice","namespace":"staging"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"game-gamerecord-bg-fishing-scheduleservice","app.kubernetes.io/name":"game-gamerecord-bg-fishing-scheduleservice","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"bg","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"}},"template":{"metadata":{"annotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"52325","prometheus.io/scrape":"true"},"labels":{"app":"game-gamerecord-bg-fishing-scheduleservice","app.kubernetes.io/name":"game-gamerecord-bg-fishing-scheduleservice","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"bg","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","value":"Game-GameRecord-BG-Fishing-ScheduleService(staging)"},{"name":"NODE_IP","valueFrom":{"fieldRef":{"fieldPath":"status.hostIP"}}},{"name":"ConnectionStrings__Nats","valueFrom":{"secretKeyRef":{"key":"nats","name":"tgs-connections"}}},{"name":"ConnectionStrings__Redis","valueFrom":{"secretKeyRef":{"key":"redis","name":"tgs-connections"}}}],"image":"pgtgs/game-gamerecord-bg-fishing-scheduleservice:202212300101.6","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/healthz","port":"http"},"initialDelaySeconds":5,"periodSeconds":5},"name":"game-gamerecord-bg-fishing-scheduleservice","ports":[{"containerPort":80,"name":"http","protocol":"TCP"}],"resources":{"limits":{"cpu":"100m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"64Mi"}},"securityContext":{},"startupProbe":{"failureThreshold":30,"httpGet":{"path":"/healthz","port":"http"},"periodSeconds":2},"volumeMounts":[{"mountPath":"/config/appsettings.json","name":"appsettings","readOnly":true,"subPath":"appsettings.json"}]},{"args":["--no-auth"],"env":[{"name":"DOTNETMONITOR_DiagnosticPort__ConnectionMode","value":"Listen"},{"name":"DOTNETMONITOR_DiagnosticPort__EndpointName","value":"/diag/port"},{"name":"DOTNETMONITOR_Storage__DumpTempFolder","value":"/dumps"},{"name":"DOTNETMONITOR_Urls","value":"http://+:52324"},{"name":"DOTNETMONITOR_Metrics__Endpoints","value":"http://+:52325"},{"name":"XDG_CONFIG_HOME","value":"/config"}],"image":"mcr.microsoft.com/dotnet/monitor:6.0.0","imagePullPolicy":"IfNotPresent","name":"monitor","resources":{"limits":{"cpu":"250m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"32Mi"}},"volumeMounts":[{"mountPath":"/diag","name":"diagvol"},{"mountPath":"/dumps","name":"dumpsvol"},{"mountPath":"/config/dotnet-monitor/settings.json","name":"appsettings","readOnly":true,"subPath":"monitor.settings.json"}]}],"imagePullSecrets":[{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"securityContext":{},"serviceAccountName":"game-gamerecord-bg-fishing-scheduleservice","tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"configMap":{"name":"configmap-game-gamerecord-bg-fishing-scheduleservice"},"name":"appsettings"},{"emptyDir":{},"name":"diagvol"},{"emptyDir":{},"name":"dumpsvol"}]}}}}
+    reloader.stakater.com/auto: "true"
+  creationTimestamp: "2022-12-19T05:40:37Z"
+  generation: 22
+  labels:
+    app: game-gamerecord-bg-fishing-scheduleservice
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-bg-fishing-scheduleservice
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-bg-fishing-scheduleservice-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: bg
+    tgs.gamerecord.kind: scheduleservice
+    tgs.kind: game
+  name: game-gamerecord-bg-fishing-scheduleservice
+  namespace: staging
+  resourceVersion: "38764197"
+  uid: d973ba82-42e4-48c2-a211-8bd7a7a8c40f
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: game-gamerecord-bg-fishing-scheduleservice
+      app.kubernetes.io/name: game-gamerecord-bg-fishing-scheduleservice
+      tgs.game.kind: gamerecord
+      tgs.gameprovider.kind: bg
+      tgs.gamerecord.kind: scheduleservice
+      tgs.kind: game
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-01-04T02:00:07Z"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "52325"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: game-gamerecord-bg-fishing-scheduleservice
+        app.kubernetes.io/name: game-gamerecord-bg-fishing-scheduleservice
+        tgs.game.kind: gamerecord
+        tgs.gameprovider.kind: bg
+        tgs.gamerecord.kind: scheduleservice
+        tgs.kind: game
+    spec:
+      containers:
+      - env:
+        - name: OTEL_SERVICE_NAME
+          value: Game-GameRecord-BG-Fishing-ScheduleService(staging)
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: ConnectionStrings__Nats
+          valueFrom:
+            secretKeyRef:
+              key: nats
+              name: tgs-connections
+        - name: ConnectionStrings__Redis
+          valueFrom:
+            secretKeyRef:
+              key: redis
+              name: tgs-connections
+        image: pgtgs/game-gamerecord-bg-fishing-scheduleservice:202212300101.6
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: game-gamerecord-bg-fishing-scheduleservice
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        securityContext: {}
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config/appsettings.json
+          name: appsettings
+          readOnly: true
+          subPath: appsettings.json
+      - args:
+        - --no-auth
+        env:
+        - name: DOTNETMONITOR_DiagnosticPort__ConnectionMode
+          value: Listen
+        - name: DOTNETMONITOR_DiagnosticPort__EndpointName
+          value: /diag/port
+        - name: DOTNETMONITOR_Storage__DumpTempFolder
+          value: /dumps
+        - name: DOTNETMONITOR_Urls
+          value: http://+:52324
+        - name: DOTNETMONITOR_Metrics__Endpoints
+          value: http://+:52325
+        - name: XDG_CONFIG_HOME
+          value: /config
+        image: mcr.microsoft.com/dotnet/monitor:6.0.0
+        imagePullPolicy: IfNotPresent
+        name: monitor
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /diag
+          name: diagvol
+        - mountPath: /dumps
+          name: dumpsvol
+        - mountPath: /config/dotnet-monitor/settings.json
+          name: appsettings
+          readOnly: true
+          subPath: monitor.settings.json
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: game-gamerecord-bg-fishing-scheduleservice
+      serviceAccountName: game-gamerecord-bg-fishing-scheduleservice
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-game-gamerecord-bg-fishing-scheduleservice
+        name: appsettings
+      - emptyDir: {}
+        name: diagvol
+      - emptyDir: {}
+        name: dumpsvol
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-12-27T06:56:02Z"
+    lastUpdateTime: "2022-12-27T06:56:02Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-12-19T05:40:37Z"
+    lastUpdateTime: "2023-01-04T02:00:34Z"
+    message: ReplicaSet "game-gamerecord-bg-fishing-scheduleservice-54df64465d" has
+      successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 22
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

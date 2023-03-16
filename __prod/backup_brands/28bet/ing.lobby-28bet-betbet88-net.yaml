@@ -1,0 +1,103 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiMjhiZXQiLCJzdWIiOiI5MDQ5NTJiYi0wYTZlLTRmMjgtYTg1MC0xNTQ2N2QwNGUyNjgiLCJuYmYiOjE2Mzc4MjE5ODcsImV4cCI6MTYzNzgyNTU4NywiaWF0IjoxNjM3ODIxOTg3LCJpc3MiOiJ0Z3MifQ.eHm0ADccZW_mEi2Shu9STAoTbVH5T2QOG1ewKJy4hu4gIYZBOoYU3_Y6IoHfKad1hnZQwLh_XchO4tS0RIy2Yw01dnkci9xHA04URV17XszUixSZOluav2_aOMGTk3f9-2q65u6cWhz-qwpO6KehacJiKbIz90tLYuIT3tcUJ-GH0g8K27UQvJTzYjjs3YhgBy8XqC2fyhx3SDvn908y4lYf0M9OMP9JaVbBqMxhuJa0vB0oLNIZQ8aRZvulnttEnlI6v7PdzbqOZjfxjaSjeNaS0u-rFMRIRcebhaPUCENNuFg1jUwL4wP0NKvLD5A-qWec0O8M-7f5goGoNgWY5w;\nproxy_set_header Agent-Invitation-Code 3lftf4;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-01-31T03:04:15Z","generation":1,"labels":{"tgs.info":"betbet88.net-3lftf4"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{},"f:nginx.ingress.kubernetes.io/configuration-snippet":{},"f:nginx.ingress.kubernetes.io/proxy-body-size":{},"f:nginx.ingress.kubernetes.io/ssl-redirect":{}},"f:labels":{".":{},"f:tgs.info":{}}},"f:spec":{"f:ingressClassName":{},"f:rules":{}}},"manager":"kubectl-client-side-apply","operation":"Update","time":"2022-02-17T06:30:42Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:loadBalancer":{"f:ingress":{}}}},"manager":"nginx-ingress-controller","operation":"Update","subresource":"status","time":"2022-06-01T07:41:52Z"}],"name":"lobby-28bet-betbet88-net","namespace":"prod","resourceVersion":"341096766","uid":"3f78d069-3806-4004-9c45-c245d8e12602"},"spec":{"ingressClassName":"nginx","rules":[{"host":"betbet88.net","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-28bet","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.betbet88.net","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-28bet","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiMjhiZXQiLCJzdWIiOiI5MDQ5NTJiYi0wYTZlLTRmMjgtYTg1MC0xNTQ2N2QwNGUyNjgiLCJuYmYiOjE2Mzc4MjE5ODcsImV4cCI6MTYzNzgyNTU4NywiaWF0IjoxNjM3ODIxOTg3LCJpc3MiOiJ0Z3MifQ.eHm0ADccZW_mEi2Shu9STAoTbVH5T2QOG1ewKJy4hu4gIYZBOoYU3_Y6IoHfKad1hnZQwLh_XchO4tS0RIy2Yw01dnkci9xHA04URV17XszUixSZOluav2_aOMGTk3f9-2q65u6cWhz-qwpO6KehacJiKbIz90tLYuIT3tcUJ-GH0g8K27UQvJTzYjjs3YhgBy8XqC2fyhx3SDvn908y4lYf0M9OMP9JaVbBqMxhuJa0vB0oLNIZQ8aRZvulnttEnlI6v7PdzbqOZjfxjaSjeNaS0u-rFMRIRcebhaPUCENNuFg1jUwL4wP0NKvLD5A-qWec0O8M-7f5goGoNgWY5w;
+      proxy_set_header Agent-Invitation-Code 3lftf4;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-01-31T03:04:15Z"
+  generation: 2
+  labels:
+    tgs.info: betbet88.net-3lftf4
+  name: lobby-28bet-betbet88-net
+  namespace: prod
+  resourceVersion: "438537589"
+  uid: 3f78d069-3806-4004-9c45-c245d8e12602
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: betbet88.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-28bet
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.betbet88.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-28bet
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

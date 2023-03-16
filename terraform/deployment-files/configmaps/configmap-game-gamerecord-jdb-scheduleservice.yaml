@@ -1,0 +1,37 @@
+apiVersion: v1
+data:
+  appsettings.json: "{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"JDBTF\",\n
+    \   \"GameProviderConfig\": \"JDBTFConfiguration\",\n    \"GameProviderHangfire\":
+    \"jdb-schedule:hangfire:\",\n    \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.jdbtf\"\n
+    \ },\n  \n  \"ScheduleUrlStrings\": {\n    \"GameCommandClientBaseUrl\": \"http://game-gamecommand\"\n
+    \ }\n}\n"
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"JDBTF\",\n    \"GameProviderConfig\": \"JDBTFConfiguration\",\n    \"GameProviderHangfire\": \"jdb-schedule:hangfire:\",\n    \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.jdbtf\"\n  },\n  \n  \"ScheduleUrlStrings\": {\n    \"GameCommandClientBaseUrl\": \"http://game-gamecommand\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-jdb-scheduleservice","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:41Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-game-gamerecord-jdb-scheduleservice
+  namespace: staging
+  resourceVersion: "36081669"
+  uid: 20e95791-bec8-4565-ac81-6afd13a34404

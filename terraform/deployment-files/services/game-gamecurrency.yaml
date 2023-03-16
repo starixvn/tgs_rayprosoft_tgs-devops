@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gamecurrency","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamecurrency","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamecurrency-0.1.0","tgs.kind":"game"},"name":"game-gamecurrency","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-gamecurrency","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/name":"game-gamecurrency","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:17Z"
+  labels:
+    app: game-gamecurrency
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamecurrency
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamecurrency-0.1.0
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gamecurrency
+  namespace: staging
+  resourceVersion: "770926"
+  uid: f12f335d-58c3-47d7-9dc6-594e5efd62d3
+spec:
+  clusterIP: 172.20.115.8
+  clusterIPs:
+  - 172.20.115.8
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-gamecurrency
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/name: game-gamecurrency
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

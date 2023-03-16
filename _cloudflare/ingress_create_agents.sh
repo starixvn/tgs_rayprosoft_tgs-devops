@@ -1,0 +1,19 @@
+#!/bin/bash
+sh install_ingress.sh hk28 hk2811.com hk2811-com n9dv03
+sh install_ingress.sh hk28 hk2812.com hk2812-com eccsml
+sh install_ingress.sh hk28 hk2813.com hk2813-com ids9k2
+sh install_ingress.sh hk28 hk2815.com hk2815-com 8r44wt
+sh install_ingress.sh hk28 hk2817.com hk2817-com wts48q
+sh install_ingress.sh hk28 hk2819.com hk2819-com sqfo13
+sh install_ingress.sh hk28 hk2820.com hk2820-com oxhhu5
+sh install_ingress.sh hk28 hk2821.com hk2821-com 8j3sfn
+sh install_ingress.sh hk28 hk2822.com hk2822-com weujfl
+sh install_ingress.sh hk28 hk2823.com hk2823-com wnkssf
+sh install_ingress.sh hk28 hk2825.com hk2825-com 8f0opc
+sh install_ingress.sh hk28 hk2826.com hk2826-com ek07pi
+sh install_ingress.sh hk28 hk2827.com hk2827-com 7u6578
+sh install_ingress.sh hk28 hk2830.com hk2830-com tb3e3a
+sh install_ingress.sh hk28 hk2831.com hk2831-com lh142k
+sh install_ingress.sh hk28 hk2832.com hk2832-com y9iho6
+sh install_ingress.sh hk28 hk2833.com hk2833-com lf1imv
+sh install_ingress.sh hk28 hk2835.com hk2835-com dronyo

@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0,::/0
+  creationTimestamp: "2022-10-03T18:14:45Z"
+  generateName: cm-acme-http-solver-
+  generation: 1
+  labels:
+    acme.cert-manager.io/http-domain: "730596729"
+    acme.cert-manager.io/http-token: "1166413420"
+    acme.cert-manager.io/http01-solver: "true"
+  name: cm-acme-http-solver-84rgk
+  namespace: prod
+  ownerReferences:
+  - apiVersion: acme.cert-manager.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Challenge
+    name: agent-28bet-28leader-w47dg-2778038193-3588852287
+    uid: e368f911-bc10-4233-b7fd-18b85e6d203c
+  resourceVersion: "438539986"
+  uid: 589b7b58-cfcb-4acc-8224-14c94760fbd5
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: www.28bethk.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: cm-acme-http-solver-jcs2s
+            port:
+              number: 8089
+        path: /.well-known/acme-challenge/9pm67RqsWDSukWqgVq0ikz3I3m1FlINEcrGuW4o-p58
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

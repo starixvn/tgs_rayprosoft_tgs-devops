@@ -1,0 +1,34 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "ConnectionStrings": {
+        "Tgs": "Server=pgpool;Port=9999;Database=tgsstaging;User Id=tgs_app;Password=VSr4DuVQEzfPC7Tcz",
+        "RedisConfigurationString": "redis-master,abortConnect=false,connectTimeout=3000"
+      },
+      "NatsSetting": {
+        "Urls": "nats://nats:4222"
+      },
+      "ProfitRebate": {
+        "CashBaseUrl": "http://cashservice-api"
+      },
+      "RabbitMQ": {
+        "RabbitMQUrl": "amqp://mq.rabbitmq:5672",
+        "UserName": "tgs",
+        "Password": "TgsP@ssw0rd",
+        "VirtualHost": "/tgs/staging"
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ConnectionStrings\": {\n    \"Tgs\": \"Server=pgpool;Port=9999;Database=tgsstaging;User Id=tgs_app;Password=VSr4DuVQEzfPC7Tcz\",\n    \"RedisConfigurationString\": \"redis-master,abortConnect=false,connectTimeout=3000\"\n  },\n  \"NatsSetting\": {\n    \"Urls\": \"nats://nats:4222\"\n  },\n  \"ProfitRebate\": {\n    \"CashBaseUrl\": \"http://cashservice-api\"\n  },\n  \"RabbitMQ\": {\n    \"RabbitMQUrl\": \"amqp://mq.rabbitmq:5672\",\n    \"UserName\": \"tgs\",\n    \"Password\": \"TgsP@ssw0rd\",\n    \"VirtualHost\": \"/tgs/staging\"\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-profit-rebate-service","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:46Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-profit-rebate-service
+  namespace: staging
+  resourceVersion: "769008"
+  uid: a2bdee28-471b-4837-9bfa-31e1c2208b29

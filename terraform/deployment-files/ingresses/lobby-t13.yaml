@@ -1,0 +1,61 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJIiwic3ViIjoiNGU4NjcxOWYtMjQzZi00NmY2LWIwMTAtNWM3NThiNzI4NWFmIiwibmJmIjoxNjM3NjM0NTYzLCJleHAiOjE2Mzc2MzgxNjMsImlhdCI6MTYzNzYzNDU2MywiaXNzIjoidGdzIn0.n-VgLks4WpPxFp2-2Au-C3h0jzGiprJiMUmdwmhV5rWYqSbIr01Gi7_KJOPfkZeVR7h-muyT4wTGkd-YQJ1tLERfX4cPma2PNigwOKx_z38j3KayTKbNVk9g1o-VBiEYwOTLZf0i2wFdIsE0_k0ul-Kg2t9As9qRZ6apgBc-ANjABUpvm1ix6sLhgVEk-yl3gKwhqsC81LDaPn9VeAquZgbL193vCW4r7TJTZphP8PxCIMSY-5pj8YS7xQGX9wQiaAImJNKiEs_h2ar03oCV1WPb6767R0PEjK4KJEz5g6cKd2EGftpPCFdiYow-2ww_c8qRl1IuZ3oV6Tj9qexv-g;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"name":"lobby-t13","namespace":"staging"},"spec":{"ingressClassName":"nginx","rules":[{"host":"stg-t13.rpgp.cc","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-t13","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJIiwic3ViIjoiNGU4NjcxOWYtMjQzZi00NmY2LWIwMTAtNWM3NThiNzI4NWFmIiwibmJmIjoxNjM3NjM0NTYzLCJleHAiOjE2Mzc2MzgxNjMsImlhdCI6MTYzNzYzNDU2MywiaXNzIjoidGdzIn0.n-VgLks4WpPxFp2-2Au-C3h0jzGiprJiMUmdwmhV5rWYqSbIr01Gi7_KJOPfkZeVR7h-muyT4wTGkd-YQJ1tLERfX4cPma2PNigwOKx_z38j3KayTKbNVk9g1o-VBiEYwOTLZf0i2wFdIsE0_k0ul-Kg2t9As9qRZ6apgBc-ANjABUpvm1ix6sLhgVEk-yl3gKwhqsC81LDaPn9VeAquZgbL193vCW4r7TJTZphP8PxCIMSY-5pj8YS7xQGX9wQiaAImJNKiEs_h2ar03oCV1WPb6767R0PEjK4KJEz5g6cKd2EGftpPCFdiYow-2ww_c8qRl1IuZ3oV6Tj9qexv-g;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-12-13T02:31:22Z"
+  generation: 1
+  name: lobby-t13
+  namespace: staging
+  resourceVersion: "28948459"
+  uid: 644fd035-5a9a-41d2-ad51-d8167ae59d72
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: stg-t13.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-t13
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

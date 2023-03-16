@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gamerounds","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerounds","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerounds-0.1.0","tgs.kind":"game"},"name":"game-gamerounds","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-gamerounds","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/name":"game-gamerounds","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:20Z"
+  labels:
+    app: game-gamerounds
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerounds
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerounds-0.1.0
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gamerounds
+  namespace: staging
+  resourceVersion: "771284"
+  uid: 3e07e437-f372-4dc4-ae4e-ace226cdf412
+spec:
+  clusterIP: 172.20.220.137
+  clusterIPs:
+  - 172.20.220.137
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-gamerounds
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/name: game-gamerounds
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

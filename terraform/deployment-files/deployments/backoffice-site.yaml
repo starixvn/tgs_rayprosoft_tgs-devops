@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "36"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"creationTimestamp":"2021-07-07T05:41:31Z","generation":249,"labels":{"app":"backoffice-site"},"name":"backoffice-site","namespace":"staging"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"backoffice-site"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"version/config":"2021-08-11-08-26"},"creationTimestamp":null,"labels":{"app":"backoffice-site"}},"spec":{"containers":[{"env":[{"name":"MODE","value":"Staging"},{"name":"LOGIN_BUTTON_COLOR","value":"#ffffff"},{"name":"LOGIN_BUTTON_BACKGROUND","value":"#f8bb54"},{"name":"HEADER_BACKGROUND","value":"#f8bb54"},{"name":"HEADER_BUTTON_COLOR","value":"#ffffff"},{"name":"HEADER_BUTTON_BACKGROUND","value":"transparent"},{"name":"LOGIN_IMAGE_URL","value":"//images.srvptt.com/GMS%20Logo/GMS.png"},{"name":"HEADER_IMAGE_URL","value":"//images.srvptt.com/GMS%20Logo/GMS.png"},{"name":"DEPLOY_DATE","value":"2022-02-25-18:11"}],"image":"registry.gitlab.com/rayprosoft/turnkey-gaming-system/backoffice-site:staging-2022-0927-0304","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"name":"backoffice-site","ports":[{"containerPort":80,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"100m","memory":"200Mi"},"requests":{"cpu":"20m","memory":"40Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/data","name":"site-data"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-credentials"}],"nodeSelector":{"dedicated":"staging"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"emptyDir":{},"name":"site-data"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-09-22T16:23:00Z","lastUpdateTime":"2022-09-22T16:23:00Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2021-10-12T06:07:30Z","lastUpdateTime":"2022-09-27T03:06:21Z","message":"ReplicaSet \"backoffice-site-dfd7df986\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":249,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    kubernetes.io/change-cause: kubectl set image deployment/backoffice-site backoffice-site=registry.gitlab.com/rayprosoft/turnkey-gaming-system/backoffice-site:staging-2022-1229-0214
+      --record=true --namespace=staging
+  creationTimestamp: "2022-10-07T08:56:49Z"
+  generation: 36
+  labels:
+    app: backoffice-site
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: backoffice-site
+  namespace: staging
+  resourceVersion: "36076631"
+  uid: d9f0ee27-5c06-4a1a-932c-18aa4b422ea0
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: backoffice-site
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2022-11-01T03:07:51Z"
+        version/config: 2021-08-11-08-26
+      creationTimestamp: null
+      labels:
+        app: backoffice-site
+    spec:
+      containers:
+      - env:
+        - name: MODE
+          value: Staging
+        - name: LOGIN_BUTTON_COLOR
+          value: '#ffffff'
+        - name: LOGIN_BUTTON_BACKGROUND
+          value: '#f8bb54'
+        - name: HEADER_BACKGROUND
+          value: '#f8bb54'
+        - name: HEADER_BUTTON_COLOR
+          value: '#ffffff'
+        - name: HEADER_BUTTON_BACKGROUND
+          value: transparent
+        - name: LOGIN_IMAGE_URL
+          value: //images.srvptt.com/GMS%20Logo/GMS.png
+        - name: HEADER_IMAGE_URL
+          value: //images.srvptt.com/GMS%20Logo/GMS.png
+        - name: DEPLOY_DATE
+          value: 2022-02-25-18:11
+        image: registry.gitlab.com/rayprosoft/turnkey-gaming-system/backoffice-site:staging-2022-1229-0214
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: backoffice-site
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 100m
+            memory: 200Mi
+          requests:
+            cpu: 20m
+            memory: 40Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: site-data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registry-credentials
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - emptyDir: {}
+        name: site-data
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-11-24T00:21:21Z"
+    lastUpdateTime: "2022-11-24T00:21:21Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-11-01T03:07:51Z"
+    lastUpdateTime: "2022-12-29T02:16:17Z"
+    message: ReplicaSet "backoffice-site-6cf47b84c" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 36
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

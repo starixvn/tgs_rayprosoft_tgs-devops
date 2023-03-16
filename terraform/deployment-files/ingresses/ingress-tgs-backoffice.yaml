@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"extensions/v1beta1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","kubernetes.io/ingress.class":"nginx","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"name":"ingress-tgs-backoffice","namespace":"staging"},"spec":{"rules":[{"host":"stg-bo.rpgp.cc","http":{"paths":[{"backend":{"serviceName":"backoffice-api","servicePort":80},"path":"/api"},{"backend":{"serviceName":"file-service","servicePort":80},"path":"/fs"},{"backend":{"serviceName":"backoffice-site","servicePort":80},"path":"/"}]}}],"tls":[{"hosts":["stg-bo.rpgp.cc"],"secretName":"stg-bo.rpgp.cc"}]}}
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-10-07T08:57:07Z"
+  generation: 1
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: ingress-tgs-backoffice
+  namespace: staging
+  resourceVersion: "19707398"
+  uid: a7288bfc-3292-400e-bfe6-eac73f27e2ea
+spec:
+  rules:
+  - host: stg-bo.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: backoffice-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: file-service
+            port:
+              number: 80
+        path: /fs
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: backoffice-site
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - stg-bo.rpgp.cc
+    secretName: stg-bo.rpgp.cc
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

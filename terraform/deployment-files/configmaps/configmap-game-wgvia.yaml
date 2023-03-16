@@ -1,0 +1,52 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      },
+      "LoggerServiceConfig": {
+        "BatchInsertWaitingSeconds": 1,
+        "BatchInsertCounts": 100,
+        "LogLevel": "ALL",
+        "UnrestrictedLoggers": []
+      },
+      "AllowedHosts": "*",
+      "Game": {
+        "CashBaseUrl": "http://cashservice-api"
+      },
+      "FeatureManagement": {
+        "WGVIA": false,
+      },
+      "ConnectionStrings": {
+        "Tgs": "Server=pgpool;Port=9999;Database=tgsstaging;User Id=tgs_app;Password=VSr4DuVQEzfPC7Tcz",
+        "RedisConfigurationString": "redis-master,abortConnect=false,connectTimeout=3000"
+      },
+      "NatsSetting": {
+        "Urls": "nats://nats:4222",
+        "ConnectTimeoutMs": 2000,
+        "PingInterval": 5000,
+        "PingMaxOutStanding": 3,
+        "SubscriptionBatchSize": 128
+      },
+      "TCGFtpApi": {
+        "Url": "http://game-tcg-ftp"
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"Logging\": {\n    \"LogLevel\": {\n      \"Default\": \"Information\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  },\n  \"LoggerServiceConfig\": {\n    \"BatchInsertWaitingSeconds\": 1,\n    \"BatchInsertCounts\": 100,\n    \"LogLevel\": \"ALL\",\n    \"UnrestrictedLoggers\": []\n  },\n  \"AllowedHosts\": \"*\",\n  \"Game\": {\n    \"CashBaseUrl\": \"http://cashservice-api\"\n  },\n  \"FeatureManagement\": {\n    \"WGVIA\": false,\n  },\n  \"ConnectionStrings\": {\n    \"Tgs\": \"Server=pgpool;Port=9999;Database=tgsstaging;User Id=tgs_app;Password=VSr4DuVQEzfPC7Tcz\",\n    \"RedisConfigurationString\": \"redis-master,abortConnect=false,connectTimeout=3000\"\n  },\n  \"NatsSetting\": {\n    \"Urls\": \"nats://nats:4222\",\n    \"ConnectTimeoutMs\": 2000,\n    \"PingInterval\": 5000,\n    \"PingMaxOutStanding\": 3,\n    \"SubscriptionBatchSize\": 128\n  },\n  \"TCGFtpApi\": {\n    \"Url\": \"http://game-tcg-ftp\"\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-wgvia","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:45Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-game-wgvia
+  namespace: staging
+  resourceVersion: "768978"
+  uid: 6a34e7d7-2f12-4fb3-83ed-3464d6b964a6

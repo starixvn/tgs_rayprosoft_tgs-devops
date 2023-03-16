@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"lobby-hkjp","namespace":"prod"},"spec":{"ports":[{"name":"web","port":80,"protocol":"TCP"}],"selector":{"app":"lobby-hkjp"}}}
+  creationTimestamp: "2021-08-31T10:02:12Z"
+  name: lobby-hkjp
+  namespace: prod
+  resourceVersion: "49355945"
+  uid: 6d13e31a-3dc0-4276-95e2-797fdfad3266
+spec:
+  clusterIP: 172.20.17.156
+  clusterIPs:
+  - 172.20.17.156
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: lobby-hkjp
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

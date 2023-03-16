@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gamerecord-jili-scheduleservice","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-jili-scheduleservice","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-jili-scheduleservice-0.1.0","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"jili","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"},"name":"game-gamerecord-jili-scheduleservice","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-gamerecord-jili-scheduleservice","app.kubernetes.io/name":"game-gamerecord-jili-scheduleservice","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"jili","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:18Z"
+  labels:
+    app: game-gamerecord-jili-scheduleservice
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-jili-scheduleservice
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-jili-scheduleservice-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: jili
+    tgs.gamerecord.kind: scheduleservice
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gamerecord-jili-scheduleservice
+  namespace: staging
+  resourceVersion: "36101561"
+  uid: 0fc1f19e-6eb4-4d81-961a-d6daca28057a
+spec:
+  clusterIP: 172.20.252.192
+  clusterIPs:
+  - 172.20.252.192
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-gamerecord-jili-scheduleservice
+    app.kubernetes.io/name: game-gamerecord-jili-scheduleservice
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: jili
+    tgs.gamerecord.kind: scheduleservice
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

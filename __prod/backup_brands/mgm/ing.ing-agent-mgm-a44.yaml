@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQ4NTYzNjMxLCJleHAiOjE2NDg1NjcyMzEsImlhdCI6MTY0ODU2MzYzMSwiaXNzIjoidGdzIn0.qA_qpss_k_7Evfwj4lK_f3Cjrlpg03SigEzgfaP9k_pytz8WPE9vptx0RcysBuq9Ajz4qitWcE6mw86gJZSvTm5mC_S5erMdjd64eKsNCNoYaiViiFJ4NMIbeXGMHrPT5AOcEnsGFET29iLQWbH-6Uk9GPyLvaJ0jbyaKJYp9b07SX6twBQUXIaeOfqx8ZomWEvDwfgi2hrvRo25R7wHobCzSFhfrkbu7OK09q41gQN49xEGcnDMNtbApY7XVlv2GgDUAv62jZ7uBFeCH_JvSAMltDmEZDdHJhZTT5CV8Tf8RzbqNrbcDwsC_iaPX4eQBYPizFKw8quziI7LTw_uGA;\nproxy_set_header Agent-Invitation-Code q6rs1n;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-03-29T12:28:40Z","generation":1,"labels":{"tgs.agent.username":"A44","tgs.brandcode":"MGM","tgs.invitation":"q6rs1n"},"name":"ing-agent-mgm-a44","namespace":"prod","resourceVersion":"341025850","uid":"f5a199de-0b4f-4c9f-912b-9437726bddef"},"spec":{"ingressClassName":"nginx","rules":[{"host":"mgmwinner888.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}},{"host":"www.mgmwinner888.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-mgm","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}}],"tls":[{"hosts":["mgmwinner888.com","www.mgmwinner888.com"],"secretName":"agent-mgm-a44"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTUdNIiwic3ViIjoiMjNjZjIyNzYtYjg5NS00NGIzLWE1MTEtODNhNjYyMjhmMjliIiwibmJmIjoxNjQ4NTYzNjMxLCJleHAiOjE2NDg1NjcyMzEsImlhdCI6MTY0ODU2MzYzMSwiaXNzIjoidGdzIn0.qA_qpss_k_7Evfwj4lK_f3Cjrlpg03SigEzgfaP9k_pytz8WPE9vptx0RcysBuq9Ajz4qitWcE6mw86gJZSvTm5mC_S5erMdjd64eKsNCNoYaiViiFJ4NMIbeXGMHrPT5AOcEnsGFET29iLQWbH-6Uk9GPyLvaJ0jbyaKJYp9b07SX6twBQUXIaeOfqx8ZomWEvDwfgi2hrvRo25R7wHobCzSFhfrkbu7OK09q41gQN49xEGcnDMNtbApY7XVlv2GgDUAv62jZ7uBFeCH_JvSAMltDmEZDdHJhZTT5CV8Tf8RzbqNrbcDwsC_iaPX4eQBYPizFKw8quziI7LTw_uGA;
+      proxy_set_header Agent-Invitation-Code q6rs1n;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-03-29T12:28:40Z"
+  generation: 2
+  labels:
+    tgs.agent.username: A44
+    tgs.brandcode: MGM
+    tgs.invitation: q6rs1n
+  name: ing-agent-mgm-a44
+  namespace: prod
+  resourceVersion: "432439341"
+  uid: f5a199de-0b4f-4c9f-912b-9437726bddef
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mgmwinner888.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  - host: www.mgmwinner888.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-mgm
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - mgmwinner888.com
+    - www.mgmwinner888.com
+    secretName: agent-mgm-a44
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

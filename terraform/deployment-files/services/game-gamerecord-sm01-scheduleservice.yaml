@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gamerecord-sm01-scheduleservice","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-sm01-scheduleservice","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-sm01-scheduleservice-0.1.0","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"sm01","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"},"name":"game-gamerecord-sm01-scheduleservice","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-gamerecord-sm01-scheduleservice","app.kubernetes.io/name":"game-gamerecord-sm01-scheduleservice","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"sm01","tgs.gamerecord.kind":"scheduleservice","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2023-01-03T09:14:33Z"
+  labels:
+    app: game-gamerecord-sm01-scheduleservice
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-sm01-scheduleservice
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-sm01-scheduleservice-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: sm01
+    tgs.gamerecord.kind: scheduleservice
+    tgs.kind: game
+  name: game-gamerecord-sm01-scheduleservice
+  namespace: staging
+  resourceVersion: "38453849"
+  uid: 285458bd-aa68-42e0-80a1-10a7f6174f8b
+spec:
+  clusterIP: 172.20.72.139
+  clusterIPs:
+  - 172.20.72.139
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-gamerecord-sm01-scheduleservice
+    app.kubernetes.io/name: game-gamerecord-sm01-scheduleservice
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: sm01
+    tgs.gamerecord.kind: scheduleservice
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

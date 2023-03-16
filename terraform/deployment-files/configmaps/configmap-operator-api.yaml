@@ -1,0 +1,130 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "Operator": {
+        "FileServiceBaseUrl" : "http://file-service",
+        "ValidateCodeBaseUrl": "http://validatecode-api",
+        "SmsBaseUrl": "http://sms-service",
+        "ValidateCodeTestEnabled": false,
+        "PaymentServiceBaseUrl": "http://payment-api",
+        "BrandCertificateBaseUrl": "http://brand-cert-api",
+        "CashBaseUrl": "http://cashservice-api",
+        "GameProvidersPluggableBaseUrl": "http://game-pluggable-service",
+        "PlayerServiceBaseUrl": "http://player-api",
+        "DepositAccumulateRouletteServiceBaseUrl": "http://tgs-deposit-accumulate-roulette"
+      },
+      "ConnectionStrings": {
+        "Tgs": "Server=pgpool;Port=9999;Database=tgs;User Id=rpdev;Password=abcd1234",
+        "RedisConfigurationString": "redis-master,abortConnect=false,connectTimeout=3000,password=1qaz2wsx"
+      },
+      "NatsSetting": {
+        "Urls": "nats://nats-client:4222",
+        "ConnectTimeoutMs": 2000,
+        "PingInterval": 5000,
+        "PingMaxOutStanding": 3,
+        "SubscriptionBatchSize": 128
+      },
+      "Report": {
+        "Url": "http://report-api"
+      },
+      "Promotion": {
+        "Url": "http://promotion-api"
+      },
+      "CorsDomain": {
+        "Urls": []
+      },
+      "ForwardedHeaders": {
+        "ForwardLimit": 1,
+        "ForwardedForHeaderName": "cf-connecting-ip",
+        "KnownProxies": [],
+        "KnownNetworks": ["10.0.0.0/8"]
+      },
+      "RequestLocalization": {
+        "DefaultRequestCulture": "en-US",
+        "ApplyCurrentCultureToResponseHeaders": true,
+        "SupportedCultures": [
+          "en-US",
+          "zh-CN",
+          "zh-TW",
+          "th-TH",
+          "id-ID",
+          "ja-JP",
+          "ko-KR",
+          "vi-VN"
+        ],
+        "SupportedUICultures": [
+          "en-US",
+          "zh-CN",
+          "zh-TW",
+          "th-TH",
+          "id-ID",
+          "ja-JP",
+          "ko-KR",
+          "vi-VN"
+        ]
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+  yarp-settings.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Microsoft.AspNetCore.HttpLogging": "Information"
+        }
+      },
+      "HttpLogging": {
+        "LoggingFields": "Request",
+        "RequestHeaders": ["cf-connecting-ip", "X-Forwarded-For", "X-Real-IP"]
+      },
+      "ReverseProxy": {
+        "Routes": {
+          "route1": {
+            "ClusterId": "cluster1",
+            "Match": {
+              "Path": "{**catch-all}"
+            }
+          }
+        },
+        "Clusters": {
+          "cluster1": {
+            "Destinations": {
+              "destination1": {
+                "Address": "http://localhost/"
+              }
+            }
+          }
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"Operator\": {\n    \"FileServiceBaseUrl\" : \"http://file-service\",\n    \"ValidateCodeBaseUrl\": \"http://validatecode-api\",\n    \"SmsBaseUrl\": \"http://sms-service\",\n    \"ValidateCodeTestEnabled\": false,\n    \"PaymentServiceBaseUrl\": \"http://payment-api\",\n    \"BrandCertificateBaseUrl\": \"http://brand-cert-api\",\n    \"CashBaseUrl\": \"http://cashservice-api\",\n    \"GameProvidersPluggableBaseUrl\": \"http://game-pluggable-service\",\n    \"PlayerServiceBaseUrl\": \"http://player-api\",\n    \"DepositAccumulateRouletteServiceBaseUrl\": \"http://tgs-deposit-accumulate-roulette\"\n  },\n  \"ConnectionStrings\": {\n    \"Tgs\": \"Server=pgpool;Port=9999;Database=tgs;User Id=rpdev;Password=abcd1234\",\n    \"RedisConfigurationString\": \"redis-master,abortConnect=false,connectTimeout=3000,password=1qaz2wsx\"\n  },\n  \"NatsSetting\": {\n    \"Urls\": \"nats://nats-client:4222\",\n    \"ConnectTimeoutMs\": 2000,\n    \"PingInterval\": 5000,\n    \"PingMaxOutStanding\": 3,\n    \"SubscriptionBatchSize\": 128\n  },\n  \"Report\": {\n    \"Url\": \"http://report-api\"\n  },\n  \"Promotion\": {\n    \"Url\": \"http://promotion-api\"\n  },\n  \"CorsDomain\": {\n    \"Urls\": []\n  },\n  \"ForwardedHeaders\": {\n    \"ForwardLimit\": 1,\n    \"ForwardedForHeaderName\": \"cf-connecting-ip\",\n    \"KnownProxies\": [],\n    \"KnownNetworks\": [\"10.0.0.0/8\"]\n  },\n  \"RequestLocalization\": {\n    \"DefaultRequestCulture\": \"en-US\",\n    \"ApplyCurrentCultureToResponseHeaders\": true,\n    \"SupportedCultures\": [\n      \"en-US\",\n      \"zh-CN\",\n      \"zh-TW\",\n      \"th-TH\",\n      \"id-ID\",\n      \"ja-JP\",\n      \"ko-KR\",\n      \"vi-VN\"\n    ],\n    \"SupportedUICultures\": [\n      \"en-US\",\n      \"zh-CN\",\n      \"zh-TW\",\n      \"th-TH\",\n      \"id-ID\",\n      \"ja-JP\",\n      \"ko-KR\",\n      \"vi-VN\"\n    ]\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n","yarp-settings.json":"{\n  \"Logging\": {\n    \"LogLevel\": {\n      \"Microsoft.AspNetCore.HttpLogging\": \"Information\"\n    }\n  },\n  \"HttpLogging\": {\n    \"LoggingFields\": \"Request\",\n    \"RequestHeaders\": [\"cf-connecting-ip\", \"X-Forwarded-For\", \"X-Real-IP\"]\n  },\n  \"ReverseProxy\": {\n    \"Routes\": {\n      \"route1\": {\n        \"ClusterId\": \"cluster1\",\n        \"Match\": {\n          \"Path\": \"{**catch-all}\"\n        }\n      }\n    },\n    \"Clusters\": {\n      \"cluster1\": {\n        \"Destinations\": {\n          \"destination1\": {\n            \"Address\": \"http://localhost/\"\n          }\n        }\n      }\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app":"operator-api","type":"backend"},"name":"configmap-operator-api","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:45Z"
+  labels:
+    app: operator-api
+    type: backend
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-operator-api
+  namespace: staging
+  resourceVersion: "12662547"
+  uid: e6f29ed9-b700-4d64-9ec0-fe2112398c24

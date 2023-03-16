@@ -1,0 +1,109 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjYzMjkzMTEwLCJleHAiOjE2NjMyOTY3MTAsImlhdCI6MTY2MzI5MzExMCwiaXNzIjoidGdzIn0.kQh0mEvJozaU1YnDIkQNGR9poa32QlHTyJ7CeSxwda-2kdXA4m8n-1pqqD2KKoMtxRYfEAqZbDq3u1QZEoehVoFIVV0yLk_MDyXXUOZa_KNTIw-nrc0-k57NqH2Mxo6Nw1VoeZdmiA4Pexb5nbP9F8TvR2Q8dXGv-_OmB7ryIdio-VDZApJQHw3b7XmZubUuB9BN3QtYvf43SKnzCeQVaJHIiXG6ZoNxeozDx4jCPtfom0ppA-eEutdhzM6n5RhRYLzJtysQ54zA4ExTP34pdip3ofPerFLPORTA6K8mJ4qAC-zmwXPI4UPfWaYczqMMhgmaUWN8B6UhUxhXqeKp9w;
+      proxy_set_header Agent-Invitation-Code ofsnbk;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-04-16T11:44:17Z"
+  generation: 2
+  labels:
+    tgs.agent.username: Ra3
+    tgs.brandcode: GMO
+    tgs.invitation: ofsnbk
+  name: ing-agent-gmo-ra3
+  namespace: prod
+  resourceVersion: "432439970"
+  uid: d8a01619-f654-44d3-8d29-3d81ffdcae5e
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hkg28k12.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hkg28k12.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hkg28k12.com
+    - www.hkg28k12.com
+    secretName: agent-gmo-ra3
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

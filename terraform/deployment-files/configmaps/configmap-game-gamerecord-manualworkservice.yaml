@@ -1,0 +1,46 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "DataBaseServer": {
+        "TcgServiceClientBaseUrl": "http://game-tcg",
+        "GameRoundsClientBaseUrl": "http://game-gamerounds",
+        "GameCurrencyClientBaseUrl": "http://game-gamecurrency"
+      },
+      "MongoMessageQueueSettings": {
+        "DefineName": "gp.gamerecord.database.manual",
+        "Workers": 1,
+        "AWCPGSWorkers": 32,
+        "AWCFACAIWorkers": 32,
+        "AWCFS": 1,
+        "AWCAWS": 1,
+        "EVOTFWorkers": 1,
+        "HABATFWorkers": 1,
+        "JDBTFWorkers": 1,
+        "JILITFWorkers": 16,
+        "JOKERWorkers": 1,
+        "PPTFWorkers": 16,
+        "WMTFWorkers": 1
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"DataBaseServer\": {\n    \"TcgServiceClientBaseUrl\": \"http://game-tcg\",\n    \"GameRoundsClientBaseUrl\": \"http://game-gamerounds\",\n    \"GameCurrencyClientBaseUrl\": \"http://game-gamecurrency\"\n  },\n  \"MongoMessageQueueSettings\": {\n    \"DefineName\": \"gp.gamerecord.database.manual\",\n    \"Workers\": 1,\n    \"AWCPGSWorkers\": 32,\n    \"AWCFACAIWorkers\": 32,\n    \"AWCFS\": 1,\n    \"AWCAWS\": 1,\n    \"EVOTFWorkers\": 1,\n    \"HABATFWorkers\": 1,\n    \"JDBTFWorkers\": 1,\n    \"JILITFWorkers\": 16,\n    \"JOKERWorkers\": 1,\n    \"PPTFWorkers\": 16,\n    \"WMTFWorkers\": 1\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app":"game-gamerecord-manualworkservice","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-manualworkservice","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-manualworkservice-0.1.0","tgs.game.kind":"gamerecord","tgs.gamerecord.kind":"manualworkservice","tgs.kind":"game"},"name":"configmap-game-gamerecord-manualworkservice","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:42Z"
+  labels:
+    app: game-gamerecord-manualworkservice
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-manualworkservice
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-manualworkservice-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gamerecord.kind: manualworkservice
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-game-gamerecord-manualworkservice
+  namespace: staging
+  resourceVersion: "36233865"
+  uid: a19fdfcc-8bbe-4085-9bfa-4729dea04817

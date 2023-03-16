@@ -1,0 +1,103 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSEsyOCIsInN1YiI6IjU1ZWUzZWNlLTI4MTgtNDBlOS1hZGQ5LTA5NWFhYmQ3MjFjZCIsIm5iZiI6MTYzNzYzNjY2MSwiZXhwIjoxNjM3NjQwMjYxLCJpYXQiOjE2Mzc2MzY2NjEsImlzcyI6InRncyJ9.uofbRVJNSMHiY7HwJHRNkVOM-XEzoYx4oClyqhlplPSwDliP-rxdAyyTatGM6u8JWsz1aqOVRCJVOuhJg8TNNgR60BQuIeTMjp91yIWghtl_P4KEqmtVkBa7t3uqQPa76xxI1lRh9uPnrG5K7m0cPtH19RrHIXAkTl_lWr2csrJnEWxYuzYuje6eKcr0z4g4z9Q2ximGslIgoB9xPJm_vKtqUkL0dks_1WL9AFV64uF21GVsIOdCyOpX500N-KWkN2v9PrefRR5wTBD1E1OAH4H4JpgM8kJbaHTdobapa5pOPguVz1_pxajPbK8L6xrMowUOL2UySBhF2B0Nx6nhgw;\nproxy_set_header Agent-Invitation-Code eccsml;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-01-31T08:08:01Z","generation":1,"labels":{"tgs.info":"hk2812.com-eccsml"},"name":"lobby-hk28-hk2812-com","namespace":"prod","resourceVersion":"341253286","uid":"e9fc09ef-98a2-40ef-9c82-2de84aa7da8c"},"spec":{"ingressClassName":"nginx","rules":[{"host":"hk2812.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-hk28","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}},{"host":"www.hk2812.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-hk28","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSEsyOCIsInN1YiI6IjU1ZWUzZWNlLTI4MTgtNDBlOS1hZGQ5LTA5NWFhYmQ3MjFjZCIsIm5iZiI6MTYzNzYzNjY2MSwiZXhwIjoxNjM3NjQwMjYxLCJpYXQiOjE2Mzc2MzY2NjEsImlzcyI6InRncyJ9.uofbRVJNSMHiY7HwJHRNkVOM-XEzoYx4oClyqhlplPSwDliP-rxdAyyTatGM6u8JWsz1aqOVRCJVOuhJg8TNNgR60BQuIeTMjp91yIWghtl_P4KEqmtVkBa7t3uqQPa76xxI1lRh9uPnrG5K7m0cPtH19RrHIXAkTl_lWr2csrJnEWxYuzYuje6eKcr0z4g4z9Q2ximGslIgoB9xPJm_vKtqUkL0dks_1WL9AFV64uF21GVsIOdCyOpX500N-KWkN2v9PrefRR5wTBD1E1OAH4H4JpgM8kJbaHTdobapa5pOPguVz1_pxajPbK8L6xrMowUOL2UySBhF2B0Nx6nhgw;
+      proxy_set_header Agent-Invitation-Code eccsml;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-01-31T08:08:01Z"
+  generation: 2
+  labels:
+    tgs.info: hk2812.com-eccsml
+  name: lobby-hk28-hk2812-com
+  namespace: prod
+  resourceVersion: "438537594"
+  uid: e9fc09ef-98a2-40ef-9c82-2de84aa7da8c
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hk2812.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-hk28
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hk2812.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-hk28
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

@@ -1,0 +1,284 @@
+alerting:
+  telegram:
+    token: "1652136804:AAFWBATSiBh-6wNIpoUXHCRNwSOa5J3fVfw"
+    id: "-1001211440897"
+storage:
+  type: postgres
+  path: "postgres://rpdev:abcd1234@192.168.50.125:5432/gatus?sslmode=disable"
+endpoints:
+  - group: monitoring
+    name: prometheus-server
+    url: http://prometheus-server.monitoring
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: monitoring
+    name: grafana
+    url: http://grafana.monitoring/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: observability
+    name: elasticsearch-master
+    url: http:///elasticsearch-master.observability:9200
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: observability
+    name: kibana-kibana
+    url: http://kibana-kibana.observability:5601
+    interval: 30s
+    conditions:
+      - '[STATUS] == 302'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: observability
+    name: jaeger-query 
+    url: http://jaeger-query.observability
+    interval: 30s
+    conditions:
+      - '[STATUS] == 302'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: observability
+    name: jaeger-collector
+    url: http://jaeger-collector.observability:14269
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: logging
+    name: fluent-bit
+    url: http://fluent-bit.logging:2020
+    interval: 30s
+    conditions:
+      - '[STATUS] == 202'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: logging
+    name: log-center-fluent-bit
+    url: http://log-center-fluent-bit.logging:2020
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: rabbitmq
+    name: rabbitmq.mq
+    url: http://mq.rabbitmq:15672
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+ 
+  - group: ingress-nginx
+    name: ingress-nginx-controller
+    url: http://ingress-nginx-controller.ingress-nginx:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: pgpool
+    url: tcp://pgpool.dev:9999
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: redis
+    url: tcp://redis-master.dev:9999
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: nats
+    url: tcp://nats.dev:4222
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: operator-api
+    url: http://operator-api.dev:80/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: backoffice-api
+    url: http://backoffice-api.dev:80/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: payment-api
+    url: http://payment-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: payment-api
+    url: http://payment-maticpay.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: agent-api
+    url: http://agent-api.dev:80/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: brand-api 
+    url: http://brand-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: brand-cert-api 
+    url: http://brand-cert-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: report-api    
+    url: http://report-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: cashservice-api  
+    url: http://cashservice-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: player-api 
+    url: http://player-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: promotion-api 
+    url: http://promotion-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true
+  - group: dev
+    name: validatecode-api
+    url: http://validatecode-api.dev:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed"
+      send-on-resolved: true

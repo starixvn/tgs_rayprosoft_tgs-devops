@@ -1,0 +1,109 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR01PIiwic3ViIjoiNjhiMTY2NjYtNzgyNS00Njc0LTk5NGUtOTk1ZmQzNTU5ODM1IiwibmJmIjoxNjYzMDYzMDA3LCJleHAiOjE2NjMwNjY2MDcsImlhdCI6MTY2MzA2MzAwNywiaXNzIjoidGdzIn0.BW-5naEcZTYRt6B9giGBb-HMjFxqNvnnOj2fHObAxubPoJXLZp8PBNVYtXo6KhMQtCB99p8eAX6keKqyQbUmkv34R-IaSaTrRpem_hV4DXwkwsKw54jpKsSZzyIXfogmZJ8ip9jJzxXo8MSC5Z0EK62SQBWPcNagft0HqzUp8QJA33PYrU3KIsjLxl-0EfEo90L7fL4iJXuMa1QuG7KVLQdGcsTcg-wIxJIrxLyIzP3v9I1FuOLblWNf8p1SVvNZF0R8uZCyaz3GwFyUPs0qdKK7bIQGunhV1nIM_zhlncIidoZhp8q_fPHyYKRVjdjw96gWdOrtRgvEXnoWq5VvIA;
+      proxy_set_header Agent-Invitation-Code 9ks1ge;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-09-13T09:56:47Z"
+  generation: 1
+  labels:
+    tgs.agent.username: Danni
+    tgs.brandcode: GMO
+    tgs.invitation: 9ks1ge
+  name: ing-agent-gmo-danni
+  namespace: prod
+  resourceVersion: "432441746"
+  uid: 0e9eebe5-827c-4f14-bef2-975f3d0167dc
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hkg28k01.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: www.hkg28k01.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gmo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hkg28k01.com
+    - www.hkg28k01.com
+    secretName: agent-gmo-danni
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

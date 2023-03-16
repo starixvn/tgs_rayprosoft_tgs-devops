@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-tcg"},"name":"game-tcg","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-tcg"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:21Z"
+  labels:
+    app: game-tcg
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-tcg
+  namespace: staging
+  resourceVersion: "771362"
+  uid: 1f11f171-efdb-4f36-b040-2305ff167d95
+spec:
+  clusterIP: 172.20.47.215
+  clusterIPs:
+  - 172.20.47.215
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-tcg
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

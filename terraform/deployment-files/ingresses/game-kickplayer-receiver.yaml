@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"extensions/v1beta1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","kubernetes.io/ingress.class":"nginx"},"name":"game-kickplayer-receiver","namespace":"staging"},"spec":{"rules":[{"host":"stg-kickplayer-receiver.rpgp.cc","http":{"paths":[{"backend":{"serviceName":"game-kickplayer-receiverserver","servicePort":80},"path":"/"}]}}],"tls":[{"hosts":["stg-kickplayer-receiver.rpgp.cc"],"secretName":"stg-kickplayer-receiver.rpgp.cc"}]}}
+    kubernetes.io/ingress.class: nginx
+  creationTimestamp: "2022-10-07T08:57:00Z"
+  generation: 1
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-kickplayer-receiver
+  namespace: staging
+  resourceVersion: "19706952"
+  uid: 411a3422-de95-4f90-bfce-9185e8926cee
+spec:
+  rules:
+  - host: stg-kickplayer-receiver.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: game-kickplayer-receiverserver
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - stg-kickplayer-receiver.rpgp.cc
+    secretName: stg-kickplayer-receiver.rpgp.cc
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

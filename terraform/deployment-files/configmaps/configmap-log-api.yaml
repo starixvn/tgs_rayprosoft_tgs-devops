@@ -1,0 +1,26 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "System.Net.Http.HttpClient": "Warning",
+          "Tgs.LogApi.MessageQueue.AdminLogHandler": "Warning",
+          "Tgs.LogApi.MessageQueue.ApiLogHandler": "Warning",
+          "Tgs.LogApi.MessageQueue.LogRecordHandler": "Warning"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"Logging\": {\n    \"LogLevel\": {\n      \"System.Net.Http.HttpClient\": \"Warning\",\n      \"Tgs.LogApi.MessageQueue.AdminLogHandler\": \"Warning\",\n      \"Tgs.LogApi.MessageQueue.ApiLogHandler\": \"Warning\",\n      \"Tgs.LogApi.MessageQueue.LogRecordHandler\": \"Warning\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-log-api","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:45Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-log-api
+  namespace: staging
+  resourceVersion: "768982"
+  uid: 1e3fe663-ed00-45d5-baee-ae795263b5ae

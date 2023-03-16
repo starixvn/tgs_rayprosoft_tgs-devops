@@ -1,0 +1,29 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "EmailSetting": {
+        "FromMail": "no-reply@verime99.com",
+        "FromName": "no-reply",
+        "SmtpServer": "smtp.gmail.com",
+        "Port": 587
+      },
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      },
+      "AllowedHosts": "*",
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"EmailSetting\": {\n    \"FromMail\": \"no-reply@verime99.com\",\n    \"FromName\": \"no-reply\",\n    \"SmtpServer\": \"smtp.gmail.com\",\n    \"Port\": 587\n  },\n  \"Logging\": {\n    \"LogLevel\": {\n      \"Default\": \"Information\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  },\n  \"AllowedHosts\": \"*\",\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"email-api","namespace":"staging"}}
+  creationTimestamp: "2022-10-27T03:20:44Z"
+  name: email-api
+  namespace: staging
+  resourceVersion: "9076409"
+  uid: 818e4845-5f18-4f94-9719-cc47c2283b33

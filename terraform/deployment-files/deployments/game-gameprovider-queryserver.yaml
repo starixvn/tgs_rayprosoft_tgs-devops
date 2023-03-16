@@ -1,0 +1,175 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "9"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"game-gameprovider-queryserver","tgs.kind":"game"},"name":"game-gameprovider-queryserver","namespace":"staging"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"game-gameprovider-queryserver"}},"template":{"metadata":{"annotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"52325","prometheus.io/scrape":"true"},"labels":{"app":"game-gameprovider-queryserver","tgs.kind":"game"}},"spec":{"containers":[{"env":[{"name":"OTEL_SERVICE_NAME","value":"Game-GameProvider-QueryServer(staging)"},{"name":"NODE_IP","valueFrom":{"fieldRef":{"fieldPath":"status.hostIP"}}},{"name":"ConnectionStrings__Tgs","valueFrom":{"secretKeyRef":{"key":"tgs","name":"tgs-connections"}}}],"image":"pgtgs/game-gameprovider-queryserver:202211160245.14","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/healthz","port":"http"},"periodSeconds":5},"name":"game-gameprovider-queryserver","ports":[{"containerPort":80,"name":"http","protocol":"TCP"}],"resources":{"limits":{"cpu":"100m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"128Mi"}},"securityContext":{},"startupProbe":{"failureThreshold":30,"httpGet":{"path":"/healthz","port":"http"},"periodSeconds":2},"volumeMounts":[{"mountPath":"/config/appsettings.json","name":"appsettings","readOnly":true,"subPath":"appsettings.json"}]},{"args":["--no-auth"],"env":[{"name":"DOTNETMONITOR_DiagnosticPort__ConnectionMode","value":"Listen"},{"name":"DOTNETMONITOR_DiagnosticPort__EndpointName","value":"/diag/port"},{"name":"DOTNETMONITOR_Storage__DumpTempFolder","value":"/dumps"},{"name":"DOTNETMONITOR_Urls","value":"http://+:52324"},{"name":"DOTNETMONITOR_Metrics__Endpoints","value":"http://+:52325"},{"name":"XDG_CONFIG_HOME","value":"/config"}],"image":"mcr.microsoft.com/dotnet/monitor:6.0.0","imagePullPolicy":"IfNotPresent","name":"monitor","resources":{"limits":{"cpu":"250m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"32Mi"}},"volumeMounts":[{"mountPath":"/diag","name":"diagvol"},{"mountPath":"/dumps","name":"dumpsvol"},{"mountPath":"/config/dotnet-monitor/settings.json","name":"appsettings","readOnly":true,"subPath":"monitor.settings.json"}]}],"imagePullSecrets":[{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"securityContext":{},"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"configMap":{"name":"configmap-game-gameprovider-queryserver"},"name":"appsettings"},{"emptyDir":{},"name":"diagvol"},{"emptyDir":{},"name":"dumpsvol"}]}}}}
+  creationTimestamp: "2022-10-07T08:56:50Z"
+  generation: 9
+  labels:
+    app: game-gameprovider-queryserver
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gameprovider-queryserver
+  namespace: staging
+  resourceVersion: "35262502"
+  uid: a89aca2e-55ae-4b7d-97c9-0102c675a4e6
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: game-gameprovider-queryserver
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2022-12-27T14:57:44+08:00"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "52325"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: game-gameprovider-queryserver
+        tgs.kind: game
+    spec:
+      containers:
+      - env:
+        - name: OTEL_SERVICE_NAME
+          value: Game-GameProvider-QueryServer(staging)
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: ConnectionStrings__Tgs
+          valueFrom:
+            secretKeyRef:
+              key: tgs
+              name: tgs-connections
+        image: pgtgs/game-gameprovider-queryserver:202211160245.14
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: game-gameprovider-queryserver
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        securityContext: {}
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config/appsettings.json
+          name: appsettings
+          readOnly: true
+          subPath: appsettings.json
+      - args:
+        - --no-auth
+        env:
+        - name: DOTNETMONITOR_DiagnosticPort__ConnectionMode
+          value: Listen
+        - name: DOTNETMONITOR_DiagnosticPort__EndpointName
+          value: /diag/port
+        - name: DOTNETMONITOR_Storage__DumpTempFolder
+          value: /dumps
+        - name: DOTNETMONITOR_Urls
+          value: http://+:52324
+        - name: DOTNETMONITOR_Metrics__Endpoints
+          value: http://+:52325
+        - name: XDG_CONFIG_HOME
+          value: /config
+        image: mcr.microsoft.com/dotnet/monitor:6.0.0
+        imagePullPolicy: IfNotPresent
+        name: monitor
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /diag
+          name: diagvol
+        - mountPath: /dumps
+          name: dumpsvol
+        - mountPath: /config/dotnet-monitor/settings.json
+          name: appsettings
+          readOnly: true
+          subPath: monitor.settings.json
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-game-gameprovider-queryserver
+        name: appsettings
+      - emptyDir: {}
+        name: diagvol
+      - emptyDir: {}
+        name: dumpsvol
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-12-27T06:56:44Z"
+    lastUpdateTime: "2022-12-27T06:56:44Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-10-11T03:22:26Z"
+    lastUpdateTime: "2022-12-27T06:57:55Z"
+    message: ReplicaSet "game-gameprovider-queryserver-65b766799" has successfully
+      progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 9
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

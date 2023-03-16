@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "ConnectionStrings": {
+        "File": "mongodb://root:1qaz2wsx@mongodb/filedb?retryWrites=true&w=majority&authSource=admin",
+        "Nats": "nats://nats:4222"
+      },
+      "AWS": {
+        "AccessKeyId": "AKIAQ4KFUNHMT7UISYWT",
+        "SecretAccessKey": "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",
+        "Region": "ap-east-1",
+        "UseHttp": true,
+        "Public": {
+          "ExternalServiceUrl": "https://project.srvptt.com",
+          "ServiceUrl": "http://project.srvptt.com.s3.ap-east-1.amazonaws.com",
+          "Bucket": "tgs-project"
+        },
+        "Private": {
+          "ExternalServiceUrl": "https://tgs-secret.s3.ap-east-1.amazonaws.com",
+          "ServiceUrl": "https://tgs-secret.s3.ap-east-1.amazonaws.com",
+          "Bucket": "tgs-secretf"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ConnectionStrings\": {\n    \"File\": \"mongodb://root:1qaz2wsx@mongodb/filedb?retryWrites=true\u0026w=majority\u0026authSource=admin\",\n    \"Nats\": \"nats://nats:4222\"\n  },\n  \"AWS\": {\n    \"AccessKeyId\": \"AKIAQ4KFUNHMT7UISYWT\",\n    \"SecretAccessKey\": \"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\",\n    \"Region\": \"ap-east-1\",\n    \"UseHttp\": true,\n    \"Public\": {\n      \"ExternalServiceUrl\": \"https://project.srvptt.com\",\n      \"ServiceUrl\": \"http://project.srvptt.com.s3.ap-east-1.amazonaws.com\",\n      \"Bucket\": \"tgs-project\"\n    },\n    \"Private\": {\n      \"ExternalServiceUrl\": \"https://tgs-secret.s3.ap-east-1.amazonaws.com\",\n      \"ServiceUrl\": \"https://tgs-secret.s3.ap-east-1.amazonaws.com\",\n      \"Bucket\": \"tgs-secretf\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-file-service","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:39Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-file-service
+  namespace: staging
+  resourceVersion: "768837"
+  uid: 3dabf8d9-479c-4a19-a45f-2fe2579f0a7c

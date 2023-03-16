@@ -1,0 +1,63 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVEdTNjg5Iiwic3ViIjoiMzkyZWJlN2MtYmY3My00NDk0LWFmMzMtMDA0YzljNzFiOTA5IiwibmJmIjoxNjQ4MTcyMDgzLCJleHAiOjE2NDgxNzU2ODMsImlhdCI6MTY0ODE3MjA4MywiaXNzIjoidGdzIn0.UaEmLktlekx7Zhj0ahUkrJsx__kLRrrVvOh-1a3XuayEhubnIlZz3FgrSyFS94dkNsEzPjTGTCJvk8jV-AJtUbbjVlKWPQSS_BiDiYYuBXNkqMFjpYhpckDC28IPJEzngxdC2ch_4V911RuDZ6RZJ_J5Fi3RmC7DgWqGE_3ZDHTDv8-L1bhWknKSNU4UO4B7q94cTDMWQ0uTV5LMYXagn-5RvPoFhqraz55uXiRAWFylnNUy8NJify98Sd-E1A3lRIm04FVInbe9HVSb-lgRnizR9lsw1p23hzEy-uD8YyoLz6_6SmiY3jQKuYlGqGmb7aGQzabJM6yNjf90NhNmpg;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m"},"creationTimestamp":"2022-03-25T01:37:18Z","generation":1,"name":"ingress-lobby-tgs689","namespace":"staging","resourceVersion":"341355639","uid":"fcf5928d-4183-48ad-84bb-3bcc23f731f1"},"spec":{"ingressClassName":"nginx","rules":[{"host":"stg-tgs689.rpgp.cc","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-tgs689","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.187"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVEdTNjg5Iiwic3ViIjoiMzkyZWJlN2MtYmY3My00NDk0LWFmMzMtMDA0YzljNzFiOTA5IiwibmJmIjoxNjQ4MTcyMDgzLCJleHAiOjE2NDgxNzU2ODMsImlhdCI6MTY0ODE3MjA4MywiaXNzIjoidGdzIn0.UaEmLktlekx7Zhj0ahUkrJsx__kLRrrVvOh-1a3XuayEhubnIlZz3FgrSyFS94dkNsEzPjTGTCJvk8jV-AJtUbbjVlKWPQSS_BiDiYYuBXNkqMFjpYhpckDC28IPJEzngxdC2ch_4V911RuDZ6RZJ_J5Fi3RmC7DgWqGE_3ZDHTDv8-L1bhWknKSNU4UO4B7q94cTDMWQ0uTV5LMYXagn-5RvPoFhqraz55uXiRAWFylnNUy8NJify98Sd-E1A3lRIm04FVInbe9HVSb-lgRnizR9lsw1p23hzEy-uD8YyoLz6_6SmiY3jQKuYlGqGmb7aGQzabJM6yNjf90NhNmpg;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+  creationTimestamp: "2022-10-07T08:57:06Z"
+  generation: 1
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: ingress-lobby-tgs689
+  namespace: staging
+  resourceVersion: "19707405"
+  uid: 882542c2-34ee-48bb-b7b3-e856a5ce7496
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: stg-tgs689.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-tgs689
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

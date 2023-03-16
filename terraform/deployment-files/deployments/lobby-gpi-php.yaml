@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "142"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"creationTimestamp":"2022-07-21T08:59:41Z","generation":76,"labels":{"app":"lobby-gpi-php","type":"lobby"},"name":"lobby-gpi-php","namespace":"staging"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"lobby-gpi-php"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"lobby-gpi-php","type":"lobby"}},"spec":{"containers":[{"env":[{"name":"CLIENT","value":"Xbg90g2i7aRc7ZIdlN4Xe21uU2My7dQtiUimFxHRraIVE3cwFh1LVo"},{"name":"CURRENCY","value":"PHP"},{"name":"BRAND","value":"GPI-PHP"},{"name":"DEFAULT_LANGUAGE","value":"zh-CN"},{"name":"THEME","value":"red"},{"name":"SOURCE_URL","value":"https://images.srvptt.com/"}],"image":"registry.gitlab.com/rayprosoft/turnkey-gaming-system/lobby-t1:staging-2022-1004-0701","imagePullPolicy":"Always","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"name":"lobby-gpi-php","ports":[{"containerPort":80,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"10m","memory":"60Mi"},"requests":{"cpu":"2m","memory":"12Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/data","name":"site-data"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-credentials"},{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"emptyDir":{},"name":"site-data"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-08-25T02:11:44Z","lastUpdateTime":"2022-08-25T02:11:44Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2022-07-21T09:14:19Z","lastUpdateTime":"2022-10-04T07:14:45Z","message":"ReplicaSet \"lobby-gpi-php-64f698f879\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":76,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    kubernetes.io/change-cause: kubectl set image deployment/lobby-gpi-php lobby-gpi-php=pgtgs/lobby-t13:staging-2023-0103-0509
+      --record=true --namespace=staging
+  creationTimestamp: "2022-10-07T08:56:54Z"
+  generation: 142
+  labels:
+    app: lobby-gpi-php
+    type: lobby
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: lobby-gpi-php
+  namespace: staging
+  resourceVersion: "38375984"
+  uid: f41bfcca-a385-4002-971c-8265007b6018
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: lobby-gpi-php
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lobby-gpi-php
+        type: lobby
+    spec:
+      containers:
+      - env:
+        - name: CLIENT
+          value: Xbg90g2i7aRc7ZIdlN4Xe21uU2My7dQtiUimFxHRraIVE3cwFh1LVo
+        - name: CURRENCY
+          value: PHP
+        - name: BRAND
+          value: GPI-PHP
+        - name: DEFAULT_LANGUAGE
+          value: en-US
+        - name: THEME
+          value: wapT13
+        - name: WAPTEMPLATE
+          value: "13"
+        - name: SOURCE_URL
+          value: https://images.srvptt.com/
+        - name: ACCOUNT_TEMPLATE
+          value: "13"
+        image: pgtgs/lobby-t13:staging-2023-0103-0509
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: lobby-gpi-php
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 10m
+            memory: 60Mi
+          requests:
+            cpu: 2m
+            memory: 12Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: site-data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registry-credentials
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - emptyDir: {}
+        name: site-data
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-11-24T00:21:46Z"
+    lastUpdateTime: "2022-11-24T00:21:46Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-10-11T05:04:48Z"
+    lastUpdateTime: "2023-01-03T05:15:20Z"
+    message: ReplicaSet "lobby-gpi-php-7dbb8b6cf8" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 142
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

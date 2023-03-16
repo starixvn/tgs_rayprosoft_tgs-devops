@@ -1,0 +1,2725 @@
+alerting:
+  telegram:
+    token: "1652136804:AAFWBATSiBh-6wNIpoUXHCRNwSOa5J3fVfw"
+    id: "-1001368681345"
+storage:
+  type: postgres
+  path: "postgres://gatus:1q2w3e4r@db-staging.cglu874fh5rb.ap-east-1.rds.amazonaws.com/gatus?sslmode=disable"
+endpoints:
+  - group: agent
+    name: agent-28bet
+    url: http://agent-28bet
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-api
+    url: http://agent-api/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-dsite
+    url: http://agent-dsite
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-gmo
+    url: http://agent-gmo
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-gpi
+    url: http://agent-gpi
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-hk28
+    url: http://agent-hk28
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-hkjp
+    url: http://agent-hkjp
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-idr1
+    url: http://agent-idr1
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-king8
+    url: http://agent-king8
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-pb2
+    url: http://agent-pb2
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-tep
+    url: http://agent-tep
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-tgs689
+    url: http://agent-tgs689
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-tiger
+    url: http://agent-tiger
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-tigercn
+    url: http://agent-tigercn
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-wghk
+    url: http://agent-wghk
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: agent
+    name: agent-wlghk
+    url: http://agent-wlghk
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: backoffice-api
+    url: http://backoffice-api/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: backoffice-site
+    url: http://backoffice-site/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: brand-api
+    url: http://brand-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: brand-cert-api
+    url: http://brand-cert-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: cashservice-api
+    url: http://cashservice-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: email-api
+    url: http://email-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: file-service
+    url: http://file-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: game-pluggable-service
+    url: http://game-pluggable-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: marketing-report-api
+    url: http://marketing-report-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: marketing-report-daily-aggregate
+    url: http://marketing-report-daily-aggregate/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: notification-receiver-service
+    url: http://notification-receiver-service/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: operator-api
+    url: http://operator-api/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: player-api
+    url: http://player-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: profit-rebate-service
+    url: http://profit-rebate-service/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: promotion-api
+    url: http://promotion-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: promotion-deposit-service
+    url: http://promotion-deposit-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: promotion-register-service
+    url: http://promotion-register-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: promotion-relief-money-service
+    url: http://promotion-relief-money-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: report-aggregate-service
+    url: http://report-aggregate-service/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: report-api
+    url: http://report-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: schedulers
+    url: http://schedulers/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: sms-globalcall
+    url: http://sms-globalcall/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: sms-service
+    url: http://sms-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-deposit-accumulate-roulette
+    url: http://tgs-deposit-accumulate-roulette/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-deposit-accumulate-roulette-background
+    url: http://tgs-deposit-accumulate-roulette-background/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-deposit-accumulate-roulette-worker
+    url: http://tgs-deposit-accumulate-roulette-worker/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-payment-background
+    url: http://tgs-payment-background/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-payment-wandapay
+    url: http://tgs-payment-wandapay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-playerbucket-committer
+    url: http://tgs-playerbucket-committer/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-playerbucket-service
+    url: http://tgs-playerbucket-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-playerbucket-worker
+    url: http://tgs-playerbucket-worker/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: tgs-promotion-rebate
+    url: http://tgs-promotion-rebate/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: backend
+    name: validatecode-api
+    url: http://validatecode-api/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gamecommand
+    url: http://game-gamecommand/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gamecurrency
+    url: http://game-gamecurrency/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gameexternalinterface-sw-service
+    url: http://game-gameexternalinterface-sw-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gamefundtransfer
+    url: http://game-gamefundtransfer/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gameplayerbalance
+    url: http://game-gameplayerbalance/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gameplayerlogout
+    url: http://game-gameplayerlogout/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gameproviders
+    url: http://game-gameproviders/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gamerecordschedules
+    url: http://game-gamerecordschedules/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gamerounds
+    url: http://game-gamerounds/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gameverification
+    url: http://game-gameverification/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-gameverification-worker
+    url: http://game-gameverification-worker/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game
+    name: game-token
+    url: http://game-token/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-awc-service
+    url: http://game-gameinterface-awc-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-bti-service
+    url: http://game-gameinterface-bti-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-dg-service
+    url: http://game-gameinterface-dg-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-evolution-service
+    url: http://game-gameinterface-evolution-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-habanero-service
+    url: http://game-gameinterface-habanero-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-jdb-service
+    url: http://game-gameinterface-jdb-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-jili-service
+    url: http://game-gameinterface-jili-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-saba-service
+    url: http://game-gameinterface-saba-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-sbo-service
+    url: http://game-gameinterface-sbo-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-sm01-service
+    url: http://game-gameinterface-sm01-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-sw-service
+    url: http://game-gameinterface-sw-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-tfgaming-service
+    url: http://game-gameinterface-tfgaming-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-wgfm-service
+    url: http://game-gameinterface-wgfm-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-interface
+    name: game-gameinterface-wmcasino-service
+    url: http://game-gameinterface-wmcasino-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-awc-manualservice
+    url: http://game-gamerecord-awc-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-bti-manualservice
+    url: http://game-gamerecord-bti-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-dgtf-manualservice
+    url: http://game-gamerecord-dgtf-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-evolution-manualservice
+    url: http://game-gamerecord-evolution-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-habanero-manualservice
+    url: http://game-gamerecord-habanero-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-jdb-manualservice
+    url: http://game-gamerecord-jdb-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-jili-manualservice
+    url: http://game-gamerecord-jili-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-joker-manualservice
+    url: http://game-gamerecord-joker-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-manual-service
+    url: http://game-gamerecord-manual-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-pptf-manualservice
+    url: http://game-gamerecord-pptf-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-saba-manualservice
+    url: http://game-gamerecord-saba-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-sbo-manualservice
+    url: http://game-gamerecord-sbo-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-sm01-manualservice
+    url: http://game-gamerecord-sm01-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-sw-manualservice
+    url: http://game-gamerecord-sw-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-tfgaming-manualservice
+    url: http://game-gamerecord-tfgaming-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-manualservice
+    name: game-gamerecord-wmcasino-manualservice
+    url: http://game-gamerecord-wmcasino-manualservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-joker-scheduleservice
+    url: http://game-gamerecord-joker-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-ky-scheduleservice
+    url: http://game-gamerecord-ky-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-ly-scheduleservice
+    url: http://game-gamerecord-ly-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-sw-scheduleservice
+    url: http://game-gamerecord-sw-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-wmcasino-scheduleservice
+    url: http://game-gamerecord-wmcasino-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-avia-scheduleservice
+    url: http://game-gamerecord-avia-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-awc-scheduleservice
+    url: http://game-gamerecord-awc-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-bg-fishing-scheduleservice
+    url: http://game-gamerecord-bg-fishing-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-bti-scheduleservice
+    url: http://game-gamerecord-bti-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-evolution-scheduleservice
+    url: http://game-gamerecord-evolution-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-habanero-scheduleservice
+    url: http://game-gamerecord-habanero-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-jdb-scheduleservice
+    url: http://game-gamerecord-jdb-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-jili-scheduleservice
+    url: http://game-gamerecord-jili-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-pptf-scheduleservice
+    url: http://game-gamerecord-pptf-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-saba-scheduleservice
+    url: http://game-gamerecord-saba-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-sbo-scheduleservice
+    url: http://game-gamerecord-sbo-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-sm01-scheduleservice
+    url: http://game-gamerecord-sm01-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-tcg-scheduleservice
+    url: http://game-gamerecord-tcg-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-tfgaming-scheduleservice
+    url: http://game-gamerecord-tfgaming-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-vr-scheduleservice
+    url: http://game-gamerecord-vr-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-wgfm-scheduleservice
+    url: http://game-gamerecord-wgfm-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-scheduleservice
+    name: game-gamerecord-wgvia-scheduleservice
+    url: http://game-gamerecord-wgvia-scheduleservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-avia-service
+    url: http://game-gamerecord-avia-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-awc-service
+    url: http://game-gamerecord-awc-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-bg-fishing-service
+    url: http://game-gamerecord-bg-fishing-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-bti-service
+    url: http://game-gamerecord-bti-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-dg-service
+    url: http://game-gamerecord-dg-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-dgtf-service
+    url: http://game-gamerecord-dgtf-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-evolution-service
+    url: http://game-gamerecord-evolution-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-habanero-service
+    url: http://game-gamerecord-habanero-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-jdb-service
+    url: http://game-gamerecord-jdb-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-jili-service
+    url: http://game-gamerecord-jili-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-joker-service
+    url: http://game-gamerecord-joker-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-ky-service
+    url: http://game-gamerecord-ky-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-ly-service
+    url: http://game-gamerecord-ly-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-pptf-service
+    url: http://game-gamerecord-pptf-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-saba-service
+    url: http://game-gamerecord-saba-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-sbo-service
+    url: http://game-gamerecord-sbo-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-sm01-service
+    url: http://game-gamerecord-sm01-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-sw-service
+    url: http://game-gamerecord-sw-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-tcg-service
+    url: http://game-gamerecord-tcg-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-tfgaming-service
+    url: http://game-gamerecord-tfgaming-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-vr-service
+    url: http://game-gamerecord-vr-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-wgfm-service
+    url: http://game-gamerecord-wgfm-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-wgvia-service
+    url: http://game-gamerecord-wgvia-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-service
+    name: game-gamerecord-wmcasino-service
+    url: http://game-gamerecord-wmcasino-service/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-awc-slot-workservice
+    url: http://game-gamerecord-awc-slot-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-awc-workservice
+    url: http://game-gamerecord-awc-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-bc-workservice
+    url: http://game-gamerecord-bc-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-bti-workservice
+    url: http://game-gamerecord-bti-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-evolution-workservice
+    url: http://game-gamerecord-evolution-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-habanero-workservice
+    url: http://game-gamerecord-habanero-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-jdb-workservice
+    url: http://game-gamerecord-jdb-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-jili-workservice
+    url: http://game-gamerecord-jili-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-manualworkservice
+    url: http://game-gamerecord-manualworkservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-pptf-workservice
+    url: http://game-gamerecord-pptf-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-record-workservice
+    name: game-gamerecord-workservice
+    url: http://game-gamerecord-workservice/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-365
+    url: http://game-365/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-ab
+    url: http://game-ab/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-ag
+    url: http://game-ag/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-bc
+    url: http://game-bc/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-bg
+    url: http://game-bg/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-dg
+    url: http://game-dg/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-haba
+    url: http://game-haba/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-imes
+    url: http://game-imes/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-jdb
+    url: http://game-jdb/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-saba
+    url: http://game-saba/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-sbo
+    url: http://game-sbo/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-sw
+    url: http://game-sw/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-tcg
+    url: http://game-tcg/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-tcg-ftp
+    url: http://game-tcg-ftp/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: game-single-wallet
+    name: game-tf
+    url: http://game-tf/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: mongodb
+    url: http://mongodb:27017/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: mongodb-express-mongo-express
+    url: http://mongodb-express-mongo-express:8081
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: nats
+    url: tcp://nats.staging:4222
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: pgpool
+    url: tcp://pgpool:9999
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: redis-master
+    url: tcp://redis-master:6379
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: redisinsight-redisinsight-chart
+    url: http://redisinsight-redisinsight-chart
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: prometheus-server
+    url: http://prometheus-server.monitoring
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: grafana
+    url: http://grafana.monitoring/health
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: elasticsearch-master
+    url: tcp://elasticsearch-master.observability:9200
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: kibana
+    url: tcp://kibana-kibana.observability:5601
+    interval: 30s
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: jaeger-query
+    url: http://jaeger-query.observability
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: jaeger-collector
+    url: http://jaeger-collector.observability:14269
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: fluent-bit
+    url: http://fluent-bit.logging:2020
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: log-center-fluent-bit
+    url: http://log-center-fluent-bit.logging:2020
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: ingress-nginx-controller
+    url: http://ingress-nginx-controller.ingress-nginx:80/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: infrastructure
+    name: rabbitmq
+    url: http://mq.rabbitmq:15672
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-28bet
+    url: http://lobby-28bet
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-bunny
+    url: http://lobby-bunny
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-gmo
+    url: http://lobby-gmo
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-hk28
+    url: http://lobby-hk28
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-hkjp
+    url: http://lobby-hkjp
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-idr1
+    url: http://lobby-idr1
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-king8
+    url: http://lobby-king8
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-megtest0201
+    url: http://lobby-megtest0201
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-mgm
+    url: http://lobby-mgm
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-pb
+    url: http://lobby-pb
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-pb2
+    url: http://lobby-pb2
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-pb3
+    url: http://lobby-pb3
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-piso
+    url: http://lobby-piso
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-sky
+    url: http://lobby-sky
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-tep
+    url: http://lobby-tep
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-tgs689
+    url: http://lobby-tgs689
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-tiger
+    url: http://lobby-tiger
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-tiger-landing
+    url: http://lobby-tiger-landing
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-tigercn
+    url: http://lobby-tigercn
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-webet
+    url: http://lobby-webet
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-wghk
+    url: http://lobby-wghk
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-wlg
+    url: http://lobby-wlg
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-wlghk
+    url: http://lobby-wlghk
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby
+    name: lobby-wlgvn
+    url: http://lobby-wlgvn
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t1
+    url: http://lobby-demo-t1
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t10
+    url: http://lobby-demo-t10
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t11
+    url: http://lobby-demo-t11
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t2
+    url: http://lobby-demo-t2
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t3
+    url: http://lobby-demo-t3
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t4
+    url: http://lobby-demo-t4
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t5
+    url: http://lobby-demo-t5
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-demo-t8
+    url: http://lobby-demo-t8
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gp-test
+    url: http://lobby-gp-test
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-hkd
+    url: http://lobby-gpi-hkd
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-idr
+    url: http://lobby-gpi-idr
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-php
+    url: http://lobby-gpi-php
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t1
+    url: http://lobby-gpi-t1
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t1-dar
+    url: http://lobby-gpi-t1-dar
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t10
+    url: http://lobby-gpi-t10
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t2
+    url: http://lobby-gpi-t2
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t3
+    url: http://lobby-gpi-t3
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t4
+    url: http://lobby-gpi-t4
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t5
+    url: http://lobby-gpi-t5
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t8
+    url: http://lobby-gpi-t8
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-t9
+    url: http://lobby-gpi-t9
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-thb
+    url: http://lobby-gpi-thb
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-gpi-usd
+    url: http://lobby-gpi-usd
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-t11
+    url: http://lobby-t11
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-t13
+    url: http://lobby-t13
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: lobby-gpi
+    name: lobby-tst
+    url: http://lobby-tst
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-alfapay
+    url: http://payment-alfapay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-api
+    url: http://payment-api/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-help2pay
+    url: http://payment-help2pay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-malakipay
+    url: http://payment-malakipay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-manual
+    url: http://payment-manual/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-maticpay
+    url: http://payment-maticpay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-primepay
+    url: http://payment-primepay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-scheduler
+    url: http://payment-scheduler/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-skypay
+    url: http://payment-skypay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: payment
+    name: payment-zeronineninepay
+    url: http://payment-zeronineninepay/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: tgs-viplevel
+    url: http://tgs-viplevel/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: viplevel-aggregate
+    url: http://viplevel-aggregate/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: viplevel-birthdayserver
+    url: http://viplevel-birthdayserver/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: viplevel-command
+    url: http://viplevel-command/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: viplevel-databaseserver
+    url: http://viplevel-databaseserver/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: viplevel-promotionserver
+    url: http://viplevel-promotionserver/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: viplevel-snapshot
+    url: http://viplevel-snapshot/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true
+  - group: viplevel
+    name: viplevel-upgrade
+    url: http://viplevel-upgrade/healthz
+    interval: 30s
+    conditions:
+      - '[STATUS] == 200'
+    alerts:
+    - type: telegram
+      enabled: true
+      description: "healthcheck failed\nplease check https://stg-gatus.rpgp.cc/"
+      send-on-resolved: true

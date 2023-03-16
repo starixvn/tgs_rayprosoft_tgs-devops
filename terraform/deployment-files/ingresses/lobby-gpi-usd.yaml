@@ -1,0 +1,69 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","kubernetes.io/ingress.class":"nginx","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJX1VTRCIsInN1YiI6ImNjMTQ5N2RiLTIwNzEtNDhhMS1iYzhjLTI2YWZhOWRkYmYzOSIsIm5iZiI6MTY0NjEwMTk3MCwiZXhwIjoxNjQ2MTA1NTcwLCJpYXQiOjE2NDYxMDE5NzAsImlzcyI6InRncyJ9.v73R1TpfYx41wNXg8FserVYoQfDPlY1_QOQj2eGQdFHBPsTaxBar5wbl1Me4mJV2bpV3qE6v-bDxbbt_sDViSCL_IWaW70YfpUel44YervUGgdROvrL-gflcK0Qpp78kGstCqwpmTsUNGnv5XlZPBxo_urHU-jKIaK-JmIcJITrH4hBuOUODYxaSlojU0dfk8D0dAlmywcGiXZ0BjnL1eKtRTOoVlnJ9e8E04-EVHpyDWoS7fiCXjpr_uUz_BLyMvEbRyk50eHzeGDY8aJ6TM9M0T-uGVCfAYea5LpSL3xf3-qTCrLNkJNA4J1B6bwMnatgpfslezQ8dXrbH_ZBxCA;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-03-01T02:36:11Z","generation":2,"name":"lobby-gpi-usd","namespace":"staging","resourceVersion":"341366489","uid":"2203d06e-c58d-4a9e-be62-e9abd72de65c"},"spec":{"rules":[{"host":"stg-gpi-usd.srvptt.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-gpi-usd","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}}],"tls":[{"hosts":["stg-gpi-usd.srvptt.com"],"secretName":"stg-gpi-usd.srvptt.com"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.227"}]}}}
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJX1VTRCIsInN1YiI6ImNjMTQ5N2RiLTIwNzEtNDhhMS1iYzhjLTI2YWZhOWRkYmYzOSIsIm5iZiI6MTY0NjEwMTk3MCwiZXhwIjoxNjQ2MTA1NTcwLCJpYXQiOjE2NDYxMDE5NzAsImlzcyI6InRncyJ9.v73R1TpfYx41wNXg8FserVYoQfDPlY1_QOQj2eGQdFHBPsTaxBar5wbl1Me4mJV2bpV3qE6v-bDxbbt_sDViSCL_IWaW70YfpUel44YervUGgdROvrL-gflcK0Qpp78kGstCqwpmTsUNGnv5XlZPBxo_urHU-jKIaK-JmIcJITrH4hBuOUODYxaSlojU0dfk8D0dAlmywcGiXZ0BjnL1eKtRTOoVlnJ9e8E04-EVHpyDWoS7fiCXjpr_uUz_BLyMvEbRyk50eHzeGDY8aJ6TM9M0T-uGVCfAYea5LpSL3xf3-qTCrLNkJNA4J1B6bwMnatgpfslezQ8dXrbH_ZBxCA;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-10-07T08:57:10Z"
+  generation: 1
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: lobby-gpi-usd
+  namespace: staging
+  resourceVersion: "19707254"
+  uid: 1f25441f-e759-426e-a44b-19feed825684
+spec:
+  rules:
+  - host: stg-gpi-usd.srvptt.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-gpi-usd
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - stg-gpi-usd.srvptt.com
+    secretName: stg-gpi-usd.srvptt.com
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

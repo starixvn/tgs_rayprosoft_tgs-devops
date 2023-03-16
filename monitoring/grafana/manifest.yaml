@@ -1,0 +1,9 @@
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install grafana grafana/grafana -f values.yaml -n monitoring
+
+
+helm upgrade --install grafana grafana/grafana -f values.yaml --set image.tag=9.2.6 -n monitoring
+
+
+https://hub.docker.com/r/grafana/grafana/tags
+

@@ -1,0 +1,56 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "GameRecord": {
+        "GameRoundsClientBaseUrl": "http://game-gamerounds"
+      },
+      "DistributedLockSettings": {
+        "LockPrefixKey": "gp:gamerecord:sbo:work:",
+        "LockMinutes": 1
+      },
+      "MongoMessageQueueSettings": {
+        "DefineName": "gp.gamerecord.database.manual",
+        "DeclareQueueName": "tgs.gp.gamerecord.database.manual.sbotf",
+        "Workers": 128
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"GameRecord\": {\n    \"GameRoundsClientBaseUrl\": \"http://game-gamerounds\"\n  },\n  \"DistributedLockSettings\": {\n    \"LockPrefixKey\": \"gp:gamerecord:sbo:work:\",\n    \"LockMinutes\": 1\n  },\n  \"MongoMessageQueueSettings\": {\n    \"DefineName\": \"gp.gamerecord.database.manual\",\n    \"DeclareQueueName\": \"tgs.gp.gamerecord.database.manual.sbotf\",\n    \"Workers\": 128\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app":"game-gamerecord-sbo-manualworkservice","app.kubernetes.io/instance":"RELEASE-NAME","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-sbo-manualworkservice","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-sbo-manualworkservice-0.1.0","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"sbo","tgs.kind":"game"},"name":"configmap-game-gamerecord-sbo-manualworkservice","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:43Z"
+  labels:
+    app: game-gamerecord-sbo-manualworkservice
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-sbo-manualworkservice
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-sbo-manualworkservice-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: sbo
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-game-gamerecord-sbo-manualworkservice
+  namespace: staging
+  resourceVersion: "768925"
+  uid: aa975d32-68c4-4a47-afe4-43f3e7bbd705

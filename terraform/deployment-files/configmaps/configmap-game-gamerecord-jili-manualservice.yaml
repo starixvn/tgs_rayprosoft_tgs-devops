@@ -1,0 +1,35 @@
+apiVersion: v1
+data:
+  appsettings.json: "{\n  \"GameRecordInfo\": {\n    \"MongoDefine\": \"gp.gamerecord.database.manual\",\n
+    \   \"MongoGlobPattern\": \"tgs.gp.gamerecord.database.manual.jilitf\",\n    \"GameProviderCode\":
+    \"JILITF\",\n    \"IntervalMinute\": 2,\n    \"PageLimit\": 10000\n  },\n  \n
+    \ \"GameRecord\": {\n    \"GameCommandClientBaseUrl\": \"http://game-gamecommand/\",\n
+    \   \"GameInterfaceJiliServiceBaseUrl\": \"http://game-gameinterface-jili-service:9090/\"\n
+    \ }\n}\n"
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"GameRecordInfo\": {\n    \"MongoDefine\": \"gp.gamerecord.database.manual\",\n    \"MongoGlobPattern\": \"tgs.gp.gamerecord.database.manual.jilitf\",\n    \"GameProviderCode\": \"JILITF\",\n    \"IntervalMinute\": 2,\n    \"PageLimit\": 10000\n  },\n  \n  \"GameRecord\": {\n    \"GameCommandClientBaseUrl\": \"http://game-gamecommand/\",\n    \"GameInterfaceJiliServiceBaseUrl\": \"http://game-gameinterface-jili-service:9090/\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-jili-manualservice","namespace":"staging"}}
+  creationTimestamp: "2022-10-12T08:10:58Z"
+  name: configmap-game-gamerecord-jili-manualservice
+  namespace: staging
+  resourceVersion: "36189610"
+  uid: 365a7f4f-4543-4494-8b3a-821b6d5464c0

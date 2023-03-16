@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"game-gamerecord-pptf-manualservice","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"game-gamerecord-pptf-manualservice","app.kubernetes.io/version":"1.16.0","helm.sh/chart":"game-gamerecord-pptf-manualservice-0.1.0","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"pptf","tgs.gamerecord.kind":"manualservice","tgs.kind":"game"},"name":"game-gamerecord-pptf-manualservice","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"game-gamerecord-pptf-manualservice","app.kubernetes.io/name":"game-gamerecord-pptf-manualservice","tgs.game.kind":"gamerecord","tgs.gameprovider.kind":"pptf","tgs.gamerecord.kind":"manualservice","tgs.kind":"game"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:19Z"
+  labels:
+    app: game-gamerecord-pptf-manualservice
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: game-gamerecord-pptf-manualservice
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: game-gamerecord-pptf-manualservice-0.1.0
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: pptf
+    tgs.gamerecord.kind: manualservice
+    tgs.kind: game
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: game-gamerecord-pptf-manualservice
+  namespace: staging
+  resourceVersion: "32453529"
+  uid: 49db949d-4aee-40d0-8c76-7b41dc858ce1
+spec:
+  clusterIP: 172.20.187.145
+  clusterIPs:
+  - 172.20.187.145
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: game-gamerecord-pptf-manualservice
+    app.kubernetes.io/name: game-gamerecord-pptf-manualservice
+    tgs.game.kind: gamerecord
+    tgs.gameprovider.kind: pptf
+    tgs.gamerecord.kind: manualservice
+    tgs.kind: game
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

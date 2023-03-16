@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"validatecode-api"},"name":"validatecode-api","namespace":"staging"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":"http"}],"selector":{"app":"validatecode-api"},"type":"ClusterIP"}}
+  creationTimestamp: "2022-10-07T08:57:25Z"
+  labels:
+    app: validatecode-api
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: validatecode-api
+  namespace: staging
+  resourceVersion: "771901"
+  uid: e2dcb3f8-d4fa-4d59-9e80-fe0df0bd0244
+spec:
+  clusterIP: 172.20.251.52
+  clusterIPs:
+  - 172.20.251.52
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: validatecode-api
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

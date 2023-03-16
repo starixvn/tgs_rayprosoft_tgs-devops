@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"pgpool","namespace":"staging"},"spec":{"ports":[{"name":"pgpool-port","port":9999,"protocol":"TCP","targetPort":9999}],"selector":{"app":"pgpool"}}}
+  creationTimestamp: "2022-10-06T05:48:19Z"
+  name: pgpool
+  namespace: staging
+  resourceVersion: "334318"
+  uid: deff5780-b2e8-4997-b769-7f93d2a410eb
+spec:
+  clusterIP: 172.20.69.53
+  clusterIPs:
+  - 172.20.69.53
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: pgpool-port
+    port: 9999
+    protocol: TCP
+    targetPort: 9999
+  selector:
+    app: pgpool
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

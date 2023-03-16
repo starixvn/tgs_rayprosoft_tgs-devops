@@ -1,0 +1,69 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"extensions/v1beta1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","kubernetes.io/ingress.class":"nginx","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJIiwic3ViIjoiNGU4NjcxOWYtMjQzZi00NmY2LWIwMTAtNWM3NThiNzI4NWFmIiwibmJmIjoxNjM3NjM0NTYzLCJleHAiOjE2Mzc2MzgxNjMsImlhdCI6MTYzNzYzNDU2MywiaXNzIjoidGdzIn0.n-VgLks4WpPxFp2-2Au-C3h0jzGiprJiMUmdwmhV5rWYqSbIr01Gi7_KJOPfkZeVR7h-muyT4wTGkd-YQJ1tLERfX4cPma2PNigwOKx_z38j3KayTKbNVk9g1o-VBiEYwOTLZf0i2wFdIsE0_k0ul-Kg2t9As9qRZ6apgBc-ANjABUpvm1ix6sLhgVEk-yl3gKwhqsC81LDaPn9VeAquZgbL193vCW4r7TJTZphP8PxCIMSY-5pj8YS7xQGX9wQiaAImJNKiEs_h2ar03oCV1WPb6767R0PEjK4KJEz5g6cKd2EGftpPCFdiYow-2ww_c8qRl1IuZ3oV6Tj9qexv-g;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"name":"ingress-lobby-t8","namespace":"staging"},"spec":{"rules":[{"host":"stg-t8.rpgp.cc","http":{"paths":[{"backend":{"serviceName":"brand-api","servicePort":80},"path":"/api/brandcommunication"},{"backend":{"serviceName":"brand-api","servicePort":80},"path":"/api/brandlivechat"},{"backend":{"serviceName":"operator-api","servicePort":80},"path":"/api"},{"backend":{"serviceName":"lobby-gpi-t8","servicePort":80},"path":"/"}]}}],"tls":[{"hosts":["stg-t8.rpgp.cc"],"secretName":"stg-t8.rpgp.cc"}]}}
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJIiwic3ViIjoiNGU4NjcxOWYtMjQzZi00NmY2LWIwMTAtNWM3NThiNzI4NWFmIiwibmJmIjoxNjM3NjM0NTYzLCJleHAiOjE2Mzc2MzgxNjMsImlhdCI6MTYzNzYzNDU2MywiaXNzIjoidGdzIn0.n-VgLks4WpPxFp2-2Au-C3h0jzGiprJiMUmdwmhV5rWYqSbIr01Gi7_KJOPfkZeVR7h-muyT4wTGkd-YQJ1tLERfX4cPma2PNigwOKx_z38j3KayTKbNVk9g1o-VBiEYwOTLZf0i2wFdIsE0_k0ul-Kg2t9As9qRZ6apgBc-ANjABUpvm1ix6sLhgVEk-yl3gKwhqsC81LDaPn9VeAquZgbL193vCW4r7TJTZphP8PxCIMSY-5pj8YS7xQGX9wQiaAImJNKiEs_h2ar03oCV1WPb6767R0PEjK4KJEz5g6cKd2EGftpPCFdiYow-2ww_c8qRl1IuZ3oV6Tj9qexv-g;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-10-07T08:57:06Z"
+  generation: 1
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: ingress-lobby-t8
+  namespace: staging
+  resourceVersion: "19707377"
+  uid: 3edcb312-eea2-4efe-b214-faee664eb429
+spec:
+  rules:
+  - host: stg-t8.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-gpi-t8
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - stg-t8.rpgp.cc
+    secretName: stg-t8.rpgp.cc
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

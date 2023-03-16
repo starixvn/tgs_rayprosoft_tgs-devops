@@ -1,0 +1,65 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJX1BIUCIsInN1YiI6IjQwMmRiZDc4LTdhNjgtNGEwNS04ZDM2LWFhODZhMGZiZmQyZCIsIm5iZiI6MTY1NTI2NDI0NiwiZXhwIjoxNjU1MjY3ODQ2LCJpYXQiOjE2NTUyNjQyNDYsImlzcyI6InRncyJ9.L1zcEqIemGcKO20cKXFMXueAGGDY34A9_7RkcXpajTCHLQyvDstH2uEz3l6VmGUAq6y4o1PtIFSiORxmAL6JCVi93yd1YRqqsQjI22WFMp7Mblw8h78QQ9vUB0KnglX60GvrW61vpSdXifRug_OTYtU-so1xGSXqE6E3CAbh83tIXDqWyqlSNYcGdvEAliYRYE3k07PmzRZEebE-owTeAdi2LSDN_NaWbr_iLtTxK1T9IwnRP-ZFmVWWdQseQnywFA_UZFZ9_MsRpH9A_zTPhdtzCuBow8t1CiKUg-vjQiH_KO5q8ErmnMX8LcH1WexI-pypxlcBSX2kcjMm9iY9bQ;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-06-15T06:56:35Z","generation":1,"name":"lobby-gpi-php","namespace":"staging","resourceVersion":"341373008","uid":"1f3bac82-3f91-4ac7-911c-4ef860801ef4"},"spec":{"ingressClassName":"nginx","rules":[{"host":"stg-gpi-php.rpgp.cc","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"Prefix"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"Prefix"},{"backend":{"service":{"name":"lobby-gpi-php","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJX1BIUCIsInN1YiI6IjQwMmRiZDc4LTdhNjgtNGEwNS04ZDM2LWFhODZhMGZiZmQyZCIsIm5iZiI6MTY1NTI2NDI0NiwiZXhwIjoxNjU1MjY3ODQ2LCJpYXQiOjE2NTUyNjQyNDYsImlzcyI6InRncyJ9.L1zcEqIemGcKO20cKXFMXueAGGDY34A9_7RkcXpajTCHLQyvDstH2uEz3l6VmGUAq6y4o1PtIFSiORxmAL6JCVi93yd1YRqqsQjI22WFMp7Mblw8h78QQ9vUB0KnglX60GvrW61vpSdXifRug_OTYtU-so1xGSXqE6E3CAbh83tIXDqWyqlSNYcGdvEAliYRYE3k07PmzRZEebE-owTeAdi2LSDN_NaWbr_iLtTxK1T9IwnRP-ZFmVWWdQseQnywFA_UZFZ9_MsRpH9A_zTPhdtzCuBow8t1CiKUg-vjQiH_KO5q8ErmnMX8LcH1WexI-pypxlcBSX2kcjMm9iY9bQ;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-10-07T08:57:10Z"
+  generation: 1
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: lobby-gpi-php
+  namespace: staging
+  resourceVersion: "19707273"
+  uid: 8ea04a33-c895-447d-a8fe-cd016714f6ca
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: stg-gpi-php.rpgp.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: Prefix
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: lobby-gpi-php
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com

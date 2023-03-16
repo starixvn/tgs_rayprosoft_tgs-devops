@@ -1,0 +1,44 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "ScheduleInfo": {
+        "GameProviderCode": "EVOTF",
+        "GameProviderConfig": "EVOTFConfiguration",
+        "GameProviderHangfire": "evolutionschedule:hangfire:",
+        "GameProviderNatsGlobPattern": "gp.gamerecord.schedule.evotf"
+      },
+      "ScheduleUrlStrings": {
+        "GameCommandClientBaseUrl": "http://game-gamecommand",
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"EVOTF\",\n    \"GameProviderConfig\": \"EVOTFConfiguration\",\n    \"GameProviderHangfire\": \"evolutionschedule:hangfire:\",\n    \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.evotf\"\n  },\n  \"ScheduleUrlStrings\": {\n    \"GameCommandClientBaseUrl\": \"http://game-gamecommand\",\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-evolution-scheduleservice","namespace":"staging"}}
+  creationTimestamp: "2022-10-07T08:56:41Z"
+  labels:
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: configmap-game-gamerecord-evolution-scheduleservice
+  namespace: staging
+  resourceVersion: "36075118"
+  uid: 1d50f7c2-2a9a-4ef6-97a0-40bf961fa4c3

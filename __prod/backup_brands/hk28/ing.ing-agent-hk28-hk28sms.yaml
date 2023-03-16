@@ -1,0 +1,72 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt","nginx.ingress.kubernetes.io/configuration-snippet":"proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSEsyOCIsInN1YiI6IjU1ZWUzZWNlLTI4MTgtNDBlOS1hZGQ5LTA5NWFhYmQ3MjFjZCIsIm5iZiI6MTY0NjM3MDYzMywiZXhwIjoxNjQ2Mzc0MjMzLCJpYXQiOjE2NDYzNzA2MzMsImlzcyI6InRncyJ9.YZYefMkvzdgyfBjEqm84RWhYRz4twzo3o3322D8BT8Wp1QpCNQwprU_OTyciaH5xII77PjZd7EofOFVZtU5WfMxAovkVPVjAfuCGcbWFHH7HMSzvYUuxB6OH5ZQCSc8k1Jja0SfXzbJSoe_JyQIz3nHt2JR4tgaV7OT6tXyOKqiZopwwkeUTRiChw2EXakvdaOaJNAB54uytnVcLMtljb9LeZA2oR8paCvgK85Mauh2Brwo9eYVGF9aadV36mBxmWzRS1CC8fIwFu7n_o0BidFNMg8CfJjnEpmwHTChIveO5GNID54pa5SENHhrxTQpDcoT5jcdGJw8k6pWAPsfOcA;\nproxy_set_header Agent-Invitation-Code ep9gld;\n","nginx.ingress.kubernetes.io/proxy-body-size":"50m","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"creationTimestamp":"2022-03-04T05:10:33Z","generation":1,"labels":{"tgs.agent.username":"hk28sms","tgs.brandcode":"HK28","tgs.invitation":"ep9gld"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:cert-manager.io/cluster-issuer":{},"f:nginx.ingress.kubernetes.io/configuration-snippet":{},"f:nginx.ingress.kubernetes.io/proxy-body-size":{},"f:nginx.ingress.kubernetes.io/ssl-redirect":{}},"f:labels":{".":{},"f:tgs.agent.username":{},"f:tgs.brandcode":{},"f:tgs.invitation":{}}},"f:spec":{"f:ingressClassName":{},"f:rules":{},"f:tls":{}}},"manager":"unknown","operation":"Update","time":"2022-03-04T05:10:33Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:loadBalancer":{"f:ingress":{}}}},"manager":"nginx-ingress-controller","operation":"Update","subresource":"status","time":"2022-06-01T07:41:56Z"}],"name":"ing-agent-hk28-hk28sms","namespace":"prod","resourceVersion":"341268944","uid":"8bc34862-5e82-4363-88e3-30628e96ad6a"},"spec":{"ingressClassName":"nginx","rules":[{"host":"hk28sms.com","http":{"paths":[{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandcommunication","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brandlivechat","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"brand-api","port":{"number":80}}},"path":"/api/brand/maintenance","pathType":"Prefix"},{"backend":{"service":{"name":"operator-api","port":{"number":80}}},"path":"/api","pathType":"ImplementationSpecific"},{"backend":{"service":{"name":"lobby-hk28","port":{"number":80}}},"path":"/","pathType":"ImplementationSpecific"}]}}],"tls":[{"hosts":["hk28sms.com"],"secretName":"agent-hk28-hk28sms"}]},"status":{"loadBalancer":{"ingress":[{"ip":"10.139.17.213"},{"ip":"10.139.19.32"},{"ip":"10.139.28.84"},{"ip":"10.139.30.85"},{"ip":"10.139.31.66"},{"ip":"10.139.9.227"}]}}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSEsyOCIsInN1YiI6IjU1ZWUzZWNlLTI4MTgtNDBlOS1hZGQ5LTA5NWFhYmQ3MjFjZCIsIm5iZiI6MTY0NjM3MDYzMywiZXhwIjoxNjQ2Mzc0MjMzLCJpYXQiOjE2NDYzNzA2MzMsImlzcyI6InRncyJ9.YZYefMkvzdgyfBjEqm84RWhYRz4twzo3o3322D8BT8Wp1QpCNQwprU_OTyciaH5xII77PjZd7EofOFVZtU5WfMxAovkVPVjAfuCGcbWFHH7HMSzvYUuxB6OH5ZQCSc8k1Jja0SfXzbJSoe_JyQIz3nHt2JR4tgaV7OT6tXyOKqiZopwwkeUTRiChw2EXakvdaOaJNAB54uytnVcLMtljb9LeZA2oR8paCvgK85Mauh2Brwo9eYVGF9aadV36mBxmWzRS1CC8fIwFu7n_o0BidFNMg8CfJjnEpmwHTChIveO5GNID54pa5SENHhrxTQpDcoT5jcdGJw8k6pWAPsfOcA;
+      proxy_set_header Agent-Invitation-Code ep9gld;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2022-03-04T05:10:33Z"
+  generation: 2
+  labels:
+    tgs.agent.username: hk28sms
+    tgs.brandcode: HK28
+    tgs.invitation: ep9gld
+  name: ing-agent-hk28-hk28sms
+  namespace: prod
+  resourceVersion: "438537926"
+  uid: 8bc34862-5e82-4363-88e3-30628e96ad6a
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hk28sms.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: Prefix
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-hk28
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - hk28sms.com
+    secretName: agent-hk28-hk28sms
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.139.10.139
+    - ip: 10.139.30.110

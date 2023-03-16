@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"lobby-gpi-usd","type":"lobby"},"name":"lobby-gpi-usd","namespace":"staging"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"lobby-gpi-usd"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"lobby-gpi-usd","type":"lobby"}},"spec":{"containers":[{"env":[{"name":"CLIENT","value":"29lJdTj1Kc18Puh91tCqQEqsEJoAWNz8jirliGYUpt1PgBzMI6KNL3"},{"name":"CURRENCY","value":"USD"},{"name":"BRAND","value":"PGG"},{"name":"DEFAULT_LANGUAGE","value":"en-US"},{"name":"THEME","value":"red"},{"name":"SOURCE_URL","value":"https://images.srvptt.com/"}],"image":"registry.gitlab.com/rayprosoft/turnkey-gaming-system/lobby-t1:staging","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"name":"lobby-gpi-usd","ports":[{"containerPort":80,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"10m","memory":"60Mi"},"requests":{"cpu":"2m","memory":"12Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/data","name":"site-data"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-credentials"},{"name":"dockerhub"}],"nodeSelector":{"dedicated":"staging"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"staging"}],"volumes":[{"emptyDir":{},"name":"site-data"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-08-11T08:02:22Z","lastUpdateTime":"2022-08-11T08:02:22Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2022-03-01T02:34:33Z","lastUpdateTime":"2022-09-21T05:49:46Z","message":"ReplicaSet \"lobby-gpi-usd-6959f9f8b6\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":2,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+  creationTimestamp: "2022-10-07T08:56:54Z"
+  generation: 2
+  labels:
+    app: lobby-gpi-usd
+    type: lobby
+    velero.io/backup-name: staging-1009
+    velero.io/restore-name: staging-1009-20221007085628
+  name: lobby-gpi-usd
+  namespace: staging
+  resourceVersion: "5210264"
+  uid: 3743e7fc-e691-4925-97ed-2a93372b1794
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: lobby-gpi-usd
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lobby-gpi-usd
+        type: lobby
+    spec:
+      containers:
+      - env:
+        - name: CLIENT
+          value: 29lJdTj1Kc18Puh91tCqQEqsEJoAWNz8jirliGYUpt1PgBzMI6KNL3
+        - name: CURRENCY
+          value: USD
+        - name: BRAND
+          value: PGG
+        - name: DEFAULT_LANGUAGE
+          value: en-US
+        - name: THEME
+          value: red
+        - name: SOURCE_URL
+          value: https://images.srvptt.com/
+        image: registry.gitlab.com/rayprosoft/turnkey-gaming-system/lobby-t1:staging
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: lobby-gpi-usd
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 10m
+            memory: 60Mi
+          requests:
+            cpu: 2m
+            memory: 12Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: site-data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registry-credentials
+      - name: dockerhub
+      nodeSelector:
+        dedicated: staging
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: staging
+      volumes:
+      - emptyDir: {}
+        name: site-data
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-10-11T05:04:49Z"
+    lastUpdateTime: "2022-10-11T05:05:51Z"
+    message: ReplicaSet "lobby-gpi-usd-6ddf8764f4" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2022-10-17T16:25:47Z"
+    lastUpdateTime: "2022-10-17T16:25:47Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

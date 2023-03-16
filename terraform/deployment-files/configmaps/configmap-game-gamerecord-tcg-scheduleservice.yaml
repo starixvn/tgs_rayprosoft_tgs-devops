@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  appsettings.json: |
+    {
+      "ScheduleInfo": {
+        "GameProviderCode": "TCG",
+        "GameProviderConfig": "TCGConfiguration",
+         "GameProviderHangfire": "tcg-schedule:hangfire:",
+         "GameProviderNatsGlobPattern": "gp.gamerecord.schedule.tcg"
+      }
+    }
+  monitor.settings.json: |
+    {
+      "Metrics": {
+        "MetricCount": "1"
+      },
+      "Logging":{
+        "Console": {
+          "FormatterName": "json"
+        },
+        "LogLevel": {
+          "Default": "Warning",
+          "Microsoft": "Warning",
+          "Microsoft.Diagnostics": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"appsettings.json":"{\n  \"ScheduleInfo\": {\n    \"GameProviderCode\": \"TCG\",\n    \"GameProviderConfig\": \"TCGConfiguration\",\n     \"GameProviderHangfire\": \"tcg-schedule:hangfire:\",\n     \"GameProviderNatsGlobPattern\": \"gp.gamerecord.schedule.tcg\"\n  }\n}\n","monitor.settings.json":"{\n  \"Metrics\": {\n    \"MetricCount\": \"1\"\n  },\n  \"Logging\":{\n    \"Console\": {\n      \"FormatterName\": \"json\"\n    },\n    \"LogLevel\": {\n      \"Default\": \"Warning\",\n      \"Microsoft\": \"Warning\",\n      \"Microsoft.Diagnostics\": \"Warning\",\n      \"Microsoft.Hosting.Lifetime\": \"Information\"\n    }\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"configmap-game-gamerecord-tcg-scheduleservice","namespace":"staging"}}
+  creationTimestamp: "2022-12-19T09:30:59Z"
+  name: configmap-game-gamerecord-tcg-scheduleservice
+  namespace: staging
+  resourceVersion: "31597338"
+  uid: 6ec4ad59-d8ee-4a20-b293-161d59bb97af
