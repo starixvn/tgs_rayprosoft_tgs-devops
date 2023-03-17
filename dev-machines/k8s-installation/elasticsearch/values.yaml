@@ -31,7 +31,6 @@ esMajorVersion: ""
 esConfig:
   elasticsearch.yml: |
     cluster.name: "elasticsearch"
-    discovery.type: single-node
     network.host: 0.0.0.0
     xpack.security.enabled: false
     http.cors.enabled: true
@@ -39,6 +38,7 @@ esConfig:
     ingest.geoip.downloader.enabled: false
     indices.breaker.fielddata.limit: 40%
     indices.breaker.request.limit: 40%
+# discovery.type: single-node
 #  elasticsearch.yml: |
 #    key:
 #      nestedkey: value
