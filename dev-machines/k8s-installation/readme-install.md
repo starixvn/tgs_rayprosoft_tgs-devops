@@ -108,6 +108,7 @@ rabbitmqctl start_app
 
 
 # elasticsearch
+https://github.com/elastic/helm-charts
 helm repo add elastic https://helm.elastic.co
 kubectl create ns observability
 helm upgrade -i elasticsearch . -f values.yaml -n observability
