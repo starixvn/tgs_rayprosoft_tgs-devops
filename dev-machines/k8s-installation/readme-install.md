@@ -219,9 +219,11 @@ helm template log-center fluent/fluent-bit -f center-values.yaml --set replicaCo
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 kubectl create ns monitoring
 
-helm upgrade -i prometheus prometheus-community/prometheus --set ingress.hosts[0]=dev2-prometheus.rpgp.cc -f values-prometheus.yaml -n monitoring
+helm upgrade -i prometheus prometheus-community/prometheus --set server.ingress.hosts[0]=dev2-prometheus.rpgp.cc -f values-prometheus.yaml -n monitoring
 
 helm template prometheus prometheus-community/prometheus -f values-prometheus.yaml -n monitoring
+
+helm uninstall prometheus -n monitoring
 
 https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
 
