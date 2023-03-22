@@ -49,4 +49,4 @@ spec:
     security: none
     ingressClassName: nginx
     hosts:
-      - "jaeger2.rpgp.cc"
+      - "dev2-jaeger.rpgp.cc"

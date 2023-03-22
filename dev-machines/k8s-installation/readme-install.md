@@ -111,6 +111,7 @@ rabbitmqctl start_app
 https://github.com/elastic/helm-charts
 helm repo add elastic https://helm.elastic.co
 kubectl create ns observability
+cd elasticsearch
 helm upgrade -i elasticsearch . -f values.yaml -n observability
 helm template elasticsearch . -f values.yaml  -n observability
 helm uninstall elasticsearch -n observability
@@ -121,23 +122,9 @@ helm uninstall elasticsearch -n observability
 kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability
 
 
-kubectl apply -f 1.RoleBinding.yml
-kubectl apply -f configmap.yml
-kubectl apply -f ingress.yml
-
-helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
-
-helm -n observability upgrade -i jaeger jaegertracing/jaeger \
-	--set provisionDataStore.cassandra=false \
-	--set provisionDataStore.elasticsearch=true \
-	--set storage.type=elasticsearch 
-
-helm -n observability template jaeger jaegertracing/jaeger --set provisionDataStore.cassandra=false \
-	--set provisionDataStore.elasticsearch=true \
-	--set storage.type=elasticsearch 
-	
-helm -n observability uninstall jaeger 
-	
+kubectl apply -f jaeger/rbac-jaeger.yaml.yml
+kubectl apply -f jaeger/jaeger.yaml.yml
+kubectl apply -f jaeger/otel/
 
 # nats Official
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
@@ -215,6 +202,8 @@ REF: https://docs.fluentbit.io/manual/installation/kubernetes#installation
 helm repo add fluent https://fluent.github.io/helm-charts
 helm repo update
 
+cd fluentbit/
+
 helm upgrade -i fluent-bit fluent/fluent-bit -f edge-values.yaml -n logging
 helm upgrade -i log-center fluent/fluent-bit -f center-values.yaml --set replicaCount=3 -n logging
 
@@ -230,7 +219,7 @@ helm template log-center fluent/fluent-bit -f center-values.yaml --set replicaCo
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 kubectl create ns monitoring
 
-helm upgrade -i prometheus prometheus-community/prometheus -f values-prometheus.yaml -n monitoring
+helm upgrade -i prometheus prometheus-community/prometheus --set ingress.hosts[0]=dev2-prometheus.rpgp.cc -f values-prometheus.yaml -n monitoring
 
 helm template prometheus prometheus-community/prometheus -f values-prometheus.yaml -n monitoring
 
@@ -238,8 +227,8 @@ https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
 
 # grafana
 helm repo add grafana https://grafana.github.io/helm-charts
-helm upgrade --install grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6 -n monitoring
-helm template grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6 -n monitoring
+helm upgrade --install grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
+helm template grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
 helm uninstall grafana -n monitoring
 
 https://hub.docker.com/r/grafana/grafana/tags

@@ -168,7 +168,7 @@ ingress:
   labels: {}
   path: /
   hosts:
-    - grafana2.rpgp.cc
+    - grafana.rpgp.cc
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
   extraPaths: []
   # - path: /*
