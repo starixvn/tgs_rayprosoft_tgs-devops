@@ -1,4 +1,3 @@
-
 # https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html
 
 ## How can I check whether the Amazon EBS CSI driver is installed in my cluster?
@@ -57,7 +56,7 @@ kubectl annotate serviceaccount ebs-csi-controller-sa \
 kubectl rollout restart deployment ebs-csi-controller -n kube-system
 
 
-###### PROD
+# PROD
 
 aws eks create-addon --cluster-name tgs-taiwan-k8s --addon-name aws-ebs-csi-driver \
   --service-account-role-arn arn:aws:iam::060812454361:role/AmazonEKS_EBS_CSI_DriverRole
