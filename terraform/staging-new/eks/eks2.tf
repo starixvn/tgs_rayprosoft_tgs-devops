@@ -77,7 +77,7 @@ module "eks" {
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "default"
+      name             = "default2"
       use_name_prefix  = true
       capacity_type    = "SPOT"  # default node group to be on-demand
       desired_size = 2
@@ -89,7 +89,7 @@ module "eks" {
     }
 
     staging = {
-      name      = "tgs-staging-node"
+      name      = "tgs-staging-node2"
       use_name_prefix  = true
       desired_size = 2
       max_size     = 8
