@@ -27,5 +27,5 @@ variable "private_subnet_ids" {
 
 variable "eks_name" {
   type    = string
-  default = "tgs-taiwan-k8s"  
+  default = "tgs-taiwan-staging2"  
 }

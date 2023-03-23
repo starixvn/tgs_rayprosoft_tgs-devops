@@ -13,12 +13,7 @@ variable "aws_auth_users" {
 
   default = [
     {
-      userarn  = "arn:aws:iam::060812454361:user/bobo.mak"
-      username = "devopsadmin"
-      groups   = ["system:masters"]
-    },
-    {
-      userarn  = "arn:aws:iam::060812454361:user/lester.wei"
+      userarn  = "arn:aws:iam::060812454361:user/lunyi.52051"
       username = "lester.wei"
       groups   = ["system:masters"]
     }
