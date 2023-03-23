@@ -24,21 +24,23 @@ variable "instance_ami_id" {
 # AWS EC2 Instance Key Pair
 variable "instance_keypair" {
   type    = string
-  default = "ec2-key"
+  default = "tgs-key"
 }
 
 variable "eks_name" {
   type    = string
-  default = "tgs-taiwan-k8s"
+  default = "tgs-taiwan-staging2"
 }
 
 variable "vpc_id" {
   description = "ID of the VPC in which security resources are deployed"
+  default = "vpc-0b86a361eb192585e"
   type = string
 }
 
 variable "subnet_id" {
   description = "ID of the VPC in which security resources are deployed"
+  default = "subnet-0d1cf87af016cf91a"
   type = string
 }
 
