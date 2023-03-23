@@ -20,4 +20,4 @@ psql -h ${PGHOST} -U ${PGUSER} -d ${PGDATABASE} -c "alter table bet.$table set s
 psql -h ${PGHOST} -U ${PGUSER} -d ${PGDATABASE} -c "alter table backup.rounds attach partition backup.$table for values from ('$start_date') to ('$end_date');"
 psql -h ${PGHOST} -U ${PGUSER} -d ${PGDATABASE} -c "insert into bet.rounds select * from backup.$table where not (status=2 and client_status !=1);"
 psql -h ${PGHOST} -U ${PGUSER} -d ${PGDATABASE} -c "delete FROM bet.round_details d using backup.$table d2 where  d.round_id = d2.id and d2.created_on >='$start_date' and d2.created_on < '$end_date';"
-psql -h ${PGHOST} -U ${PGUSER} -d ${PGDATABASE} -c "vacuum VERBOSE analyze bet.rounds_details;"
+psql -h ${PGHOST} -U ${PGUSER} -d ${PGDATABASE} -c "vacuum VERBOSE analyze bet.round_details;"
