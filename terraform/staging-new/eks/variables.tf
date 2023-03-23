@@ -29,3 +29,20 @@ variable "eks_name" {
   type    = string
   default = "tgs-taiwan-staging2"  
 }
+
+variable "aws_auth_users" {
+  description = "Additional IAM users to add to the aws-auth configmap."
+  type = list(object({
+    userarn  = string
+    username = string
+    groups   = list(string)
+  }))
+
+  default = [
+    {
+      userarn  = "arn:aws:iam::060812454361:user/lunyi.52051"
+      username = "lester.wei"
+      groups   = ["system:masters"]
+    }
+  ]
+}
