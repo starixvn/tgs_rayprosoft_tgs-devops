@@ -1,0 +1,23 @@
+PUT _index_template/kubernetes-log
+{
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "kubernetes-log-ilm"
+        },
+        "number_of_shards": "3",
+        "number_of_replicas": "1"
+      }
+    },
+    "aliases": {
+      "kubernetes-log": {}
+    }
+  },
+  "index_patterns": [
+    "kube-*"
+  ],
+  "composed_of": [
+    "kubernetes-component"
+  ]
+}

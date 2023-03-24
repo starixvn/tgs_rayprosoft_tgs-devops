@@ -84,7 +84,7 @@ module "eks" {
       max_size     = 8
       min_size     = 2
 
-      instance_types = ["t3.small", "t4g.small", "t3.medium","t4g.medium"]
+      instance_types = ["t3.small", "c5.large", "t3.medium","t3.micro"]
 
     }
 
@@ -95,7 +95,7 @@ module "eks" {
       max_size     = 8
       min_size     = 2
 
-      instance_types = ["t3.small", "t4g.small", "t3.medium","t4g.medium"]
+      instance_types = ["t3.small", "c5.large", "t3.medium","t3.micro"]
 
       # Node selector
       labels = {
