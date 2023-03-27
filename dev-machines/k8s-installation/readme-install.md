@@ -126,6 +126,11 @@ kubectl apply -f jaeger/rbac-jaeger.yaml.yml
 kubectl apply -f jaeger/jaeger.yaml.yml
 kubectl apply -f jaeger/otel/
 
+# kibana
+helm repo add elastic https://helm.elastic.co
+helm repo update
+helm upgrade --install kibana ./helm-charts/kibana --set imageTag=8.5.1 -n observability
+
 # nats Official
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm install nats nats/nats --set cluster.enabled=true,auth.enabled=false -n dev
