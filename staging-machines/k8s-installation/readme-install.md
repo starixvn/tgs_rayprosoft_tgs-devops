@@ -9,30 +9,7 @@ echo 'complete -F __start_kubectl k' >>~/.bashrc
 exec bash
 ## exit 登出再登入
 
-
-# helm 
-https://helm.sh/docs/intro/install/
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-
-
-### calico
-## https://docs.tigera.io/calico/3.25/getting-started/kubernetes/self-managed-onprem/onpremises
-
-curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml -O
-sed -i 's/# - name: CALICO_IPV4POOL_CIDR/- name: CALICO_IPV4POOL_CIDR\n              value: "172.16.0.0\/16"/g'  calico.yaml
-kubectl apply -f calico.yaml
-
-### ingress
-https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters
-    
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/baremetal/deploy.yaml
-kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/baremetal/deploy.yaml
-
-*** 修改 nginx.conf 的 http, https port
-	
-### cert-manager
+# cert-manager
 https://cert-manager.io/docs/installation/
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 
@@ -52,17 +29,6 @@ https://github.com/stakater/Reloader
 
 kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
 
-
-# nfs provisioner
-helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
-  
-helm repo update
-
-helm install nfs-provisioner \
-  nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
-  --set nfs.server=192.168.50.111 \
-  --set nfs.path=/nfsshare \
-  --set storageClass.name=nfs-provisioner
   
 # clone tgs-devops repository
  
