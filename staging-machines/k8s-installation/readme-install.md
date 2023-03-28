@@ -134,7 +134,7 @@ https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
 
 # grafana
 helm repo add grafana https://grafana.github.io/helm-charts
-helm upgrade --install grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
+helm upgrade --install grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6 -n monitoring
 helm template grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
 helm uninstall grafana -n monitoring
 

@@ -869,16 +869,16 @@ server:
   ## Node tolerations for server scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations:
-    - key: "node-role.kubernetes.io/control-plane"
-      operator: "Exists"
-      effect: "NoSchedule"
+  # tolerations:
+    # - key: "node-role.kubernetes.io/control-plane"
+      # operator: "Exists"
+      # effect: "NoSchedule"
 
   ## Node labels for Prometheus server pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector:
-    kubernetes.io/hostname: k8s-master-1
+  # nodeSelector:
+    # kubernetes.io/hostname: k8s-master-1
 
   ## Pod affinity
   ##
