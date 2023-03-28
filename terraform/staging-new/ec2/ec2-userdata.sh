@@ -5,9 +5,10 @@ localectl set-locale LANG=zh_TW.UTF-8
 touch /home/ec2-user/.hushlogin
 chown ec2-user:ec2-user /home/ec2-user/.hushlogin
 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
-unzip /tmp/awscliv2.zip  -d /tmp/awscliv2/
-/tmp/awscliv2/aws/install
+yum install git
+# curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+# unzip /tmp/awscliv2.zip  -d /tmp/awscliv2/
+# /tmp/awscliv2/aws/install
 
 curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.22.6/2022-03-09/bin/linux/amd64/kubectl
 chmod +x ./kubectl

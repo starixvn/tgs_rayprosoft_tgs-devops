@@ -77,7 +77,7 @@ module "eks" {
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "default"
+      name             = "default2"
       use_name_prefix  = true
       capacity_type    = "SPOT"  # default node group to be on-demand
       desired_size = 2
@@ -115,6 +115,14 @@ module "eks" {
 
   # Cluster Security Group
   cluster_security_group_additional_rules = {
+    # ingress_allow_access_from_control_plane = {
+    #             type                          = "ingress"
+    #             protocol                      = "tcp"
+    #             from_port                     = 443
+    #             to_port                       = 443
+    #             source_cluster_security_group = false
+    #             description                   = "Allow access from control plane to webhook port of AWS load balancer controller"
+    # }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
       protocol                   = "tcp"

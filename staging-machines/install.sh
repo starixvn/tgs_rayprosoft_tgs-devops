@@ -3,6 +3,9 @@
 ## https://docs.aws.amazon.com/zh_tw/eks/latest/userguide/eksctl.html
 ## 使用 ec2-user
 
+# export PATH='/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/root/bin:/root/bin:/usr/local/bin'
+export PATH=$PATH:'/usr/local/bin'
+echo $PATH
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
@@ -12,7 +15,7 @@ aws eks update-kubeconfig --name tgs-taiwan-staging2
 #現在執行 kubectl get pods 會出現 
 #Unable to connect to the server: dial tcp 10.139.110.193:443: i/o timeout
 #要在 EKS  叢集安全群組 
-#加上 inbound rule 443  eks-cluster-sg-tgs-taiwan-staging2
+#加上 inbound rule 443  eks-cluster-sg-tgs-taiwan-staging2     10.139.0.0/16
 
 
 # Install bash-completion
@@ -28,7 +31,7 @@ exec bash
 
 
 # helm 
-https://helm.sh/docs/intro/install/
+# https://helm.sh/docs/intro/install/
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh

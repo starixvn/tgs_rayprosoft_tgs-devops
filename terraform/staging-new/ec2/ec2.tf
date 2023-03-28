@@ -3,7 +3,7 @@ module "ec2-bastion" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "4.0.0"
 
-  name          = "${local.appName}-bastion"
+  name          = "${local.appName}-bastion-staging-test"
   ami           = var.instance_ami_id
   instance_type = var.instance_type
   key_name      = var.instance_keypair
@@ -18,6 +18,6 @@ module "ec2-bastion" {
   vpc_security_group_ids = [module.bastion_server_sg.security_group_id]
 
   tags = {
-    "Name" : "${local.appName}-bastion"
+    "Name" : "${local.appName}-bastion-staging-test"
   }
 }

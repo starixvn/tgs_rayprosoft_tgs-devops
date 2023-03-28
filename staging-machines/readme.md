@@ -95,5 +95,65 @@ aws iam delete-role --role-name ${csi_role_name}
 aws iam detach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
   --role-name ${csi_role_name}
-  
+
+# ingress-controller
+## for class load balancer
+### ingress-nginx-controller
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+
+kubectl create ns ingress-nginx
+
+helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
+--set controller.metrics.enabled=true \
+--set-string controller.metrics.service.annotations."prometheus\.io/port"="10254" \
+--set-string controller.metrics.service.annotations."prometheus\.io/scrape"="true"
+
+helm uninstall nginx-ingress
+
+## for network load balancer
+## https://repost.aws/knowledge-center/eks-access-kubernetes-services
+
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/aws/deploy.yaml
+kubectl apply -f deploy.yaml
+
+
+# metrics
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+
+# cert-manager
+https://cert-manager.io/docs/installation/
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+
+
+
+# rabbitmq
+## https://www.rabbitmq.com/kubernetes/operator/operator-overview.html
+## https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples
+
+kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
+
+
+git clone https://gitlab.com/rayprosoft/tgs-devops.git
+
+## go to k8s-installation/rabbitmq
+kubectl create ns rabbitmq
+kubectl apply -f rabbitmq.yaml
+kubectl apply -f ingress.yaml
+
+https://blog.csdn.net/qq_24095055/article/details/97001679
+
+kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
+
+rabbitmqctl add_user tgs TgsP@ssw0rd
+
+rabbitmqctl add_vhost /tgs/dev
+rabbitmqctl add_vhost /tgs/staging
+rabbitmqctl add_vhost /tgs/prod
+
+rabbitmqctl set_permissions -p "/tgs/dev" "tgs" '.*' '.*' '.*'
+rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
+rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
+rabbitmqctl set_user_tags tgs administrator
 
