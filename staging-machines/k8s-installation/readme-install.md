@@ -82,6 +82,11 @@ helm upgrade -i elasticsearch . -f values.yaml -n observability
 helm template elasticsearch . -f values.yaml  -n observability
 helm uninstall elasticsearch -n observability
 
+# kibana
+helm repo add elastic https://helm.elastic.co
+helm repo update
+helm upgrade --install kibana --set imageTag=8.5.1 -f values.yaml -n observability
+
 
 # jaeger
 ## https://www.jaegertracing.io/docs/1.42/operator/#production-strategy
@@ -201,27 +206,3 @@ helm uninstall grafana -n monitoring
 https://hub.docker.com/r/grafana/grafana/tags
 
 kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
-
-
-# minio 
-kubectl create ns minio
-helm upgrade --install  minio bitnami/minio -f values-minio.yaml  --set auth.rootPassword=B4pCvrXfaz  -n minio
-
-export ROOT_USER=$(kubectl get secret --namespace minio minio -o jsonpath="{.data.root-user}" | base64 -d)
-export ROOT_PASSWORD=$(kubectl get secret --namespace minio minio -o jsonpath="{.data.root-password}" | base64 -d)
-
-go to https://minio.rpgp.cc/
-admin/B4pCvrXfaz
-新增 Buckets : tgs-project & tgs-secret
-新增 Identity/Users: 
-	aws-accessKeyId: 1SVW99PHVVBJRELWTSJN
-	aws-secretAccessKey: 2+suqoLHk1TUPkjTI6T02RIDZn0xqQTy85F8Pjco
-  
-
-# consul 
-## https://github.com/hashicorp/consul-helm/blob/master/values.yaml
-
-helm repo add hashicorp https://helm.releases.hashicorp.com
-helm search repo hashicorp/consul
-helm install consul hashicorp/consul -f values-consul.yaml --create-namespace -n consul
-helm uninstall consul -n consul

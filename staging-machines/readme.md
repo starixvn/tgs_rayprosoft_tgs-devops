@@ -126,8 +126,6 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 https://cert-manager.io/docs/installation/
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 
-
-
 # rabbitmq
 ## https://www.rabbitmq.com/kubernetes/operator/operator-overview.html
 ## https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples
@@ -198,20 +196,18 @@ cat <<EOF | sudo tee ./cluster-autoscaler-policy.json
 }
 EOF
 
-
-
 aws iam create-policy \
-    --policy-name AmazonEKSClusterAutoscalerPolicy_staging2 \
+    --policy-name AmazonEKSClusterAutoscalerPolicy-staging2 \
     --policy-document file://cluster-autoscaler-policy.json
 
 aws iam delete-policy \
-    --policy-name AmazonEKSClusterAutoscalerPolicy_staging2
+	--policy-arn arn:aws:iam::${account_id}:policy/AmazonEKSClusterAutoscalerPolicy-staging2
 
 eksctl create iamserviceaccount \
   --cluster=${eks_cluster} \
   --namespace=kube-system \
-  --name=cluster-autoscaler_staging2 \
-  --attach-policy-arn=arn:aws:iam::${account_id}:policy/AmazonEKSClusterAutoscalerPolicy_staging2 \
+  --name=cluster-autoscaler-staging2 \
+  --attach-policy-arn=arn:aws:iam::${account_id}:policy/AmazonEKSClusterAutoscalerPolicy-staging2 \
   --override-existing-serviceaccounts \
   --approve
  
@@ -220,7 +216,7 @@ curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-a
 
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
 
-kubectl annotate serviceaccount cluster-autoscaler_staging2 \
+kubectl annotate serviceaccount cluster-autoscaler-staging2 \
   -n kube-system \
   eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/AmazonEKSClusterAutoscalerRole
 
@@ -229,3 +225,5 @@ kubectl patch deployment cluster-autoscaler \
   -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
 
 kubectl -n kube-system edit deployment.apps/cluster-autoscaler
+
+

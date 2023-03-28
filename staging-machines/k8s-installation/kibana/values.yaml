@@ -51,11 +51,11 @@ podAnnotations: {}
 
 resources:
   requests:
-    cpu: "1000m"
-    memory: "2Gi"
+    cpu: "500m"
+    memory: "1Gi"
   limits:
-    cpu: "1000m"
-    memory: "2Gi"
+    cpu: "500m"
+    memory: "1Gi"
 
 protocol: http
 
@@ -143,7 +143,7 @@ ingress:
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: kibana.rpgp.cc
+    - host: stg2-kibana.rpgp.cc
       paths:
         - path: /
   #tls: []
