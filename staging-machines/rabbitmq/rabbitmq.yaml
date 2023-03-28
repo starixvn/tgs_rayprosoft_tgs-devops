@@ -3,11 +3,11 @@ apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: mq
-  namespace: gp2
+  namespace: rabbitmq
 spec:
   replicas: 1
   persistence:
-    storageClassName: nfs-provisioner
+    storageClassName: gp2
     storage: 20Gi
   rabbitmq: 
     additionalConfig: |
