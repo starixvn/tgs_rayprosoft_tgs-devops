@@ -61,7 +61,7 @@ rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
 rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 rabbitmqctl set_user_tags tgs administrator
 
-https://rabbitmq.rpgp.cc/
+https://stg2-rabbitmq.rpgp.cc/
 
 ## changing node types 
 
@@ -74,7 +74,7 @@ rabbitmqctl start_app
 
 
 # elasticsearch
-https://github.com/elastic/helm-charts
+## https://github.com/elastic/helm-charts
 helm repo add elastic https://helm.elastic.co
 kubectl create ns observability
 cd elasticsearch

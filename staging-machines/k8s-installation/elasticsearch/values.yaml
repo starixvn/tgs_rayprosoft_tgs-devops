@@ -128,7 +128,7 @@ networkHost: "0.0.0.0"
 
 volumeClaimTemplate:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: nfs-provisioner
+  storageClassName: gp2
   resources:
     requests:
       storage: 30Gi
