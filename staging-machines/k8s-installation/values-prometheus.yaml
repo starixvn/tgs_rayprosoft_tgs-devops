@@ -167,16 +167,16 @@ alertmanager:
   ## Node tolerations for alertmanager scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations:
-    - key: "node-role.kubernetes.io/control-plane"
-      operator: "Exists"
-      effect: "NoSchedule"
+  # tolerations:
+    # - key: "node-role.kubernetes.io/control-plane"
+      # operator: "Exists"
+      # effect: "NoSchedule"
 
   ## Node labels for alertmanager pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector:
-    kubernetes.io/hostname: k8s2-master-1
+  # nodeSelector:
+    # kubernetes.io/hostname: k8s2-master-1
 
   ## Pod affinity
   ##
@@ -231,7 +231,7 @@ alertmanager:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "nfs-provisioner"
+    storageClass: "gp2"
 
     ## alertmanager data Persistent Volume Binding Mode
     ## If defined, volumeBindingMode: <volumeBindingMode>
@@ -833,7 +833,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-      - prometheus.rpgp.cc
+      - stg2-prometheus.rpgp.cc
     #   - domain.com/prometheus
 
     path: /
@@ -937,7 +937,7 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "nfs-provisioner"
+    storageClass: "gp2"
 
     ## Prometheus server data Persistent Volume Binding Mode
     ## If defined, volumeBindingMode: <volumeBindingMode>
@@ -1384,7 +1384,7 @@ pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "nfs-provisioner"
+    storageClass: "gp2"
 
     ## pushgateway data Persistent Volume Binding Mode
     ## If defined, volumeBindingMode: <volumeBindingMode>

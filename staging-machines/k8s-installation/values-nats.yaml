@@ -16,4 +16,4 @@ nats:
     fileStorage:
       enabled: true
       size: 10Gi
-      storageClassName: nfs-provisioner
+      storageClassName: gp2

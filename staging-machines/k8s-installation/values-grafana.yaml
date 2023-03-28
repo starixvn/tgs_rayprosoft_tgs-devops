@@ -168,7 +168,7 @@ ingress:
   labels: {}
   path: /
   hosts:
-    - grafana.rpgp.cc
+    - stg2-grafana.rpgp.cc
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
   extraPaths: []
   # - path: /*
@@ -236,7 +236,7 @@ extraContainerVolumes: []
 persistence:
   type: pvc
   enabled: true
-  storageClassName: nfs-provisioner
+  storageClassName: gp2
   accessModes:
     - ReadWriteOnce
   size: 10Gi
@@ -486,7 +486,7 @@ grafana.ini:
     plugins: /var/lib/grafana/plugins
     provisioning: /etc/grafana/provisioning
   server:
-    root_url: https://grafana.rpgp.cc
+    root_url: https://stg2-grafana.rpgp.cc
   analytics:
     check_for_updates: true
   log:

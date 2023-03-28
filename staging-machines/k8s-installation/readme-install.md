@@ -85,7 +85,7 @@ helm uninstall elasticsearch -n observability
 # kibana
 helm repo add elastic https://helm.elastic.co
 helm repo update
-helm upgrade --install kibana --set imageTag=8.5.1 -f values.yaml -n observability
+helm upgrade --install kibana . --set imageTag=8.5.1 -f values.yaml -n observability
 
 
 # jaeger
@@ -95,6 +95,53 @@ kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/downl
 kubectl apply -f jaeger/rbac-jaeger.yaml.yml
 kubectl apply -f jaeger/jaeger.yaml.yml
 kubectl apply -f jaeger/otel/
+
+
+# fluent-bit
+改用helm upgrade -i 安裝
+
+kubectl create namespace logging
+
+REF: https://docs.fluentbit.io/manual/installation/kubernetes#installation
+
+helm repo add fluent https://fluent.github.io/helm-charts
+helm repo update
+
+cd fluentbit/
+
+helm upgrade -i fluent-bit fluent/fluent-bit -f edge-values.yaml -n logging
+helm upgrade -i log-center fluent/fluent-bit -f center-values.yaml --set replicaCount=3 -n logging
+
+helm template fluent-bit fluent/fluent-bit -f edge-values.yaml -n logging
+helm template log-center fluent/fluent-bit -f center-values.yaml --set replicaCount=3 -n logging
+
+
+再重新執行helm upgrade指令
+
+安裝完成後使用 kubectl edit ds fluent-bit -n logging 修改 forward port，增加hostPort: 24224
+
+# prometheus 
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+kubectl create ns monitoring
+
+helm upgrade -i prometheus prometheus-community/prometheus --set server.ingress.hosts[0]=dev2-prometheus.rpgp.cc -f values-prometheus.yaml -n monitoring
+
+helm template prometheus prometheus-community/prometheus -f values-prometheus.yaml -n monitoring
+
+helm uninstall prometheus -n monitoring
+
+https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
+
+# grafana
+helm repo add grafana https://grafana.github.io/helm-charts
+helm upgrade --install grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
+helm template grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
+helm uninstall grafana -n monitoring
+
+https://hub.docker.com/r/grafana/grafana/tags
+
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
 
 # nats Official
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
@@ -160,49 +207,3 @@ helm repo update
 helm upgrade -i mongodb-express cowboysysop/mongo-express  --set mongodbEnableAdmin=true,mongodbAdminPassword=1qaz2wsx,ingress.enabled=true,ingress.hosts[0].host=mongodb-express.rpgp.cc,ingress.hosts[0].paths[0]=/,ingress.ingressClassName=nginx -n dev
 http://mongodb-express.rpgp.cc
 https://artifacthub.io/packages/helm/cowboysysop/mongo-express
-
-
-# fluent-bit
-改用helm upgrade -i 安裝
-
-kubectl create namespace logging
-
-REF: https://docs.fluentbit.io/manual/installation/kubernetes#installation
-
-helm repo add fluent https://fluent.github.io/helm-charts
-helm repo update
-
-cd fluentbit/
-
-helm upgrade -i fluent-bit fluent/fluent-bit -f edge-values.yaml -n logging
-helm upgrade -i log-center fluent/fluent-bit -f center-values.yaml --set replicaCount=3 -n logging
-
-helm template fluent-bit fluent/fluent-bit -f edge-values.yaml -n logging
-helm template log-center fluent/fluent-bit -f center-values.yaml --set replicaCount=3 -n logging
-
-
-再重新執行helm upgrade指令
-
-安裝完成後使用 kubectl edit ds fluent-bit -n logging 修改 forward port，增加hostPort: 24224
-
-# prometheus 
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-kubectl create ns monitoring
-
-helm upgrade -i prometheus prometheus-community/prometheus --set server.ingress.hosts[0]=dev2-prometheus.rpgp.cc -f values-prometheus.yaml -n monitoring
-
-helm template prometheus prometheus-community/prometheus -f values-prometheus.yaml -n monitoring
-
-helm uninstall prometheus -n monitoring
-
-https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
-
-# grafana
-helm repo add grafana https://grafana.github.io/helm-charts
-helm upgrade --install grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
-helm template grafana grafana/grafana -f values-grafana.yaml --set image.tag=9.2.6,ingress.hosts[0]=dev2-grafana.rpgp.cc -n monitoring
-helm uninstall grafana -n monitoring
-
-https://hub.docker.com/r/grafana/grafana/tags
-
-kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo

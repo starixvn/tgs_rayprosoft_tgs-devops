@@ -129,7 +129,7 @@ kubectl apply -f jaeger/otel/
 # kibana
 helm repo add elastic https://helm.elastic.co
 helm repo update
-helm upgrade --install kibana --set imageTag=8.5.1 -f values.yaml -n observability
+helm upgrade --install kibana . --set imageTag=8.5.1 -f values.yaml -n observability
 
 
 # nats Official
