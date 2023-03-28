@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules: 
-  - host: rabbitmq.rpgp.cc
+  - host: stg2-rabbitmq.rpgp.cc
     http:
       paths:
       - pathType: Prefix

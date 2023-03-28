@@ -7,7 +7,7 @@ metadata:
 spec:
   replicas: 1
   persistence:
-    storageClassName: nfs-provisioner
+    storageClassName: gp2
     storage: 20Gi
   rabbitmq: 
     additionalConfig: |
