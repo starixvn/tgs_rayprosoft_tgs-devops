@@ -157,3 +157,75 @@ rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
 rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 rabbitmqctl set_user_tags tgs administrator
 
+# Cluster Autoscaler
+# https://docs.aws.amazon.com/zh_tw/eks/latest/userguide/autoscaling.html
+
+export eks_cluster=tgs-taiwan-staging2
+export account_id=060812454361
+
+cat <<EOF | sudo tee ./cluster-autoscaler-policy.json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:SetDesiredCapacity",
+                "autoscaling:TerminateInstanceInAutoScalingGroup"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/k8s.io/cluster-autoscaler/${eks_cluster}": "owned"
+                }
+            }
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingInstances",
+                "autoscaling:DescribeAutoScalingGroups",
+                "ec2:DescribeLaunchTemplateVersions",
+                "autoscaling:DescribeTags",
+                "autoscaling:DescribeLaunchConfigurations",
+                "ec2:DescribeInstanceTypes"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+
+
+
+aws iam create-policy \
+    --policy-name AmazonEKSClusterAutoscalerPolicy_staging2 \
+    --policy-document file://cluster-autoscaler-policy.json
+
+aws iam delete-policy \
+    --policy-name AmazonEKSClusterAutoscalerPolicy_staging2
+
+eksctl create iamserviceaccount \
+  --cluster=${eks_cluster} \
+  --namespace=kube-system \
+  --name=cluster-autoscaler_staging2 \
+  --attach-policy-arn=arn:aws:iam::${account_id}:policy/AmazonEKSClusterAutoscalerPolicy_staging2 \
+  --override-existing-serviceaccounts \
+  --approve
+ 
+
+curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+
+kubectl apply -f cluster-autoscaler-autodiscover.yaml
+
+kubectl annotate serviceaccount cluster-autoscaler_staging2 \
+  -n kube-system \
+  eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/AmazonEKSClusterAutoscalerRole
+
+kubectl patch deployment cluster-autoscaler \
+  -n kube-system \
+  -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
+
+kubectl -n kube-system edit deployment.apps/cluster-autoscaler
