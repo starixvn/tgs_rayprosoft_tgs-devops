@@ -87,7 +87,6 @@ helm uninstall elasticsearch -n observability
 ## https://www.jaegertracing.io/docs/1.42/operator/#production-strategy
 kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability
 
-
 kubectl apply -f jaeger/rbac-jaeger.yaml.yml
 kubectl apply -f jaeger/jaeger.yaml.yml
 kubectl apply -f jaeger/otel/
