@@ -99,7 +99,7 @@ aws iam detach-role-policy \
 # ingress-controller
 ## for class load balancer
 ### ingress-nginx-controller
-
+### for class load balancer
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 
 kubectl create ns ingress-nginx

@@ -37,14 +37,16 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 
 # install aws-ebs-csi-driver
-
-export csi_role_name=AmazonEKS_EBS_CSI_DriverRole_staging2
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
+export csi_role_name=AmazonEKS_EBS_CSI_DriverRole_prod
 export csi_sa_name=ebs-csi-controller-sa
-export oid=$(aws eks describe-cluster  --name tgs-taiwan-staging2   --query "cluster.identity.oidc.issuer"   --output text | cut -d '/' -f 5)
+export eks_cluster=tgs-taiwan-k8s
+export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+echo ${oid}
 
-
-aws eks list-addons --cluster-name tgs-taiwan-staging2
-aws eks create-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi-driver \
+aws eks list-addons --cluster-name ${eks_cluster}
+aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driver \
   --service-account-role-arn arn:aws:iam::060812454361:role/${csi_role_name}
   
 ## aws eks delete-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi-driver \
@@ -56,7 +58,7 @@ aws eks create-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi
 ## https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html
 
 aws eks describe-cluster \
-  --name tgs-taiwan-staging2 \
+  --name ${eks_cluster} \
   --query "cluster.identity.oidc.issuer" \
   --output text
 
@@ -103,11 +105,11 @@ kubectl annotate serviceaccount ${csi_sa_name} \
     -n kube-system \
     eks.amazonaws.com/role-arn=arn:aws:iam::060812454361:role/${csi_role_name}
 
+kubectl rollout restart deploy ebs-csi-controller -n kube-system
+
 ## for delete-role
 #aws iam delete-role --role-name ${csi_role_name} 
 
 #aws iam detach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
   --role-name ${csi_role_name}
-  
-
