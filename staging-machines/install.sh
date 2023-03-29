@@ -38,9 +38,18 @@ chmod 700 get_helm.sh
 
 # install aws-ebs-csi-driver
 
+export csi_role_name=AmazonEKS_EBS_CSI_DriverRole_staging2
+export csi_sa_name=ebs-csi-controller-sa
+export oid=$(aws eks describe-cluster  --name tgs-taiwan-staging2   --query "cluster.identity.oidc.issuer"   --output text | cut -d '/' -f 5)
+
+
 aws eks list-addons --cluster-name tgs-taiwan-staging2
 aws eks create-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi-driver \
+  --service-account-role-arn arn:aws:iam::060812454361:role/${csi_role_name}
+  
+## aws eks delete-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi-driver \
   --service-account-role-arn arn:aws:iam::060812454361:role/AmazonEKS_EBS_CSI_DriverRole
+
 
 
 ## https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/install.md
@@ -51,7 +60,13 @@ aws eks describe-cluster \
   --query "cluster.identity.oidc.issuer" \
   --output text
 
-export oid=$(aws eks describe-cluster  --name tgs-taiwan-staging2   --query "cluster.identity.oidc.issuer"   --output text | cut -d '/' -f 5)
+
+
+kubectl create secret generic aws-secret \
+    --namespace kube-system \
+    --from-literal "key_id=${AWS_ACCESS_KEY_ID}" \
+    --from-literal "access_key=${AWS_SECRET_ACCESS_KEY}"
+	
 
 cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 {
@@ -66,7 +81,7 @@ cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
       "Condition": {
         "StringEquals": {
           "oidc.eks.region-code.amazonaws.com/id/${oid}:aud": "sts.amazonaws.com",
-          "oidc.eks.region-code.amazonaws.com/id/${oid}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+          "oidc.eks.region-code.amazonaws.com/id/${oid}:sub": "system:serviceaccount:kube-system:${csi_sa_name}"
         }
       }
     }
@@ -74,7 +89,7 @@ cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 }
 EOF
 
-export csi_role_name=AmazonEKS_EBS_CSI_DriverRole_staging2
+
 
 aws iam create-role \
   --role-name ${csi_role_name} \
@@ -84,7 +99,7 @@ aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
   --role-name ${csi_role_name}
 
-kubectl annotate serviceaccount ebs-csi-controller-sa \
+kubectl annotate serviceaccount ${csi_sa_name} \
     -n kube-system \
     eks.amazonaws.com/role-arn=arn:aws:iam::060812454361:role/${csi_role_name}
 
