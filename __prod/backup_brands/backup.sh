@@ -26,4 +26,5 @@ done;
 
 
 for p in $(kubectl -n prod get secrets | grep $brand | awk '{print $1}'); do kubectl delete secrets $p -n prod --grace-period=0 --force;done
-     
+    
+for p in $(kubectl get roles -n ${TgsEnv} | grep '{print $1}'); do kubectl get roles $p -n ${TgsEnv} -o yaml;done;
