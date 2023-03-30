@@ -39,7 +39,7 @@ chmod 700 get_helm.sh
 # install aws-ebs-csi-driver
 export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
-export csi_role_name=AmazonEKS_EBS_CSI_DriverRole_staging2
+export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-staging2
 export csi_sa_name=ebs-csi-controller-sa
 export eks_cluster=tgs-taiwan-staging2
 export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
@@ -195,13 +195,15 @@ EOF
 
 aws iam create-role \
   --role-name ${autoscaler_rolename} \
-  --assume-role-policy-document file://"trustpolicy.json"
+  --assume-role-policy-document file://"trust-policy.json"
 ## delete role
 aws iam delete-role --role-name ${autoscaler_rolename} 
 
 curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
 
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
+
+
 
 kubectl annotate serviceaccount cluster-autoscaler \
   -n kube-system \

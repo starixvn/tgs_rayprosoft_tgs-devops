@@ -146,6 +146,7 @@ kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
 
 rabbitmqctl add_user tgs TgsP@ssw0rd
 
+
 rabbitmqctl add_vhost /tgs/dev
 rabbitmqctl add_vhost /tgs/staging
 rabbitmqctl add_vhost /tgs/prod

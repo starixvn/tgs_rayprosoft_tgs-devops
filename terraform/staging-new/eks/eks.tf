@@ -116,12 +116,12 @@ module "eks" {
   # Cluster Security Group
   cluster_security_group_additional_rules = {
     ingress_allow_access_from_control_plane = {
-                type                          = "ingress"
-                protocol                      = "tcp"
-                from_port                     = 443
-                to_port                       = 443
-                cluster_endpoint_public_access_cidrs = ["10.139.0.0/16"]
-                description                   = "Allow access from control plane to webhook port of AWS load balancer controller"
+      type                          = "ingress"
+      protocol                      = "tcp"
+      from_port                     = 443
+      to_port                       = 443
+      cluster_endpoint_public_access_cidrs = ["10.139.0.0/16"]
+      description                   = "Allow access from control plane to webhook port of AWS load balancer controller"
     }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
