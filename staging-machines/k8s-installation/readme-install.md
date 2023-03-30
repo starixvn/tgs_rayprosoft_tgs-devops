@@ -109,8 +109,8 @@ helm repo update
 
 cd fluentbit/
 
-helm upgrade -i fluent-bit fluent/fluent-bit -f edge-values.yaml -n logging
-helm upgrade -i log-center fluent/fluent-bit -f center-values.yaml --set replicaCount=3 -n logging
+helm upgrade -i fluent-bit fluent/fluent-bit -f k8s-installation/fluentbit/edge-values.yaml -n logging
+helm upgrade -i log-center fluent/fluent-bit -f k8s-installation/fluentbit/center-values.yaml --set replicaCount=3 -n logging
 
 helm template fluent-bit fluent/fluent-bit -f edge-values.yaml -n logging
 helm template log-center fluent/fluent-bit -f center-values.yaml --set replicaCount=3 -n logging
@@ -119,6 +119,13 @@ helm template log-center fluent/fluent-bit -f center-values.yaml --set replicaCo
 再重新執行helm upgrade指令
 
 安裝完成後使用 kubectl edit ds fluent-bit -n logging 修改 forward port，增加hostPort: 24224
+
+kubectl get ds fluent-bit -n logging -o yaml > fluent-bit.yaml
+sed -i 's/containerPort: 24224/containerPort: 24224\n          hostPort: 24224/g' fluent-bit.yaml
+kubectl delete -f fluent-bit.yaml
+sleep 2
+kubectl apply -f fluent-bit.yaml
+  
 
 # prometheus 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -157,8 +164,11 @@ helm uninstall nats -n dev
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install redis bitnami/redis --set password=1qaz2wsx,metrics.enabled=true,master.disableCommands=["FLUSHDB"] -n dev
 
-helm upgrade -i redis bitnami/redis --set global.storageClass=nfs-provisioner,global.redis.password=1qaz2wsx,metrics.enabled=true,auth.enabled=false -n dev
-helm uninstall redis -n dev
+helm upgrade -i redis bitnami/redis --set global.storageClass=gp2,global.redis.password=1qaz2wsx,metrics.enabled=true,auth.enabled=false -n staging
+helm template redis bitnami/redis --set global.storageClass=gp2,global.redis.password=1qaz2wsx,metrics.enabled=true,auth.enabled=false -n staging
+
+
+helm uninstall redis -n staging
 
 redis-metrics:9121/metrics 
 https://github.com/bitnami/charts/tree/master/bitnami/redis/#installing-the-chart
@@ -166,7 +176,7 @@ https://github.com/bitnami/charts/tree/master/bitnami/redis/#installing-the-char
 
 # redisinsight
 
-helm install redisinsight ./redisinsight -f ./redisinsight/values.yaml -n dev
+helm upgrade -i redisinsight ./redisinsight -f ./redisinsight/values.yaml -n dev
 https://docs.redislabs.com/latest/ri/installing/install-k8s/
 http://dev-redisinsight.rpgp.cc/
 
@@ -185,7 +195,7 @@ https://github.com/bitnami/charts/tree/master/bitnami/mongodb#installing-the-cha
 mongodb 6.0 版本 更新很大
 https://www.mongodb.com/docs/v6.0/release-notes/6.0-compatibility/#legacy-opcodes-removed
 
-helm install mongodb bitnami/mongodb --set auth.rootPassword=1qaz2wsx,auth.enabled=false,metrics.enabled=true,image.tag=5.0.9-debian-11-r3 -n staging
+helm upgrade -i mongodb bitnami/mongodb --set auth.rootPassword=1qaz2wsx,auth.enabled=false,metrics.enabled=true,image.tag=5.0.9-debian-11-r3 -n staging
 helm uninstall mongodb -n dev
 	
 go to mongodb pods 

@@ -1,0 +1,32 @@
+# https://aws.amazon.com/tw/blogs/containers/migrating-amazon-eks-clusters-from-gp2-to-gp3-ebs-volumes/
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: ebs-csi-aws
+driver: ebs.csi.aws.com
+deletionPolicy: Delete
+---
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: imported-aws-snapshot-content
+spec:
+  volumeSnapshotRef:
+    kind: VolumeSnapshot
+    name: imported-aws-snapshot
+    namespace: default
+  source:
+    snapshotHandle: snap-06fb1faafc1409cc5 # <-- snapshot to import
+  driver: ebs.csi.aws.com
+  deletionPolicy: Delete
+  volumeSnapshotClassName: ebs-csi-aws
+---
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: imported-aws-snapshot
+  namespace: default
+spec:
+  volumeSnapshotClassName: ebs-csi-aws
+  source:
+    volumeSnapshotContentName: imported-aws-snapshot-content
