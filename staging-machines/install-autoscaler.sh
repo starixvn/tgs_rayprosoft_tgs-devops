@@ -1,7 +1,4 @@
 #!/bin/bash
-
-# autoscaler
-
 export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-staging2
 export autoscaler_policyname=AmazonEKSClusterAutoscalerPolicy-staging2
 export eks_cluster=tgs-taiwan-staging2
