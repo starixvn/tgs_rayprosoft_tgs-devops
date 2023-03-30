@@ -75,7 +75,7 @@ cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 }
 EOF
 
-export csi_role_name=AmazonEKS_EBS_CSI_DriverRole_staging2
+export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-staging2
 
 aws iam create-role \
   --role-name ${csi_role_name} \

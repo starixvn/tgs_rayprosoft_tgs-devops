@@ -65,13 +65,13 @@ cat <<EOF | sudo tee ./trust-policy.json
          "Principal":{ 
             "Federated": "arn:aws:iam::${account_id}:oidc-provider/oidc.eks.ap-east-1.amazonaws.com/id/${oid}"
          }, 
-         "Action":"sts:AssumeRoleWithWebIdentity", 
+         "Action": ["sts:AssumeRoleWithWebIdentity"], 
          "Condition":{ 
             "StringEquals":{ 
                "oidc.eks.ap-east-1.amazonaws.com/id/${oid}:sub": "system:serviceaccount:kube-system:cluster-autoscaler"
             } 
          } 
-      } 
+      }
    ] 
 }
 EOF
@@ -80,6 +80,10 @@ EOF
 aws iam create-role \
   --role-name ${autoscaler_rolename} \
   --assume-role-policy-document file://"trust-policy.json"
+
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname} \
+  --role-name ${autoscaler_rolename}
   
 ## delete role
 # aws iam delete-role --role-name ${autoscaler_rolename} 
