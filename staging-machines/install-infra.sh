@@ -2,6 +2,7 @@
 # cert-manager
 ## https://cert-manager.io/docs/installation/
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+sleep 10
 kubectl apply -f k8s-installation/cluster-issuer.yml
 
 # metric-server 
@@ -34,8 +35,16 @@ helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
 kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 kubectl create ns rabbitmq
 
+# kubectl delete -f k8s-installation/rabbitmq/rabbitmq.yaml
 kubectl apply -f k8s-installation/rabbitmq/rabbitmq.yaml
 kubectl apply -f k8s-installation/rabbitmq/ingress.yaml
+
+kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
+rabbitmqctl add_vhost /tgs/staging
+rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
+rabbitmqctl set_user_tags tgs administrator
+
+
 
 # elasticsearch
 ## https://github.com/elastic/helm-charts
@@ -55,6 +64,7 @@ helm upgrade --install kibana k8s-installation/kibana/ --set imageTag=8.5.1 -f k
 # jaeger
 ## https://www.jaegertracing.io/docs/1.42/operator/#production-strategy
 kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability
+sleep 10
 kubectl apply -f k8s-installation/jaeger/
 kubectl apply -f k8s-installation/jaeger/otel/
 
@@ -81,7 +91,7 @@ kubectl apply -f fluent-bit.yaml
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 kubectl create ns monitoring
 helm upgrade -i prometheus prometheus-community/prometheus -f k8s-installation/values-prometheus.yaml -n monitoring
-
+helm uninstall prometheus -n monitoring
 ### helm template prometheus prometheus-community/prometheus -f values-prometheus.yaml -n monitoring
 ### helm uninstall prometheus -n monitoring
 ### https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
@@ -97,14 +107,11 @@ helm upgrade --install grafana grafana/grafana -f k8s-installation/values-grafan
 kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
 
-
-
 # nats
 kubectl create ns staging
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3 -n staging
 ## helm upgrade --install nats nats/nats -f nats-values.yaml -n dev
-
 
 
 # redis, redis exporter
@@ -120,3 +127,11 @@ helm  upgrade -i mongodb bitnami/mongodb \
 	--set image.tag=5.0.9-debian-11-r3 -n staging
 
 helm uninstall mongodb -n staging
+
+
+
+kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
+
+kubectl patch pv pvc-59e3aa2f-890d-4cbf-8b4b-7c8312368f7e -p '{"metadata":{"finalizers":null}}'
+
+

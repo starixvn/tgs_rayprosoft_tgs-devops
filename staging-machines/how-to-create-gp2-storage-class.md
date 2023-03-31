@@ -1,4 +1,5 @@
 # https://aws.amazon.com/tw/blogs/containers/migrating-amazon-eks-clusters-from-gp2-to-gp3-ebs-volumes/
+
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:

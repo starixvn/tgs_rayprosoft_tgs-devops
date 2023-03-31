@@ -11,9 +11,7 @@ export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.ide
 echo ${oid}
 
 aws eks list-addons --cluster-name ${eks_cluster}
-aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driver \
-  --service-account-role-arn arn:aws:iam::${account_id}:role/${csi_role_name}
-  
+
 ## aws eks delete-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi-driver \
 ##  --service-account-role-arn arn:aws:iam::${account_id}:role/${csi_role_name}
 
@@ -26,10 +24,10 @@ aws eks describe-cluster \
   --query "cluster.identity.oidc.issuer" \
   --output text
 
-kubectl create secret generic aws-secret \
-    --namespace kube-system \
-    --from-literal "key_id=${AWS_ACCESS_KEY_ID}" \
-    --from-literal "access_key=${AWS_SECRET_ACCESS_KEY}"
+# kubectl create secret generic aws-secret \
+    # --namespace kube-system \
+    # --from-literal "key_id=${AWS_ACCESS_KEY_ID}" \
+    # --from-literal "access_key=${AWS_SECRET_ACCESS_KEY}"
 	
 cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 {
@@ -60,9 +58,14 @@ aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
   --role-name ${csi_role_name}
 
-kubectl annotate serviceaccount ${csi_sa_name} \
-    -n kube-system \
-    eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/${csi_role_name}
+
+aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driver \
+  --service-account-role-arn arn:aws:iam::${account_id}:role/${csi_role_name}
+  
+  
+# kubectl annotate serviceaccount ${csi_sa_name} \
+    # -n kube-system \
+    # eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/${csi_role_name}
 
 kubectl rollout restart deploy ebs-csi-controller -n kube-system
 
