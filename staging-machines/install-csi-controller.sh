@@ -6,6 +6,7 @@ export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-staging2
 export csi_sa_name=ebs-csi-controller-sa
 export eks_cluster=tgs-taiwan-staging2
 export account_id=060812454361
+export region=ap-east-1
 export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
 echo ${oid}
 
@@ -37,13 +38,13 @@ cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${account_id}:oidc-provider/oidc.eks.ap-east-1.amazonaws.com/id/${oid}"
+        "Federated": "arn:aws:iam::${account_id}:oidc-provider/oidc.eks.${region}.amazonaws.com/id/${oid}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.region-code.amazonaws.com/id/${oid}:aud": "sts.amazonaws.com",
-          "oidc.eks.region-code.amazonaws.com/id/${oid}:sub": "system:serviceaccount:kube-system:${csi_sa_name}"
+          "oidc.eks.${region}.amazonaws.com/id/${oid}:aud": "sts.amazonaws.com",
+          "oidc.eks.${region}.amazonaws.com/id/${oid}:sub": "system:serviceaccount:kube-system:${csi_sa_name}"
         }
       }
     }
