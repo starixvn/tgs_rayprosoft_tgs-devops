@@ -95,7 +95,7 @@ module "eks" {
       max_size     = 8
       min_size     = 2
 
-      instance_types = ["c5a.large", "c5.large", "t3.medium","t3.large"]
+      instance_types = ["c5a.xlarge", "c5.xlarge", "c5n.xlarge", "c5d.xlarge", "t3.xlarge"]
 
       # Node selector
       labels = {
@@ -120,8 +120,8 @@ module "eks" {
       protocol                      = "tcp"
       from_port                     = 443
       to_port                       = 443
-      cluster_endpoint_public_access_cidrs = ["10.139.0.0/16"]
-      description                   = "Allow access from control plane to webhook port of AWS load balancer controller"
+      description                   = "Allow access from control plane."
+      cidr_blocks                   = ["10.139.0.0/16"]
     }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
