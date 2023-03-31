@@ -76,7 +76,6 @@ cat <<EOF | sudo tee ./trust-policy.json
 }
 EOF
 
-
 aws iam create-role \
   --role-name ${autoscaler_rolename} \
   --assume-role-policy-document file://"trust-policy.json"
@@ -92,14 +91,10 @@ curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-a
 
 ## ADD
 # - --balance-similar-node-groups
-# - --skip-nodes-with-system-pods=false
- 
+# - --skip-nodes-with-system-pods=false 
 sed -i "s/<YOUR CLUSTER NAME>/${eks_cluster}\n            - --balance-similar-node-groups\n            - --skip-nodes-with-system-pods=false/g" cluster-autoscaler-autodiscover.yaml
 
-
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
-
-
 
 kubectl annotate serviceaccount cluster-autoscaler \
   -n kube-system \
@@ -109,12 +104,9 @@ kubectl patch deployment cluster-autoscaler \
   -n kube-system \
   -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
 
-
 kubectl rollout restart deploy cluster-autoscaler -n kube-system
-
-
 #kubectl set image deployment cluster-autoscaler \
 #  -n kube-system \
 #  cluster-autoscaler=registry.k8s.io/autoscaling/cluster-autoscaler:v1.25.n
-
+sleep 5
 kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler

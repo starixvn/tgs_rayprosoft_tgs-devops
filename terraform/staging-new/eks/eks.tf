@@ -85,6 +85,7 @@ module "eks" {
       min_size     = 2
 
       instance_types = ["c5a.large", "c5.large", "t3.medium","t3.large"]
+      max_unavailable_percentage = 100
 
     }
 
@@ -94,7 +95,7 @@ module "eks" {
       desired_size = 2
       max_size     = 8
       min_size     = 2
-
+      max_unavailable_percentage = 100
       instance_types = ["c5a.xlarge", "c5.xlarge", "c5n.xlarge", "c5d.xlarge", "t3.xlarge"]
 
       # Node selector
