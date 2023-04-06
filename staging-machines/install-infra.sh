@@ -51,6 +51,7 @@ rabbitmqctl set_user_tags tgs administrator
 helm repo add elastic https://helm.elastic.co
 kubectl create ns observability
 helm upgrade -i elasticsearch k8s-installation/elasticsearch/ -f k8s-installation/elasticsearch/values.yaml -n observability
+helm uninstall elasticsearch -n observability
 ### helm template elasticsearch k8s-installation/elasticsearch/ -f k8s-installation/elasticsearch/values.yaml  -n observability
 ### helm uninstall elasticsearch -n observability
 
@@ -132,6 +133,6 @@ helm uninstall mongodb -n staging
 
 kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
 
-kubectl patch pv pvc-59e3aa2f-890d-4cbf-8b4b-7c8312368f7e -p '{"metadata":{"finalizers":null}}'
+kubectl patch pv pvc-481b34ba-69cf-412b-b1a6-742eac299f62 -p '{"metadata":{"finalizers":null}}'
 
 

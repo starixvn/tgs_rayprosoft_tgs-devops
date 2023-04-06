@@ -67,6 +67,8 @@ aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driv
     # -n kube-system \
     # eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/${csi_role_name}
 
+sleep 10
+
 kubectl rollout restart deploy ebs-csi-controller -n kube-system
 
 ## for delete-role

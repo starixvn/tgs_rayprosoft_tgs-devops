@@ -123,6 +123,7 @@ module "eks" {
       to_port                       = 443
       description                   = "Allow access from control plane."
       cidr_blocks                   = ["10.139.0.0/16"]
+      source_node_security_group = false
     }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
@@ -136,6 +137,15 @@ module "eks" {
 
   # Node Security Group
   node_security_group_additional_rules  = {
+        ingress_allow_ssh_from_control_plane = {
+                type                          = "ingress"
+                protocol                      = "tcp"
+                from_port                     = 22
+                to_port                       = 22
+                cidr_blocks                   = ["10.139.0.0/16"]
+                description                   = "Allow access from control plane to ssh"
+                source_node_security_group = true
+        }
         ingress_allow_access_from_control_plane = {
                 type                          = "ingress"
                 protocol                      = "tcp"
