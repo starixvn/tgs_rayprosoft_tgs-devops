@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins2
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "5000m"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - jenkins2.rpgp.cc
+    secretName: jenkins2.rpgp.cc
+  rules:
+  - host: jenkins2.rpgp.cc
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: jenkins2-assets
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins2-assets
+spec:
+  ports:
+  - name: app
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  clusterIP: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: jenkins2-assets
+subsets:
+- addresses:
+  - ip: 192.168.50.170
+  ports:
+  - name: app
+    port: 8080
+    protocol: TCP

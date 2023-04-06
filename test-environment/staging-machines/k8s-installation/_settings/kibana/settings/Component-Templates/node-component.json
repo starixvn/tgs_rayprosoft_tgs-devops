@@ -1,0 +1,192 @@
+PUT _component_template/node-component
+{
+  "template": {
+    "mappings": {
+      "dynamic_templates": [],
+      "properties": {
+        "MESSAGE": {
+          "type": "text",
+          "index": true,
+          "index_options": "docs",
+          "eager_global_ordinals": false,
+          "index_phrases": false,
+          "norms": false,
+          "fielddata": false,
+          "store": false,
+          "fields": {}
+        },
+        "PRIORITY": {
+          "type": "integer",
+          "index": true,
+          "ignore_malformed": false,
+          "coerce": true,
+          "doc_values": true,
+          "store": false
+        },
+        "SYSLOG_FACILITY": {
+          "type": "integer",
+          "index": true,
+          "ignore_malformed": false,
+          "coerce": true,
+          "doc_values": true,
+          "store": false
+        },
+        "SYSLOG_IDENTIFIER": {
+          "type": "keyword",
+          "index": true,
+          "index_options": "docs",
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_BOOT_ID": {
+          "type": "keyword",
+          "index": true,
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "index_options": "docs",
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_CAP_EFFECTIVE": {
+          "type": "keyword",
+          "index": true,
+          "index_options": "docs",
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_CMDLINE": {
+          "type": "text",
+          "fields": {}
+        },
+        "_COMM": {
+          "type": "keyword",
+          "index": true,
+          "index_options": "docs",
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_EXE": {
+          "type": "text",
+          "fields": {}
+        },
+        "_GID": {
+          "type": "long",
+          "index": true,
+          "ignore_malformed": false,
+          "coerce": true,
+          "doc_values": true,
+          "store": false
+        },
+        "_HOSTNAME": {
+          "type": "keyword",
+          "index": true,
+          "index_options": "docs",
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_MACHINE_ID": {
+          "type": "keyword",
+          "index": true,
+          "index_options": "docs",
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "fields": {}
+        },
+        "_PID": {
+          "type": "integer",
+          "index": true,
+          "ignore_malformed": false,
+          "coerce": true,
+          "doc_values": true,
+          "store": false
+        },
+        "_SELINUX_CONTEXT": {
+          "type": "text",
+          "fields": {}
+        },
+        "_STREAM_ID": {
+          "type": "keyword",
+          "index": true,
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "index_options": "docs",
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_SYSTEMD_CGROUP": {
+          "type": "text",
+          "fields": {}
+        },
+        "_SYSTEMD_INVOCATION_ID": {
+          "type": "keyword",
+          "index": true,
+          "index_options": "docs",
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_SYSTEMD_SLICE": {
+          "type": "text",
+          "fields": {}
+        },
+        "_SYSTEMD_UNIT": {
+          "type": "text",
+          "fields": {}
+        },
+        "_TRANSPORT": {
+          "type": "keyword",
+          "index": true,
+          "eager_global_ordinals": false,
+          "norms": false,
+          "split_queries_on_whitespace": false,
+          "doc_values": true,
+          "store": false,
+          "index_options": "docs",
+          "ignore_above": 256,
+          "fields": {}
+        },
+        "_UID": {
+          "type": "integer",
+          "index": true,
+          "ignore_malformed": false,
+          "coerce": true,
+          "doc_values": true,
+          "store": false
+        }
+      }
+    }
+  }
+}

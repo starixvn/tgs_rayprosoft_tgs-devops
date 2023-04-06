@@ -1,0 +1,140 @@
+PUT _component_template/fluent-bit-app-mapping
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_replicas": "1"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "CategoryName": {
+          "type": "keyword"
+        },
+        "EventId": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "long"
+            },
+            "Name": {
+              "type": "keyword"
+            }
+          }
+        },
+        "Exception": {
+          "type": "text"
+        },
+        "ExceptionType": {
+          "type": "keyword"
+        },
+        "FormattedMessage": {
+          "type": "text"
+        },
+        "LogLevel": {
+          "type": "keyword"
+        },
+        "SpanId": {
+          "type": "keyword"
+        },
+        "StateValues": {
+          "type": "object",
+          "properties": {
+            "{OriginalFormat}": {
+              "type": "text"
+            },
+            "{source}": {
+              "type": "object",
+              "properties": {
+                "StackTrace": {
+                  "type": "text"
+                },
+                "description": {
+                  "type": "text"
+                },
+                "exception": {
+                  "type": "text"
+                },
+                "executiontimems": {
+                  "type": "long"
+                },
+                "file": {
+                  "type": "text"
+                },
+                "host": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                },
+                "ip": {
+                  "type": "text"
+                },
+                "ipaddress": {
+                  "type": "text"
+                },
+                "level": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                },
+                "line": {
+                  "type": "long"
+                },
+                "logger": {
+                  "type": "text"
+                },
+                "member": {
+                  "type": "text"
+                },
+                "message": {
+                  "type": "text"
+                },
+                "method": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                },
+                "path": {
+                  "type": "text"
+                },
+                "prefix": {
+                  "type": "text"
+                },
+                "recordedon": {
+                  "type": "date"
+                },
+                "requestcontent": {
+                  "type": "text"
+                },
+                "requestheaders": {
+                  "type": "text"
+                },
+                "responsecode": {
+                  "type": "long"
+                },
+                "responsecontent": {
+                  "type": "text"
+                },
+                "responseheaders": {
+                  "type": "text"
+                },
+                "servername": {
+                  "type": "text"
+                },
+                "trackingid": {
+                  "type": "text"
+                }
+              }
+            }
+          }
+        },
+        "TraceId": {
+          "type": "keyword"
+        },
+        "es_index": {
+          "type": "keyword"
+        },
+        "flb-key": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

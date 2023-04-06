@@ -1,0 +1,405 @@
+PUT _component_template/kubernetes-component
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_replicas": "1"
+      }
+    },
+    "mappings": {
+      "dynamic_templates": [],
+      "properties": {
+        "kubernetes": {
+          "type": "object",
+          "properties": {
+            "annotations": {
+              "type": "object",
+              "properties": {
+                "cni_projectcalico_org/containerID": {
+                  "type": "keyword"
+                },
+                "cni_projectcalico_org/podIP": {
+                  "type": "keyword"
+                },
+                "cni_projectcalico_org/podIPs": {
+                  "type": "text"
+                },
+                "kubeadm_kubernetes_io/etcd_advertise-client-urls": {
+                  "type": "text"
+                },
+                "kubeadm_kubernetes_io/kube-apiserver_advertise-address_endpoint": {
+                  "type": "text"
+                },
+                "kubernetes_io/config_hash": {
+                  "type": "text"
+                },
+                "kubernetes_io/config_mirror": {
+                  "type": "text"
+                },
+                "kubernetes_io/config_seen": {
+                  "type": "date"
+                },
+                "kubernetes_io/config_source": {
+                  "type": "text"
+                },
+                "linkerd_io/inject": {
+                  "type": "text"
+                },
+                "prometheus_io/path": {
+                  "type": "text"
+                },
+                "prometheus_io/port": {
+                  "type": "keyword"
+                },
+                "prometheus_io/scrape": {
+                  "type": "keyword"
+                },
+                "seccomp_security_alpha_kubernetes_io/pod": {
+                  "type": "text"
+                },
+                "sidecar_istio_io/inject": {
+                  "type": "text"
+                },
+                "sidecar_jaegertracing_io/inject": {
+                  "type": "text"
+                }
+              }
+            },
+            "container_hash": {
+              "type": "keyword"
+            },
+            "container_image": {
+              "type": "keyword"
+            },
+            "container_name": {
+              "type": "keyword"
+            },
+            "docker_id": {
+              "type": "keyword"
+            },
+            "host": {
+              "type": "keyword"
+            },
+            "labels": {
+              "type": "object",
+              "properties": {
+                "app": {
+                  "type": "keyword"
+                },
+                "app_kubernetes_io/component": {
+                  "type": "keyword"
+                },
+                "app_kubernetes_io/instance": {
+                  "type": "keyword"
+                },
+                "app_kubernetes_io/managed-by": {
+                  "type": "text"
+                },
+                "app_kubernetes_io/name": {
+                  "type": "keyword"
+                },
+                "app_kubernetes_io/part-of": {
+                  "type": "text"
+                },
+                "app_kubernetes_io/version": {
+                  "type": "keyword"
+                },
+                "component": {
+                  "type": "keyword"
+                },
+                "controller-revision-hash": {
+                  "type": "keyword"
+                },
+                "controller-uid": {
+                  "type": "keyword"
+                },
+                "job-name": {
+                  "type": "keyword"
+                },
+                "k8s-app": {
+                  "type": "keyword"
+                },
+                "kubernetes_io/cluster-service": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "keyword"
+                },
+                "pod-template-generation": {
+                  "type": "text"
+                },
+                "pod-template-hash": {
+                  "type": "keyword"
+                },
+                "tier": {
+                  "type": "text"
+                },
+                "version": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "namespace_name": {
+              "type": "keyword"
+            },
+            "pod_id": {
+              "type": "keyword"
+            },
+            "pod_name": {
+              "type": "keyword"
+            }
+          }
+        },
+        "log": {
+          "type": "text"
+        },
+        "log_processed": {
+          "type": "object",
+          "properties": {
+            "Category": {
+              "type": "keyword"
+            },
+            "EventId": {
+              "type": "long"
+            },
+            "LogLevel": {
+              "type": "keyword"
+            },
+            "Message": {
+              "type": "text"
+            },
+            "State": {
+              "type": "object",
+              "properties": {
+                "ElapsedMilliseconds": {
+                  "type": "float"
+                },
+                "HttpMethod": {
+                  "type": "keyword"
+                },
+                "Message": {
+                  "type": "text"
+                },
+                "StatusCode": {
+                  "type": "long"
+                },
+                "Uri": {
+                  "type": "text"
+                },
+                "address": {
+                  "type": "keyword"
+                },
+                "contentRoot": {
+                  "type": "text"
+                },
+                "envName": {
+                  "type": "text"
+                },
+                "{OriginalFormat}": {
+                  "type": "text"
+                }
+              }
+            },
+            "addr": {
+              "type": "text"
+            },
+            "attempt": {
+              "type": "long"
+            },
+            "caller": {
+              "type": "text"
+            },
+            "compact-index": {
+              "type": "long"
+            },
+            "compact-revision": {
+              "type": "long"
+            },
+            "date": {
+              "type": "date"
+            },
+            "detail": {
+              "type": "text"
+            },
+            "dialTarget": {
+              "type": "text"
+            },
+            "dir": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "duration": {
+              "type": "keyword"
+            },
+            "end": {
+              "type": "date"
+            },
+            "error": {
+              "type": "text"
+            },
+            "expected-duration": {
+              "type": "text"
+            },
+            "file": {
+              "type": "text"
+            },
+            "grpc_log": {
+              "type": "boolean"
+            },
+            "health-status": {
+              "type": "text"
+            },
+            "http-addr": {
+              "type": "text"
+            },
+            "http-port": {
+              "type": "long"
+            },
+            "http_host-port": {
+              "type": "text"
+            },
+            "indices": {
+              "type": "object",
+              "properties": {
+                "Aliases": {
+                  "type": "object"
+                },
+                "CreationTime": {
+                  "type": "date"
+                },
+                "Index": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "lease-id": {
+              "type": "text"
+            },
+            "level": {
+              "type": "keyword"
+            },
+            "local-member-applied-index": {
+              "type": "long"
+            },
+            "local-member-id": {
+              "type": "text"
+            },
+            "local-member-snapshot-count": {
+              "type": "long"
+            },
+            "local-member-snapshot-index": {
+              "type": "long"
+            },
+            "logger": {
+              "type": "keyword"
+            },
+            "msg": {
+              "type": "text"
+            },
+            "output": {
+              "type": "text"
+            },
+            "path": {
+              "type": "text"
+            },
+            "port": {
+              "type": "long"
+            },
+            "prefix": {
+              "type": "text"
+            },
+            "remote": {
+              "type": "text"
+            },
+            "request": {
+              "type": "text"
+            },
+            "request content": {
+              "type": "text"
+            },
+            "request count": {
+              "type": "long"
+            },
+            "request size": {
+              "type": "long"
+            },
+            "response": {
+              "type": "text"
+            },
+            "response count": {
+              "type": "long"
+            },
+            "response size": {
+              "type": "long"
+            },
+            "response type": {
+              "type": "text"
+            },
+            "retry-timeout": {
+              "type": "text"
+            },
+            "revision": {
+              "type": "long"
+            },
+            "route": {
+              "type": "text"
+            },
+            "sent-request-id": {
+              "type": "long"
+            },
+            "snapshot-index": {
+              "type": "long"
+            },
+            "start": {
+              "type": "date"
+            },
+            "start time": {
+              "type": "date"
+            },
+            "status": {
+              "type": "keyword"
+            },
+            "status-code": {
+              "type": "long"
+            },
+            "step_count": {
+              "type": "long"
+            },
+            "steps": {
+              "type": "text"
+            },
+            "system": {
+              "type": "text"
+            },
+            "target": {
+              "type": "text"
+            },
+            "time spent": {
+              "type": "text"
+            },
+            "timeout": {
+              "type": "text"
+            },
+            "took": {
+              "type": "text"
+            },
+            "ts": {
+              "type": "date"
+            },
+            "version": {
+              "type": "long"
+            }
+          }
+        },
+        "stream": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,270 @@
+mv /etc/kubernetes/manifests ~/manifests
+
+
+cp -r /etc/kubernetes/pki/* /nfsshare/backup-certs
+ 
+apt install etcd-client
+
+
+
+ETCDCTL_API=3 etcdctl snapshot save /nfsshare/k8s2-backup-01 \
+        --endpoints=https://[192.168.50.131]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+
+ETCDCTL_API=3 etcdctl member remove 19516cad11d47d26  \
+        --endpoints=https://[127.0.0.1]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+		
+		
+		
+//restore完 可以用下面的指令 check
+		
+ETCDCTL_API=3 etcdctl member list \
+        --endpoints=https://[192.168.50.42]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+
+ETCDCTL_API=3 etcdctl member remove  733ddbd3e96932b6 \
+        --endpoints=https://[192.168.50.42]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+
+
+ETCDCTL_API=3 etcdctl member add k8s2-master-1 --peer-urls="https://192.168.50.41:2380" \
+        --endpoints=https://[192.168.50.42]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+
+
+ETCDCTL_API=3 etcdctl member list --write-out=table \
+        --endpoints=https://[192.168.50.42]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+
+		
+ETCDCTL_API=3 etcdctl endpoint health \
+		--endpoints=https://[192.168.50.41]:2379,https://[192.168.50.42]:2379,https://[192.168.50.43]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+		
+ETCDCTL_API=3 etcdctl endpoint health \
+		--endpoints=https://[192.168.50.42]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+
+
+
+ETCDCTL_API=3 etcdctl -w table endpoint status \
+		--endpoints=https://[192.168.50.41]:2379,https://[192.168.50.42]:2379,https://[192.168.50.43]:2379 \
+        --cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+        --cert="/etc/kubernetes/pki/etcd/server.crt" \
+        --key="/etc/kubernetes/pki/etcd/server.key"
+
+https://www.796t.com/article.php?id=427567
+
+
+
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/k8s2-backup-01 \
+	--name k8s2-master-2 --skip-hash-check=true \
+	--cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+    --cert="/etc/kubernetes/pki/etcd/server.crt" \
+    --key="/etc/kubernetes/pki/etcd/server.key" \
+	--initial-cluster k8s2-master-1=http://192.168.50.41:2380,k8s2-master-2=http://192.168.50.42:2380,k8s2-master-3=http://192.168.50.43:2380 \
+	--initial-advertise-peer-urls http://192.168.50.42:2380 \
+	--initial-cluster-token etcd-cluster-1
+
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/k8s2-backup-01 \
+	--name k8s2-master-1 --skip-hash-check=true \
+	--cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+    --cert="/etc/kubernetes/pki/etcd/server.crt" \
+    --key="/etc/kubernetes/pki/etcd/server.key" \
+	--initial-cluster k8s2-master-1=http://192.168.50.41:2380,k8s2-master-2=http://192.168.50.42:2380,k8s2-master-3=http://192.168.50.43:2380 \
+	--initial-advertise-peer-urls http://192.168.50.41:2380 \
+	--initial-cluster-token etcd-cluster-1
+
+
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/k8s2-backup-01 \
+	--name k8s2-master-3 --skip-hash-check=true \
+	--cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+    --cert="/etc/kubernetes/pki/etcd/server.crt" \
+    --key="/etc/kubernetes/pki/etcd/server.key" \
+	--initial-cluster k8s2-master-1=http://192.168.50.41:2380,k8s2-master-2=http://192.168.50.42:2380,k8s2-master-3=http://192.168.50.43:2380 \
+	--initial-advertise-peer-urls http://192.168.50.43:2380 \
+	--initial-cluster-token etcd-cluster-1
+
+
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/k8s2-backup-01 \
+	--name m3 --skip-hash-check=true \
+	--cacert="/etc/kubernetes/pki/etcd/ca.crt" \
+    --cert="/etc/kubernetes/pki/etcd/server.crt" \
+    --key="/etc/kubernetes/pki/etcd/server.key" \
+	--initial-cluster m1=http://192.168.50.41:2380,m2=http://192.168.50.42:2380,m3=http://192.168.50.43:2380 \
+	--initial-advertise-peer-urls http://192.168.50.43:2380 \
+	--initial-cluster-token etcd-cluster-1
+
+
+https://serverfault.com/questions/1020224/how-to-recover-from-master-failure-in-kubernetes
+
+http://www.ttlsa.com/fbs/etcd-cluster-manage/
+
+
+Remove following line
+- --initial-cluster-state=existing
+- --initial-cluster-token=etcd-cluster-1
+
+Add Following line
+- --force-new-cluster
+
+https://www.cnblogs.com/dream397/p/14949308.html
+
+
+mv /etc/kubernetes/manifests/{etcd.yaml,kube-apiserver.yaml,kube-controller-manager.yaml,kube-scheduler.yaml} ~/
+
+cp -rf /var/lib/etcd/member /var/lib/etcd/member.bak
+
+rm -rf /var/lib/etcd/member.new && cp -rf ~/k8s2-master-2.etcd/member /var/lib/etcd/member.new
+
+rm -rf /var/lib/etcd/member && cp -rf /var/lib/etcd/member.new /var/lib/etcd/member
+
+
+mv ~/{etcd.yaml,kube-apiserver.yaml,kube-controller-manager.yaml,kube-scheduler.yaml}  /etc/kubernetes/manifests/
+
+
+vi ~/etcd.yaml
+
+rm -rf /var/lib/etcd/member
+cp -rf /var/lib/etcd/member.bak /var/lib/etcd/member
+
+etcd --name k8s2-master-1 \
+    --data-dir /var/lib/etcd \
+	--initial-advertise-peer-urls http://192.168.50.41:2380 \
+	--listen-client-urls http://192.168.50.41:2379 \
+	--advertise-client-urls http://192.168.50.41:2379 \
+	--listen-peer-urls http://192.168.50.41:2380 \
+	--initial-cluster-state existing \
+	--initial-cluster k8s2-master-1=http://192.168.50.41:2380,k8s2-master-2=http://192.168.50.42:2380,k8s2-master-3=http://192.168.50.43:2380
+
+
+
+ ps -ef | grep etcd
+ kill 1197897
+
+
+
+--initial-cluster-token etcd-cluster-1 \
+	
+
+etcd --name m2 --listen-client-urls http://192.168.50.42:2379 --advertise-client-urls http://192.168.50.42:2379 --listen-peer-urls http://192.168.50.42:2380
+etcd --name m3 --listen-client-urls http://192.168.50.43:2379 --advertise-client-urls http://192.168.50.43:2379 --listen-peer-urls http://192.168.50.43:2380
+  
+
+
+
+etcd --name k8s2-master-1 --listen-client-urls http://192.168.50.41:2379 --advertise-client-urls http://192.168.50.41:2379 --listen-peer-urls http://192.168.50.41:2380
+etcd --name k8s2-master-2 --listen-client-urls http://192.168.50.42:2379 --advertise-client-urls http://192.168.50.42:2379 --listen-peer-urls http://192.168.50.42:2380
+etcd --name k8s2-master-3 --listen-client-urls http://192.168.50.43:2379 --advertise-client-urls http://192.168.50.43:2379 --listen-peer-urls http://192.168.50.43:2380
+  
+
+
+mv /etc/kubernetes/manifests/{etcd.yaml,kube-apiserver.yaml,kube-controller-manager.yaml,kube-scheduler.yaml} ~/
+
+cp -rf /var/lib/etcd /var/lib/etcd01
+
+mv ~/{etcd.yaml,kube-apiserver.yaml} /etc/kubernetes/manifests/
+
+rm -rf /var/lib/etcd
+
+
+
+
+
+mv ~/{etcd.yaml,kube-apiserver.yaml,kube-controller-manager.yaml,kube-scheduler.yaml} /etc/kubernetes/manifests/
+
+
+######
+回復
+
+mv /etc/kubernetes/manifests/{etcd.yaml,kube-apiserver.yaml} ~/
+rm -rf /var/lib/etcd
+cp -rf /var/lib/etcd01 /var/lib/etcd
+mv ~/{etcd.yaml,kube-apiserver.yaml} /etc/kubernetes/manifests/
+
+watch kubectl get pods -n kube-system
+
+kubectl logs etcd-k8s2-master-1  -n kube-system
+
+######
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/k8s-test-backup-02 \
+	--name k8s2-master-1 --data-dir=/var/lib/etcd04 --skip-hash-check=true \
+	--initial-cluster k8s2-master-1=http://192.168.50.41:2380,k8s2-master-2=http://192.168.50.42:2380,k8s2-master-3=http://192.168.50.43:2380 \
+	--initial-advertise-peer-urls=http://192.168.50.41:2380 \
+	--initial-cluster-token=etcd-cluster
+
+etcd \
+  --name k8s2-master-1 \
+  --listen-client-urls http://192.168.50.41:2379 \
+  --advertise-client-urls http://192.168.50.41:2379 \
+  --listen-peer-urls http://192.168.50.41:2380 &
+  
+
+ETCDCTL_API=3 etcdctl member list \
+--endpoints https://192.168.50.41:2379 \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+--insecure-skip-tls-verify
+
+
+ETCDCTL_API=3 etcdctl snapshot status /nfsshare/k8s2-backup-01 --write-out=table
+
+
+ETCDCTL_API=3 etcdctl cluster-health \
+--endpoints https://192.168.50.149:2379 \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+--insecure-skip-tls-verify
+
+
+ETCDCTL_API=3 etcdctl snapshot restore 192.168.50.111:/nfsshare/dev-backup --name m3 --data-dir=/var/lib/etcd01 --skip-hash-check=true --initial-cluster m1=http://192.168.50.150:2380,m2=http://192.168.50.151:2380,m3=http://192.168.50.23:2380,m4=http://192.168.50.156:2380,m5=http://192.168.50.35:2380 --initial-advertise-peer-urls=http://192.168.50.23:2380 --initial-cluster-token=etcd-cluster
+
+
+
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/dev-backup --name m4 --data-dir=/var/lib/etcd01 --skip-hash-check=true --initial-cluster m1=http://192.168.50.150:2380,m2=http://192.168.50.151:2380,m3=http://192.168.50.23:2380,m4=http://192.168.50.156:2380,m5=http://192.168.50.35:2380 --initial-advertise-peer-urls=http://192.168.50.156:2380 --initial-cluster-token=etcd-cluster
+
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/dev-backup --name m5 --data-dir=/var/lib/etcd01 --skip-hash-check=true --initial-cluster m1=http://192.168.50.150:2380,m2=http://192.168.50.151:2380,m3=http://192.168.50.23:2380,m4=http://192.168.50.156:2380,m5=http://192.168.50.35:2380 --initial-advertise-peer-urls=http://192.168.50.35:2380 --initial-cluster-token=etcd-cluster
+
+vi manifests/etcd.yaml
+
+
+
+cp -rf /nfsshare/backup-certs/* /etc/kubernetes/pki/
+
+mv ~/manifests /etc/kubernetes/manifests/
+
+vi /etc/kubernetes/manifests/etcd.yaml
+
+
+//restore 用
+
+
+ETCDCTL_API=3 etcdctl snapshot restore /nfsshare/dev-backup --name m1 --data-dir=/var/lib/etcd01 --skip-hash-check=true \
+	--initial-cluster m1=http://192.168.50.149:2380 \
+	--initial-advertise-peer-urls=http://192.168.50.149:2380
+	
+kubeadm init --ignore-preflight-errors=DirAvailable--var-lib-etcd
+
+etcd \
+  --name k8s-master-1 \
+  --listen-client-urls http://192.168.40.41:2379 \
+  --advertise-client-urls http://192.168.50.41:2379 \
+  --listen-peer-urls http://192.168.50.41:2380 &
+  

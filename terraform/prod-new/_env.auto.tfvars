@@ -1,0 +1,6 @@
+aws_profile = "default"
+aws_region = "ap-east-1"
+instance_type = "t3.nano"
+instance_ami_id = "ami-05a3ab9cebecfeadc"
+instance_keypair = "ec2-key"
+eks_name = "tgs-taiwan-k8s"

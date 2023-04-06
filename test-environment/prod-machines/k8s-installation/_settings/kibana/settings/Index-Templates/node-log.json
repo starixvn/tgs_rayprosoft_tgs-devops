@@ -1,0 +1,22 @@
+PUT _index_template/node-log
+{
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "tgs-log-ilm"
+        },
+        "number_of_replicas": "0"
+      }
+    },
+    "aliases": {
+      "k8s-nodes": {}
+    }
+  },
+  "index_patterns": [
+    "node-*"
+  ],
+  "composed_of": [
+    "node-component"
+  ]
+}

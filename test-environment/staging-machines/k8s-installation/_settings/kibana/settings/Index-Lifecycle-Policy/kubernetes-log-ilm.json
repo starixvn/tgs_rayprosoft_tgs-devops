@@ -1,0 +1,38 @@
+PUT _ilm/policy/kubernetes-log-ilm
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "set_priority": {
+            "priority": 100
+          }
+        }
+      },
+      "warm": {
+        "min_age": "1d",
+        "actions": {
+          "forcemerge": {
+            "max_num_segments": 1
+          },
+          "readonly": {},
+          "set_priority": {
+            "priority": 50
+          },
+          "migrate": {
+            "enabled": false
+          }
+        }
+      },
+      "delete": {
+        "min_age": "3d",
+        "actions": {
+          "delete": {
+            "delete_searchable_snapshot": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+PUT _index_template/tgs-log-staging
+{
+  "priority": 500,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "tgs-log-staging-ilm"
+        },
+        "number_of_replicas": "0"
+      }
+    }
+  },
+  "index_patterns": [
+    "log-**(staging)-*"
+  ],
+  "composed_of": [
+    "fluent-bit-app-mapping"
+  ]
+}
