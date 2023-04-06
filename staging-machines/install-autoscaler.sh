@@ -108,5 +108,5 @@ kubectl rollout restart deploy cluster-autoscaler -n kube-system
 #kubectl set image deployment cluster-autoscaler \
 #  -n kube-system \
 #  cluster-autoscaler=registry.k8s.io/autoscaling/cluster-autoscaler:v1.25.n
-sleep 5
+sleep 15
 kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
