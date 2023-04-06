@@ -2,7 +2,7 @@
 # cert-manager
 ## https://cert-manager.io/docs/installation/
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
-sleep 10
+sleep 20
 kubectl apply -f k8s-installation/cluster-issuer.yml
 
 # metric-server 
