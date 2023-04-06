@@ -1,5 +1,7 @@
 # https://aws.amazon.com/tw/blogs/containers/migrating-amazon-eks-clusters-from-gp2-to-gp3-ebs-volumes/
 
+kubectl get pv pvc-1d161d3b-a8cf-4355-94ce-5c43a6820f27 -o jsonpath='{.spec.awsElasticBlockStore.volumeID}'
+
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
