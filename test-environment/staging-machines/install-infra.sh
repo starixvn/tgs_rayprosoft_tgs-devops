@@ -39,10 +39,10 @@ kubectl create ns rabbitmq
 kubectl apply -f k8s-installation/rabbitmq/rabbitmq.yaml
 kubectl apply -f k8s-installation/rabbitmq/ingress.yaml
 
-kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
-rabbitmqctl add_vhost /tgs/staging
-rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
-rabbitmqctl set_user_tags tgs administrator
+# kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
+# rabbitmqctl add_vhost /tgs/staging
+# rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
+# rabbitmqctl set_user_tags tgs administrator
 
 
 
@@ -92,7 +92,7 @@ kubectl apply -f fluent-bit.yaml
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 kubectl create ns monitoring
 helm upgrade -i prometheus prometheus-community/prometheus -f k8s-installation/values-prometheus.yaml -n monitoring
-helm uninstall prometheus -n monitoring
+# helm uninstall prometheus -n monitoring
 ### helm template prometheus prometheus-community/prometheus -f values-prometheus.yaml -n monitoring
 ### helm uninstall prometheus -n monitoring
 ### https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
@@ -105,7 +105,7 @@ helm upgrade --install grafana grafana/grafana -f k8s-installation/values-grafan
 
 ## https://hub.docker.com/r/grafana/grafana/tags
 
-kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+# kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
 
 # nats
@@ -118,7 +118,7 @@ helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=fa
 # redis, redis exporter
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm upgrade -i redis bitnami/redis --set password=1qaz2wsx,auth.enabled=false,metrics.enabled=true -n staging
-helm uninstall redis -n staging
+# helm uninstall redis -n staging
 
 # mongodb,  and exporter
 helm  upgrade -i mongodb bitnami/mongodb \
@@ -127,12 +127,12 @@ helm  upgrade -i mongodb bitnami/mongodb \
 	--set metrics.enabled=true \
 	--set image.tag=5.0.9-debian-11-r3 -n staging
 
-helm uninstall mongodb -n staging
+# helm uninstall mongodb -n staging
 
 
 
-kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
+#kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
 
-kubectl patch pv pvc-481b34ba-69cf-412b-b1a6-742eac299f62 -p '{"metadata":{"finalizers":null}}'
+#kubectl patch pv pvc-481b34ba-69cf-412b-b1a6-742eac299f62 -p '{"metadata":{"finalizers":null}}'
 
 
