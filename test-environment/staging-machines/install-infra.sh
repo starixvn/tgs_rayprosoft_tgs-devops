@@ -37,6 +37,7 @@ kubectl create ns rabbitmq
 
 # kubectl delete -f k8s-installation/rabbitmq/rabbitmq.yaml
 kubectl apply -f k8s-installation/rabbitmq/rabbitmq.yaml
+sleep 20
 kubectl apply -f k8s-installation/rabbitmq/ingress.yaml
 
 # kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
@@ -51,7 +52,7 @@ kubectl apply -f k8s-installation/rabbitmq/ingress.yaml
 helm repo add elastic https://helm.elastic.co
 kubectl create ns observability
 helm upgrade -i elasticsearch k8s-installation/elasticsearch/ -f k8s-installation/elasticsearch/values.yaml -n observability
-helm uninstall elasticsearch -n observability
+# helm uninstall elasticsearch -n observability
 ### helm template elasticsearch k8s-installation/elasticsearch/ -f k8s-installation/elasticsearch/values.yaml  -n observability
 ### helm uninstall elasticsearch -n observability
 
@@ -65,7 +66,7 @@ helm upgrade --install kibana k8s-installation/kibana/ --set imageTag=8.5.1 -f k
 # jaeger
 ## https://www.jaegertracing.io/docs/1.42/operator/#production-strategy
 kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability
-sleep 10
+sleep 30
 kubectl apply -f k8s-installation/jaeger/
 kubectl apply -f k8s-installation/jaeger/otel/
 
