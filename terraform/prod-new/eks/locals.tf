@@ -1,6 +1,6 @@
 locals {
   appName = "tgs"
-  name            = "tgs-taiwan-staging2"
+  name            = "tgs-taiwan-k8s2"
   cluster_version = "1.22"
   region          = "ap-east-1"
   project         = "tgs"

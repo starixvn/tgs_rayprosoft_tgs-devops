@@ -155,3 +155,11 @@ rabbitmqctl set_permissions -p "/tgs/dev" "tgs" '.*' '.*' '.*'
 rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
 rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 rabbitmqctl set_user_tags tgs administrator
+
+
+
+# Docker Login
+runuser -l ec2-user -c 'docker login --username pgtgs --password dckr_pat_vkNUTpZr_o0zsiGGgfXnrgivBZo'
+
+amazon-eks-node-1.25-v20230322
+ami-0b11f7a95c41965c8

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pgpool
-  namespace: staging2
+  namespace: staging
 spec:
   replicas: 3
   selector:
@@ -99,7 +99,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pgpool
-  namespace: staging2
+  namespace: staging
 spec:
   selector:
     app: pgpool
@@ -113,7 +113,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pgpool-stats
-  namespace: staging2
+  namespace: staging
   labels:
     app: pgpool-stats
   annotations:

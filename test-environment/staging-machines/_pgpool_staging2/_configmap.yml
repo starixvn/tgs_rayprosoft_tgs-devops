@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: configmap-pgpool
-  namespace: staging2
+  namespace: staging
   labels:
     app: configmap-pgpool
 data:
@@ -75,7 +75,7 @@ data:
     #backend_data_directory0 = '/var/lib/postgresql/data' # Data directory for backend 0
     #backend_flag0 = 'DISALLOW_TO_FAILOVER'  # Controls various backend behavior    # ALLOW_TO_FAILOVER, DISALLOW_TO_FAILOVER or ALWAYS_MASTER
     
-    backend_hostname0 = 'db-staging2.cglu874fh5rb.ap-east-1.rds.amazonaws.com'
+    backend_hostname0 = 'db-staging.cglu874fh5rb.ap-east-1.rds.amazonaws.com'
     backend_port0 = 5432
     backend_weight0 = 5
     backend_data_directory0 = '/var/lib/postgresql/data'

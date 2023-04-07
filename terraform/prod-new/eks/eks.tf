@@ -8,16 +8,6 @@ provider "aws" {
   }
 }
 
-module "https_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "https_sg"
-  description = "Security group for https_sg"
-  vpc_id      = local.vpc
-
-  ingress_cidr_blocks      = ["10.139.0.0/16"]
-  ingress_rules            = ["https-443-tcp"]
-}
 ################################################################################
 # EKS Module
 ################################################################################
@@ -45,7 +35,7 @@ module "eks" {
   # Default for all node groups
   eks_managed_node_group_defaults = {
       disk_size        = 8          # default volume size
-      disk_type        = "gp3"        # gp3 ebs volume
+      disk_type        = "gp2"        # gp3 ebs volume
       disk_throughput  = 150          # min throughput
       disk_iops        = 3000         # min iops for gp3
       capacity_type    = "SPOT"       # default spot instance
@@ -53,7 +43,7 @@ module "eks" {
       key_name         = local.key    # default ssh keypair for nodes
       ebs_optimized    = true         # ebs optimized instance
       ami_type         = "AL2_x86_64" # default ami type for nodes
-      create_launch_template  = true
+      create_launch_template  = false
       launch_template_name    = ""
       enable_monitoring       = true
       update_default_version  = true  # set new LT ver as default
@@ -69,7 +59,7 @@ module "eks" {
           device_name = "/dev/xvda"
           ebs = {
             volume_size           = 30
-            volume_type           = "gp3"
+            volume_type           = "gp2"
             iops                  = 3000
             throughput            = 150
             encrypted             = false
@@ -79,14 +69,14 @@ module "eks" {
       }
 
       update_config = {
-        max_unavailable_percentage = 10 # or set `max_unavailable`
+        max_unavailable_percentage = 90 # or set `max_unavailable`
       }
   }
 
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "default2"
+      name             = "devops2"
       use_name_prefix  = true
       capacity_type    = "SPOT"  # default node group to be on-demand
       desired_size = 2
@@ -125,15 +115,6 @@ module "eks" {
 
   # Cluster Security Group
   cluster_security_group_additional_rules = {
-    ingress_allow_access_from_control_plane = {
-      type                          = "ingress"
-      protocol                      = "tcp"
-      from_port                     = 443
-      to_port                       = 443
-      description                   = "Allow access from control plane."
-      source_security_group_id   = module.https_sg.security_group_id
-      source_node_security_group = true
-    }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
       protocol                   = "tcp"
@@ -153,7 +134,7 @@ module "eks" {
                 to_port                       = 22
                 cidr_blocks                   = ["10.139.0.0/16"]
                 description                   = "Allow access from control plane to ssh"
-                source_node_security_group = true
+                source_node_security_group = false
         }
         ingress_allow_access_from_control_plane = {
                 type                          = "ingress"

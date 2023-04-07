@@ -8,16 +8,6 @@ provider "aws" {
   }
 }
 
-module "https_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "https_sg"
-  description = "Security group for https_sg"
-  vpc_id      = local.vpc
-
-  ingress_cidr_blocks      = ["10.139.0.0/16"]
-  ingress_rules            = ["https-443-tcp"]
-}
 ################################################################################
 # EKS Module
 ################################################################################
@@ -79,7 +69,7 @@ module "eks" {
       }
 
       update_config = {
-        max_unavailable_percentage = 10 # or set `max_unavailable`
+        max_unavailable_percentage = 90 # or set `max_unavailable`
       }
   }
 
@@ -125,15 +115,6 @@ module "eks" {
 
   # Cluster Security Group
   cluster_security_group_additional_rules = {
-    ingress_allow_access_from_control_plane = {
-      type                          = "ingress"
-      protocol                      = "tcp"
-      from_port                     = 443
-      to_port                       = 443
-      description                   = "Allow access from control plane."
-      source_security_group_id   = module.https_sg.security_group_id
-      source_node_security_group = true
-    }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
       protocol                   = "tcp"
@@ -153,7 +134,7 @@ module "eks" {
                 to_port                       = 22
                 cidr_blocks                   = ["10.139.0.0/16"]
                 description                   = "Allow access from control plane to ssh"
-                source_node_security_group = true
+                source_node_security_group = false
         }
         ingress_allow_access_from_control_plane = {
                 type                          = "ingress"

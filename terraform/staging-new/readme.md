@@ -105,3 +105,12 @@ eksctl delete addon --cluster my-cluster --name aws-ebs-csi-driver --preserve
 aws sts get-caller-identity
 eksctl get iamidentitymapping --cluster tgs-taiwan-k8s
 
+
+
+# Docker Login
+runuser -l ec2-user -c 'docker login --username pgtgs --password dckr_pat_vkNUTpZr_o0zsiGGgfXnrgivBZo'
+
+
+
+amazon-eks-node-1.25-v20230322
+ami-0b11f7a95c41965c8
