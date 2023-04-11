@@ -15,3 +15,12 @@ metadata:
   name: dockerhub
   namespace: rabbitmq-system
 type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJwZ3RncyIsInBhc3N3b3JkIjoiZGNrcl9wYXRfaXl0SVN4RmNNb1lBbmJSSjJEaGFYc2xLcXhRIiwiYXV0aCI6ImNHZDBaM002WkdOcmNsOXdZWFJmYVhsMFNWTjRSbU5OYjFsQmJtSlNTakpFYUdGWWMyeExjWGhSIn19fQ==
+kind: Secret
+metadata:
+  name: dockerhub
+  namespace: rabbitmq
+type: kubernetes.io/dockerconfigjson

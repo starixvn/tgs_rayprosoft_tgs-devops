@@ -48,7 +48,7 @@ helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
 
 kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 
-AddImagePullSecrets rabbitmq-system  deploy rabbitmq-cluster-operator 
+AddImagePullSecrets rabbitmq-system deploy rabbitmq-cluster-operator 
 
 kubectl create ns rabbitmq
 
@@ -56,6 +56,8 @@ kubectl create ns rabbitmq
 kubectl apply -f k8s-installation/rabbitmq/rabbitmq.yaml
 sleep 20
 kubectl apply -f k8s-installation/rabbitmq/ingress.yaml
+
+AddImagePullSecrets rabbitmq sts mq-server
 
 # kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
 # rabbitmqctl add_vhost /tgs/staging
