@@ -13,6 +13,8 @@ spec:
       labels:
         app: pgpool
     spec:
+      imagePullSecrets:
+      - name: dockerhub
       nodeSelector:
         dedicated: staging
       tolerations:
