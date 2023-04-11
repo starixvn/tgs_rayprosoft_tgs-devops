@@ -1,9 +1,22 @@
 #!/bin/bash
+AddImagePullSecrets(){
+	_namespace=$1
+	_deploy_or_sts=$2
+	_name=$3
+	
+	kubectl -n ${_namespace} get ${_deploy_or_sts} ${_name} -o yaml > ${_name}.yaml
+	sed -i 's/dnsPolicy: ClusterFirst/dnsPolicy: ClusterFirst\n      imagePullSecrets:\n      - name: dockerhub/g' ${_name}.yaml
+	kubectl delete -f ${_name}.yaml
+	sleep 2
+	kubectl apply -f ${_name}.yaml
+}
+
 # cert-manager
 ## https://cert-manager.io/docs/installation/
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 sleep 20
 kubectl apply -f k8s-installation/cluster-issuer.yml
+kubectl apply -f k8s-installation/dockerhub.yml
 
 # metric-server 
 ## https://github.com/kubernetes-sigs/metrics-server
@@ -33,6 +46,9 @@ helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
 ## https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples
 
 kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
+
+AddImagePullSecrets rabbitmq-system  deploy rabbitmq-cluster-operator 
+
 kubectl create ns rabbitmq
 
 # kubectl delete -f k8s-installation/rabbitmq/rabbitmq.yaml
@@ -114,17 +130,8 @@ kubectl create ns staging
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3,imagePullSecrets[0]=dockerhub -n staging
 
-kubectl get sts nats -n staging -o yaml > nats.yaml
-sed -i 's/dnsPolicy: ClusterFirst/dnsPolicy: ClusterFirst\n      imagePullSecrets:\n      - name: dockerhub/g' nats.yaml
-kubectl delete -f nats.yaml
-sleep 2
-kubectl apply -f nats.yaml
-
-kubectl -n staging get deploy nats-box -o yaml > nats-box.yaml
-sed -i 's/dnsPolicy: ClusterFirst/dnsPolicy: ClusterFirst\n      imagePullSecrets:\n      - name: dockerhub/g' nats-box.yaml
-kubectl delete -f nats-box.yaml
-sleep 2
-kubectl apply -f nats-box.yaml
+AddImagePullSecrets staging sts nats
+AddImagePullSecrets staging deploy nats-box
 
 ## helm template nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3,imagePullSecrets[0]=dockerhub -n staging
 
