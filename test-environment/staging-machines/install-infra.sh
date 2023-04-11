@@ -112,9 +112,9 @@ helm upgrade --install grafana grafana/grafana -f k8s-installation/values-grafan
 # nats
 kubectl create ns staging
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3 -n staging
+helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3,imagePullSecrets[0]=dockerhub -n staging
 ## helm upgrade --install nats nats/nats -f nats-values.yaml -n dev
-
+## helm uninstall nats -n staging
 
 # redis, redis exporter
 helm repo add bitnami https://charts.bitnami.com/bitnami

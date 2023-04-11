@@ -25,18 +25,20 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 	for dnsid in $(echo ${dnsrecordResponse} | jq '.result' | jq -r '.[].id'); do 
 		dnsname=$(echo ${dnsrecordResponse} | jq '.result' | jq -r ".[${dns_index}].name")
 		proxied=$(echo ${dnsrecordResponse} | jq '.result' | jq -r ".[${dns_index}].proxied") 
+		content=$(echo ${dnsrecordResponse} | jq '.result' | jq -r ".[${dns_index}].content") 
 		
 		dns_index=$((dns_index+1))
 		echo "dns_name: ${dnsname}" 
 		echo "dns_proxied: ${proxied}"
 		echo "dnsid: ${dnsid}"
+		echo "content: ${content}"
 
-		result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
-			-H "X-Auth-Email: ${auth_email}" \
-			-H "X-Auth-Key: ${auth_key}" \
-			-H "Content-Type: application/json" \
-		   --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${newcontent}\",\"proxied\":${proxied}}")
-		echo ${result} | jq 
+		# result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
+			# -H "X-Auth-Email: ${auth_email}" \
+			# -H "X-Auth-Key: ${auth_key}" \
+			# -H "Content-Type: application/json" \
+		   # --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${newcontent}\",\"proxied\":${proxied}}")
+		# echo ${result} | jq 
 	done 
 done
 	 

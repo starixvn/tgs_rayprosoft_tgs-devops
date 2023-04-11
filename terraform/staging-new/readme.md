@@ -106,9 +106,18 @@ aws sts get-caller-identity
 eksctl get iamidentitymapping --cluster tgs-taiwan-k8s
 
 
+sudo yum update -y
+sudo amazon-linux-extras install docker -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+sudo docker login --username pgtgs --password dckr_pat_vkNUTpZr_o0zsiGGgfXnrgivBZo
 
 # Docker Login
 runuser -l ec2-user -c 'docker login --username pgtgs --password dckr_pat_vkNUTpZr_o0zsiGGgfXnrgivBZo'
+
+
+amzn2extra-docker
+
 
 
 
