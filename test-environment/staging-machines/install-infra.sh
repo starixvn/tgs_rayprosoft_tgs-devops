@@ -9,6 +9,7 @@ AddImagePullSecrets(){
 	kubectl delete -f ${_name}.yaml
 	sleep 2
 	kubectl apply -f ${_name}.yaml
+	sudo rm -rf ${_name}.yaml
 }
 
 # cert-manager
