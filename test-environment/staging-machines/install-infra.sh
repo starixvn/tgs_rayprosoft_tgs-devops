@@ -113,6 +113,21 @@ helm upgrade --install grafana grafana/grafana -f k8s-installation/values-grafan
 kubectl create ns staging
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3,imagePullSecrets[0]=dockerhub -n staging
+
+kubectl get sts nats -n staging -o yaml > nats.yaml
+sed -i 's/dnsPolicy: ClusterFirst/dnsPolicy: ClusterFirst\n      imagePullSecrets:\n      - name: dockerhub/g' nats.yaml
+kubectl delete -f nats.yaml
+sleep 2
+kubectl apply -f nats.yaml
+
+kubectl -n staging get deploy nats-box -o yaml > nats-box.yaml
+sed -i 's/dnsPolicy: ClusterFirst/dnsPolicy: ClusterFirst\n      imagePullSecrets:\n      - name: dockerhub/g' nats-box.yaml
+kubectl delete -f nats-box.yaml
+sleep 2
+kubectl apply -f nats-box.yaml
+
+## helm template nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3,imagePullSecrets[0]=dockerhub -n staging
+
 ## helm upgrade --install nats nats/nats -f nats-values.yaml -n dev
 ## helm uninstall nats -n staging
 
@@ -130,6 +145,7 @@ helm  upgrade -i mongodb bitnami/mongodb \
 
 # helm uninstall mongodb -n staging
 
+kubectl apply -f _pgpool_staging2
 
 
 #kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
