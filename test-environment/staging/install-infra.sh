@@ -48,7 +48,7 @@ helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
 
 kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 
-AddImagePullSecrets rabbitmq-system deploy rabbitmq-cluster-operator 
+# AddImagePullSecrets rabbitmq-system deploy rabbitmq-cluster-operator 
 
 kubectl create ns rabbitmq
 
@@ -131,10 +131,10 @@ helm upgrade --install grafana grafana/grafana -f k8s-installation/values-grafan
 # nats
 kubectl create ns staging
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3,imagePullSecrets[0]=dockerhub -n staging
+helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3 -n staging
 
-AddImagePullSecrets staging sts nats
-AddImagePullSecrets staging deploy nats-box
+#AddImagePullSecrets staging sts nats
+#AddImagePullSecrets staging deploy nats-box
 
 ## helm template nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3,imagePullSecrets[0]=dockerhub -n staging
 
@@ -156,6 +156,13 @@ helm  upgrade -i mongodb bitnami/mongodb \
 # helm uninstall mongodb -n staging
 
 kubectl apply -f _pgpool_staging2
+
+
+## rabbitmq after action
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl add_vhost /tgs/staging
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
+
 
 
 #kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
