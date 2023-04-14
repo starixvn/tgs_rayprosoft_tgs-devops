@@ -2,7 +2,7 @@
 export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-staging2
 export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-staging2
 export autoscaler_policyname=AmazonEKSClusterAutoscalerPolicy-staging2
-export account_id=xxxxxxxxx
+export account_id=060812454361
 
 ## for delete-role
 aws iam delete-role --role-name ${csi_role_name} 
