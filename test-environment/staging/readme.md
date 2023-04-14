@@ -163,3 +163,19 @@ runuser -l ec2-user -c 'docker login --username pgtgs --password dckr_pat_vkNUTp
 
 amazon-eks-node-1.25-v20230322
 ami-0b11f7a95c41965c8
+
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/eks/update-cluster-version.html
+
+aws eks update-cluster-version --name tgs-taiwan-staging2 --kubernetes-version 1.23
+
+# https://docs.aws.amazon.com/cli/latest/reference/eks/update-nodegroup-version.html
+
+aws eks update-nodegroup-version --cluster-name tgs-taiwan-staging2 --nodegroup-name tgs-staging-node2-20230414014813429900000014 --release-version 1.25
+
+aws eks update-nodegroup-version --cluster-name tgs-taiwan-staging2 --nodegroup-name default2-20230414014813429900000016          --kubernetes-version 1.25  --version 1.25  
+aws eks update-nodegroup-version --cluster-name tgs-taiwan-staging2 --nodegroup-name tgs-staging-node2-20230414014813429900000014 --kubernetes-version 1.25  --version 1.25  
+
+
+[--launch-template
