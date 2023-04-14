@@ -8,7 +8,7 @@ export account_id=060812454361
 
 aws iam detach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
-  --role-name ${autoscaler_rolename}
+  --role-name ${csi_role_name} 
   
 aws iam delete-role --role-name ${csi_role_name} 
 
