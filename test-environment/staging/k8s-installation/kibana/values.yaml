@@ -143,7 +143,7 @@ ingress:
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: stg2-kibana.rpgp.cc
+    - host: stg-kibana.rpgp.cc
       paths:
         - path: /
   #tls: []
