@@ -12,23 +12,47 @@ PUT _component_template/kubernetes-component
         "kubernetes": {
           "type": "object",
           "properties": {
+            "container_name": {
+              "type": "keyword"
+            },
+            "container_hash": {
+              "type": "keyword"
+            },
+            "host": {
+              "type": "keyword"
+            },
             "annotations": {
               "type": "object",
               "properties": {
-                "cni_projectcalico_org/containerID": {
-                  "type": "keyword"
-                },
-                "cni_projectcalico_org/podIP": {
-                  "type": "keyword"
+                "kubernetes_io/config_source": {
+                  "type": "text"
                 },
                 "cni_projectcalico_org/podIPs": {
+                  "type": "text"
+                },
+                "kubeadm_kubernetes_io/kube-apiserver_advertise-address_endpoint": {
                   "type": "text"
                 },
                 "kubeadm_kubernetes_io/etcd_advertise-client-urls": {
                   "type": "text"
                 },
-                "kubeadm_kubernetes_io/kube-apiserver_advertise-address_endpoint": {
+                "seccomp_security_alpha_kubernetes_io/pod": {
                   "type": "text"
+                },
+                "cni_projectcalico_org/podIP": {
+                  "type": "keyword"
+                },
+                "kubernetes_io/config_seen": {
+                  "type": "date"
+                },
+                "prometheus_io/path": {
+                  "type": "text"
+                },
+                "sidecar_jaegertracing_io/inject": {
+                  "type": "text"
+                },
+                "cni_projectcalico_org/containerID": {
+                  "type": "keyword"
                 },
                 "kubernetes_io/config_hash": {
                   "type": "text"
@@ -36,48 +60,27 @@ PUT _component_template/kubernetes-component
                 "kubernetes_io/config_mirror": {
                   "type": "text"
                 },
-                "kubernetes_io/config_seen": {
-                  "type": "date"
-                },
-                "kubernetes_io/config_source": {
-                  "type": "text"
-                },
                 "linkerd_io/inject": {
                   "type": "text"
-                },
-                "prometheus_io/path": {
-                  "type": "text"
-                },
-                "prometheus_io/port": {
-                  "type": "keyword"
                 },
                 "prometheus_io/scrape": {
                   "type": "keyword"
                 },
-                "seccomp_security_alpha_kubernetes_io/pod": {
-                  "type": "text"
+                "prometheus_io/port": {
+                  "type": "keyword"
                 },
                 "sidecar_istio_io/inject": {
-                  "type": "text"
-                },
-                "sidecar_jaegertracing_io/inject": {
                   "type": "text"
                 }
               }
             },
-            "container_hash": {
-              "type": "keyword"
-            },
-            "container_image": {
-              "type": "keyword"
-            },
-            "container_name": {
-              "type": "keyword"
-            },
             "docker_id": {
               "type": "keyword"
             },
-            "host": {
+            "pod_id": {
+              "type": "keyword"
+            },
+            "container_image": {
               "type": "keyword"
             },
             "labels": {
@@ -86,16 +89,43 @@ PUT _component_template/kubernetes-component
                 "app": {
                   "type": "keyword"
                 },
-                "app_kubernetes_io/component": {
+                "controller-revision-hash": {
                   "type": "keyword"
                 },
-                "app_kubernetes_io/instance": {
+                "job-name": {
                   "type": "keyword"
                 },
                 "app_kubernetes_io/managed-by": {
                   "type": "text"
                 },
+                "pod-template-generation": {
+                  "type": "text"
+                },
                 "app_kubernetes_io/name": {
+                  "type": "keyword"
+                },
+                "version": {
+                  "type": "keyword"
+                },
+                "k8s-app": {
+                  "type": "keyword"
+                },
+                "app_kubernetes_io/instance": {
+                  "type": "keyword"
+                },
+                "kubernetes_io/cluster-service": {
+                  "type": "keyword"
+                },
+                "component": {
+                  "type": "keyword"
+                },
+                "tier": {
+                  "type": "text"
+                },
+                "name": {
+                  "type": "keyword"
+                },
+                "pod-template-hash": {
                   "type": "keyword"
                 },
                 "app_kubernetes_io/part-of": {
@@ -104,37 +134,10 @@ PUT _component_template/kubernetes-component
                 "app_kubernetes_io/version": {
                   "type": "keyword"
                 },
-                "component": {
-                  "type": "keyword"
-                },
-                "controller-revision-hash": {
+                "app_kubernetes_io/component": {
                   "type": "keyword"
                 },
                 "controller-uid": {
-                  "type": "keyword"
-                },
-                "job-name": {
-                  "type": "keyword"
-                },
-                "k8s-app": {
-                  "type": "keyword"
-                },
-                "kubernetes_io/cluster-service": {
-                  "type": "keyword"
-                },
-                "name": {
-                  "type": "keyword"
-                },
-                "pod-template-generation": {
-                  "type": "text"
-                },
-                "pod-template-hash": {
-                  "type": "keyword"
-                },
-                "tier": {
-                  "type": "text"
-                },
-                "version": {
                   "type": "keyword"
                 }
               }
@@ -142,87 +145,31 @@ PUT _component_template/kubernetes-component
             "namespace_name": {
               "type": "keyword"
             },
-            "pod_id": {
-              "type": "keyword"
-            },
             "pod_name": {
               "type": "keyword"
             }
           }
         },
-        "log": {
-          "type": "text"
-        },
         "log_processed": {
           "type": "object",
           "properties": {
-            "Category": {
-              "type": "keyword"
-            },
-            "EventId": {
-              "type": "long"
-            },
-            "LogLevel": {
-              "type": "keyword"
-            },
-            "Message": {
-              "type": "text"
-            },
-            "State": {
-              "type": "object",
-              "properties": {
-                "ElapsedMilliseconds": {
-                  "type": "float"
-                },
-                "HttpMethod": {
-                  "type": "keyword"
-                },
-                "Message": {
-                  "type": "text"
-                },
-                "StatusCode": {
-                  "type": "long"
-                },
-                "Uri": {
-                  "type": "text"
-                },
-                "address": {
-                  "type": "keyword"
-                },
-                "contentRoot": {
-                  "type": "text"
-                },
-                "envName": {
-                  "type": "text"
-                },
-                "{OriginalFormat}": {
-                  "type": "text"
-                }
-              }
-            },
-            "addr": {
-              "type": "text"
-            },
-            "attempt": {
-              "type": "long"
-            },
-            "caller": {
-              "type": "text"
-            },
-            "compact-index": {
-              "type": "long"
-            },
-            "compact-revision": {
-              "type": "long"
-            },
             "date": {
               "type": "date"
             },
-            "detail": {
+            "msg": {
               "type": "text"
             },
-            "dialTarget": {
+            "prefix": {
               "type": "text"
+            },
+            "logger": {
+              "type": "keyword"
+            },
+            "start time": {
+              "type": "date"
+            },
+            "step_count": {
+              "type": "long"
             },
             "dir": {
               "type": "text",
@@ -233,11 +180,127 @@ PUT _component_template/kubernetes-component
                 }
               }
             },
-            "duration": {
+            "remote": {
+              "type": "text"
+            },
+            "attempt": {
+              "type": "long"
+            },
+            "LogLevel": {
               "type": "keyword"
             },
-            "end": {
-              "type": "date"
+            "output": {
+              "type": "text"
+            },
+            "request count": {
+              "type": "long"
+            },
+            "path": {
+              "type": "text"
+            },
+            "compact-revision": {
+              "type": "long"
+            },
+            "EventId": {
+              "type": "long"
+            },
+            "took": {
+              "type": "text"
+            },
+            "level": {
+              "type": "keyword"
+            },
+            "sent-request-id": {
+              "type": "long"
+            },
+            "steps": {
+              "type": "text"
+            },
+            "version": {
+              "type": "long"
+            },
+            "revision": {
+              "type": "long"
+            },
+            "lease-id": {
+              "type": "text"
+            },
+            "route": {
+              "type": "text"
+            },
+            "system": {
+              "type": "text"
+            },
+            "health-status": {
+              "type": "text"
+            },
+            "port": {
+              "type": "long"
+            },
+            "State": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                },
+                "Message": {
+                  "type": "text"
+                },
+                "contentRoot": {
+                  "type": "text"
+                },
+                "envName": {
+                  "type": "text"
+                },
+                "ElapsedMilliseconds": {
+                  "type": "float"
+                },
+                "{OriginalFormat}": {
+                  "type": "text"
+                },
+                "StatusCode": {
+                  "type": "long"
+                },
+                "Uri": {
+                  "type": "text"
+                },
+                "HttpMethod": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "dialTarget": {
+              "type": "text"
+            },
+            "detail": {
+              "type": "text"
+            },
+            "request content": {
+              "type": "text"
+            },
+            "response count": {
+              "type": "long"
+            },
+            "status": {
+              "type": "keyword"
+            },
+            "response type": {
+              "type": "text"
+            },
+            "request": {
+              "type": "text"
+            },
+            "Category": {
+              "type": "keyword"
+            },
+            "Message": {
+              "type": "text"
+            },
+            "request size": {
+              "type": "long"
+            },
+            "http_host-port": {
+              "type": "text"
             },
             "error": {
               "type": "text"
@@ -245,156 +308,93 @@ PUT _component_template/kubernetes-component
             "expected-duration": {
               "type": "text"
             },
+            "timeout": {
+              "type": "text"
+            },
+            "duration": {
+              "type": "keyword"
+            },
             "file": {
-              "type": "text"
-            },
-            "grpc_log": {
-              "type": "boolean"
-            },
-            "health-status": {
-              "type": "text"
-            },
-            "http-addr": {
               "type": "text"
             },
             "http-port": {
               "type": "long"
             },
-            "http_host-port": {
-              "type": "text"
-            },
-            "indices": {
-              "type": "object",
-              "properties": {
-                "Aliases": {
-                  "type": "object"
-                },
-                "CreationTime": {
-                  "type": "date"
-                },
-                "Index": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "lease-id": {
-              "type": "text"
-            },
-            "level": {
-              "type": "keyword"
-            },
-            "local-member-applied-index": {
-              "type": "long"
-            },
             "local-member-id": {
               "type": "text"
             },
-            "local-member-snapshot-count": {
+            "snapshot-index": {
               "type": "long"
             },
-            "local-member-snapshot-index": {
-              "type": "long"
+            "end": {
+              "type": "date"
             },
-            "logger": {
-              "type": "keyword"
-            },
-            "msg": {
-              "type": "text"
-            },
-            "output": {
-              "type": "text"
-            },
-            "path": {
-              "type": "text"
-            },
-            "port": {
-              "type": "long"
-            },
-            "prefix": {
-              "type": "text"
-            },
-            "remote": {
-              "type": "text"
-            },
-            "request": {
-              "type": "text"
-            },
-            "request content": {
-              "type": "text"
-            },
-            "request count": {
-              "type": "long"
-            },
-            "request size": {
-              "type": "long"
-            },
-            "response": {
-              "type": "text"
-            },
-            "response count": {
-              "type": "long"
-            },
-            "response size": {
-              "type": "long"
-            },
-            "response type": {
+            "addr": {
               "type": "text"
             },
             "retry-timeout": {
               "type": "text"
             },
-            "revision": {
+            "compact-index": {
               "type": "long"
             },
-            "route": {
-              "type": "text"
-            },
-            "sent-request-id": {
-              "type": "long"
-            },
-            "snapshot-index": {
+            "local-member-snapshot-index": {
               "type": "long"
             },
             "start": {
               "type": "date"
             },
-            "start time": {
-              "type": "date"
-            },
-            "status": {
-              "type": "keyword"
-            },
-            "status-code": {
-              "type": "long"
-            },
-            "step_count": {
-              "type": "long"
-            },
-            "steps": {
+            "time spent": {
               "type": "text"
             },
-            "system": {
-              "type": "text"
+            "local-member-applied-index": {
+              "type": "long"
             },
             "target": {
               "type": "text"
             },
-            "time spent": {
+            "status-code": {
+              "type": "long"
+            },
+            "caller": {
               "type": "text"
             },
-            "timeout": {
+            "indices": {
+              "type": "object",
+              "properties": {
+                "CreationTime": {
+                  "type": "date"
+                },
+                "Index": {
+                  "type": "keyword"
+                },
+                "Aliases": {
+                  "type": "object"
+                }
+              }
+            },
+            "response": {
               "type": "text"
             },
-            "took": {
+            "http-addr": {
               "type": "text"
+            },
+            "response size": {
+              "type": "long"
+            },
+            "grpc_log": {
+              "type": "boolean"
+            },
+            "local-member-snapshot-count": {
+              "type": "long"
             },
             "ts": {
               "type": "date"
-            },
-            "version": {
-              "type": "long"
             }
           }
+        },
+        "log": {
+          "type": "text"
         },
         "stream": {
           "type": "keyword"

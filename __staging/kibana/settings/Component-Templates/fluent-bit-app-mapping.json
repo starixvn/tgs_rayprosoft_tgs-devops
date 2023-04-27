@@ -8,6 +8,76 @@ PUT _component_template/fluent-bit-app-mapping
     },
     "mappings": {
       "properties": {
+        "StateValues": {
+          "eager_global_ordinals": false,
+          "index": true,
+          "type": "flattened",
+          "split_queries_on_whitespace": false,
+          "index_options": "docs",
+          "doc_values": true
+        },
+        "ExceptionType": {
+          "type": "keyword"
+        },
+        "AdminLog": {
+          "dynamic": false,
+          "type": "object",
+          "enabled": true,
+          "properties": {
+            "exception": {
+              "type": "text"
+            },
+            "ipaddress": {
+              "type": "keyword"
+            },
+            "responsecode": {
+              "type": "keyword"
+            },
+            "method": {
+              "type": "keyword"
+            },
+            "StackTrace": {
+              "type": "text"
+            },
+            "description": {
+              "eager_global_ordinals": false,
+              "index_phrases": false,
+              "fielddata": false,
+              "norms": true,
+              "index": true,
+              "store": false,
+              "type": "text",
+              "index_options": "positions"
+            },
+            "executiontimems": {
+              "type": "long"
+            },
+            "path": {
+              "type": "keyword"
+            },
+            "requestcontent": {
+              "type": "text"
+            },
+            "responsecontent": {
+              "type": "text"
+            },
+            "host": {
+              "type": "keyword"
+            },
+            "servername": {
+              "type": "keyword"
+            },
+            "recordedon": {
+              "type": "date_nanos"
+            },
+            "requestheaders": {
+              "type": "text"
+            },
+            "responseheaders": {
+              "type": "text"
+            }
+          }
+        },
         "CategoryName": {
           "type": "keyword"
         },
@@ -22,109 +92,6 @@ PUT _component_template/fluent-bit-app-mapping
             }
           }
         },
-        "Exception": {
-          "type": "text"
-        },
-        "ExceptionType": {
-          "type": "keyword"
-        },
-        "FormattedMessage": {
-          "type": "text"
-        },
-        "LogLevel": {
-          "type": "keyword"
-        },
-        "SpanId": {
-          "type": "keyword"
-        },
-        "StateValues": {
-          "type": "object",
-          "properties": {
-            "{OriginalFormat}": {
-              "type": "text"
-            },
-            "{source}": {
-              "type": "object",
-              "properties": {
-                "StackTrace": {
-                  "type": "text"
-                },
-                "description": {
-                  "type": "text"
-                },
-                "exception": {
-                  "type": "text"
-                },
-                "executiontimems": {
-                  "type": "long"
-                },
-                "file": {
-                  "type": "text"
-                },
-                "host": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                },
-                "ip": {
-                  "type": "text"
-                },
-                "ipaddress": {
-                  "type": "text"
-                },
-                "level": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                },
-                "line": {
-                  "type": "long"
-                },
-                "logger": {
-                  "type": "text"
-                },
-                "member": {
-                  "type": "text"
-                },
-                "message": {
-                  "type": "text"
-                },
-                "method": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                },
-                "path": {
-                  "type": "text"
-                },
-                "prefix": {
-                  "type": "text"
-                },
-                "recordedon": {
-                  "type": "date"
-                },
-                "requestcontent": {
-                  "type": "text"
-                },
-                "requestheaders": {
-                  "type": "text"
-                },
-                "responsecode": {
-                  "type": "long"
-                },
-                "responsecontent": {
-                  "type": "text"
-                },
-                "responseheaders": {
-                  "type": "text"
-                },
-                "servername": {
-                  "type": "text"
-                },
-                "trackingid": {
-                  "type": "text"
-                }
-              }
-            }
-          }
-        },
         "TraceId": {
           "type": "keyword"
         },
@@ -133,6 +100,18 @@ PUT _component_template/fluent-bit-app-mapping
         },
         "flb-key": {
           "type": "text"
+        },
+        "Exception": {
+          "type": "text"
+        },
+        "LogLevel": {
+          "type": "keyword"
+        },
+        "FormattedMessage": {
+          "type": "text"
+        },
+        "SpanId": {
+          "type": "keyword"
         }
       }
     }
