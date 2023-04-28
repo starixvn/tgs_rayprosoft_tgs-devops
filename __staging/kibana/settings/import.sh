@@ -13,16 +13,16 @@ function import_index {
 #import_index
 
 
-for p in $(ls -l | grep -E '^d' | awk '{print $9}'); 
+for folder in $(ls -l | grep -E '^d' | awk '{print $9}'); 
 do 
-    for file in $(ls $p -l | grep -E '^-' | awk '{print $9}');
+    for file in $(ls $folder -l | grep -E '^-' | awk '{print $9}');
     do 
-        index_type=$(echo "${p/-/\/}")
+        index_type=$(echo "${folder/-/\/}")
 		echo "$index_type"
 		index=$(echo "${file/.json/}")
 		echo "$index"
 		echo "$file"
-		curl -X PUT https://${prometheus_url}/$index_type/$$index -H 'Content-Type: application/json' -d @${file}
+		curl -X PUT http://${prometheus_url}/$index_type/$$index -H 'Content-Type: application/json' -d @${folder}/${file}
     done
 	echo "=====";
 done
