@@ -15,9 +15,9 @@ function import_index {
 username=$(kubectl get secret elasticsearch-master-credentials -n observability -o jsonpath="{.data.username}" | base64 --decode)
 password=$(kubectl get secret elasticsearch-master-credentials -n observability -o jsonpath="{.data.password}" | base64 --decode)
 
-for folder in $(ls -l | grep -E '^d' | awk '{print $9}'); 
+for folder in $(ls -l ./ | grep -E '^d' | awk '{print $9}'); 
 do 
-    for file in $(ls $folder -l | grep -E '^-' | awk '{print $9}');
+    for file in $(ls ./$folder -l | grep -E '^-' | awk '{print $9}');
     do 
         index_type=$(echo "${folder/-/\/}")
 		echo "$index_type"
