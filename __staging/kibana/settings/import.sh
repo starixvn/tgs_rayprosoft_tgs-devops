@@ -24,13 +24,16 @@ do
 		index=$(echo "${file/.json/}")
 		echo "$index"
 		echo "$file"
-		curl -X PUT -u $username:$password $prometheus_url/$index_type/$index -H 'Content-Type: application/json' -d @${folder}/${file}
+		tail -n +2 ${folder}/${file} > ${file}
+		curl -X PUT -u $username:$password $prometheus_url/$index_type/$index -H 'Content-Type: application/json' -d @${file}
+		rm ${file}
+		echo "Imported $index_type/$index successfully"
     done
 	echo "=====";
 done
 
 ## put template
-#curl -X PUT https://stg-elasticsearch.rpgp.cc/_index_template/jaeger-service -H 'Content-Type: application/json' -d @_index_template/jaeger-service.json
+#curl -XPUT -u $username:$password https://stg-elasticsearch.rpgp.cc/_index_template/jaeger-service -H 'Content-Type: application/json' -d @_index_template/jaeger-service.json
 
 
 ## delete index
