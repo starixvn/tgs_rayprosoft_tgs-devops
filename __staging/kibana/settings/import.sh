@@ -10,7 +10,6 @@ function import_index {
 	  printf "\n########## Failure while importing index-pattern #############\n"
 	fi
 }
-#import_index
 
 username=$(kubectl get secret elasticsearch-master-credentials -n observability -o jsonpath="{.data.username}" | base64 --decode)
 password=$(kubectl get secret elasticsearch-master-credentials -n observability -o jsonpath="{.data.password}" | base64 --decode)
@@ -31,6 +30,8 @@ do
     done
 	echo "=====";
 done
+
+import_index
 
 ## put template
 #curl -XPUT -u $username:$password https://stg-elasticsearch.rpgp.cc/_index_template/jaeger-service -H 'Content-Type: application/json' -d @_index_template/jaeger-service.json
