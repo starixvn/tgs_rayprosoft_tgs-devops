@@ -10,14 +10,22 @@ function import_index {
 	  printf "\n########## Failure while importing index-pattern #############\n"
 	fi
 }
-import_index
+#import_index
 
+
+for p in $(ls -l | grep -E '^d' | awk '{print $9}'); 
+do 
+	for f in $(ls $p -l | grep -E '^-' | awk '{print $9}');
+    do 
+		echo $p/$f;
+	done
+done
 
 ## put template
-curl -X PUT https://${prometheus_url}/_index_template/jaeger-service -H 'Content-Type: application/json' -d @jaeger-service.json
+#curl -X PUT https://${prometheus_url}/_index_template/jaeger-service -H 'Content-Type: application/json' -d @jaeger-service.json
 
 
 ## delete index
 ## https://stackoverflow.com/questions/22924300/removing-data-from-elasticsearch
 
-curl -X DELETE 'https://stg-elasticsearch.rpgp.cc/_all'
+#curl -X DELETE 'https://stg-elasticsearch.rpgp.cc/_all'
