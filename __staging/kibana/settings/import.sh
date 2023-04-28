@@ -15,14 +15,14 @@ function import_index {
 
 for p in $(ls -l | grep -E '^d' | awk '{print $9}'); 
 do 
-    for f in $(ls $p -l | grep -E '^-' | awk '{print $9}');
+    for file in $(ls $p -l | grep -E '^-' | awk '{print $9}');
     do 
         index_type=$(echo "${p/-/\/}")
 		echo "$index_type"
-		index=$(echo "${f/.json/}")
+		index=$(echo "${file/.json/}")
 		echo "$index"
-		echo "$f"
-		# curl -X PUT https://${prometheus_url}/$index_type/$index_key -H 'Content-Type: application/json' -d @jaeger-service.json
+		echo "$file"
+		curl -X PUT https://${prometheus_url}/$index_type/$$index -H 'Content-Type: application/json' -d @${file}
     done
 	echo "=====";
 done
