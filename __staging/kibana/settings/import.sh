@@ -12,6 +12,8 @@ function import_index {
 }
 #import_index
 
+username=$(kubectl get secret elasticsearch-master-credentials -n observability -o jsonpath="{.data.username}" | base64 --decode)
+password=$(kubectl get secret elasticsearch-master-credentials -n observability -o jsonpath="{.data.password}" | base64 --decode)
 
 for folder in $(ls -l | grep -E '^d' | awk '{print $9}'); 
 do 
@@ -22,7 +24,7 @@ do
 		index=$(echo "${file/.json/}")
 		echo "$index"
 		echo "$file"
-		curl -X PUT ${prometheus_url}/$index_type/$index -H 'Content-Type: application/json' -d @${folder}/${file}
+		curl -X PUT -u $username:$password $prometheus_url/$index_type/$index -H 'Content-Type: application/json' -d @${folder}/${file}
     done
 	echo "=====";
 done
