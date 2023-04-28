@@ -1,9 +1,10 @@
 #!/bin/bash
-export prometheus_url="https://stg-elasticsearch.rpgp.cc"
+export elasticsearch_url="https://stg-elasticsearch.rpgp.cc"
+export kibana_url="https://stg-kibana.rpgp.cc"
 
 function import_index {
 	echo "Importing index..."
-	until curl --user $1:$2 -X POST ${prometheus_url}/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@index_pattern.ndjson -H 'kbn-xsrf: true'; do sleep 5; done
+	until curl --user $1:$2 -X POST ${elasticsearch_url}/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@index_pattern.ndjson -H 'kbn-xsrf: true'; do sleep 5; done
 	if [[ $(echo "$?") == "0" ]]; then
 	  printf "\n########## Imported index-pattern successfully! #############################\n"
 	else
@@ -24,7 +25,7 @@ do
 		echo "$index"
 		echo "$file"
 		tail -n +2 ${folder}/${file} > ${file}
-		curl -X PUT -u $username:$password $prometheus_url/$index_type/$index -H 'Content-Type: application/json' -d @${file}
+		curl -X PUT -u $username:$password $elasticsearch_url/$index_type/$index -H 'Content-Type: application/json' -d @${file}
 		rm ${file}
 		echo "Imported $index_type/$index successfully"
     done
@@ -33,11 +34,12 @@ done
 
 import_index $username $password
 
-## put template
-#curl -XPUT -u $username:$password https://stg-elasticsearch.rpgp.cc/_index_template/jaeger-service -H 'Content-Type: application/json' -d @_index_template/jaeger-service.json
+## import index-pattern
+curl -X POST ${kibana_url}/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@index_pattern.ndjson | jq
 
 
 ## delete index
 ## https://stackoverflow.com/questions/22924300/removing-data-from-elasticsearch
 
+#先不要用
 #curl -X DELETE 'https://stg-elasticsearch.rpgp.cc/_all'
