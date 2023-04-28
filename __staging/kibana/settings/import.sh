@@ -3,7 +3,7 @@ export prometheus_url="https://stg-elasticsearch.rpgp.cc"
 
 function import_index {
 	echo "Importing index..."
-	until curl --user user:pwd -X POST ${prometheus_url}/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@index_pattern.ndjson -H 'kbn-xsrf: true'; do sleep 5; done
+	until curl --user $1:$2 -X POST ${prometheus_url}/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@index_pattern.ndjson -H 'kbn-xsrf: true'; do sleep 5; done
 	if [[ $(echo "$?") == "0" ]]; then
 	  printf "\n########## Imported index-pattern successfully! #############################\n"
 	else
@@ -31,7 +31,7 @@ do
 	echo "=====";
 done
 
-import_index
+import_index $username $password
 
 ## put template
 #curl -XPUT -u $username:$password https://stg-elasticsearch.rpgp.cc/_index_template/jaeger-service -H 'Content-Type: application/json' -d @_index_template/jaeger-service.json
