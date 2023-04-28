@@ -1,12 +1,13 @@
 #!/bin/bash
 
 ### 先設定固定IP
+export myip=$(hostname -I)
 cat <<EOF | sudo tee /etc/netplan/00-installer-config.yaml
 network:
   ethernets:
     ens160:
       addresses:
-      - 192.168.50.109/24
+      - $myip/24
       gateway4: 192.168.50.1
       nameservers:
         addresses:
@@ -101,7 +102,7 @@ sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.t
 
 systemctl restart containerd
 
-export master_url=kubeapi.rpgp.cc:6443
+export master_url=$myip:6443
 
 kubeadm join $master_url --token rv2h6b.wrh4tlifh33qor7n --discovery-token-ca-cert-hash sha256:c4d8dd05213dd87a87f7e2d7c2719cf23149b9ba5f8780a0511cc8f040cae2ba
 kubeadm join $master_url --token 1q5s0s.ijkwtfpxyni0t3vs --discovery-token-ca-cert-hash sha256:c4d8dd05213dd87a87f7e2d7c2719cf23149b9ba5f8780a0511cc8f040cae2ba
@@ -113,7 +114,7 @@ kubeadm join $master_url --token 1q5s0s.ijkwtfpxyni0t3vs --discovery-token-ca-ce
 cat <<EOF | sudo tee /root/kubeadm-config.yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-kubernetesVersion: v1.26.0
+kubernetesVersion: v1.27.0
 controlPlaneEndpoint: $master_url
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
