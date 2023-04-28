@@ -17,9 +17,12 @@ for p in $(ls -l | grep -E '^d' | awk '{print $9}');
 do 
     for f in $(ls $p -l | grep -E '^-' | awk '{print $9}');
     do 
-        echo "folder/${p/-/\/}"
-		echo "=====";
+        index_type=$(echo "folder/${p/-/\/}")
+		echo "$index_type"
+		echo "$f"
+		# curl -X PUT https://${prometheus_url}/$index_type/$index_key -H 'Content-Type: application/json' -d @jaeger-service.json
     done
+	echo "=====";
 done
 
 ## put template
