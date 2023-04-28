@@ -22,7 +22,7 @@ do
 		index=$(echo "${file/.json/}")
 		echo "$index"
 		echo "$file"
-		curl -X PUT http://${prometheus_url}/$index_type/$$index -H 'Content-Type: application/json' -d @${folder}/${file}
+		curl -X PUT https://${prometheus_url}/$index_type/$index -H 'Content-Type: application/json' -d @${folder}/${file}
     done
 	echo "=====";
 done
