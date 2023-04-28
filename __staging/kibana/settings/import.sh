@@ -22,13 +22,13 @@ do
 		index=$(echo "${file/.json/}")
 		echo "$index"
 		echo "$file"
-		curl -X PUT https://${prometheus_url}/$index_type/$index -H 'Content-Type: application/json' -d @${folder}/${file}
+		curl -X PUT ${prometheus_url}/$index_type/$index -H 'Content-Type: application/json' -d @${folder}/${file}
     done
 	echo "=====";
 done
 
 ## put template
-#curl -X PUT https://${prometheus_url}/_index_template/jaeger-service -H 'Content-Type: application/json' -d @jaeger-service.json
+#curl -X PUT https://stg-elasticsearch.rpgp.cc/_index_template/jaeger-service -H 'Content-Type: application/json' -d @_index_template/jaeger-service.json
 
 
 ## delete index
