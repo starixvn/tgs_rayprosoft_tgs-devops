@@ -15,10 +15,10 @@ function import_index {
 
 for p in $(ls -l | grep -E '^d' | awk '{print $9}'); 
 do 
-	for f in $(ls $p -l | grep -E '^-' | awk '{print $9}');
+    for f in $(ls $p -l | grep -E '^-' | awk '{print $9}');
     do 
-		echo $p/$f;
-	done
+        echo $p/$f;
+    done
 done
 
 ## put template
