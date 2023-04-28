@@ -17,7 +17,8 @@ for p in $(ls -l | grep -E '^d' | awk '{print $9}');
 do 
     for f in $(ls $p -l | grep -E '^-' | awk '{print $9}');
     do 
-        echo $p/$f;
+        echo "folder/${p/-/\/}"
+		echo "=====";
     done
 done
 
