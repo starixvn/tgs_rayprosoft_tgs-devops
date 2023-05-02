@@ -33,22 +33,22 @@ spec:
           env:
           - name: ES_JAVA_OPTS
             value: -Xms2g -Xmx2g
-          volumeMounts:
+          # volumeMounts:
           # - mountPath: /usr/share/elasticsearch/config
             # name: elastic-internal-elasticsearch-config-local
-          - mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
-            name: elasticsearch
-            readOnly: true
-            subPath: elasticsearch.yml
-        volumes:
-        - name: elastic-internal-elasticsearch-config
-          secret:
-            defaultMode: 420
-            items:
-            - key: elasticsearch
-              path: elasticsearch.yml
-            optional: false
-            secretName: elasticsearch-es-observability-es-config
+          # - mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+            # name: elasticsearch
+            # readOnly: true
+            # subPath: elasticsearch.yml
+        # volumes:
+        # - name: elastic-internal-elasticsearch-config
+          # secret:
+            # defaultMode: 420
+            # items:
+            # - key: elasticsearch
+              # path: elasticsearch.yml
+            # optional: false
+            # secretName: elasticsearch-es-observability-es-config
         # - name: elastic-internal-elasticsearch-config
           # secret:
             # defaultMode: 420
