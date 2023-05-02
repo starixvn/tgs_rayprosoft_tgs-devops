@@ -7,7 +7,7 @@ spec:
   version: 8.7.0
   nodeSets:
   - name: observability
-    count: 1
+    count: 3
     config:
       node.store.allow_mmap: false
       cluster.name: "elasticsearch"
@@ -18,7 +18,7 @@ spec:
       ingest.geoip.downloader.enabled: false
       indices.breaker.fielddata.limit: 40%
       indices.breaker.request.limit: 40%
-      discovery.type: single-node
+      #discovery.type: single-node
     podTemplate:
       spec:
         containers:
