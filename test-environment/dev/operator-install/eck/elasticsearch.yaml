@@ -25,11 +25,11 @@ spec:
         - name: elasticsearch
           resources:
             requests:
-              memory: 4Gi
-              cpu: 2
-            limits:
               memory: 2Gi
-              cpu: 1 
+              cpu: 1
+            limits:
+              memory: 4Gi
+              cpu: 2 
           env:
           - name: ES_JAVA_OPTS
             value: -Xms2g -Xmx2g
