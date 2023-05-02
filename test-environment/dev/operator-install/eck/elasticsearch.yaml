@@ -2,6 +2,7 @@ apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
   name: Elasticsearch
+  namespace: observability
 spec:
   version: 8.7.0
   nodeSets:
@@ -9,6 +10,28 @@ spec:
     count: 1
     config:
       node.store.allow_mmap: false
+      cluster.name: "elasticsearch"
+      network.host: 0.0.0.0
+      xpack.security.enabled: false
+      http.cors.enabled: true
+      http.cors.allow-origin: "*"
+      ingest.geoip.downloader.enabled: false
+      indices.breaker.fielddata.limit: 40%
+      indices.breaker.request.limit: 40%
+      discovery.type: single-node
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            requests:
+              memory: 4Gi
+              cpu: 8
+            limits:
+              memory: 4Gi
+          env:
+          - name: ES_JAVA_OPTS
+            value: -Xms2g -Xmx2g
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
