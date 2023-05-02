@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: stg-kibana.rpgp.cc
+  - host: kibana.rpgp.cc
     http:
       paths:
       - backend:
