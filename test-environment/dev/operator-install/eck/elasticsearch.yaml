@@ -33,6 +33,34 @@ spec:
           env:
           - name: ES_JAVA_OPTS
             value: -Xms2g -Xmx2g
+          volumeMounts:
+          # - mountPath: /usr/share/elasticsearch/config
+            # name: elastic-internal-elasticsearch-config-local
+          - mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+            name: elasticsearch
+            readOnly: true
+            subPath: elasticsearch.yml
+        volumes:
+        - name: elastic-internal-elasticsearch-config
+          secret:
+            defaultMode: 420
+            items:
+            - key: elasticsearch
+              path: elasticsearch.yml
+            optional: false
+            secretName: elasticsearch-es-observability-es-config
+        # - name: elastic-internal-elasticsearch-config
+          # secret:
+            # defaultMode: 420
+            # optional: false
+            # secretName: elasticsearch-es-observability-es-config
+        # - configMap:
+            # defaultMode: 420
+            # items:
+            # - key: elasticsearch
+              # path: elasticsearch.yml
+            # name: configmap-elasticsearch
+          # name: elasticsearch
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -52,3 +80,8 @@ spec:
           requests:
             storage: 30Gi
         storageClassName: nfs-provisioner
+
+
+ # kubectl  -n observability debug elasticsearch-es-observability  --image=docker.elastic.co/elasticsearch/elasticsearch:8.7.0 --target=elasticsearch
+ ## secrets: elasticsearch-es-observability-es-config
+ 
