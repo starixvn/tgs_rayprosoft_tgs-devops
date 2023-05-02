@@ -1,7 +1,7 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: Elasticsearch
+  name: elasticsearch
   namespace: observability
 spec:
   version: 8.7.0
