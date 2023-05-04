@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: otel-collector
-  namespace: observability
+  namespace: observability2
   labels:
     otel: collector
 spec:

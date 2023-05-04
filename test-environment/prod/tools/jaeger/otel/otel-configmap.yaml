@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: configmap-otel-collector
-  namespace: observability
+  namespace: observability2
 data:
   otel-config: | 
     receivers:
