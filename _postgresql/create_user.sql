@@ -22,3 +22,29 @@
     GRANT ALL ON ALL FUNCTIONS IN SCHEMA dbo,bet,log,report TO rpdev ;
     
     GRANT SELECT ON ALL TABLES IN SCHEMA public TO sentry_read;
+
+ create user tgspostgressuprtadmin with 
+		LOGIN
+        SUPERUSER
+        INHERIT
+        NOCREATEDB
+        NOCREATEROLE
+        NOREPLICATION
+        CONNECTION LIMIT 10
+        PASSWORD 'abcd1234';
+        
+        
+    GRANT CONNECT ON DATABASE gatus_prod TO gatus_staging ;
+	
+	ALTER DATABASE gatus_staging OWNER TO gatus_staging;
+	
+	REASSIGN OWNED BY postgres TO gatus_prod;
+	
+	
+    GRANT USAGE ON SCHEMA public TO rpdev ;
+    GRANT ALL ON ALL TABLES IN SCHEMA dbo,bet,log,report TO rpdev ;
+    GRANT ALL ON ALL SEQUENCES IN SCHEMA dbo,bet,log,report TO rpdev ;
+    GRANT ALL ON ALL FUNCTIONS IN SCHEMA dbo,bet,log,report TO rpdev ;
+    
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO sentry_read;
+	

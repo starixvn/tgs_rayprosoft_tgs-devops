@@ -76,7 +76,7 @@ module "eks" {
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "devops2"
+      name             = "devops_2"
       use_name_prefix  = true
       capacity_type    = "SPOT"  # default node group to be on-demand
       desired_size = 2
@@ -115,6 +115,15 @@ module "eks" {
 
   # Cluster Security Group
   cluster_security_group_additional_rules = {
+    ingress_all_443_api = {
+      description = "API all ingress"
+      protocol = "tcp"
+      from_port = 443
+      to_port = 443
+      type = "ingress"
+      cidr_blocks = ["10.139.0.0/16"]
+      ipv6_cidr_blocks = ["::/0"]
+    }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
       protocol                   = "tcp"

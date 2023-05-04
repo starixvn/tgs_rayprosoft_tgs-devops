@@ -1,0 +1,53 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+  namespace: observability
+spec:
+  strategy: production
+  storage:
+    type: elasticsearch
+    dependencies:
+      enabled: false
+    esIndexCleaner:
+      enabled: false
+      numberOfDays: 15
+      schedule: "55 23 * * *"
+    options:
+      es:
+        server-urls: http://elasticsearch-master:9200
+        #index-prefix: tracing
+        num-replicas: 0
+        num-shards: 1
+        create-index-templates: "false"
+        version: 7
+  collector:
+    autoscale: false
+  query:
+    options:
+      es: 
+        use-aliases: true
+  ui:
+    options:
+      dependencies:
+        menuEnabled: true
+      menu:
+        - label: "About Jaeger"
+          items:
+            - label: "Documentation"
+              url: "https://www.jaegertracing.io/docs/latest"
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
+  serviceAccount: jaeger-operator
+  securityContext:
+    runAsUser: 1000
+  ingress:
+    security: none
+    ingressClassName: nginx
+    hosts:
+      - "stg2-jaeger.rpgp.cc"

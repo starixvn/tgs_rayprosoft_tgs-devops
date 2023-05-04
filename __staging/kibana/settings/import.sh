@@ -40,6 +40,11 @@ curl -X POST ${kibana_url}/api/saved_objects/_import?overwrite=true -H "kbn-xsrf
 
 ## delete index
 ## https://stackoverflow.com/questions/22924300/removing-data-from-elasticsearch
-
 #先不要用
 #curl -X DELETE 'https://stg-elasticsearch.rpgp.cc/_all'
+
+#indexes=$(curl https://elasticsearch.srvptt.com/_cat/indices?v&index=log-game*)
+#for index in indexes
+#curl https://elasticsearch.srvptt.com/_cat/indices?index=log-game*&h=index
+#| cut -d ' ' -f2 | sort
+#curl https://elasticsearch.srvptt.com/_cat/indices?v&index=log-game* | cut -d ' ' -f2 | sort
