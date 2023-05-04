@@ -69,22 +69,20 @@ AddImagePullSecrets rabbitmq sts mq-server
 # elasticsearch
 ## https://github.com/elastic/helm-charts
 helm repo add elastic https://helm.elastic.co
-kubectl create ns observability
-helm upgrade -i elasticsearch k8s-installation/elasticsearch/ -f k8s-installation/elasticsearch/values.yaml -n observability2
-
+kubectl create ns observability2
+helm install  elasticsearch .  -f values.yaml -n observability2
 
 # helm install  elasticsearch .  -f values.yaml -n observability2
 # helm uninstall elasticsearch -n observability
 ### helm template elasticsearch k8s-installation/elasticsearch/ -f k8s-installation/elasticsearch/values.yaml  -n observability
 ### helm uninstall elasticsearch -n observability
 
-
 # kibana
 
 kubectl apply -f https://download.elastic.co/downloads/eck/2.7.0/crds.yaml
 kubectl apply -f https://download.elastic.co/downloads/eck/2.7.0/operator.yaml
 
-kubectl apply -f kibana/kibana.yaml
+kubectl apply -f kibana.yaml
 kubectl apply -f kibana/ing-kibana.yaml
 
 
