@@ -87,7 +87,7 @@ helm upgrade --install kibana k8s-installation/kibana/ --set imageTag=8.5.1 -f k
 
 # jaeger
 ## https://www.jaegertracing.io/docs/1.42/operator/#production-strategy
-kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability
+kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability2
 sleep 30
 kubectl apply -f k8s-installation/jaeger/
 kubectl apply -f k8s-installation/jaeger/otel/

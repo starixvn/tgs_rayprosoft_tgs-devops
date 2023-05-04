@@ -281,7 +281,7 @@ ingress:
   className: "nginx"
   pathtype: ImplementationSpecific
   hosts:
-    - host: elasticsearch2.yydsgo.xyz
+    - host: elasticsearch2.srvptt.com
       paths:
         - path: /
   tls: []
