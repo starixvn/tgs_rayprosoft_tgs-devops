@@ -318,14 +318,13 @@ spec:
           - name: node.roles
             value: "{{ template "elasticsearch.roles" . }}"
           {{- end }}
-          ## for single node test
-          #{{- if lt (int (include "elasticsearch.esMajorVersion" .)) 7 }}
-          #- name: discovery.zen.ping.unicast.hosts
-          #  value: "{{ template "elasticsearch.masterService" . }}-headless"
-          #{{- else }}
-          #- name: discovery.seed_hosts
-          #  value: "{{ template "elasticsearch.masterService" . }}-headless"
-          #{{- end }}
+          {{- if lt (int (include "elasticsearch.esMajorVersion" .)) 7 }}
+          - name: discovery.zen.ping.unicast.hosts
+            value: "{{ template "elasticsearch.masterService" . }}-headless"
+          {{- else }}
+          - name: discovery.seed_hosts
+            value: "{{ template "elasticsearch.masterService" . }}-headless"
+          {{- end }}
           - name: cluster.name
             value: "{{ .Values.clusterName }}"
           - name: network.host
