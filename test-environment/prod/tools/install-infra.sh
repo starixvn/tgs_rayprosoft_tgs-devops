@@ -79,8 +79,8 @@ helm install  elasticsearch .  -f values.yaml -n observability2
 
 # kibana
 
-kubectl apply -f https://download.elastic.co/downloads/eck/2.7.0/crds.yaml
-kubectl apply -f https://download.elastic.co/downloads/eck/2.7.0/operator.yaml
+kubectl delete -f https://download.elastic.co/downloads/eck/2.7.0/crds.yaml
+kubectl delete -f https://download.elastic.co/downloads/eck/2.7.0/operator.yaml
 
 kubectl apply -f kibana.yaml
 kubectl apply -f kibana/ing-kibana.yaml

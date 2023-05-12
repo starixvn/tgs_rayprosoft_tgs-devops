@@ -110,15 +110,31 @@ CREATE ROLE tgs_app WITH
   NOREPLICATION
   CONNECTION LIMIT 10
   ENCRYPTED PASSWORD 'md546f0cbffe0b01c08bcaf389be7eb7c97';
+ 
+  
+  
+  CREATE ROLE tgspostgressuprtadmin WITH
+  LOGIN
+  SUPERUSER
+  INHERIT
+  CREATEDB
+  CREATEROLE
+  CONNECTION LIMIT 10
+  NOREPLICATION
+  PASSWORD '0dRCYYSpWSUAFQMcahfnCEfKplsQtpXgal6E';
+
+
+  ALTER ROLE tgspostgressuprtadmin SET search_path TO "$user", public;
+  
   
 ##################################
 ######  Backup & Restore #########
 ##################################
 
-export PGPASSWORD='wXfrQBjK4XYFY3KH6D2D'
-export PGHOST='db-production.cglu874fh5rb.ap-east-1.rds.amazonaws.com'
+export PGPASSWORD='0dRCYYSpWSUAFQMcahfnCEfKplsQtpXgal6E'
+export PGHOST='localhost'
 export PGPORT='5432'
-export PGUSER='postgres'
+export PGUSER='tgspostgressuprtadmin'
 
 export dbname="tgs_2022_11_09"
 
