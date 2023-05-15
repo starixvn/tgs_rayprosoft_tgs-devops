@@ -1505,9 +1505,9 @@ kubeEtcd:
     scheme: http
     insecureSkipVerify: false
     serverName: ""
-    caFile: ""
-    certFile: ""
-    keyFile: ""
+    caFile: "/etc/prometheus/secrets/etcd-certs/ca.crt"
+    certFile: "/etc/prometheus/secrets/etcd-certs/healthcheck-client.crt"
+    keyFile: "/etc/prometheus/secrets/etcd-certs/healthcheck-client.key"
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
