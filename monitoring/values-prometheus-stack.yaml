@@ -1502,7 +1502,7 @@ kubeEtcd:
     ## proxyUrl: URL of a proxy that should be used for scraping.
     ##
     proxyUrl: ""
-    scheme: http
+    scheme: https
     insecureSkipVerify: false
     serverName: ""
     caFile: "/etc/prometheus/secrets/etcd-certs/ca.crt"
