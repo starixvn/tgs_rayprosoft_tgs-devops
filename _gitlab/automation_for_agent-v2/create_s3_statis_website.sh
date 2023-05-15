@@ -102,9 +102,20 @@ for zone in $(echo ${response} | jq '.result' | jq  '.[] | .id+","+.name'); do
         fi
 done
 
-$domain_alias=agent.wlgtop.com
-$s3_url="$bucket_name.s3-website.ap-east-1.amazonaws.com"
+domain_alias=agent.wlgtop.com
+s3_url="$bucket_name.s3-website.ap-east-1.amazonaws.com"
+cert_arn=arn:aws:acm:us-east-1:060812454361:certificate\/1bc530aa-f3b5-47a3-8b41-0cae6fa66077
 
-sed -e 's/{{domain_alias}}/$$domain_alias/g' -e 's/{s3_url}/cat/g' -e 's/{acm_crn}/$cert_arn/g' create-dist-config-template.json > create-dist-config-$bucket_name.json
+sed -e "s/{domain_alias}/$domain_alias/g" \
+   -e "s/{s3_url}/$s3_url/g" \
+   -e "s/{acm_crn}/$cert_arn/g" \
+   create-dist-config-template.json > create-dist-config-$bucket_name.json
+   
+   
+   
+sed -e "s!{domain_alias}!$domain_alias!g" \
+   -e "s!{s3_url}!$s3_url!g" \
+   -e "s!{acm_crn}!$cert_arn!g" \
+   create-dist-config-template.json > create-dist-config-$bucket_name.json
 
 aws cloudfront create-distribution --distribution-config file://create-dist-config-$bucket_name.json
