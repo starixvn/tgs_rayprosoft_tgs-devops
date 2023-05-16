@@ -1552,8 +1552,8 @@ kubeScheduler:
     ## If null or unset, the value is determined dynamically based on target Kubernetes version due to change
     ## of default port in Kubernetes 1.23.
     ##
-    port: null
-    targetPort: null
+    port: 10259
+    targetPort: 10259
     # selector:
     #   component: kube-scheduler
 
@@ -1590,10 +1590,10 @@ kubeScheduler:
     ## Requires proper certs (not self-signed) and delegated authentication/authorization checks.
     ## If null or unset, the value is determined dynamically based on target Kubernetes version.
     ##
-    https: null
+    https: true
 
     ## Skip TLS certificate validation when scraping
-    insecureSkipVerify: null
+    insecureSkipVerify: true
 
     ## Name of the server to use when validating TLS certificate
     serverName: null

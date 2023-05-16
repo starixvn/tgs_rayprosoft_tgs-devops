@@ -20,3 +20,12 @@ helm upgrade --install prometheus-stack prometheus-community/kube-prometheus-sta
 helm upgrade --reuse-values -f values-prometheus-stack.yaml prometheus-stack prometheus-community/kube-prometheus-stack  -n monitoring
 
 
+kubectl -n monitoring exec -it prometheus-prometheus-stack-kube-prom-prometheus-0 -- ls /etc/prometheus/secrets/etcd-certs
+
+
+kubectl -n monitoring edit servicemonitor prometheus-stack-kube-prom-kube-etcd
+
+
+kubectl -n kube-system edit configmap kube-proxy
+
+
