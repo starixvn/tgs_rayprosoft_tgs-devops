@@ -3,17 +3,17 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  name: prometheus
+  name: grafana
   namespace: monitoring
 spec:
   ingressClassName: nginx
   rules:
-  - host: prometheus.rpgp.cc
+  - host: grafana.rpgp.cc
     http:
       paths:
       - backend:
           service:
-            name: prometheus-stack-kube-prom-prometheus
+            name: prometheus-stack-grafana
             port:
               number: 80
         path: /
