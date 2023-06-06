@@ -893,7 +893,7 @@ grafana:
     ## Must be provided if Ingress is enable.
     ##
     # hosts:
-    #   - grafana.domain.com
+    #  - dev2-grafana.rpgp.cc
     hosts: []
 
     ## Path for grafana ingress
@@ -1594,9 +1594,9 @@ kubeEtcd:
     scheme: http
     insecureSkipVerify: false
     serverName: ""
-    caFile: ""
-    certFile: ""
-    keyFile: ""
+    caFile: /etc/prometheus/secrets/etcd-certs/ca.crt
+    certFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.crt
+    keyFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.key
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
@@ -2424,7 +2424,7 @@ prometheus:
 
     ## Service type
     ##
-    type: ClusterIP
+    type: NodePort
 
     ## gRPC port config
     portName: grpc
@@ -2537,7 +2537,7 @@ prometheus:
 
     ## Service type
     ##
-    type: ClusterIP
+    type: NodePort
 
     ## Additional port to define in the Service
     additionalPorts: []
@@ -2929,7 +2929,7 @@ prometheus:
     ## reflected in the running Pods. To change the secrets mounted into the Prometheus Pods, the object must be deleted and recreated
     ## with the new list of secrets.
     ##
-    secrets: []
+    secrets: ["etcd-certs"]
 
     ## ConfigMaps is a list of ConfigMaps in the same namespace as the Prometheus object, which shall be mounted into the Prometheus Pods.
     ## The ConfigMaps are mounted into /etc/prometheus/configmaps/.
