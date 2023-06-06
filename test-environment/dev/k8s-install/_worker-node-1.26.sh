@@ -1,13 +1,17 @@
 #!/bin/bash
-
 ### 先設定固定IP
+myip=$(hostname -I)
+address="${myip/ /}/24"
+
 cat <<EOF | sudo tee /etc/netplan/00-installer-config.yaml
 network:
   ethernets:
     ens160:
       addresses:
-      - 192.168.50.109/24
-      gateway4: 192.168.50.1
+      - $address
+      routes:
+      - to: default
+        via: 192.168.50.1
       nameservers:
         addresses:
         - 8.8.8.8
@@ -30,11 +34,11 @@ echo 256 > /proc/sys/fs/inotify/max_user_instances
 sed -i '$afs.inotify.max_user_instances = 256' /etc/sysctl.conf
 
 ### 安裝 nfs client
-sudo apt-get install nfs-common -y
-mkdir /nfsshare
-chmod -R 777 /nfsshare
-mount -t nfs 192.168.50.111:/nfsshare /nfsshare
-sed -i '$a192.168.50.111:/nfsshare /nfsshare nfs defaults 0 0\n' /etc/fstab
+# sudo apt-get install nfs-common -y
+# mkdir /nfsshare
+# chmod -R 777 /nfsshare
+# mount -t nfs 192.168.50.111:/nfsshare /nfsshare
+# sed -i '$a192.168.50.111:/nfsshare /nfsshare nfs defaults 0 0\n' /etc/fstab
 
 ### 開始安裝
 apt update && apt upgrade -y
@@ -44,14 +48,21 @@ sed -e '/\/swap/ s/^#*/#/' -i /etc/fstab
 
 
 apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
+# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
+# cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+# deb https://apt.kubernetes.io/ kubernetes-xenial main
+# EOF
+
+sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+ 
+ 
+# apt-cache madison kubectl | grep 1.26
+version=1.26.2-00
 apt-get update
-apt-get install -y kubelet kubeadm kubectl
+apt-get install -y kubelet=$version kubectl=$version kubeadm=$version
 apt-mark hold kubelet kubeadm kubectl
 
 ### install containerd prepare###
@@ -92,7 +103,8 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
- 
+
+
 sudo apt-get update
 sudo apt-get install containerd.io
 
@@ -101,5 +113,4 @@ containerd config default > /etc/containerd/config.toml
 sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
 
 systemctl restart containerd
-
-kubeadm join kubeapi.rpgp.cc:6443 --token rv2h6b.wrh4tlifh33qor7n --discovery-token-ca-cert-hash sha256:c4d8dd05213dd87a87f7e2d7c2719cf23149b9ba5f8780a0511cc8f040cae2ba
+kubeadm join kubeapi.rpgp.cc:6444 --token xuv6ey.4qdrp65ml9s5yl8x --discovery-token-ca-cert-hash sha256:a40b8ce32f4b2e0e3e148d015db08ff3d18a8391a5eba859816290864edf8d5b

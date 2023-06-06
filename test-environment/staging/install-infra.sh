@@ -83,11 +83,12 @@ helm upgrade -i elasticsearch k8s-installation/elasticsearch/ -f k8s-installatio
 helm repo add elastic https://helm.elastic.co
 helm repo update
 helm upgrade --install kibana k8s-installation/kibana/ --set imageTag=8.5.1 -f k8s-installation/kibana/values.yaml -n observability
+helm upgrade --install kibana k8s-installation/kibana/ --set imageTag=8.5.1 -f k8s-installation/kibana/values.yaml -n observability
 
 
 # jaeger
 ## https://www.jaegertracing.io/docs/1.42/operator/#production-strategy
-kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability2
+kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability
 sleep 30
 kubectl apply -f k8s-installation/jaeger/
 kubectl apply -f k8s-installation/jaeger/otel/

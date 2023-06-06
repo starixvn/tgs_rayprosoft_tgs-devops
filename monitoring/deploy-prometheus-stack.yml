@@ -29,3 +29,14 @@ kubectl -n monitoring edit servicemonitor prometheus-stack-kube-prom-kube-etcd
 kubectl -n kube-system edit configmap kube-proxy
 
 
+
+kubectl -n monitoring exec -it prometheus-prometheus-stack-kube-prom-prometheus-0 -- ls /etc/prometheus/secrets/etcd-certs
+
+kubectl -n monitoring edit servicemonitor prometheus-stack-kube-prom-kube-etcd
+
+
+
+caFile: /etc/prometheus/secrets/etcd-certs/ca.crt
+      certFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.crt
+      insecureSkipVerify: false
+      keyFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.key

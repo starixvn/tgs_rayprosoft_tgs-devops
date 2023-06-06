@@ -154,6 +154,8 @@ kubectl label node k8s-elasticsearch-2 node-role.kubernetes.io/worker=worker
 kubectl label node k8s-elasticsearch-3 node-role.kubernetes.io/worker=worker
 
 kubectl label node k8s2-node-1 node-role.kubernetes.io/worker=worker
+kubectl label node k8s2-node-2 node-role.kubernetes.io/worker=worker
+kubectl label node k8s2-node-3 node-role.kubernetes.io/worker=worker
 
 
 # install calico 
