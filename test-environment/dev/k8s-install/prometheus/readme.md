@@ -8,3 +8,8 @@ kubectl get svc prometheus-stack-kube-prom-prometheus -n monitoring -o yaml > sv
 sed -i 's/type: ClusterIP/type: NodePort/g' svc-prometheus.yaml
 sed -i 's/protocol: TCP/protocol: TCP\n    nodePort: 30370/g' svc-prometheus.yaml
 kubectl apply -f svc-prometheus.yaml
+
+
+
+grafana
+admin/prom-operator
