@@ -26,3 +26,9 @@ aws s3 cp $POSTGRES_BACKUP_HOME/$POSTGRES_BACKUP_FILE s3://tgs-dev-backup/postgr
 
 
 aws s3 cp ./tgs_2022_11_09.sql  s3://tgs-dev-backup/postgresql/
+
+
+export PGPASSWORD='abcd1234'
+export PGHOST='localhost'
+export PGPORT='5432'
+export PGUSER='postgres'
