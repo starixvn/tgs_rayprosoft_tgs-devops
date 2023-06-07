@@ -661,13 +661,13 @@ alertmanager:
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
     storage:
-     volumeClaimTemplate:
-       spec:
-        storageClassName: nfs-provisioner
-         accessModes: ["ReadWriteOnce"]
-         resources:
-           requests:
-             storage: 10Gi
+      volumeClaimTemplate:
+        spec:
+          storageClassName: nfs-provisioner
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
     #     selector: {}
 
 
