@@ -1,5 +1,5 @@
-kind: Probe
 apiVersion: monitoring.coreos.com/v1
+kind: Probe
 metadata:
   name: example2
   namespace: monitoring
