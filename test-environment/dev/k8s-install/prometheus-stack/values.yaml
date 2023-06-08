@@ -263,13 +263,18 @@ alertmanager:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: 'null'
+      receiver: 'dev-telegram'
       routes:
-      - receiver: 'null'
+      - receiver: 'dev-telegram'
         matchers:
           - alertname =~ "InfoInhibitor|Watchdog"
     receivers:
-    - name: 'null'
+    - name: 'dev-telegram'
+      telegram_configs:
+      - bot_token: 6137223098:AAEeQiBaQ1G1Gj5pO7p9q_FVwvXViM1BMcg
+        api_url: https://api.telegram.org
+        chat_id: -1001616967294
+        parse_mode: ''
     templates:
     - '/etc/alertmanager/config/*.tmpl'
 
