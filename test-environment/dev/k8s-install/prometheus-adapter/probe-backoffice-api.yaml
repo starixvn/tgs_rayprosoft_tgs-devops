@@ -1,10 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: example-com-website
+  name: backoffice-api
   namespace: monitoring
   labels:
-    release: prometheus-stack
+    release: prometheus
 spec:
   interval: 60s
   module: http_2xx
@@ -13,4 +13,4 @@ spec:
   targets:
     staticConfig:
       static:
-      - https://tw.yahoo.com
+      - http://backoffice-api.staging
