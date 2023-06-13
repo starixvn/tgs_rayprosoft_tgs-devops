@@ -11,4 +11,4 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: tgs
   podMetricsEndpoints:
-  - port: '8889'
+  - targetPort: 8889
