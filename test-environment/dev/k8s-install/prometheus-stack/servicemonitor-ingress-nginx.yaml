@@ -1,9 +1,12 @@
 # https://www.jianshu.com/p/0e4981381507
 apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
+kind: ServiceMonitor
 metadata:
-  name: pod-monitor-ingress
+  name: service-monitor-ingress
   namespace: monitoring
+  labels:
+    app: service-monitor-ingress
+    release: prometheus-stack
 spec:
   namespaceSelector:
     matchNames:
@@ -11,5 +14,6 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/instance: ingress-nginx
-  podMetricsEndpoints:
-  - targetPort: 10254
+  endpoints:
+  - port: metrics
+    schema: http
