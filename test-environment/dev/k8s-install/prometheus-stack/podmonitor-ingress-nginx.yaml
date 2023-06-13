@@ -12,4 +12,4 @@ spec:
       app.kubernetes.io/instance: ingress-nginx
   podMetricsEndpoints:
   - enableHttp2: false
-    port: 10254
+    port: "10254"
