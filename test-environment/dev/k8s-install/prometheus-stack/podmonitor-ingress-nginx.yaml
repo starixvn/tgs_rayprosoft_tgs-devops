@@ -12,5 +12,4 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: ingress-nginx
   podMetricsEndpoints:
-  - path: /metrics
-    port: '10254'
+  - targetPort: 10254
