@@ -1,12 +1,11 @@
-# https://www.jianshu.com/p/0e4981381507
-apiVersion: onitoring.coreos.com/v1
 kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
 metadata:
-  name: service-monitor-ingress
-  namespace: monitoring
-  labels:
-    app: service-monitor-ingress
-    release: prometheus-stack
+ name: service-monitor-ingress
+ namespace: monitoring
+ labels:
+   app: service-monitor-ingress
+   release: prometheus-stack
 spec:
   namespaceSelector:
     matchNames:
