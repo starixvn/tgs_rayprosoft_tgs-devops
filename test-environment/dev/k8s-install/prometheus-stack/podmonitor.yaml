@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: dev-pod-monitor
+  name: pod-monitor-dev
   namespace: monitoring
 spec:
   namespaceSelector:
@@ -11,4 +11,4 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: tgs
   podMetricsEndpoints:
-  - targetPort: 8889
+  - port: '8889'
