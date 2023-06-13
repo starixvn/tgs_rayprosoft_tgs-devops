@@ -49,3 +49,6 @@ channel id: -1001368681345
 ### image render return 401
 https://github.com/grafana/grafana-image-renderer/issues/91
 Don't use latest version, 3.5.0 can work.
+
+
+increase((max without (instance) (etcd_server_leader_changes_seen_total{job=~".*etcd.*"}) or 0 * absent(etcd_server_leader_changes_seen_total{job=~".*etcd.*"}))[15m:1m]) >= 4

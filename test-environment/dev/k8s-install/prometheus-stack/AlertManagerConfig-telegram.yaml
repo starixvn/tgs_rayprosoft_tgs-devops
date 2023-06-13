@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+ name: config-telegram
+ labels:
+   alertmanagerConfig: example
+ namespace: monitoring
+spec:
+ route:
+   groupBy: ['namespace']
+   groupInterval: 1m
+   groupWait: 30s
+   repeatInterval: 30s
+   receiver: 'dev-telegram'
+   routes:
+   - continue: true
+     matchers:
+     - name: severity
+       value: critical
+     - alertname =~ "InfoInhibitor|Watchdog"
+     receiver: dev-telegram
+  receivers:
+  - name: 'dev-telegram'
+    telegram_configs:
+    - bot_token: 6137223098:AAEeQiBaQ1G1Gj5pO7p9q_FVwvXViM1BMcg
+      api_url: https://api.telegram.org
+      chat_id: -1001616967294
+      parse_mode: ''
