@@ -1,5 +1,5 @@
 # https://www.jianshu.com/p/0e4981381507
-apiVersion: monitoring.coreos.com/v1
+apiVersion: onitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: service-monitor-ingress
@@ -16,4 +16,3 @@ spec:
       app.kubernetes.io/instance: ingress-nginx
   endpoints:
   - port: metrics
-    schema: http
