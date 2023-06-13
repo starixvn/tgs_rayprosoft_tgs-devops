@@ -11,4 +11,5 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: ingress-nginx
   podMetricsEndpoints:
-  - targetPort: 10254
+  - enableHttp2: false
+    port: 10254
