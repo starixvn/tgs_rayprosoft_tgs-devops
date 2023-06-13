@@ -13,3 +13,5 @@ kubectl apply -f svc-prometheus.yaml
 
 grafana
 admin/prom-operator
+
+kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/namespaces/dev/metrics"

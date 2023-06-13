@@ -6,10 +6,10 @@ metadata:
 spec:
   namespaceSelector:
     matchNames:
-      - ingress-nginx
+    - ingress-nginx
   selector:
     matchLabels:
       app.kubernetes.io/instance: ingress-nginx
   podMetricsEndpoints:
-  - enableHttp2: false
-    port: "10254"
+  - path: /metrics
+    port: '10254'

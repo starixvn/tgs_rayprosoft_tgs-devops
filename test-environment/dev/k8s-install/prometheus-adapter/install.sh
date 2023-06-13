@@ -10,6 +10,7 @@ kubectl get apiservices|grep prometheus
 
 # 可以做 hpa 的 metrics
 kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1 |jq  
+kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1 | jq | grep "\"name\"" 
 kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1| jq . |grep "http_request"
 
 
