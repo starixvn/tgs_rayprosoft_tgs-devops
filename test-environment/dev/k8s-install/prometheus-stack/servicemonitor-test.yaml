@@ -1,17 +1,17 @@
 kind: ServiceMonitor
 apiVersion: monitoring.coreos.com/v1
 metadata:
- name: sample-app
+ name: service-monitor-ingress
+ namespace: monitoring
  labels:
-   app: sample-app
+   app: service-monitor-ingress
    release: prometheus-stack
 spec:
- selector:
-   matchLabels:
-     app: sample-app
- endpoints:
- - port: http
-   scheme: http
- namespaceSelector:
-   matchNames:
-   - default
+  namespaceSelector:
+    matchNames:
+    - ingress-nginx
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: ingress-nginx
+  endpoints:
+  - port: metrics
