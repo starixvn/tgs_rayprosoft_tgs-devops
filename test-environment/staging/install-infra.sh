@@ -167,7 +167,8 @@ kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl add_vhost /tgs/staging
 kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
 
-
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmq-plugins enable rabbitmq_prometheus
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmq-plugins enable rabbitmq_management
 
 #kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
 

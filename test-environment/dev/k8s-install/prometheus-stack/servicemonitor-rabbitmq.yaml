@@ -1,0 +1,17 @@
+kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+metadata:
+ name: service-monitor-rabbitmq
+ namespace: monitoring
+ labels:
+   app: service-monitor-rabbitmq
+   release: prometheus-stack
+spec:
+  namespaceSelector:
+    matchNames:
+    - rabbitmq
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mq
+  endpoints:
+  - port: prometheus
