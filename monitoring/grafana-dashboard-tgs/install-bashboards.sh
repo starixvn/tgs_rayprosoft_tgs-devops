@@ -1,7 +1,8 @@
 #!/bin/bash
 files_to_change=$(find dashboard -name "* *") 
 for arg in "$files_to_change" ; do
-	echo "$arg" | tr ' ' '_' | tr A-Z a-z
+	new_file=$(echo "$arg" | tr ' ' '_' | tr A-Z a-z)
+	mv arg new_file
 done
 
 
