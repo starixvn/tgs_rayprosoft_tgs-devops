@@ -1,12 +1,15 @@
 #!/bin/bash
 IFS=$'\n'
-files_to_change=($(find . -name "*_*.json"))
+files_to_change=($(find . -name "*.json"))
 
-echo "======================================"
-for arg in "${files_to_change[@]}" ; do
-	new_file=$(echo "$arg" | tr '_' '.')
-	new_file=$(echo "$arg" | tr A-Z a-z)
-	echo "oldfile==$arg"
-	echo "newfile==$new_file " 
-	mv $arg $new_file
+for file in "${files_to_change[@]}"; do
+    configmapname=$(echo $file | cut -d '-' -f 1)
+    configmapname=${configmapname:2}
+
+    echo "file=$file"
+    echo "configmapname=$configmapname"
+    echo "=========="
+
+    kubectl -n monitoring create configmap grafana-datasource-$configmapname --from-file=$file
+    kubectl -n monitoring label configmap grafana-datasource-$configmapname grafana_datasource=1
 done
