@@ -1,6 +1,11 @@
 #!/bin/bash
-files_to_change=$(find . -name "* *.json") 
-for arg in "$files_to_change" ; do
-	new_file=$(echo "$arg" | tr ' ' '_' | tr A-Z a-z)
+IFS=$'\n'
+files_to_change=($(find . -name "*.json"))
+
+echo "======================================"
+for arg in "${files_to_change[@]}" ; do
+	new_file=$(echo "$arg" | tr A-Z a-z)
+	echo "oldfile==$arg"
+	echo "newfile==$new_file " 
 	mv $arg $new_file
 done
