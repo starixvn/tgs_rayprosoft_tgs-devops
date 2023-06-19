@@ -2,7 +2,7 @@
 IFS=$'\n'
 files_to_change=($(find . -name "*.json"))
 
-for file in "$files_to_change" ; do
+for file in "$files_to_change[@]" ; do
     confilmapname=$(echo $file | cut -d '-' -f 1)
 	echo "file=$file"
 	echo "confilmapname=$confilmapname"
