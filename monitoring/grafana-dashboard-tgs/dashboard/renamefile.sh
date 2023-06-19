@@ -5,6 +5,7 @@ files_to_change=($(find . -name "*_*.json"))
 echo "======================================"
 for arg in "${files_to_change[@]}" ; do
 	new_file=$(echo "$arg" | tr '_' '.')
+	new_file=$(echo "$arg" | tr A-Z a-z)
 	echo "oldfile==$arg"
 	echo "newfile==$new_file " 
 	mv $arg $new_file
