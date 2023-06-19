@@ -1,8 +1,15 @@
 #!/bin/bash
-files_to_change=$(find dashboard -name "* *") 
-for arg in "$files_to_change" ; do
-	new_file=$(echo "$arg" | tr ' ' '_' | tr A-Z a-z)
-	mv arg new_file
+IFS=$'\n'
+files_to_change=($(find . -name "*.json"))
+
+for file in "$files_to_change" ; do
+    confilmapname=$(echo $file | cut -d '-' -f 1)
+	echo "file=$file"
+	echo "confilmapname=$confilmapname"
+	echo "=========="
+	
+	#kubectl -n monitoring create configmap grafana-datasource-cloudwatch --from-file=grafana-datasource.json
+    #kubectl -n monitoring label configmap grafana-datasource-cloudwatch grafana_datasource=1
 done
 
 
