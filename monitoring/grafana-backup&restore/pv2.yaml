@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: grafana2
+  namespace: monitoring
+  labels:
+    type: nfs
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: grafana
+  nfs:
+    server: 192.168.50.111
+    path: /nfsshare/grafana2

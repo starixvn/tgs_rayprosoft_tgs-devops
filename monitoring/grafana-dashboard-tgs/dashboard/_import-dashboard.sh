@@ -11,5 +11,5 @@ for file in "$files_to_change[@]" ; do
     echo "=========="
 
     kubectl -n monitoring create configmap grafana-datasource-$configmapname --from-file=$file
-    kubectl -n monitoring label configmap grafana-datasource-$configmapname grafana_datasource=1
+    kubectl -n monitoring label configmap grafana-datasource-$configmapname grafana_dashboard=1
 done
