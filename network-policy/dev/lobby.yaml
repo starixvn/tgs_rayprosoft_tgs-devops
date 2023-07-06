@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: 
+  name: lobby
+  namespace: dev
+spec:
+  podSelector:
+    matchLabels:
+      type: frontend
+      type: lobby
+      type: agent

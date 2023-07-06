@@ -108,4 +108,4 @@ EOT
 
 fi
 
-curl -s --data-urlencode "text=$Message" --data "chat_id=-1001616967294" 'https://api.telegram.org/bot6137223098:AAEeQiBaQ1G1Gj5pO7p9q_FVwvXViM1BMcg/sendMessage' > /dev/null
+curl -s --data-urlencode "text=$Message" --data "chat_id=$TelegramChatId" "https://api.telegram.org/bot$TelegramToken/sendMessage" > /dev/null
