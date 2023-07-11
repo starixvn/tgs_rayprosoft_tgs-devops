@@ -69,7 +69,7 @@ cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
 ```
 
 ## 使用自簽CA簽發ETCD HTTPS證書建立證書申請文件
-## **注意IP的修改**
+#### **注意IP的修改**
 ```
 cat > etcd-csr.json << EOF
 {
