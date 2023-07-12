@@ -126,4 +126,6 @@ EOF
 kubeadm init --upload-certs --v=5 --config kubeadm-config.yaml --dry-run
 
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.tigera.io/archive/v3.25/manifests/calico.yaml
+
+kubectl label nodes worker1 node-role.kubernetes.io/worker=worker
 ```
