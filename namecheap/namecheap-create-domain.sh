@@ -1,8 +1,12 @@
 #!/bin/bash
+function getCouponCode(){
+    echo $(curl "https://www.namecheap.com/promos/coupons/") > coupon.html
+    echo $(xmllint --html -xpath "/html/body/fragment[2]/*/div/div/section[2]/div/div/div/div[1]/div/div[2]/div/div[1]/button/text()"  coupon.html)
+}
 DomainName=$1
 Address="Sec4WenxinRdBeitunDist"
 NameCheapUrl="https://api.sandbox.namecheap.com/xml.response?"
-
+PromotionCode=$(getCouponCode)
 Url="$NameCheapUrl&\
 ApiUser=$ApiUser&\
 ApiKey=$ApiKey&\
@@ -95,6 +99,7 @@ if [[ "$Status" == *"OK"* ]]; then
 
     read -r -d '' Message <<EOT
     建立Domain: $DomainName 成功
+優惠碼: $PromotionCode
 費用: $charge
 餘額: $balance
 EOT
@@ -102,6 +107,7 @@ EOT
 else
     read -r -d '' Message <<EOT
     建立Domain: $DomainName 失敗
+優惠碼: $PromotionCode
 原因: $ErrorMsg
 餘額: $balance
 EOT
