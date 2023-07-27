@@ -130,8 +130,8 @@ helm uninstall elasticsearch -n observability
 kubectl apply -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.42.0/jaeger-operator.yaml -n observability
 
 
-kubectl apply -f jaeger/rbac-jaeger.yaml.yml
-kubectl apply -f jaeger/jaeger.yaml.yml
+kubectl apply -f jaeger/rbac-jaeger.yaml
+kubectl apply -f jaeger/jaeger.yaml
 kubectl apply -f jaeger/otel/
 
 # kibana
@@ -144,7 +144,7 @@ helm upgrade --install kibana . --set imageTag=8.5.1 -f values.yaml -n observabi
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm install nats nats/nats --set cluster.enabled=true,auth.enabled=false -n dev
 helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3 -n dev
-helm upgrade --install nats nats/nats -f nats-values.yaml -n dev
+helm upgrade --install nats nats/nats -f values-nats.yaml -n dev
 
 helm uninstall nats -n dev
 
