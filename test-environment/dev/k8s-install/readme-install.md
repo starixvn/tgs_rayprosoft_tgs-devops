@@ -62,6 +62,7 @@ mount -t nfs 192.168.50.111:/nfsshare /nfsshare
 sed -i '$a192.168.50.111:/nfsshare /nfsshare nfs defaults 0 0' /etc/fstab
 ls /nfsshare
 )
+
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
   
 helm repo update
