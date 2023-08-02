@@ -1,42 +1,29 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: service-monitor-kubelet
+  labels:
+    app: kubelet
+    serviceMonitorSelector: prometheus
+  name: service-monitori-kubelet
   namespace: monitoring
 spec:
   endpoints:
   - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     honorLabels: true
-    interval: 1m
-    metricRelabelings:
-    - action: keep
-      regex: kubelet_node_name|kubelet_running_container_count|kubelet_running_pod_count|kubelet_volume_stats.*|kubelet_pleg_relist_duration_seconds_.+
-      sourceLabels:
-      - __name__
-    port: https-metrics
-    relabelings:
-    - action: labeldrop
-      regex: (service|endpoint)
-    scheme: https
+    interval: 30s
+    port: http-metrics
+    scheme: http
     tlsConfig:
       insecureSkipVerify: true
   - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     honorLabels: true
-    interval: 1m
-    metricRelabelings:
-    - action: keep
-      regex: container_cpu_usage_seconds_total|container_memory_usage_bytes|container_memory_cache|container_network_.+_bytes_total|container_memory_working_set_bytes|container_cpu_cfs_.*periods_total
-      sourceLabels:
-      - __name__
+    interval: 30s
     path: /metrics/cadvisor
-    port: https-metrics
-    relabelings:
-    - action: labeldrop
-      regex: (service|endpoint)
-    scheme: https
+    port: http-metrics
+    scheme: http
     tlsConfig:
       insecureSkipVerify: true
-  jobLabel: k8s-app
+  jobLabel: kubelet
   namespaceSelector:
     matchNames:
     - kube-system
