@@ -1,8 +1,18 @@
 import http from 'k6/http';
-import { check } from 'k6';
+import { group, check } from 'k6';
 
-const domain = 'dev-bo.rpgp.cc'
-export let brandIds = [];
+const domain = 'dev-bo.rpgp.cc';
+const loginData = {
+  "url": `https://${domain}/api/auth`,
+  "username": "rico.lin",
+  "password": "TgsP@ssw0rd"
+};
+const params = {
+    headers: {
+      'Content-Type': 'application/json',
+      'dataType': 'json'
+    }
+  };
 
 export const options = {
   stages: [
@@ -12,64 +22,81 @@ export const options = {
   ],
 };
 
+async function login() {
+  let data = JSON.stringify({
+    username : loginData.username,
+    password : loginData.password
+  });
+
+  return await http.asyncRequest("POST", loginData.url, data, params);
+}
+
+async function logout() { 
+  return await http.asyncRequest("GET", `https://${domain}/api/logout`);
+} 
+
 async function getBrandAsync() {
   let res = await http.asyncRequest("GET",`https://${domain}/api/brand?Page=1&Rows=10&OrderBy=Descending&SortBy=updatedOn&status=0`);
-  let json = JSON.parse(res.body);
-  let brandIds = []
-  for (var i = 0;i < json.items.length; i++) {
-    brandIds.push(json.items[i].id);
-  }
-  return brandIds;
+
+  if (res.status==200) {
+    let json = JSON.parse(res.body);
+    let brandIds = []
+    for (var i = 0;i < json.items.length; i++) {
+      brandIds.push(json.items[i].id);
+    }
+    return brandIds;
+  } 
+}
+
+async function testMethod(brandId) {
+  let promotionUrl = `https://${domain}/api/PromotionDispatch?Page=1&Rows=10&OrderBy=Descending&brandId=${brandId}`
+  let brandPaymentUrl = `https://${domain}/api/brandpayment?brandId=${brandId}&page=1&rows=10&sortBy=number&OrderBy=Descending`
+  console.log("url="+brandPaymentUrl);
+  const result = await http.asyncRequest("GET", brandPaymentUrl);
+  return result;
 }
 
 export function setup() {  
   let returnData = {};
-  let url = `https://${domain}/api/auth`;
-  let data = JSON.stringify({
-    username : 'rico.lin',
-    password : 'TgsP@ssw0rd'
-  });
 
-  let params = {
-    headers: {
-      'Content-Type': 'application/json',
-      'dataType': 'json'
-    }
-  };
-  
-  const p = new Promise((resolve,reject) => {
-    let res = http.post(url, data, params);
-   
-    if (res.status === 200) {
-       console.log(JSON.stringify(res,null,2));
-       resolve(console.log("loggined"));
-    } else {
-       reject(res);
-    }
-  }).then(res => {
-      getBrandAsync(returnData).then(res => returnData.brandIds = res);
-    }
-  );
+  login()
+    .then(res => getBrandAsync())
+    .then(res => {
+        returnData.brandIds = res;
+	return logout();
+    }).then(res => console.log("logout end"));
  	
-  //console.log("returnData="+returnData);
+  //console.log("returnData="+JSON.stringify(returnData));
   return returnData;
 }
 
 export default function (res) {
-  //console.log("==brand Ids==");
-  //console.log(JSON.stringify(res.brandIds));	
+ // console.log("==brand Ids==");
+ // console.log(JSON.stringify(res));	
   let brandId = res.brandIds[Math.floor(Math.random() * 10)]	
-  let promotionUrl = `https://${domain}/api/PromotionDispatch?Page=1&Rows=10&OrderBy=Descending&brandId=${brandId}`
-  let brandPaymentUrl = `https://${domain}/api/brandpayment?brandId=${brandId}&page=1&rows=10&sortBy=number&OrderBy=Descending`
-  console.log("url="+brandPaymentUrl);
-  
-  const result = http.get(brandPaymentUrl);
-  check(result, {
-    'http response status code is 200': result.status === 200,
+ 
+  group("login", function() {
+     login();
   });
-}
 
-export function teardown(data) {
-  let res = http.post(`https://${domain}/api/logout`);
-  console.log(res);
+  group("test get brand payment", function() {
+      testMethod(brandId)
+      .then(res => {
+          check(res,{
+              'http response status code is 200': res.status === 200
+	  });
+      });	  
+  });
+  
+  group("logout", function(){
+     logout();
+  });
+
+//  login()
+//  .then(res => testMethod(brandId))
+//  .then(result => check(result, {
+//     'http response status code is 200': result.status === 200,
+//  }))
+//  .then(res => logout());
+	//
 }
