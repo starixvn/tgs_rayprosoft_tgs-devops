@@ -13,13 +13,16 @@ const params = {
       'dataType': 'json'
     }
   };
-
+const d = new Date();
 export const options = {
   stages: [
-    { target: 200, duration: '30s' },
-    { target: 200, duration: '30s'},	  
+    { target: 30, duration: '30s' },
+    { target: 30, duration: '30s'},	  
     { target: 0, duration: '30s' },
   ],
+  tags: {
+    testid: `backoffice-api-${d.getMonth()+1}/${d.getDate()}-${d.getHours()+8}:${d.getMinutes()}`
+  }
 };
 
 async function login() {
@@ -32,7 +35,7 @@ async function login() {
 }
 
 async function logout() { 
-  return await http.asyncRequest("GET", `https://${domain}/api/logout`);
+  return await http.asyncRequest("POST", `https://${domain}/api/logout`);
 } 
 
 async function getBrandAsync() {
@@ -51,7 +54,7 @@ async function getBrandAsync() {
 async function testMethod(brandId) {
   let promotionUrl = `https://${domain}/api/PromotionDispatch?Page=1&Rows=10&OrderBy=Descending&brandId=${brandId}`
   let brandPaymentUrl = `https://${domain}/api/brandpayment?brandId=${brandId}&page=1&rows=10&sortBy=number&OrderBy=Descending`
-  console.log("url="+brandPaymentUrl);
+  //console.log("url="+brandPaymentUrl);
   const result = await http.asyncRequest("GET", brandPaymentUrl);
   return result;
 }
@@ -74,29 +77,16 @@ export default function (res) {
  // console.log("==brand Ids==");
  // console.log(JSON.stringify(res));	
   let brandId = res.brandIds[Math.floor(Math.random() * 10)]	
- 
-  group("login", function() {
-     login();
+  login()
+  .then(res => {
+	  check(res, { 'http response status code is 200': res.status === 200  }); 
+      return testMethod(brandId);
+  })
+  .then(res => {
+	  check(res, { 'http response status code is 200': res.status === 200  });
+	  return logout();
+  })
+  .then(res =>  {
+	  check(res, { 'http response status code is 200': res.status === 200  });
   });
-
-  group("test get brand payment", function() {
-      testMethod(brandId)
-      .then(res => {
-          check(res,{
-              'http response status code is 200': res.status === 200
-	  });
-      });	  
-  });
-  
-  group("logout", function(){
-     logout();
-  });
-
-//  login()
-//  .then(res => testMethod(brandId))
-//  .then(result => check(result, {
-//     'http response status code is 200': result.status === 200,
-//  }))
-//  .then(res => logout());
-	//
 }
