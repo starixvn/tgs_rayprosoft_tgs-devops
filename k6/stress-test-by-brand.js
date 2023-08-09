@@ -16,8 +16,8 @@ const params = {
 const d = new Date();
 export const options = {
   stages: [
-    { target: 30, duration: '30s' },
-    { target: 30, duration: '30s'},	  
+    { target: 50, duration: '30s' },
+    { target: 50, duration: '300s'},	  
     { target: 0, duration: '30s' },
   ],
   tags: {
@@ -77,16 +77,26 @@ export default function (res) {
  // console.log("==brand Ids==");
  // console.log(JSON.stringify(res));	
   let brandId = res.brandIds[Math.floor(Math.random() * 10)]	
+ 
   login()
   .then(res => {
-	  check(res, { 'http response status code is 200': res.status === 200  }); 
-      return testMethod(brandId);
+          check(res, { 'http response status code is 200': res.status === 200  }); 
+	  if (res.status !== 200) {
+              console.log(`login:       ${res.status}-${brandId}`);
+	  }
+	  return testMethod(brandId);
   })
   .then(res => {
 	  check(res, { 'http response status code is 200': res.status === 200  });
+	  if (res.status !== 200) {
+              console.log(`test method: ${res.status}-${brandId}`);
+          }
 	  return logout();
-  })
-  .then(res =>  {
-	  check(res, { 'http response status code is 200': res.status === 200  });
-  });
+   })
+   .then(res =>  {
+	   check(res, { 'http response status code is 200': res.status === 200  });
+	   if (res.status !== 200) {
+              console.log(`logout:      ${res.status}-${brandId}`);
+           }
+   });
 }
