@@ -1,42 +1,63 @@
 # https://github.com/squareops/terraform-aws-rds-postgresql/blob/main/example/complete/main.tf
+# ref .terraform/modules/rds-pg/main.tf
+
+data "aws_region" "current" {}
+data "aws_availability_zones" "available" {}
 
 locals {
-  region         = "ap-east-1"
-  name           = "test-postgresql"
-  vpc_id         = "vpc-0b86a361eb192585e"
-  family         = "postgres14"
-  subnet_ids     = ["subnet-0dea0052cfe6cb72e","subnet-0d56c08c7c467c6fb","subnet-09003ce42db3d99af","subnet-02a209b6c0dd9b4d4","subnet-0de015977d3c9aa18","subnet-0d1cf87af016cf91a"]
-  environment    = "db"
-  kms_key_arn    = "arn:aws:kms:ap-east-1:060812454361:key/db7a1fde-854a-4943-b9c0-3464587eb398"
-  engine_version = "14.7"
-  instance_class = "db.t3.micro"
-  allowed_security_groups = ["db-production","rds-ec2-1"]
+  region = "ap-east-1"
+  tags = {
+    Automation  = "true"
+    Environment = var.environment
+  }
   additional_tags = {
     date      = "2023-08-10"
     tgsenv = "prod-test"
   }
 }
 
-module "rds-pg" {
-  source                           = "squareops/rds-postgresql/aws"
-  name                             = local.name
-  db_name                          = "postgres"
-  multi_az                         = "true"
-  family                           = local.family
-  vpc_id                           = local.vpc_id
-  subnet_ids                       = local.subnet_ids ## db subnets
-  environment                      = local.environment
-  kms_key_arn                      = local.kms_key_arn
-  engine_version                   = local.engine_version
-  instance_class                   = local.instance_class
-  master_username                  = "postgres"
-  allocated_storage                = "50"
-  publicly_accessible              = true
-  skip_final_snapshot              = true
-  backup_window                    = "03:00-06:00"
-  maintenance_window               = "Mon:00:00-Mon:03:00"
-  final_snapshot_identifier_prefix = "final"
-  allowed_security_groups          = local.allowed_security_groups
-  major_engine_version             = local.engine_version
-  deletion_protection              = false
+module "db" {
+  source                           = "terraform-aws-modules/rds/aws"
+  version                          = "~> 3.0"
+  identifier                       = var.name //format("%s-%s", var.environment, var.name)
+  name                             = var.db_name
+  port                             = var.port
+  engine                           = var.engine
+  username                         = var.master_username
+  multi_az                         = var.multi_az
+  subnet_ids                       = var.subnet_ids
+  kms_key_id                       = var.kms_key_arn
+  instance_class                   = var.instance_class
+  engine_version                   = var.engine_version
+  allocated_storage                = var.allocated_storage
+  storage_encrypted                = var.storage_encrypted
+  publicly_accessible              = var.publicly_accessible
+  replicate_source_db              = var.replicate_source_db
+  vpc_security_group_ids           = var.security_group_ids
+  skip_final_snapshot              = var.skip_final_snapshot
+  snapshot_identifier              = var.snapshot_identifier
+  maintenance_window               = var.maintenance_window
+  backup_window                    = var.backup_window
+  apply_immediately                = var.apply_immediately
+  backup_retention_period          = var.backup_retention_period
+  random_password_length           = var.random_password_length
+  create_random_password           = var.create_random_password
+  monitoring_interval              = "30"
+  monitoring_role_name             = format("%s-%s-RDSPostgresql", var.name, var.environment)
+  create_monitoring_role           = true
+  final_snapshot_identifier_prefix = var.final_snapshot_identifier_prefix
+  enabled_cloudwatch_logs_exports  = ["postgresql"]
+  tags = merge(
+    { "Name" = format("%s-%s", var.environment, var.name) },
+    local.tags,
+  )
+
+  # DB parameter group
+  family = var.family
+
+  # DB option group
+  major_engine_version = var.major_engine_version
+
+  # Database Deletion Protection
+  deletion_protection = var.deletion_protection
 }
