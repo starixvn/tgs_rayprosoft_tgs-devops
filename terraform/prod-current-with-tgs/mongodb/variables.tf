@@ -8,7 +8,7 @@ variable "enabled" {
 variable "name" {
   type        = string
   description = "(Optional, Forces new resources) The cluster identifier. If omitted, Terraform will assign a random, unique identifier."
-  default     = ""
+  default     = "tgs-prod-test"
 }
 
 variable "tags" {
@@ -21,7 +21,12 @@ variable "subnet_ids" {
   type        = list(string)
   description = " (Required) A list of VPC subnet IDs. If you are not passing db_subnet_group_name"
   default = [
-
+    "subnet-0174b73949453cacf",
+    "subnet-04057b750840af5eb",
+    "subnet-05cee776cd8ca758c",
+    "subnet-08ce5de7a657a443f",
+    "subnet-0b1191b790a01fad4",
+    "subnet-0d6c6b664979c9e55"
   ]
 }
 
@@ -35,7 +40,7 @@ variable "engine" {
 variable "engine_version" {
   type        = string
   description = " (Optional) The database engine version. Updating this argument results in an outage."
-  default     = null
+  default     = "5.0.0"
 }
 
 variable "port" {
@@ -46,7 +51,8 @@ variable "port" {
 
 variable "master_username" {
   type        = string
-  description = " (Required unless a snapshot_identifier is provided) Username for the master DB user."
+  description = "mongodb username"
+  default = "mongoadmin"
 }
 
 variable "master_password" {
@@ -69,14 +75,14 @@ variable "storage_encrypted" {
 variable "kms_key_id" {
   type        = string
   description = "(Optional) The ARN for the KMS encryption key. When specifying kms_key_id, storage_encrypted needs to be set to true."
-  default     = null
+  default     = "arn:aws:kms:ap-northeast-1:060812454361:key/42149589-8439-4530-b30f-391f030e204e"
 }
 
 variable "vpc_security_group_ids" {
   type        = list(string)
   description = " (Optional) List of VPC security groups to associate with the Cluster"
   default = [
-
+    "sg-001e517212d324c5d"
   ]
 }
 
@@ -96,8 +102,8 @@ variable "enabled_cloudwatch_logs_exports" {
   type        = list(string)
   description = "(Optional) List of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: audit, profiler."
   default = [
-    "audit",
-    "profiler"
+    //"audit",
+    //"profiler"
   ]
 }
 
@@ -134,7 +140,7 @@ variable "preferred_backup_window" {
 variable "final_snapshot_identifier" {
   type        = string
   description = "(Optional) The name of your final DB snapshot when this DB cluster is deleted. If omitted, no final snapshot will be made."
-  default     = null
+  default     = "final"
 }
 
 ############ Cluster Instance #########
@@ -174,7 +180,7 @@ variable "promotion_tier" {
 variable "cluster_family" {
   type        = string
   description = "The family of the DocumentDB cluster parameter group. For more details, see https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-parameter-group-create.html"
-  default     = "docdb3.6"
+  default     = "docdb5.0"
 }
 
 variable "parameter" {
