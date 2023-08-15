@@ -47,6 +47,11 @@ config:
         Keep_Log Off
         K8S-Logging.Parser On
         K8S-Logging.Exclude On
+    [FILTER]
+        Name lua
+        Match log.*
+        script /fluent-bit/scripts/modify_adminlog.lua
+        call extract_adminlog
 
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
@@ -56,4 +61,26 @@ config:
         Host          log-center-fluent-bit
         Port          24224
 
+luaScripts:
+  modify_adminlog.lua: |
+    function extract_adminlog(tag, timestamp, record)
+        if (record.EventId.Name ~= "AdminLog") then
+          return 1, timestamp, record
+        end
+        
+        new_record = record
+        sourceKey = string.char(123).."source"..string.char(125)
+        
+        new_record["AdminLog"] = record["StateValues"][1][sourceKey]
+        new_record["StateValues"][1][sourceKey] = nil
+        new_record["AdminLog"]["trackingid"] = nil
+
+        return 1, timestamp, new_record
+    end
+
 logLevel: warn
+
+tolerations:
+  - effect: NoSchedule
+    key: dedicated
+    operator: Exists

@@ -50,6 +50,7 @@ config:
         Replace_Dots    On
         Trace_Error     On
         Buffer_Size     5M
+        Suppress_Type_Name On
 
     [OUTPUT]
         Name es
@@ -58,7 +59,8 @@ config:
         Port ${FLUENT_ELASTICSEARCH_PORT}
         Logstash_Format On
         Logstash_Prefix node
-        Retry_Limit False
+        Buffer_Size     5M
+        Suppress_Type_Name On
     
     [OUTPUT]
         Name            es
@@ -82,3 +84,8 @@ luaScripts:
     end
 
 logLevel: warn
+
+tolerations:
+  - effect: NoSchedule
+    key: dedicated
+    operator: Exists
