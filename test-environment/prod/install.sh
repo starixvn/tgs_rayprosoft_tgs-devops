@@ -1,4 +1,11 @@
 #!/bin/bash
+# install aws-cli 
+## https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/getting-started-install.html
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
 # install eksctl 
 ## https://docs.aws.amazon.com/zh_tw/eks/latest/userguide/eksctl.html
 ## 使用 ec2-user
@@ -10,12 +17,12 @@ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/d
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 
-aws eks update-kubeconfig --name tgs-taiwan-staging2
+aws eks update-kubeconfig --name tgs-taiwan-k8s2
 
 #現在執行 kubectl get pods 會出現 
 #Unable to connect to the server: dial tcp 10.139.110.193:443: i/o timeout
 #要在 EKS  叢集安全群組 
-#加上 inbound rule 443  eks-cluster-sg-tgs-taiwan-staging2     10.139.0.0/16
+#加上 inbound rule 443  eks-cluster-sg-tgs-taiwan-k8s2     10.139.0.0/16
 
 
 # Install bash-completion
@@ -114,9 +121,9 @@ kubectl rollout restart deploy ebs-csi-controller -n kube-system
 
 # autoscaler
 
-export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-staging2
-export autoscaler_policyname=AmazonEKSClusterAutoscalerPolicy-staging2
-export eks_cluster=tgs-taiwan-staging2
+export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-prod2
+export autoscaler_policyname=AmazonEKSClusterAutoscalerPolicy-prod2
+export eks_cluster=tgs-taiwan-k8s2
 export account_id=060812454361
 export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
 echo ${oid}

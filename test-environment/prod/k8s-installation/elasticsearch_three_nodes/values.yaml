@@ -11,8 +11,8 @@ masterService: ""
 # https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html#node-roles
 
 ## single node 不能設定 roles
-roles: []
-  #- master
+roles:
+  - master
   #- data
   #- data_content
   #- data_hot
@@ -40,7 +40,7 @@ esConfig:
     ingest.geoip.downloader.enabled: false
     indices.breaker.fielddata.limit: 40%
     indices.breaker.request.limit: 40%
-    discovery.type: single-node
+#    discovery.type: single-node
 #  elasticsearch.yml: |
 #    key:
 #      nestedkey: value
@@ -128,7 +128,7 @@ networkHost: "0.0.0.0"
 
 volumeClaimTemplate:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: nfs-provisioner
+  storageClassName: gp2
   resources:
     requests:
       storage: 30Gi

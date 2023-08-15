@@ -1,7 +1,7 @@
 # Install bash-completion
 ## https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-bash-linux/
 
-apt-get install bash-completion
+sudo apt-get install bash-completion
 source /usr/share/bash-completion/bash_completion
 echo 'source <(kubectl completion bash)' >>~/.bashrc
 echo 'alias k=kubectl' >>~/.bashrc
@@ -33,7 +33,7 @@ kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/depl
 # clone tgs-devops repository
  
 git clone https://gitlab.com/rayprosoft/tgs-devops.git
-kubectl apply -f tgs-devops/dev-machines/k8s-installation/cluster-issuer.ym
+kubectl apply -f tgs-devops/test-environment/prod/k8s-installation/cluster-issuer.ym
 
 # rabbitmq
 ## https://www.rabbitmq.com/kubernetes/operator/operator-overview.html
