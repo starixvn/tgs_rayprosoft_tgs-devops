@@ -1,0 +1,17 @@
+kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+metadata:
+ name: service-monitor-mongodb
+ namespace: monitoring
+ labels:
+   app: service-monitor-mongodb
+   release: prometheus-stack
+spec:
+  namespaceSelector:
+    matchNames:
+    - dev
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mongodb
+  endpoints:
+  - port: http-metrics

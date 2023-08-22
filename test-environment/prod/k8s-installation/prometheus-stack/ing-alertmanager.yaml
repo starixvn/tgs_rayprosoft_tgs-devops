@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: alertmanager
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: alertmanager2.srvptt.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: prometheus-stack-kube-prom-alertmanager
+            port:
+              number: 9093
+        path: /
+        pathType: Prefix

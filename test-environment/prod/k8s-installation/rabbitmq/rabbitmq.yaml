@@ -5,10 +5,10 @@ metadata:
   name: mq
   namespace: rabbitmq
 spec:
-  replicas: 1
+  replicas: 3
   persistence:
     storageClassName: gp2
-    storage: 20Gi
+    storage: 10Gi
   rabbitmq: 
     additionalConfig: |
       default_user=tgs
