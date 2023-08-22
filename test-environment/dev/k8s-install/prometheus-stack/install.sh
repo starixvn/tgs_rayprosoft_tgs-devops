@@ -16,6 +16,9 @@ kubectl -n monitoring exec -it prometheus-prometheus-stack-kube-prom-prometheus-
 
 helm upgrade --reuse-values -f values.yaml prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring
 
+helm upgrade --install -f values.yaml prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring
+
+
 kubectl -n monitoring edit servicemonitor prometheus-stack-kube-prom-kube-etcd
 /etc/prometheus/secrets/etcd-certs
 

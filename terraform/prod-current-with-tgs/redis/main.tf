@@ -11,19 +11,19 @@ variable "region" {
 }
 
 resource "aws_elasticache_cluster" "redis" {
-  cluster_id              = "redis-cluster"
+  cluster_id              = "redis-test"
   engine                  = "redis"
   node_type               = "cache.t3.micro"
   num_cache_nodes         = 1
   parameter_group_name    = "default.redis7"
   port                    = 6379
-  subnet_group_name       = "redis-test"
-  security_group_ids      = ["sg-02bbd834258ab9840"]
+  subnet_group_name       = "tgs-redis"
+  security_group_ids      = ["sg-02bbd834258ab9840"]  //tgs-redis
   preferred_availability_zones = ["${var.region}a"]
   maintenance_window      = "sun:00:00-sun:02:00"
-  snapshot_retention_limit = 0
+  snapshot_retention_limit = 10
   snapshot_window         = "05:00-09:00"
   tags = {
-    Name = "redis-cluster"
+    Name = "prod-redis-test"
   }
 }
