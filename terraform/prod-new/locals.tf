@@ -1,3 +1,0 @@
-locals {
-    appName = "tgs"
-}
