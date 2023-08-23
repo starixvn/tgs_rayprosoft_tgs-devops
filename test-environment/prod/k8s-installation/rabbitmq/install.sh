@@ -14,7 +14,7 @@ kubectl create ns rabbitmq
 kubectl apply -f rabbitmq.yaml
 kubectl apply -f ingress.yaml
 
-sleep 10
+sleep 60
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/prod
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administrator

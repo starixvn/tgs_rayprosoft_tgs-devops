@@ -7,14 +7,14 @@ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/d
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 
-aws eks update-kubeconfig --name tgs-taiwan-staging2
+aws eks update-kubeconfig --name tgs-taiwan-k8s2
 
 現在執行 kubectl get pods 會出現 
 Unable to connect to the server: dial tcp 10.139.110.193:443: i/o timeout
 
 
 要在 EKS  叢集安全群組 
-加上 inbound rule 443  eks-cluster-sg-tgs-taiwan-staging2
+加上 inbound rule 443  eks-cluster-sg-tgs-taiwan-k8s2
 
 
 # Install bash-completion
@@ -37,9 +37,9 @@ chmod 700 get_helm.sh
 
 # install aws-ebs-csi-driver
 
-aws eks list-addons --cluster-name tgs-taiwan-staging2
+aws eks list-addons --cluster-name tgs-taiwan-k8s2
 
-aws eks create-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi-driver \
+aws eks create-addon --cluster-name tgs-taiwan-k8s2 --addon-name aws-ebs-csi-driver \
   --service-account-role-arn arn:aws:iam::060812454361:role/AmazonEKS_EBS_CSI_DriverRole
 
 
@@ -47,12 +47,12 @@ aws eks create-addon --cluster-name tgs-taiwan-staging2 --addon-name aws-ebs-csi
 ## https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html
 
 aws eks describe-cluster \
-  --name tgs-taiwan-staging2 \
+  --name tgs-taiwan-k8s2 \
   --query "cluster.identity.oidc.issuer" \
   --output text
 
 
-export oid=$(aws eks describe-cluster   --name tgs-taiwan-staging2   --query "cluster.identity.oidc.issuer"   --output text | cut -d '/' -f 5)
+export oid=$(aws eks describe-cluster   --name tgs-taiwan-k8s2   --query "cluster.identity.oidc.issuer"   --output text | cut -d '/' -f 5)
 
 cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 {
@@ -75,7 +75,7 @@ cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 }
 EOF
 
-export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-staging2
+export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-k8s2
 
 aws iam create-role \
   --role-name ${csi_role_name} \
