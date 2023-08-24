@@ -27,7 +27,7 @@ for dnsid in $(echo ${dnsrecordResponse} | jq '.result' | jq -r '.[].id'); do
 	echo "dns_proxied: ${proxied}"
 	echo "dnsid: ${dnsid}"
 	echo "content: ${content}"
-	
+	echo "============================"
 	# if [[ ${content} == "$content"  ]]; then
 		# result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
 			# -H "X-Auth-Authorization: Bearer $token" \
