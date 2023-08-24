@@ -59,4 +59,4 @@ kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administra
 # nats Official
 kubectl create ns prod
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-helm upgrade --install nats nats/nats -f nats-values.yaml -n prod
+helm upgrade --install nats nats/nats -f values-nats.yaml -n prod

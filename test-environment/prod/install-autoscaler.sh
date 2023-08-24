@@ -107,6 +107,10 @@ kubectl patch deployment cluster-autoscaler \
 kubectl rollout restart deploy cluster-autoscaler -n kube-system
 # kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
+
+rm -rf ./cluster-autoscaler-policy.json
+rm -rf ./trust-policy.json
+
 ## delete role
 # aws iam delete-role --role-name ${autoscaler_rolename} 
 # eksctl delete iamserviceaccount \

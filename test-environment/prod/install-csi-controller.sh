@@ -71,6 +71,10 @@ sleep 10
 
 kubectl rollout restart deploy ebs-csi-controller -n kube-system
 
+
+rm -rf ./aws-ebs-csi-driver-trust-policy.json
+
+
 ## for delete-role
 #aws iam delete-role --role-name ${csi_role_name} 
 
