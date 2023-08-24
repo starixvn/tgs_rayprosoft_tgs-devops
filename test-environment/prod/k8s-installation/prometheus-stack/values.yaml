@@ -1538,7 +1538,7 @@ kubeDns:
 ## Component scraping etcd
 ##
 kubeEtcd:
-  enabled: false
+  enabled: true
 
   ## If your etcd is not deployed as a pod, specify IPs it can be found on
   ##
@@ -1568,7 +1568,7 @@ kubeEtcd:
   ##   keyFile: /etc/prometheus/secrets/etcd-client-cert/etcd-client-key
   ##
   serviceMonitor:
-    enabled: false
+    enabled: true
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
     interval: ""
@@ -1599,9 +1599,12 @@ kubeEtcd:
     scheme: http
     insecureSkipVerify: false
     serverName: ""
-    caFile: /etc/prometheus/secrets/etcd-certs/ca.crt
-    certFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.crt
-    keyFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.key
+    caFile: ""
+    certFile: ""
+    keyFile: ""
+    # caFile: /etc/prometheus/secrets/etcd-certs/ca.crt
+    # certFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.crt
+    # keyFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.key
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
