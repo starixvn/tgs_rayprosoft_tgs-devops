@@ -7,6 +7,15 @@ export account_id=060812454361
 export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
 echo ${oid}
 
+## delete
+aws iam delete-role --role-name ${autoscaler_rolename} 
+eksctl delete iamserviceaccount \
+  --cluster=${eks_cluster} \
+  --namespace=kube-system \
+  --name=cluster-autoscaler 
+aws iam delete-policy --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
+
+
 cat <<EOF | sudo tee ./cluster-autoscaler-policy.json
 {
     "Version": "2012-10-17",
@@ -118,4 +127,8 @@ kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
 ## delete role
 # aws iam delete-role --role-name ${autoscaler_rolename} 
+# eksctl delete iamserviceaccount \
+  --cluster=${eks_cluster} \
+  --namespace=kube-system \
+  --name=cluster-autoscaler 
 # aws iam delete-policy --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
