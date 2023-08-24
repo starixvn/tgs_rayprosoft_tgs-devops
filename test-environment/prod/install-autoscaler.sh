@@ -1,6 +1,5 @@
 #!/bin/bash
 # install autoscaler
-
 export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-prod2
 export autoscaler_policyname=AmazonEKSClusterAutoscalerPolicy-prod2
 export eks_cluster=tgs-taiwan-k8s2
@@ -47,9 +46,6 @@ aws iam create-policy \
     --policy-name ${autoscaler_policyname} \
     --policy-document file://cluster-autoscaler-policy.json
 
-aws iam delete-policy \
-	--policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
-
 eksctl create iamserviceaccount \
   --cluster=${eks_cluster} \
   --namespace=kube-system \
@@ -57,36 +53,37 @@ eksctl create iamserviceaccount \
   --attach-policy-arn=arn:aws:iam::${account_id}:policy/${autoscaler_policyname} \
   --override-existing-serviceaccounts \
   --approve
-  
 
 cat <<EOF | sudo tee ./trust-policy.json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::${account_id}:oidc-provider/oidc.eks.ap-east-1.amazonaws.com/id/${oid}"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "oidc.eks.ap-east-1.amazonaws.com/id/${oid}:sub": "system:serviceaccount:kube-system:cluster-autoscaler"
-        }
-      }
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+			"Principal": {
+                "Federated": "arn:aws:iam::${account_id}:oidc-provider/oidc.eks.ap-east-1.amazonaws.com/id/${oid}"   
+            },
+			"Action": "sts:AssumeRoleWithWebIdentity",
+			"Condition": {
+			    "StringEquals": {
+				    "oidc.eks.ap-east-1.amazonaws.com/id/${oid}:sub": "system:serviceaccount:kube-system:cluster-autoscaler"
+				}
+            }
+        }
+    ]
 }
 EOF
-
 
 aws iam create-role \
   --role-name ${autoscaler_rolename} \
   --assume-role-policy-document file://"trust-policy.json"
-## delete role
-aws iam delete-role --role-name ${autoscaler_rolename} 
 
 curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+
+sed -i "s/<YOUR CLUSTER NAME>/$eks_cluster/g" cluster-autoscaler-autodiscover.yaml
+sed -i '160i\ \ \ \ \ \ \ \ - --balance-similar-node-groups=true'  cluster-autoscaler-autodiscover.yaml
+sed -i '160i\ \ \ \ \ \ \ \ - --skip-nodes-with-system-pods=false'  cluster-autoscaler-autodiscover.yaml
+
 
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
 
@@ -100,23 +97,25 @@ kubectl patch deployment cluster-autoscaler \
   -n kube-system \
   -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
 
-kubectl -n kube-system edit deployment.apps/cluster-autoscaler
+# kubectl -n kube-system edit deployment.apps/cluster-autoscaler
 
 # ADD
  # - --balance-similar-node-groups
  # - --skip-nodes-with-system-pods=false
 
-sed -i '50i\ \ \ \ \ \ \ \ - --balance-similar-node-groups=true'  autoscaler.yaml
-sed -i '50i\ \ \ \ \ \ \ \ - --skip-nodes-with-system-pods=false'  autoscaler.yaml
 
 kubectl apply -f autoscaler.yaml
 #kubectl rollout restart deploy cluster-autoscaler -n kube-system
 
 
-kubectl set image deployment cluster-autoscaler \
-  -n kube-system \
-  cluster-autoscaler=registry.k8s.io/autoscaling/cluster-autoscaler:v1.25.n
+# kubectl set image deployment cluster-autoscaler \
+  # -n kube-system \
+  # cluster-autoscaler=registry.k8s.io/autoscaling/cluster-autoscaler:v1.25.n
 
 kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
 
+
+## delete role
+# aws iam delete-role --role-name ${autoscaler_rolename} 
+# aws iam delete-policy --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
