@@ -27,4 +27,5 @@ eksctl delete iamserviceaccount \
   --cluster=${eks_cluster} \
   --namespace=kube-system \
   --name=cluster-autoscaler 
+sleep 2
 aws iam delete-policy --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
