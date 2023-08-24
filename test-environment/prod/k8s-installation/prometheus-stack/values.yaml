@@ -668,7 +668,7 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs-provisioner
+          storageClassName: gp2
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
