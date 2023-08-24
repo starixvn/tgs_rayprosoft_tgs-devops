@@ -14,7 +14,6 @@ sed -i 's/protocol: TCP/protocol: TCP\n    nodePort: 30370/g' svc-prometheus.yam
 kubectl apply -f svc-prometheus.yaml
 
 
-
 grafana
 admin/prom-operator
 
