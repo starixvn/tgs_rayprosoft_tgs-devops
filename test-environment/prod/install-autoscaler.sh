@@ -96,8 +96,6 @@ sed -i '160i\ \ \ \ \ \ \ \ \ \ \ \ - --skip-nodes-with-system-pods=false'  clus
 
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
 
-
-
 kubectl annotate serviceaccount cluster-autoscaler \
   -n kube-system \
   eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/${autoscaler_rolename}
@@ -106,24 +104,7 @@ kubectl patch deployment cluster-autoscaler \
   -n kube-system \
   -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
 
-# kubectl -n kube-system edit deployment.apps/cluster-autoscaler
-
-# ADD
- # - --balance-similar-node-groups
- # - --skip-nodes-with-system-pods=false
-
-
-kubectl apply -f autoscaler.yaml
-#kubectl rollout restart deploy cluster-autoscaler -n kube-system
-
-
-# kubectl set image deployment cluster-autoscaler \
-  # -n kube-system \
-  # cluster-autoscaler=registry.k8s.io/autoscaling/cluster-autoscaler:v1.25.n
-
-kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
-
-
+# kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
 ## delete role
 # aws iam delete-role --role-name ${autoscaler_rolename} 
