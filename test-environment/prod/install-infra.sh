@@ -32,3 +32,31 @@ helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
 # kubectl patch pv pvc-481b34ba-69cf-412b-b1a6-742eac299f62 -p '{"metadata":{"finalizers":null}}'
 
 kubectl apply -f cluster-issuer.yml
+
+
+# install prometheus-stack
+kubectl create namespace monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm upgrade --install prometheus-stack prometheus-community/kube-prometheus-stack -f k8s-installation/prometheus-stack/values.yaml -n monitoring
+
+
+# install rabbitmq
+# https://www.rabbitmq.com/kubernetes/operator/operator-overview.html
+
+kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
+kubectl krew install rabbitmq
+kubectl rabbitmq install-cluster-operator
+
+kubectl create ns rabbitmq
+kubectl apply -f k8s-installation/rabbitmq/rabbitmq.yaml
+kubectl apply -f k8s-installation/rabbitmq/ingress.yaml
+
+sleep 30
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/prod
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
+
+# nats Official
+kubectl create ns prod
+helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+helm upgrade --install nats nats/nats -f nats-values.yaml -n prod
