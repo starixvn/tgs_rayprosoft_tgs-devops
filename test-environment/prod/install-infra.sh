@@ -30,5 +30,3 @@ helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
 ## for delete
 # kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
 # kubectl patch pv pvc-481b34ba-69cf-412b-b1a6-742eac299f62 -p '{"metadata":{"finalizers":null}}'
-
-
