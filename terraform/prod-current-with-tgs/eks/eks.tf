@@ -83,8 +83,8 @@ module "eks" {
       max_size     = 8
       min_size     = 2
 
-      instance_types = ["c5a.large", "c5.large", "t3.medium","t3.large"]
-      max_unavailable_percentage = 100
+      instance_types = ["m5.xlarge", "m5d.xlarge", "c5.xlarge","c5d.xlarge","c5n.xlarge"]
+      max_unavailable_percentage = 80
 
     }
 
@@ -95,7 +95,7 @@ module "eks" {
       max_size     = 8
       min_size     = 2
       max_unavailable_percentage = 80
-      instance_types = ["c5a.xlarge", "c5.xlarge", "c5n.xlarge", "c5d.xlarge", "t3.xlarge"]
+      instance_types = ["m5.xlarge", "m5d.xlarge", "c5.xlarge","c5d.xlarge","c5n.xlarge"]
 
       # Node selector
       labels = {
@@ -112,77 +112,77 @@ module "eks" {
       ]
     }
 
-    game = {
-      name      = "tgs-game-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["c5a.xlarge", "c5.xlarge", "c5n.xlarge", "c5d.xlarge", "t3.xlarge"]
+    # game = {
+    #   name      = "tgs-game-2"
+    #   use_name_prefix  = true
+    #   desired_size = 2
+    #   max_size     = 8
+    #   min_size     = 2
+    #   max_unavailable_percentage = 80
+    #   instance_types = ["m5.large", "m5d.large", "m5n.xlarge","m5a.xlarge"]
 
-      # Node selector
-      labels = {
-          dedicated = "game"
-      }
+    #   # Node selector
+    #   labels = {
+    #       dedicated = "game"
+    #   }
 
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "game"
-          effect = "NO_SCHEDULE"
-        }
-      ]
-    }
+    #   # Tolerations
+    #   taints = [
+    #     {
+    #       key    = "dedicated"
+    #       value  = "game"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   ]
+    # }
 
-    frontend = {
-      name      = "tgs-frontend-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["c5a.xlarge", "c5.xlarge", "c5n.xlarge", "c5d.xlarge", "t3.xlarge"]
+    # frontend = {
+    #   name      = "tgs-frontend-2"
+    #   use_name_prefix  = true
+    #   desired_size = 2
+    #   max_size     = 8
+    #   min_size     = 2
+    #   max_unavailable_percentage = 80
+    #   instance_types = ["m5.large", "m5d.large", "m5n.xlarge","m5a.xlarge"]
 
-      # Node selector
-      labels = {
-          dedicated = "frontend"
-      }
+    #   # Node selector
+    #   labels = {
+    #       dedicated = "frontend"
+    #   }
 
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "frontend"
-          effect = "NO_SCHEDULE"
-        }
-      ]
-    }
+    #   # Tolerations
+    #   taints = [
+    #     {
+    #       key    = "dedicated"
+    #       value  = "frontend"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   ]
+    # }
 
-    ondemand = {
-      name      = "tgs-ondemand-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["c5a.xlarge", "c5.xlarge", "c5n.xlarge", "c5d.xlarge", "t3.xlarge"]
+    # ondemand = {
+    #   name      = "tgs-ondemand-2"
+    #   use_name_prefix  = true
+    #   desired_size = 2
+    #   max_size     = 8
+    #   min_size     = 2
+    #   max_unavailable_percentage = 80
+    #   instance_types = ["m5.large", "m5d.large", "m5n.xlarge","m5a.xlarge"]
 
-      # Node selector
-      labels = {
-          dedicated = "ondemand"
-      }
+    #   # Node selector
+    #   labels = {
+    #       dedicated = "ondemand"
+    #   }
 
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "ondemand"
-          effect = "NO_SCHEDULE"
-        }
-      ]
-    }
+    #   # Tolerations
+    #   taints = [
+    #     {
+    #       key    = "dedicated"
+    #       value  = "ondemand"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   ]
+    # }
   }
 
   # Cluster Security Group
@@ -249,7 +249,7 @@ module "eks" {
               type                          = "ingress"
               source_cluster_security_group = true
         }
-        egress_cluster_jenkins = {
+        egress_cluster = {
               description                   = "Cluster to node 4443 (Metrics Server)"
               type                          = "egress"
               protocol                      = "-1"
