@@ -17,7 +17,7 @@ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/d
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 
-aws eks update-kubeconfig --name tgs-taiwan-k8s2
+aws eks update-kubeconfig --name tgs-taiwan-k8s2 <<<
 
 #現在執行 kubectl get pods 會出現 
 #Unable to connect to the server: dial tcp 10.139.110.193:443: i/o timeout
