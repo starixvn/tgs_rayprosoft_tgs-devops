@@ -1,0 +1,1 @@
+{"apiVersion":"v1","kind":"ServiceAccount","metadata":{"creationTimestamp":"2023-03-10T09:29:45Z","name":"raypro-prod-build","namespace":"prod","resourceVersion":"559394786","uid":"4028f0f9-ca38-4202-9ce4-436bdda7d75a"},"secrets":[{"name":"raypro-prod-build-token-rq599"}]}
