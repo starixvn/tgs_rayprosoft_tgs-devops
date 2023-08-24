@@ -19,7 +19,7 @@ kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/depl
 # ingress-controller
 ## for class load balancer
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-
+helm repo update
 kubectl create ns ingress-nginx
 
 helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
