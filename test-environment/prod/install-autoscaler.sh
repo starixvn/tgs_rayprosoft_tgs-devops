@@ -81,8 +81,8 @@ aws iam create-role \
 curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
 
 sed -i "s/<YOUR CLUSTER NAME>/$eks_cluster/g" cluster-autoscaler-autodiscover.yaml
-sed -i '160i\ \ \ \ \ \ \ \ - --balance-similar-node-groups=true'  cluster-autoscaler-autodiscover.yaml
-sed -i '160i\ \ \ \ \ \ \ \ - --skip-nodes-with-system-pods=false'  cluster-autoscaler-autodiscover.yaml
+sed -i '160i\ \ \ \ \ \ \ \ \ \ \ \ - --balance-similar-node-groups=true'  cluster-autoscaler-autodiscover.yaml
+sed -i '160i\ \ \ \ \ \ \ \ \ \ \ \ - --skip-nodes-with-system-pods=false'  cluster-autoscaler-autodiscover.yaml
 
 
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
