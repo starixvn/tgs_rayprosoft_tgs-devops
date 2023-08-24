@@ -5,7 +5,7 @@ helm uninstall nginx-ingress -n nginx-ingress
 helm uninstall prometheus-stack -n monitoring 
 kubectl delete -f k8s-installation/observability/jaeger-eck.yml
 kubectl delete -f k8s-installation/observability/elasticsearch-eck-prod.yaml
-kubectl delete -f k8s-installation/observability/kibana-eck-prod
+kubectl delete -f k8s-installation/observability/kibana-eck-prod.yaml
 kubectl delete -f k8s-installation/rabbitmq/rabbitmq.yaml
 
 
