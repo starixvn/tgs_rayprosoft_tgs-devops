@@ -104,6 +104,7 @@ kubectl patch deployment cluster-autoscaler \
   -n kube-system \
   -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
 
+kubectl rollout restart deploy cluster-autoscaler -n kube-system
 # kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
 ## delete role
