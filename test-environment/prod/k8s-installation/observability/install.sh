@@ -24,7 +24,6 @@ helm repo add fluent https://fluent.github.io/helm-charts
 helm repo update
 helm upgrade -i fluent-bit fluent/fluent-bit -f fluentbit-edge-values.yaml -n logging
 helm upgrade -i log-center fluent/fluent-bit -f fluentbit-center-values.yaml --set replicaCount=1 -n logging
-helm upgrade
 
 ### 安裝完成後使用 kubectl edit ds fluent-bit -n logging 修改 forward port，增加hostPort: 24224
 
@@ -37,3 +36,4 @@ kubectl apply -f fluent-bit.yaml
 # Install Jaege
 sleep 10
 kubectl apply -f jaeger-eck.yml
+rm -rf fluent-bit.yaml

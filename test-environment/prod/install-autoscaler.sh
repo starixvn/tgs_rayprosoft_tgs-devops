@@ -96,9 +96,9 @@ sed -i '160i\ \ \ \ \ \ \ \ \ \ \ \ - --skip-nodes-with-system-pods=false'  clus
 
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
 
-kubectl annotate serviceaccount cluster-autoscaler \
-  -n kube-system \
-  eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/${autoscaler_rolename}
+# kubectl annotate serviceaccount cluster-autoscaler \
+  # -n kube-system \
+  # eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/${autoscaler_rolename}
 
 kubectl patch deployment cluster-autoscaler \
   -n kube-system \
