@@ -8,12 +8,12 @@ export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.ide
 echo ${oid}
 
 ## delete
-aws iam delete-role --role-name ${autoscaler_rolename} 
-eksctl delete iamserviceaccount \
-  --cluster=${eks_cluster} \
-  --namespace=kube-system \
-  --name=cluster-autoscaler 
-aws iam delete-policy --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
+# aws iam delete-role --role-name ${autoscaler_rolename} 
+# eksctl delete iamserviceaccount \
+  # --cluster=${eks_cluster} \
+  # --namespace=kube-system \
+  # --name=cluster-autoscaler 
+# aws iam delete-policy --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
 
 
 cat <<EOF | sudo tee ./cluster-autoscaler-policy.json
@@ -114,7 +114,7 @@ rm -rf ./trust-policy.json
 ## delete role
 # aws iam delete-role --role-name ${autoscaler_rolename} 
 # eksctl delete iamserviceaccount \
-  --cluster=${eks_cluster} \
-  --namespace=kube-system \
-  --name=cluster-autoscaler 
+#  --cluster=${eks_cluster} \
+#  --namespace=kube-system \
+#  --name=cluster-autoscaler 
 # aws iam delete-policy --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
