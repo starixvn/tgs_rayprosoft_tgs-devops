@@ -11,7 +11,7 @@ metadata:
   namespace: prod
 spec:
   rules:
-  - host: t1-test2.srvptt.com
+  - host: t1-test.srvptt.com
     http:
       paths:
       - backend:
