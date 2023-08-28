@@ -14,4 +14,4 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: nginx-ingress
   endpoints:
-  - port: http
+  - port: metrics
