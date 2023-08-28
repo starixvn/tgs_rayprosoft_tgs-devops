@@ -11,10 +11,10 @@ kubectl delete -f k8s-installation/rabbitmq/rabbitmq.yaml
 
 ## for delete csi role
 export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-prod2
-aws iam delete-role --role-name ${csi_role_name} 
 aws iam detach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
   --role-name ${csi_role_name}
+aws iam delete-role --role-name ${csi_role_name} 
 
 ## delete autoscaling role
 export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-prod2

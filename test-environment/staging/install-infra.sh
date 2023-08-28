@@ -38,6 +38,9 @@ kubectl create ns ingress-nginx
 
 helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
 --set controller.metrics.enabled=true \
+--set controller.opentelemetry.enabled=true \
+--set controller.ingressClassResource.name=nginx-frontent \
+--set controller.ingressClass=nginx-frontent \
 --set-string controller.metrics.service.annotations."prometheus\.io/port"="10254" \
 --set-string controller.metrics.service.annotations."prometheus\.io/scrape"="true"
 
