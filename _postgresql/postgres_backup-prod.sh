@@ -36,5 +36,9 @@ psql -d postgres -c "create database $database"
         PASSWORD 'abcd1234';
         
 		
-		
+
+create extension aws_commons
+create extension aws_s3
+create extension pg_partman
+	
 pg_restore -d $database < mydb_2023_05_03.sql
