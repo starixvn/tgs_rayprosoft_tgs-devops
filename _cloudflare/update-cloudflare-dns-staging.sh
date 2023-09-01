@@ -1,7 +1,6 @@
 #!/bin/bash
 response=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?per_page=1000&name=rpgp.cc" \
-    -H "X-Auth-Email: ${auth_email}" \
-    -H "X-Auth-Key: ${auth_key}" \
+    -H "Authorization: Bearer $token" \
     -H "Content-Type: application/json") 
 
 declare -i index=0
@@ -16,7 +15,7 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 	echo "ZONE_ID=${zoneid}"
    
 	dnsrecordResponse=$(curl -X GET "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records?content=${content}" \
-		-H "Authorization: Bearer 0urb613nnL1aiyuKO_shCaCyfIPVhhXQhh3RKEaH" \
+		-H "Authorization: Bearer $token" \
 		-H "Content-Type: application/json")
 
 	#echo ${dnsrecordResponse} | jq '.result' | jq '.[]'
