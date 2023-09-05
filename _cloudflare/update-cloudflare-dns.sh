@@ -15,7 +15,7 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 	echo ${response} | jq '.result' | jq -r ".[${index}].name"
 	index=$((index+1))
 	dns_index=$((0))
-	echo "ZONE_ID=${zoneid}"
+	echo "======ZONE_ID=${zoneid}====="
    
 	dnsrecordResponse=$(curl -X GET "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records?per_page=1000&content=${old_content}" \
 		-H "Authorization: Bearer $token" \
@@ -39,6 +39,8 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 			# -H "Content-Type: application/json" \
 		   # --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${newcontent}\",\"proxied\":${proxied}}")
 		# echo ${result} | jq 
+    echo "#####################" 
 	done 
+  echo "===========================" 
 done
 	 
