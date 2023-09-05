@@ -7,8 +7,8 @@ declare -i index=0
 declare -i dns_index=0
 declare -i count=0
 
-old_content="ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com"
-new_context=""
+old_content="ac14ad4ad050b4a71b144385e51a20f5-1241810226.ap-east-1.elb.amazonaws.com"
+new_context="ac14ad4ad050b4a71b144385e51a20f5-1241810226.ap-east-1.elb.amazonaws.com"
 
 for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 
@@ -34,11 +34,11 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 		echo "dnsid: ${dnsid}"
 		echo "content: ${content}"
 
-		# result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
-			# -H "Authorization: Bearer $token" \
-			# -H "Content-Type: application/json" \
-		   # --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${newcontent}\",\"proxied\":${proxied}}")
-		# echo ${result} | jq 
+		result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
+			-H "Authorization: Bearer $token" \
+			-H "Content-Type: application/json" \
+		  --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${newcontent}\",\"proxied\":${proxied}}")
+		echo ${result} | jq 
     echo "#####################" 
 	done 
   echo "===========================" 
