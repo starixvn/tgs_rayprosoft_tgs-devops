@@ -1,19 +1,19 @@
 apiVersion: k6.io/v1alpha1
 kind: K6
 metadata:
-  name: bo-stress-test
+  name: lobby-stress-test
   namespace: k6
 spec:
   parallelism: 4
   script:
     configMap:
-      name: bo-stress-test
-      file: test.js
+      name: lobby-stress-test
+      file: stress-test
   runner:
     metadata:
     image: ghcr.io/grafana/k6-operator:latest-runner
     env:
       - name: K6_PROMETHEUS_RW_SERVER_URL
-        value: http://prometheus-kube-prometheus-prometheus.monitoring:9090/api/v1/write
+        value: http://prometheus-stack-kube-prom-prometheus.monitoring:9090/api/v1/write
       - name: K6_OUT
         value: experimental-prometheus-rw
