@@ -112,77 +112,101 @@ module "eks" {
       ]
     }
 
-    # game = {
-    #   name      = "tgs-game-2"
-    #   use_name_prefix  = true
-    #   desired_size = 2
-    #   max_size     = 8
-    #   min_size     = 2
-    #   max_unavailable_percentage = 80
-    #   instance_types = ["m5.large", "m5d.large", "m5n.xlarge","m5a.xlarge"]
+    game = {
+      name      = "tgs-game-2"
+      use_name_prefix  = true
+      desired_size = 2
+      max_size     = 8
+      min_size     = 2
+      max_unavailable_percentage = 80
+      instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
 
-    #   # Node selector
-    #   labels = {
-    #       dedicated = "game"
-    #   }
+      # Node selector
+      labels = {
+          dedicated = "game"
+      }
 
-    #   # Tolerations
-    #   taints = [
-    #     {
-    #       key    = "dedicated"
-    #       value  = "game"
-    #       effect = "NO_SCHEDULE"
-    #     }
-    #   ]
-    # }
+      # Tolerations
+      taints = [
+        {
+          key    = "dedicated"
+          value  = "game"
+          effect = "NO_SCHEDULE"
+        }
+      ]
+    }
 
-    # frontend = {
-    #   name      = "tgs-frontend-2"
-    #   use_name_prefix  = true
-    #   desired_size = 2
-    #   max_size     = 8
-    #   min_size     = 2
-    #   max_unavailable_percentage = 80
-    #   instance_types = ["m5.large", "m5d.large", "m5n.xlarge","m5a.xlarge"]
+    game = {
+      name      = "tgs-gamewagers-2"
+      use_name_prefix  = true
+      desired_size = 2
+      max_size     = 8
+      min_size     = 2
+      max_unavailable_percentage = 80
+      instance_types = ["c5.xlarge", "c5d.xlarge"]
 
-    #   # Node selector
-    #   labels = {
-    #       dedicated = "frontend"
-    #   }
+      # Node selector
+      labels = {
+          dedicated = "gamewagers"
+      }
 
-    #   # Tolerations
-    #   taints = [
-    #     {
-    #       key    = "dedicated"
-    #       value  = "frontend"
-    #       effect = "NO_SCHEDULE"
-    #     }
-    #   ]
-    # }
+      # Tolerations
+      taints = [
+        {
+          key    = "dedicated"
+          value  = "gamewagers"
+          effect = "NO_SCHEDULE"
+        }
+      ]
+    }
 
-    # ondemand = {
-    #   name      = "tgs-ondemand-2"
-    #   use_name_prefix  = true
-    #   desired_size = 2
-    #   max_size     = 8
-    #   min_size     = 2
-    #   max_unavailable_percentage = 80
-    #   instance_types = ["m5.large", "m5d.large", "m5n.xlarge","m5a.xlarge"]
+    frontend = {
+      name      = "tgs-frontend-2"
+      use_name_prefix  = true
+      desired_size = 2
+      max_size     = 8
+      min_size     = 2
+      max_unavailable_percentage = 80
+      instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
 
-    #   # Node selector
-    #   labels = {
-    #       dedicated = "ondemand"
-    #   }
+      # Node selector
+      labels = {
+          dedicated = "frontend"
+      }
 
-    #   # Tolerations
-    #   taints = [
-    #     {
-    #       key    = "dedicated"
-    #       value  = "ondemand"
-    #       effect = "NO_SCHEDULE"
-    #     }
-    #   ]
-    # }
+      # Tolerations
+      taints = [
+        {
+          key    = "dedicated"
+          value  = "frontend"
+          effect = "NO_SCHEDULE"
+        }
+      ]
+    }
+
+    ondemand = {
+      name      = "tgs-ondemand-2"
+      use_name_prefix  = true
+      desired_size = 2
+      max_size     = 8
+      min_size     = 2
+      max_unavailable_percentage = 80
+      instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
+
+      # Node selector
+      labels = {
+          dedicated = "ondemand"
+      }
+
+      # Tolerations
+      taints = [
+        {
+          key    = "dedicated"
+          value  = "ondemand"
+          effect = "NO_SCHEDULE"
+        }
+      ]
+    }
   }
 
   # Cluster Security Group
