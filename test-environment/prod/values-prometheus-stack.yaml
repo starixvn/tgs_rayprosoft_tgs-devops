@@ -1,0 +1,62 @@
+# https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+alertmanager:
+  enabled: true
+  config:
+    route:
+      group_by: ['namespace']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'prod-telegram'
+      routes:
+      - receiver: 'prod-telegram'
+        matchers:
+        - alertname =~ "InfoInhibitor|Watchdog"
+    receivers:
+    - name: 'prod-telegram'
+      telegram_configs:
+      - bot_token: 6137223098:AAEeQiBaQ1G1Gj5pO7p9q_FVwvXViM1BMcg
+        api_url: https://api.telegram.org
+        chat_id: -1001531627516
+        parse_mode: ''
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - alertmanager2.srvptt.com
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+grafana: 
+  ingress: 
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+    - grafana2.srvptt.com
+prometheus:
+  ingress: 
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+    - prometheus2.srvptt.com
+  prometheusSpec:
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+    retention: 30d
+    storageSpec: 
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 100Gi

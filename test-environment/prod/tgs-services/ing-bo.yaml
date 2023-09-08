@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   name: bo
-  namespace: staging
+  namespace: prod
 spec:
   rules:
   - host: bo-test.srvptt.com

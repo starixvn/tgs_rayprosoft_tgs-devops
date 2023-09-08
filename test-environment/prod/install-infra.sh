@@ -22,10 +22,8 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 kubectl create ns ingress-nginx
 
-helm -n ingress-nginx install nginx-ingress ingress-nginx/ingress-nginx \
---set controller.metrics.enabled=true \
---set-string controller.metrics.service.annotations."prometheus\.io/port"="10254" \
---set-string controller.metrics.service.annotations."prometheus\.io/scrape"="true"
+helm -n ingress-nginx upgrade -i nginx-ingress ingress-nginx/ingress-nginx -f values-nginx-ingress-conroller --set controller.replicaCount=3
+
 
 ## for delete
 # kubectl patch pvc persistence-mq-server-0 -p '{"metadata":{"finalizers":null}}' -n rabbitmq
@@ -37,7 +35,7 @@ kubectl apply -f cluster-issuer.yml
 # install prometheus-stack
 kubectl create namespace monitoring
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm upgrade --install prometheus-stack prometheus-community/kube-prometheus-stack -f k8s-installation/prometheus-stack/values.yaml -n monitoring
+helm upgrade --install prometheus-stack prometheus-community/kube-prometheus-stack -f values-prometheus-stack.yaml -n monitoring
 
 
 ## install krew
@@ -73,5 +71,29 @@ kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administra
 
 # nats Official
 kubectl create ns prod
-helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-helm upgrade --install nats nats/nats -f values-nats.yaml -n prod
+kubectl apply -f ./tgs-services/
+
+# helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+# helm upgrade --install nats nats/nats -f values-nats.yaml -n prod
+
+# velero
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.8.1/velero-v1.8.1-linux-amd64.tar.gz
+tar zxvf velero-v1.8.1-linux-amd64.tar.gz
+cp velero-v1.8.1-linux-amd64/velero /usr/local/bin
+cat <<EOF | sudo tee ~/.credentials-velero
+[default]
+aws_access_key_id=AKIAQ4KFUNHMUZU6QD2V
+aws_secret_access_key=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
+EOF
+
+export BUCKET=tgs-prod-backup
+export REGION=ap-east-1
+velero install \
+  --provider aws \
+  --plugins velero/velero-plugin-for-aws:v1.4.0 \
+  --bucket $BUCKET \
+  --backup-location-config region=$REGION \
+  --snapshot-location-config region=$REGION \
+  --secret-file ./.credentials-velero
+
+ velero restore create test1 --from-backup prod-k8s-090803 
