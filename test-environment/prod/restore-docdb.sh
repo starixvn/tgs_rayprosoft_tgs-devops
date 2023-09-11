@@ -30,7 +30,7 @@ do
         break;
     fi
     echo "$status..."  
-    sleep 5000
+    sleep 5
 done 
   
 aws docdb create-db-instance \
@@ -53,5 +53,5 @@ do
     then    
         break;
     fi
-    sleep 5000
+    sleep 5
 done 
