@@ -22,7 +22,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 kubectl create ns ingress-nginx
 
-helm -n ingress-nginx upgrade -i nginx-ingress ingress-nginx/ingress-nginx -f values-nginx-ingress-conroller --set controller.replicaCount=3
+helm -n ingress-nginx upgrade -i nginx-ingress ingress-nginx/ingress-nginx -f values-nginx-ingress-conroller.yaml --set controller.replicaCount=3
 
 
 ## for delete
