@@ -55,3 +55,5 @@ do
     fi
     sleep 5
 done 
+
+## the restored time takes about 23 minutes
