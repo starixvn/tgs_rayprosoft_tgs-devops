@@ -33,7 +33,6 @@ for dnsid in $(echo ${dnsrecordResponse} | jq '.result' | jq -r '.[].id'); do
 			-H "X-Auth-Authorization: Bearer $token" \
 			-H "Content-Type: application/json" \
 		  --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${newcontent}\",\"proxied\":${proxied}}")
-		echo ${result} | jq 
-	fi
+  echo ${result} | jq 
 done 
 	 

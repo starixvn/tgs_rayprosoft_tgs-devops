@@ -167,7 +167,7 @@ module "eks" {
       max_size     = 8
       min_size     = 2
       max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
+      instance_types = ["m5.xlarge", "m5d.xlarge"]
 
       # Node selector
       labels = {
@@ -191,7 +191,7 @@ module "eks" {
       max_size     = 8
       min_size     = 2
       max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
+      instance_types = ["m5.xlarge", "m5d.xlarge"]
 
       # Node selector
       labels = {
