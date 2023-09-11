@@ -2,7 +2,6 @@
 # mongodb
 # https://docs.aws.amazon.com/cli/latest/reference/docdb/describe-db-cluster-snapshots.html
 export docdb_name="tgs-prod-test"
-export docdb_backup_name="tgs-game-test"
 export rds_db_name="db-prod-test"
 export redis_name="redis-test"
 
