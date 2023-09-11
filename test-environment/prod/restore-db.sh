@@ -1,10 +1,36 @@
 #!/bin/bash
+# rds
+# https://docs.aws.amazon.com/cli/latest/reference/rds/restore-db-instance-to-point-in-time.html
+# https://docs.aws.amazon.com/cli/latest/reference/rds/delete-db-instance.html
+export db_name="db-prod-test"
+
+aws rds restore-db-instance-to-point-in-time \
+    --source-db-instance-identifier db-production \
+    --target-db-instance ${db_name} \
+    --restore-time 2023-09-11T00:00:00.000Z \
+    --db-instance-class db.t3.medium \
+    --db-subnet-group-name "default-vpc-0b86a361eb192585e" \
+    --vpc-security-group-ids "sg-05d5fe9b1ad228e89"
+
+# redis
+# https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Create.html#Clusters.Create.API
+# https://docs.aws.amazon.com/cli/latest/reference/elasticache/
+export redis_name="redis-test"
+
+aws elasticache create-cache-cluster \
+  --cache-cluster-id ${redis_name} \
+  --cache-node-type cache.t3.medium \
+  --engine redis \
+  --num-cache-nodes 1 \
+  --cache-parameter-group default.redis7 \
+  --cache-subnet-group-name tgs-redis \
+  --snapshot-arns arn:aws:s3:::tgs-db-backup/redis-0001.rdb
+    
 # mongodb
 # https://docs.aws.amazon.com/documentdb/latest/developerguide/backup_restore-restore_from_snapshot.html
 # https://docs.aws.amazon.com/cli/latest/reference/docdb/restore-db-cluster-from-snapshot.html
 # https://docs.aws.amazon.com/cli/latest/reference/docdb/describe-db-cluster-snapshots.html
 
-# export docdb_ori_name="tgs-prod"
 export docdb_name="tgs-prod-test"
 export docdb_backup_name="tgs-game-test"
 
