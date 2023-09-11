@@ -10,7 +10,3 @@ aws rds restore-db-instance-to-point-in-time \
     --db-instance-class db.t3.medium \
     --db-subnet-group-name "default-vpc-0b86a361eb192585e" \
     --vpc-security-group-ids "sg-05d5fe9b1ad228e89"
-    
-aws rds delete-db-instance \
-    --db-instance-identifier ${db_name} \
-    --skip-final-snapshot

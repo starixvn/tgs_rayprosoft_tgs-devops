@@ -29,6 +29,7 @@ do
     then    
         break;
     fi
+    echo "$status..."  
     sleep 5000
 done 
   
@@ -45,20 +46,12 @@ do
     status=$(aws docdb describe-db-instances \
       --db-instance-identifier ${docdb_name}-1 \
       --region ap-northeast-1 | jq -r '.DBInstances[0].DBInstanceStatus')
-      
+    
+    echo "$status..."    
+    
     if [[ $status == "available" ]]
     then    
         break;
     fi
     sleep 5000
 done 
-
-## delete
-aws docdb delete-db-instance \
-    --region ap-northeast-1 \
-    --db-instance-identifier $docdb_name-1
-
-aws docdb delete-db-cluster \
-    --db-cluster-identifier $docdb_name \
-    --region ap-northeast-1 \
-    --final-db-snapshot-identifier $docdb_name-snapshot
