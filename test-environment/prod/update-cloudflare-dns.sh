@@ -22,7 +22,7 @@ for dnsid in $(echo ${dnsrecordResponse} | jq '.result' | jq -r '.[].id'); do
     dnsname=$(echo ${dnsrecordResponse} | jq '.result' | jq -r ".[${dns_index}].name"):
     proxied=$(echo ${dnsrecordResponse} | jq '.result' | jq -r ".[${dns_index}].proxied")
     content=$(echo ${dnsrecordResponse} | jq '.result' | jq -r ".[${dns_index}].content")
-    
+    dnsname=${dnsname/.srvptt.com:/}
     dns_index=$((dns_index+1))
     
     echo "dns_name: ${dnsname}"

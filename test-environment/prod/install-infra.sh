@@ -61,7 +61,7 @@ kubectl create ns rabbitmq
 kubectl apply -f k8s-installation/rabbitmq/rabbitmq.yaml
 kubectl apply -f k8s-installation/rabbitmq/ingress.yaml
 
-sleep 30
+sleep 45
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/prod
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
@@ -70,9 +70,9 @@ kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administra
 kubectl create ns prod
 kubectl apply -f ./tgs-services/
 
-# helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-# helm upgrade --install nats nats/nats -f values-nats.yaml -n prod
-# helm template nats nats/nats -f values-nats.yaml -n prod
+helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+helm upgrade --install nats nats/nats -f values-nats.yaml -n prod
+helm template nats nats/nats -f values-nats.yaml -n prod
 
 # velero
 wget https://github.com/vmware-tanzu/velero/releases/download/v1.8.1/velero-v1.8.1-linux-amd64.tar.gz
@@ -92,6 +92,6 @@ velero install \
   --bucket $BUCKET \
   --backup-location-config region=$REGION \
   --snapshot-location-config region=$REGION \
-  --secret-file ./.credentials-velero
+  --secret-file ~/.credentials-velero
 
- velero restore create test1 --from-backup prod-k8s-091201
+velero restore create test1 --from-backup prod-k8s-091201
