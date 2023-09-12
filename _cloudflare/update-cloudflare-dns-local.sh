@@ -1,5 +1,7 @@
 #!/bin/bash
-response=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?per_page=1000" \
+export token="0urb613nnL1aiyuKO_shCaCyfIPVhhXQhh3RKEaH"
+
+response=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?per_page=1000&name=rpgp.cc" \
     -H "X-Auth-Email: ${auth_email}" \
     -H "X-Auth-Key: ${auth_key}" \
     -H "Content-Type: application/json") 

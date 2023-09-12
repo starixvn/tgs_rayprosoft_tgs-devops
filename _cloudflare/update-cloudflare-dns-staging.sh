@@ -1,10 +1,12 @@
 #!/bin/bash
+export token="0urb613nnL1aiyuKO_shCaCyfIPVhhXQhh3RKEaH"
+
 response=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?per_page=1000&name=rpgp.cc" \
     -H "Authorization: Bearer $token" \
     -H "Content-Type: application/json") 
 
 old_content="ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com"
-new_context=""
+new_content=""
 
 declare -i index=0
 declare -i dns_index=0
@@ -34,12 +36,12 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 		echo "dnsid: ${dnsid}"
 		echo "content: ${content}"
 
-		# result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
-			# -H "X-Auth-Email: ${auth_email}" \
-			# -H "X-Auth-Key: ${auth_key}" \
-			# -H "Content-Type: application/json" \
-		   # --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${new_context}\",\"proxied\":${proxied}}")
-		# echo ${result} | jq 
+		result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
+			-H "X-Auth-Email: ${auth_email}" \
+			-H "X-Auth-Key: ${auth_key}" \
+			-H "Content-Type: application/json" \
+		  --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${new_content}\",\"proxied\":${proxied}}")
+		echo ${result} | jq 
 	done 
 done
 	 
