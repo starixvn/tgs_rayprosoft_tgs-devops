@@ -42,5 +42,6 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 		  --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${new_content}\",\"proxied\":${proxied}}")
       
 		echo ${result} | jq 
+    echo "================"
 	done 
 done
