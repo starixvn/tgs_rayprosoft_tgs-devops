@@ -39,7 +39,7 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 		result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
 			-H "Authorization: Bearer $token" \
 			-H "Content-Type: application/json" \
-		  --data "{\"content\":\"${new_content}\"")
+		  --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${new_content}\",\"proxied\":${proxied}}")
       
 		echo ${result} | jq 
 	done 
