@@ -6,7 +6,7 @@ response=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?per_page=1000
     -H "Content-Type: application/json") 
 
 old_content="ae8e197bdf6b94b7b815ed951973817e-741969300.ap-east-1.elb.amazonaws.com"
-new_content=""
+new_content=$1
 
 declare -i index=0
 declare -i dns_index=0
@@ -40,7 +40,7 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 			-H "X-Auth-Email: ${auth_email}" \
 			-H "X-Auth-Key: ${auth_key}" \
 			-H "Content-Type: application/json" \
-		  --data "{\"type\":\"CNAME\",\"name\":\"${dnsname}\",\"content\":\"${new_content}\",\"proxied\":${proxied}}")
+		  --data "{\"content\":\"${new_content}\")
 		echo ${result} | jq 
 	done 
 done

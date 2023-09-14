@@ -11,6 +11,7 @@ aws elasticache create-cache-cluster \
   --num-cache-nodes 1 \
   --cache-parameter-group default.redis7 \
   --cache-subnet-group-name tgs-redis \
+  --security-group-ids sg-02bbd834258ab9840 \
   --snapshot-arns arn:aws:s3:::tgs-db-backup/redis-0001.rdb
   
 ## the restored time takes about 12 minutes
