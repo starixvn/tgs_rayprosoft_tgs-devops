@@ -40,8 +40,8 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 			-H "X-Auth-Email: ${auth_email}" \
 			-H "X-Auth-Key: ${auth_key}" \
 			-H "Content-Type: application/json" \
-		  --data "{\"content\":\"${new_content}\")
+		  --data "{\"content\":\"${new_content}\"")
+      
 		echo ${result} | jq 
 	done 
 done
-	 
