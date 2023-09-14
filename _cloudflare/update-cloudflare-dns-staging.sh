@@ -37,8 +37,7 @@ for zoneid in $(echo ${response} | jq '.result' | jq -r '.[].id'); do
 		echo "content: ${content}"
 
 		result=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/dns_records/${dnsid}" \
-			-H "X-Auth-Email: ${auth_email}" \
-			-H "X-Auth-Key: ${auth_key}" \
+			-H "Authorization: Bearer $token" \
 			-H "Content-Type: application/json" \
 		  --data "{\"content\":\"${new_content}\"")
       
