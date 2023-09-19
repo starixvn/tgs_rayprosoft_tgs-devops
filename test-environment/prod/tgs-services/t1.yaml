@@ -96,7 +96,7 @@ spec:
       - name: registry-credentials
       - name: dockerhub
       nodeSelector:
-        dedicated: frontend
+        dedicated: prod
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
@@ -105,7 +105,7 @@ spec:
       - effect: NoSchedule
         key: dedicated
         operator: Equal
-        value: frontend
+        value: prod
       volumes:
       - emptyDir: {}
         name: site-data
