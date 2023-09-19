@@ -98,6 +98,8 @@ velero backup create ingress-nginx --include-namespaces ingress-nginx
 
 velero backup get
 velero restore create nginx-ingress-controller --from-backup nginx-ingerss-controller
+velero restore create ingress-nginx --from-backup ingress-nginx
+
 velero restore create ingress --from-backup ingress
 velero restore create certificate --from-backup certificate
 
