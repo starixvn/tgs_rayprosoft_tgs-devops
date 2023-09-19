@@ -1,0 +1,178 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "176"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"136","kubernetes.io/change-cause":"kubectl set image deployment/lobby-gpi-t1 lobby-gpi-t1=pgtgs/lobby-t1:prod-2023-0113-0753 --record=true --namespace=prod"},"creationTimestamp":"2022-01-04T08:33:16Z","generation":592,"labels":{"app":"lobby-gpi-t1","type":"frontend"},"name":"lobby-gpi-t1","namespace":"prod","resourceVersion":"498548731","uid":"0f3e152f-d390-4a65-a2e9-52a3dba9a9ce"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"lobby-gpi-t1"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"kubectl.kubernetes.io/restartedAt":"2023-01-12T02:43:34Z"},"creationTimestamp":null,"labels":{"app":"lobby-gpi-t1","type":"frontend"}},"spec":{"containers":[{"env":[{"name":"CLIENT","value":"I7nKiimrZQOqnJ6ryjUw74c0Hi64KC6Myunhob4cHh8VOUIuZh4p63czefxyyzbZ"},{"name":"CURRENCY","value":"CNY"},{"name":"BRAND","value":"PGG"},{"name":"DEFAULT_LANGUAGE","value":"zh-CN"},{"name":"THEME","value":"red"},{"name":"SOURCE_URL","value":"https://images.srvptt.com/"},{"name":"DEPLOY_DATE","value":"2022-02-25-18:45"}],"image":"pgtgs/lobby-t1:prod-2023-0113-0753","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"name":"lobby-gpi-t1","ports":[{"containerPort":80,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/healthcheck","port":80,"scheme":"HTTP"},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"30m","memory":"50Mi"},"requests":{"cpu":"5m","memory":"30Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/data","name":"site-data"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-credentials"},{"name":"dockerhub"}],"nodeSelector":{"dedicated":"frontend"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoSchedule","key":"dedicated","operator":"Equal","value":"frontend"}],"volumes":[{"emptyDir":{},"name":"site-data"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-12-22T09:18:46Z","lastUpdateTime":"2022-12-22T09:18:46Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2023-01-13T09:29:59Z","lastUpdateTime":"2023-01-13T09:30:19Z","message":"ReplicaSet \"lobby-gpi-t1-69496d5884\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":592,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    kubernetes.io/change-cause: kubectl set image deployment/lobby-gpi-t1 lobby-gpi-t1=pgtgs/lobby-t1:prod-2023-0627-0946
+      --record=true --namespace=prod
+  creationTimestamp: "2022-01-04T08:33:16Z"
+  generation: 632
+  labels:
+    app: lobby-gpi-t1
+    type: frontend
+  name: lobby-gpi-t1
+  namespace: prod
+  resourceVersion: "741004712"
+  uid: 0f3e152f-d390-4a65-a2e9-52a3dba9a9ce
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: lobby-gpi-t1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-03-24T09:41:15Z"
+      creationTimestamp: null
+      labels:
+        app: lobby-gpi-t1
+        type: frontend
+    spec:
+      containers:
+      - env:
+        - name: CLIENT
+          value: I7nKiimrZQOqnJ6ryjUw74c0Hi64KC6Myunhob4cHh8VOUIuZh4p63czefxyyzbZ
+        - name: CURRENCY
+          value: CNY
+        - name: BRAND
+          value: PGG
+        - name: DEFAULT_LANGUAGE
+          value: zh-CN
+        - name: THEME
+          value: red
+        - name: SOURCE_URL
+          value: https://images.srvptt.com/
+        - name: DEPLOY_DATE
+          value: 2022-02-25-18:45
+        image: pgtgs/lobby-t1:prod-2023-0627-0946
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: lobby-gpi-t1
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 30m
+            memory: 50Mi
+          requests:
+            cpu: 5m
+            memory: 30Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: site-data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registry-credentials
+      - name: dockerhub
+      nodeSelector:
+        dedicated: frontend
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: frontend
+      volumes:
+      - emptyDir: {}
+        name: site-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lobby-gpi-t1
+  namespace: prod
+spec:
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: lobby-gpi-t1
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Brand-Token eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR1BJIiwic3ViIjoiNGU4NjcxOWYtMjQzZi00NmY2LWIwMTAtNWM3NThiNzI4NWFmIiwibmJmIjoxNjM3NjM0NTYzLCJleHAiOjE2Mzc2MzgxNjMsImlhdCI6MTYzNzYzNDU2MywiaXNzIjoidGdzIn0.n-VgLks4WpPxFp2-2Au-C3h0jzGiprJiMUmdwmhV5rWYqSbIr01Gi7_KJOPfkZeVR7h-muyT4wTGkd-YQJ1tLERfX4cPma2PNigwOKx_z38j3KayTKbNVk9g1o-VBiEYwOTLZf0i2wFdIsE0_k0ul-Kg2t9As9qRZ6apgBc-ANjABUpvm1ix6sLhgVEk-yl3gKwhqsC81LDaPn9VeAquZgbL193vCW4r7TJTZphP8PxCIMSY-5pj8YS7xQGX9wQiaAImJNKiEs_h2ar03oCV1WPb6767R0PEjK4KJEz5g6cKd2EGftpPCFdiYow-2ww_c8qRl1IuZ3oV6Tj9qexv-g;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: lobby-t1
+  namespace: prod
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: t1-test.srvptt.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandcommunication
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brandlivechat
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: brand-api
+            port:
+              number: 80
+        path: /api/brand/maintenance
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: operator-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: lobby-gpi-t1
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific

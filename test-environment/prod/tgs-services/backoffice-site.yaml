@@ -7,8 +7,8 @@ metadata:
   namespace: prod
 spec:
   progressDeadlineSeconds: 600
-  replicas: 4
-  revisionHistoryLimit: 3
+  replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: backoffice-site
@@ -110,3 +110,39 @@ spec:
   selector:
     app: backoffice-site
   type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: bo
+  namespace: prod
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: bo-test.srvptt.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: backoffice-api
+            port:
+              number: 80
+        path: /api
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: file-service
+            port:
+              number: 80
+        path: /fs
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: backoffice-site
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
