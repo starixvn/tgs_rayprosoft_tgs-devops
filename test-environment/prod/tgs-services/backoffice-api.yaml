@@ -1,0 +1,247 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: backoffice-api
+    type: backend
+  name: backoffice-api
+  namespace: prod
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 5
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: backoffice-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-08-26T13:32:56Z"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8889"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: backoffice-api
+        type: backend
+    spec:
+      containers:
+      - env:
+        - name: OTEL_SERVICE_NAME
+          value: BackOffice-Api(prod)
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: ConnectionStrings__Tgs
+          valueFrom:
+            secretKeyRef:
+              key: tgs
+              name: tgs-connections
+        - name: ConnectionStrings__RedisConfigurationString
+          valueFrom:
+            secretKeyRef:
+              key: redis
+              name: tgs-connections
+        - name: NatsSetting__Urls
+          valueFrom:
+            secretKeyRef:
+              key: nats
+              name: tgs-connections
+        - name: STAKATER_TGS_CONNECTIONS_SECRET
+          value: 8955c5c0b8702e1b07a8a4f12f32fe848669049f
+        - name: STAKATER_CONFIGMAP_BACKOFFICE_API_CONFIGMAP
+          value: 36fdae024005d3eac8d61635cbc89e5428df8e08
+        image: pgtgs/backoffice-api:202305260551.323
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 80
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: backoffice-api
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1600Mi
+          requests:
+            cpu: 500m
+            memory: 1600Mi
+        securityContext: {}
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /health
+            port: 80
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config/appsettings.json
+          name: appsettings
+          readOnly: true
+          subPath: appsettings.json
+        - mountPath: /diag
+          name: diagvol
+        - mountPath: /dumps
+          name: dumpsvol
+      - args:
+        - --config=/etc/otel/config.yaml
+        env:
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        image: otel/opentelemetry-collector:0.62.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: health
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: monitor
+        ports:
+        - containerPort: 8889
+          name: metrics
+          protocol: TCP
+        - containerPort: 13133
+          name: health
+          protocol: TCP
+        - containerPort: 4317
+          name: otlp
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: health
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/otel/config.yaml
+          name: appsettings
+          readOnly: true
+          subPath: otel-collector-config.yaml
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: prod
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: prod
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-backoffice-api
+        name: appsettings
+      - emptyDir: {}
+        name: diagvol
+      - emptyDir: {}
+        name: dumpsvol
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-backoffice-api
+  namespace: prod
+data:
+  appsettings.json: |
+    {
+      "ConnectionStrings": {
+        "GameProvidersPluggable": "http://game-pluggable-service"
+      },
+      "File": {
+        "FileServiceBaseUrl": "http://file-service"
+      },
+      "Report": {
+        "Url": "http://report-api"
+      },
+      "Promotion": {
+        "Url": "http://promotion-api"
+      },
+      "BrandCertificate": {
+        "Url": "http://brand-cert-api"
+      },
+      "BackOffice": {
+        "PaymentServiceBaseUrl": "http://payment-api",
+        "CashBaseUrl": "http://cashservice-api",
+        "GameProvidersPluggableBaseUrl": "http://game-pluggable-service",
+        "ReportAggregateUrl": "http://report-aggregate-service",
+        "PlayerServiceBaseUrl": "http://player-api",
+        "MarketingReportBaseUrl": "http://marketing-report-api",
+        "VipLevelServiceBaseUrl": "http://tgs-viplevel",
+        "PlayerBucketBaseUrl": "http://tgs-playerbucket-service",
+        "DepositAccumulateRouletteServiceBaseUrl": "http://tgs-deposit-accumulate-roulette",
+        "StationLetterBaseUrl": "http://tgs-station-letter"
+      },
+      "TGSGameProvidersKickPlayerApi": {
+        "BaseUrl": "http://game-kickplayer-server"
+      }
+    }
+  otel-collector-config.yaml: "receivers:\n  otlp:\n    protocols:\n      grpc:\n\nprocessors:\n
+    \ batch:\n\nexporters:\n  otlp:\n    endpoint: \"$NODE_IP:4317\"\n    tls:\n      insecure:
+    true\n  prometheus:\n    endpoint: \"0.0.0.0:8889\"\n    namespace: \"tgs\"\n\nextensions:\n
+    \ health_check:\n    endpoint: 0.0.0.0:13133\n\nservice:\n  extensions: [health_check]\n
+    \ pipelines:\n    traces: \n      receivers: [otlp]\n      processors:\n        -
+    batch\n      exporters: [otlp]\n    metrics:\n      receivers: [otlp]\n      exporters:
+    [prometheus]\n"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: backoffice-api
+    healthCheck: enabled
+  name: backoffice-api
+  namespace: prod
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: backoffice-api
+  type: ClusterIP
