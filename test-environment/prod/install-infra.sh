@@ -77,7 +77,7 @@ helm template nats nats/nats -f values-nats.yaml -n prod
 # velero
 wget https://github.com/vmware-tanzu/velero/releases/download/v1.8.1/velero-v1.8.1-linux-amd64.tar.gz
 tar zxvf velero-v1.8.1-linux-amd64.tar.gz
-cp velero-v1.8.1-linux-amd64/velero /usr/local/bin
+sudo cp velero-v1.8.1-linux-amd64/velero /usr/local/bin
 cat <<EOF | sudo tee ~/.credentials-velero
 [default]
 aws_access_key_id=AKIAQ4KFUNHMUZU6QD2V
@@ -94,4 +94,10 @@ velero install \
   --snapshot-location-config region=$REGION \
   --secret-file ~/.credentials-velero
 
-velero restore create test1 --from-backup prod-k8s-091201
+velero backup create ingress-nginx --include-namespaces ingress-nginx
+
+velero backup get
+velero restore create nginx-ingress-controller --from-backup nginx-ingerss-controller
+velero restore create ingress --from-backup ingress
+velero restore create certificate --from-backup certificate
+

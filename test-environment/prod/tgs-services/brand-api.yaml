@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: brand-api
+  name: brand-api
+  namespace: prod
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: brand-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2022-01-12T11:22:50Z"
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: brand-api
+    spec:
+      containers:
+      - env:
+        - name: Logging__LogLevel__Default
+          value: Trace
+        - name: DEPLOY_DATE
+          value: 2022-02-25-18:45
+        image: pgtgs/brand-api:202208170200-prod
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: brand-api
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config/appsettings.json
+          name: appsettings
+          readOnly: true
+          subPath: appsettings.json
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: prod
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: prod
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-brand-api
+        name: appsettings
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: brand-api
+  name: brand-api
+  namespace: prod
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: brand-api
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-brand-api
+  namespace: prod
+data:
+  appsettings.json: |
+    {
+      "ConnectionStrings": {
+        "Tgs": "Server=pgpool;Port=9999;Database=tgs;User Id=tgs_app;Password=VSr4DuVQEzfPC7Tcz",
+        "Redis": "tgs-redis.ie2cpa.0001.ape1.cache.amazonaws.com,abortConnect=false,connectTimeout=3000",
+        "Nats": "nats://nats:4222"
+      },
+      "Brand": {
+        "BrandCertificateBaseUrl": "http://brand-cert-api"
+      }
+    }

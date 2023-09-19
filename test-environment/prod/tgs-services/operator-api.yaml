@@ -1,0 +1,317 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: operator-api
+    type: backend
+  name: operator-api
+  namespace: prod
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 8
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: operator-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-05-10T02:46:02Z"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8889"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: operator-api
+        type: backend
+    spec:
+      containers:
+      - env:
+        - name: OTEL_SERVICE_NAME
+          value: Operator-Api(prod)
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: Logging__Console__FormatterName
+          value: json
+        - name: ConnectionStrings__Tgs
+          valueFrom:
+            secretKeyRef:
+              key: tgs
+              name: tgs-connections
+        - name: ConnectionStrings__RedisConfigurationString
+          valueFrom:
+            secretKeyRef:
+              key: redis
+              name: tgs-connections
+        - name: Email__Url
+          valueFrom:
+            secretKeyRef:
+              key: tgs-email-url
+              name: tgs-connections
+        - name: NatsSetting__Urls
+          valueFrom:
+            secretKeyRef:
+              key: nats
+              name: tgs-connections
+        - name: DEPLOY_DATE
+          value: 2022-02-25-18:45
+        - name: DOTNET_gcServer
+          value: "0"
+        - name: STAKATER_CONFIGMAP_OPERATOR_API_CONFIGMAP
+          value: 269eb8bbca9ab7096b8cee20f2eef0749faa7f41
+        - name: STAKATER_TGS_CONNECTIONS_SECRET
+          value: 8955c5c0b8702e1b07a8a4f12f32fe848669049f
+        image: pgtgs/operator-api:202307210514.289
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 80
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: operator-api
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 1Gi
+        securityContext:
+          runAsGroup: 0
+          runAsUser: 0
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /health
+            port: 80
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config/appsettings.json
+          name: appsettings
+          readOnly: true
+          subPath: appsettings.json
+      - args:
+        - --config=/etc/otel/config.yaml
+        env:
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        image: otel/opentelemetry-collector:0.62.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: health
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: monitor
+        ports:
+        - containerPort: 8889
+          name: metrics
+          protocol: TCP
+        - containerPort: 13133
+          name: health
+          protocol: TCP
+        - containerPort: 4317
+          name: otlp
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: health
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/otel/config.yaml
+          name: appsettings
+          readOnly: true
+          subPath: otel-collector-config.yaml
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      nodeSelector:
+        dedicated: prod
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: prod
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: configmap-operator-api
+        name: appsettings
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: operator-api
+  name: operator-api
+  namespace: prod
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: operator-api
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: operator-api
+    type: backend
+  name: configmap-operator-api
+  namespace: prod
+data:
+  appsettings.json: |
+    {
+      "Operator": {
+        "FileServiceBaseUrl" : "http://file-service",
+        "ValidateCodeBaseUrl": "http://validatecode-api",
+        "SmsBaseUrl": "http://sms-service",
+        "ValidateCodeTestEnabled": false,
+        "PaymentServiceBaseUrl": "http://payment-api",
+        "BrandCertificateBaseUrl": "http://brand-cert-api",
+        "CashBaseUrl": "http://cashservice-api",
+        "GameProvidersPluggableBaseUrl": "http://game-pluggable-service",
+        "PlayerServiceBaseUrl": "http://player-api",
+        "DepositAccumulateRouletteServiceBaseUrl": "http://tgs-deposit-accumulate-roulette",
+        "StationLetterBaseUrl": "http://tgs-station-letter"
+      },
+      "ConnectionStrings": {
+        "Tgs": "Server=pgpool;Port=9999;Database=tgs;User Id=rpdev;Password=abcd1234",
+        "RedisConfigurationString": "redis-master,abortConnect=false,connectTimeout=3000,password=1qaz2wsx"
+      },
+      "NatsSetting": {
+        "Urls": "nats://nats-client:4222",
+        "ConnectTimeoutMs": 2000,
+        "PingInterval": 5000,
+        "PingMaxOutStanding": 3,
+        "SubscriptionBatchSize": 128
+      },
+      "Report": {
+        "Url": "http://report-api"
+      },
+      "Promotion": {
+        "Url": "http://promotion-api"
+      },
+      "CorsDomain": {
+        "Urls": []
+      },
+      "ForwardedHeaders": {
+        "ForwardLimit": 1,
+        "ForwardedForHeaderName": "cf-connecting-ip",
+        "KnownProxies": [],
+        "KnownNetworks": ["10.0.0.0/8"]
+      },
+      "RequestLocalization": {
+        "DefaultRequestCulture": "en-US",
+        "ApplyCurrentCultureToResponseHeaders": true,
+        "SupportedCultures": [
+          "en-US",
+          "zh-CN",
+          "zh-TW",
+          "th-TH",
+          "id-ID",
+          "ja-JP",
+          "ko-KR",
+          "vi-VN"
+        ],
+        "SupportedUICultures": [
+          "en-US",
+          "zh-CN",
+          "zh-TW",
+          "th-TH",
+          "id-ID",
+          "ja-JP",
+          "ko-KR",
+          "vi-VN"
+        ]
+      }
+    }
+  otel-collector-config.yaml: "receivers:\n  otlp:\n    protocols:\n      grpc:\n\nprocessors:\n
+    \ batch:\n\nexporters:\n  otlp:\n    endpoint: \"$NODE_IP:4317\"\n    tls:\n      insecure:
+    true\n  prometheus:\n    endpoint: \"0.0.0.0:8889\"\n    namespace: \"tgs\"\n\nextensions:\n
+    \ health_check:\n    endpoint: 0.0.0.0:13133\n\nservice:\n  extensions: [health_check]\n
+    \ pipelines:\n    traces: \n      receivers: [otlp]\n      processors:\n        -
+    batch\n      exporters: [otlp]\n    metrics:\n      receivers: [otlp]\n      exporters:
+    [prometheus]\n"
+  yarp-settings.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Microsoft.AspNetCore.HttpLogging": "Information"
+        }
+      },
+      "HttpLogging": {
+        "LoggingFields": "Request",
+        "RequestHeaders": ["cf-connecting-ip", "X-Forwarded-For", "X-Real-IP"]
+      },
+      "ReverseProxy": {
+        "Routes": {
+          "route1": {
+            "ClusterId": "cluster1",
+            "Match": {
+              "Path": "{**catch-all}"
+            }
+          }
+        },
+        "Clusters": {
+          "cluster1": {
+            "Destinations": {
+              "destination1": {
+                "Address": "http://localhost/"
+              }
+            }
+          }
+        }
+      }
+    }

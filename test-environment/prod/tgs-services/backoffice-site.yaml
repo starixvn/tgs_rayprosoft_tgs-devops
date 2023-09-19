@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backoffice-site
+  name: backoffice-site
+  namespace: prod
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 4
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: backoffice-site
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-03-09T18:33:08Z"
+      creationTimestamp: null
+      labels:
+        app: backoffice-site
+    spec:
+      containers:
+      - env:
+        - name: MODE
+          value: Production
+        - name: LOGIN_BUTTON_COLOR
+          value: '#ffffff'
+        - name: LOGIN_BUTTON_BACKGROUND
+          value: '#1e417b'
+        - name: HEADER_BACKGROUND
+          value: '#1e417b'
+        - name: HEADER_BUTTON_COLOR
+          value: '#ffffff'
+        - name: HEADER_BUTTON_BACKGROUND
+          value: transparent
+        - name: LOGIN_IMAGE_URL
+          value: //images.srvptt.com/GMS%20Logo/GMS.png
+        - name: HEADER_IMAGE_URL
+          value: //images.srvptt.com/GMS%20Logo/GMS-w.png
+        - name: DEPLOY_DATE
+          value: 2022-02-25-18:45
+        image: pgtgs/backoffice-site:prod-2023-0911-0202
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: backoffice-site
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: site-data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registry-credentials
+      - name: dockerhub
+      nodeSelector:
+        dedicated: prod
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: dedicated
+        operator: Equal
+        value: prod
+      volumes:
+      - emptyDir: {}
+        name: site-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backoffice-site
+  namespace: prod
+spec:
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: backoffice-site
+  type: ClusterIP

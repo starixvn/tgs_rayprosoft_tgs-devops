@@ -86,6 +86,10 @@ module "eks" {
       instance_types = ["m5.xlarge", "m5d.xlarge", "c5.xlarge","c5d.xlarge","c5n.xlarge"]
       max_unavailable_percentage = 80
 
+      remote_access = {
+        ec2_ssh_key               = local.key 
+        source_security_group_ids = [local.security_group_id]
+      }
     }
 
     prod = {
@@ -110,103 +114,124 @@ module "eks" {
           effect = "NO_SCHEDULE"
         }
       ]
-    }
 
-    game = {
-      name      = "tgs-game-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
-
-      # Node selector
-      labels = {
-          dedicated = "game"
+      remote_access = {
+        ec2_ssh_key               = local.key 
+        source_security_group_ids = [local.security_group_id]
       }
-
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "game"
-          effect = "NO_SCHEDULE"
-        }
-      ]
     }
 
-    game = {
-      name      = "tgs-gamewagers-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["c5.xlarge", "c5d.xlarge"]
+    # game = {
+    #   name      = "tgs-game-2"
+    #   use_name_prefix  = true
+    #   desired_size = 2
+    #   max_size     = 8
+    #   min_size     = 2
+    #   max_unavailable_percentage = 80
+    #   instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
 
-      # Node selector
-      labels = {
-          dedicated = "gamewagers"
-      }
+    #   # Node selector
+    #   labels = {
+    #       dedicated = "game"
+    #   }
 
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "gamewagers"
-          effect = "NO_SCHEDULE"
-        }
-      ]
-    }
+    #   # Tolerations
+    #   taints = [
+    #     {
+    #       key    = "dedicated"
+    #       value  = "game"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   ]
+# remote_access = {
+#         ec2_ssh_key               = local.key 
+#         source_security_group_ids = [local.security_group_id]
+#       }
+    # }
 
-    frontend = {
-      name      = "tgs-frontend-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge"]
+    # gamewagers = {
+    #   name      = "tgs-gamewagers-2"
+    #   use_name_prefix  = true
+    #   desired_size = 2
+    #   max_size     = 8
+    #   min_size     = 2
+    #   max_unavailable_percentage = 80
+    #   instance_types = ["c5.xlarge", "c5d.xlarge"]
 
-      # Node selector
-      labels = {
-          dedicated = "frontend"
-      }
+    #   # Node selector
+    #   labels = {
+    #       dedicated = "gamewagers"
+    #   }
 
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "frontend"
-          effect = "NO_SCHEDULE"
-        }
-      ]
-    }
+    #   # Tolerations
+    #   taints = [
+    #     {
+    #       key    = "dedicated"
+    #       value  = "gamewagers"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   ]
+    # remote_access = {
+#         ec2_ssh_key               = local.key 
+#         source_security_group_ids = [local.security_group_id]
+#       }
+    # }
 
-    ondemand = {
-      name      = "tgs-ondemand-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge"]
+    # frontend = {
+    #   name      = "tgs-frontend-2"
+    #   use_name_prefix  = true
+    #   desired_size = 2
+    #   max_size     = 8
+    #   min_size     = 2
+    #   max_unavailable_percentage = 80
+    #   instance_types = ["m5.xlarge", "m5d.xlarge"]
 
-      # Node selector
-      labels = {
-          dedicated = "ondemand"
-      }
+    #   # Node selector
+    #   labels = {
+    #       dedicated = "frontend"
+    #   }
 
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "ondemand"
-          effect = "NO_SCHEDULE"
-        }
-      ]
-    }
+    #   # Tolerations
+    #   taints = [
+    #     {
+    #       key    = "dedicated"
+    #       value  = "frontend"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   ]
+    # remote_access = {
+#         ec2_ssh_key               = local.key 
+#         source_security_group_ids = [local.security_group_id]
+#       }
+    # }
+
+    # ondemand = {
+    #   name      = "tgs-ondemand-2"
+    #   use_name_prefix  = true
+    #   desired_size = 2
+    #   max_size     = 8
+    #   min_size     = 2
+    #   max_unavailable_percentage = 80
+    #   instance_types = ["m5.xlarge", "m5d.xlarge"]
+
+    #   # Node selector
+    #   labels = {
+    #       dedicated = "ondemand"
+    #   }
+
+    #   # Tolerations
+    #   taints = [
+    #     {
+    #       key    = "dedicated"
+    #       value  = "ondemand"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   ]
+    # remote_access = {
+#         ec2_ssh_key               = local.key 
+#         source_security_group_ids = [local.security_group_id]
+#       }
+    # }
   }
 
   # Cluster Security Group
