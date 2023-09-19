@@ -6,6 +6,6 @@ metadata:
   name: redis
   namespace: prod
 spec:
-  externalName: redis-test.ie2cpa.ng.0001.ape1.cache.amazonaws.com
+  externalName: redis-test.ie2cpa.0001.ape1.cache.amazonaws.com
   sessionAffinity: None
   type: ExternalName
