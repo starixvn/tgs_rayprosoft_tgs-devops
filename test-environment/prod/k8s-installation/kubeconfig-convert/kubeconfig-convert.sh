@@ -10,6 +10,6 @@ export account=prod-viewer
 
 ## 1.26 version
 ### https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-service-account/
-export user_token=$(kubectl -n $namespace get secret/${account_name}-secret -o=go-template='{{.data.token}}' | base64 --decode)
+export user_token=$(kubectl -n $namespace get secret/${account}-secret -o=go-template='{{.data.token}}' | base64 --decode)
 
 envsubst < kubeconfig-template > ~/.kube/config2
