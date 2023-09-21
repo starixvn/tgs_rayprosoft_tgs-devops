@@ -82,7 +82,7 @@ EOF
 
 ## 1.26 version
 ### https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-service-account/
-kubectl create token $account_name -n $namespace
+kubectl create token $account -n $namespace
 
 cat << EOF | kubectl apply -n $namespace -f -
 apiVersion: v1
