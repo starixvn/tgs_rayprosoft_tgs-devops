@@ -1,36 +1,36 @@
-
-# install eksctl 
-## https://docs.aws.amazon.com/zh_tw/eks/latest/userguide/eksctl.html
-## 使用 ec2-user
-
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-sudo mv /tmp/eksctl /usr/local/bin
-eksctl version
-
+## 取得 kubeconfig
 aws eks update-kubeconfig --name tgs-taiwan-k8s2
 
-現在執行 kubectl get pods 會出現 
-Unable to connect to the server: dial tcp 10.139.110.193:443: i/o timeout
+## install-base.sh
+aws-cli, eksctl, helm, krew, bash-completion 安裝
+
+## 基本安裝
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+kubectl apply -f ./cluster-issuer.yml
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 
-要在 EKS  叢集安全群組 
-加上 inbound rule 443  eks-cluster-sg-tgs-taiwan-k8s2
+## 安裝 velero
+export BUCKET=tgs-prod-backup
+export REGION=ap-east-1
+
+velero install \
+  --provider aws \
+  --plugins velero/velero-plugin-for-aws:v1.4.0 \
+  --bucket $BUCKET \
+  --backup-location-config region=$REGION \
+  --snapshot-location-config region=$REGION \
+  --secret-file ~/.credentials-velero
+
+## 備份
+velero backup create ingress-nginx --include-namespaces ingress-nginx
+velero backup get
+
+## 還原
+velero restore create nginx-ingress-controller --from-backup nginx-ingerss-controller
+velero restore create ingress-nginx --from-backup ingress-nginx
+
+velero restore create ingress --from-backup ingress
+velero restore create certificate --from-backup certificate
 
 
-# Install bash-completion
-## https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-bash-linux/
-
-yum install bash-completion
-source /usr/share/bash-completion/bash_completion
-echo 'source <(kubectl completion bash)' >>~/.bashrc
-echo 'alias k=kubectl' >>~/.bashrc
-echo 'complete -F __start_kubectl k' >>~/.bashrc
-exec bash
-## exit 登出再登入
-
-
-# helm 
-https://helm.sh/docs/intro/install/
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh

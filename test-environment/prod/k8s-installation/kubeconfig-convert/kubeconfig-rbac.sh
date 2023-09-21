@@ -1,6 +1,6 @@
 #!/bin/bash
-export account=dev-admin
-export namespace=dev
+export account=prod-viewer
+export namespace=prod
 
 kubectl -n $namespace create serviceaccount $account
 
