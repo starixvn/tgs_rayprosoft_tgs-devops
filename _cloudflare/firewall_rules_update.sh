@@ -2,20 +2,20 @@
 ## https://api.cloudflare.com/#firewall-rules-get-individual-firewall-rule
 ## https://api.cloudflare.com/#firewall-rules-create-firewall-rules
 
+export token="0urb613nnL1aiyuKO_shCaCyfIPVhhXQhh3RKEaH"
+
 DeleteFilters(){
 	zone_id=$1
 	zone_name=$2
 	IFS=$'\n' ### important
 	result=$(curl -X GET "https://api.cloudflare.com/client/v4/zones/$1/filters" \
-		 -H "X-Auth-Email: ${auth_email}" \
-		 -H "X-Auth-Key: ${auth_key}" \
+		 -H "Authorization: Bearer $token" \
 		 -H "Content-Type: application/json" | jq  -r '.result' | jq -r '.[] | .id')
 	echo "result:${result}"
 	for filter_id in ${result}; do
 
 			respons_delete_filter=$(curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${zoneid}/filters?id=${filter_id}" \
-				 -H "X-Auth-Email: ${auth_email}" \
-				 -H "X-Auth-Key: ${auth_key}" \
+				 -H "Authorization: Bearer $token" \
 				 -H "Content-Type: application/json")
 			echo "delete result:"
 			echo ${respons_delete_filter} | jq
@@ -27,10 +27,9 @@ DeleteFilters(){
 CreateRule(){
 	zone_id=$1
 	response_create_rule=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/${zone_id}/firewall/rules" \
-		 -H "X-Auth-Email: ${auth_email}" \
-		 -H "X-Auth-Key: ${auth_key}" \
+		 -H "Authorization: Bearer $token" \
 		 -H "Content-Type: application/json" \
-		 --data '[{"action": "block","paused": false,"description": "Block Taiwan", "filter":{"expression": "(ip.geoip.country in {\"TW\"} and not ip.src in {'"${officeip}"'})","paused": false }}]')
+		 --data '[{"action": "block","paused": false,"description": "Block Taiwan", "filter":{"expression": "(ip.geoip.country in {\"TW\"} and not ip.src in {'220.133.218.203' '114.33.41.237'})","paused": false }}]')
 
 	echo ${response_create_rule}
 }
@@ -45,18 +44,14 @@ UpdateRule(){
 	#echo "test1" | jq
 	
 	response_update_rule=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/${zoneid}/firewall/rules/${rule_id}" \
-		 -H "X-Auth-Email: ${auth_email}" \
-		 -H "X-Auth-Key: ${auth_key}" \
+		 -H "Authorization: Bearer $token" \
 		 -H "Content-Type: application/json" \
 		 --data '{"id": "'${rule_id}'","action": "block","paused": false,"description": "Block Taiwan", "filter":{"id":"'${filter_id}'","expression": "(ip.geoip.country in {\"TW\"} and not ip.src in {'"${officeip}"'})","paused": false }}')
 	echo ${response_update_rule}
 }
 
-
-
-response=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?per_page=1000" \
-    -H "X-Auth-Email: ${auth_email}" \
-    -H "X-Auth-Key: ${auth_key}" \
+response=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?per_page=1000&name=0063po.com" \
+    -H "Authorization: Bearer $token" \
     -H "Content-Type: application/json")
 
 #echo ${response} | jq '.result'
@@ -122,8 +117,7 @@ for zone in $(echo ${response} | jq '.result' | jq  '.[] | .id+","+.name'); do
 					# echo ${response_update_rule}
 					
 					response_delete_rule=$(curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${zoneid}/firewall/rules/${rule_id//\"/}" \
-					 -H "X-Auth-Email: ${auth_email}" \
-					 -H "X-Auth-Key: ${auth_key}" \
+					 -H "Authorization: Bearer $token" \
 					 -H "Content-Type: application/json")
 					echo "delete result:"
 					echo ${response_delete_rule}
