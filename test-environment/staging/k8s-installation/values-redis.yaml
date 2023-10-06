@@ -1,0 +1,24 @@
+global:
+  storageClass: gp2
+  redis:
+    password: 1qaz2wsx
+metrics:
+  enabled: true
+auth:
+  enabled: false
+master:
+  nodeSelector: 
+    dedicated: staging
+  tolerations: 
+  - effect: NoSchedule
+    key: dedicated
+    operator: Equal
+    value: staging
+replica: 
+  nodeSelector: 
+    dedicated: staging
+  tolerations: 
+  - effect: NoSchedule
+    key: dedicated
+    operator: Equal
+    value: staging
