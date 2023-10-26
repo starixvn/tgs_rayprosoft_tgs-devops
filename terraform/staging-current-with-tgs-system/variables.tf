@@ -35,4 +35,3 @@ locals {
   private_subnets = ["subnet-0dea0052cfe6cb72e","subnet-0d56c08c7c467c6fb","subnet-09003ce42db3d99af"]
   userdata        = "" # add any commands to append to user data if needed
 }
-

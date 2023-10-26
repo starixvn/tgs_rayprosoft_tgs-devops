@@ -1,6 +1,6 @@
 provider "aws" {
   region = local.region
-  profile = local.profile
+  //profile = local.profile
   default_tags {
         tags = {
                 Project = local.project
@@ -77,12 +77,12 @@ module "eks" {
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "default2"
+      name             = "tgs-devops"
       use_name_prefix  = true
       capacity_type    = "SPOT"  # default node group to be on-demand
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
+      desired_size = 1
+      max_size     = 5
+      min_size     = 1
 
       instance_types = ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
 
@@ -91,9 +91,9 @@ module "eks" {
     staging = {
       name      = "tgs-node"
       use_name_prefix  = true
-      desired_size = 2
+      desired_size = 1
       max_size     = 8
-      min_size     = 2
+      min_size     = 1
 
       instance_types = ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
 
@@ -127,6 +127,15 @@ module "eks" {
 
   # Node Security Group
   node_security_group_additional_rules  = {
+        ingress_allow_ssh_from_control_plane = {
+                type                          = "ingress"
+                protocol                      = "tcp"
+                from_port                     = 22
+                to_port                       = 22
+                cidr_blocks                   = ["10.139.0.0/16"]
+                description                   = "Allow access from control plane to ssh"
+                source_node_security_group = false
+        }
         ingress_allow_access_from_control_plane = {
                 type                          = "ingress"
                 protocol                      = "tcp"
@@ -170,10 +179,10 @@ module "eks" {
         }
   }
 
-  #manage_aws_auth_configmap = true
+  manage_aws_auth_configmap = true
 
   # Map your required users
-  #aws_auth_users    = var.aws_auth_users
+  aws_auth_users    = var.aws_auth_users
 
 }
 
@@ -192,11 +201,11 @@ data "aws_eks_cluster_auth" "cluster" {
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  # token                  = data.aws_eks_cluster_auth.cluster.token
-  exec {
-    api_version = "client.authentication.k8s.io/v1alpha1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
-  }
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  # exec {
+  #   api_version = "client.authentication.k8s.io/v1alpha1"
+  #   command     = "aws"
+  #   args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
+  # }
 }
 
