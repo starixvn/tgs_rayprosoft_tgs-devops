@@ -34,4 +34,4 @@ https://github.com/settings/developers
 ## runner
 https://github.com/drone/charts/tree/master/charts/drone-runner-docker
 
-helm upgrade drone-runner-docker drone/drone-runner-docker --namespace drone --values drone-runner-docker-values.yaml
+helm upgrade -i drone-runner drone/drone-runner-docker --namespace drone --values drone-runner-values.yaml

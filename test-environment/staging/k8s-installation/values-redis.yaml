@@ -1,3 +1,6 @@
+## helm repo add bitnami https://charts.bitnami.com/bitnami
+## helm upgrade -i redis bitnami/redis -f values-redis.yaml -n staging
+
 global:
   storageClass: gp2
   redis:

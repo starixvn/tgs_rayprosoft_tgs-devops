@@ -84,22 +84,22 @@ module "eks" {
       max_size     = 8
       min_size     = 2
 
-      instance_types = ["c5.large", "c5a.large", "c5d.large"]
+      instance_types = ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
 
     }
 
     staging = {
-      name      = "tgs-staging-node2"
+      name      = "tgs-node"
       use_name_prefix  = true
       desired_size = 2
       max_size     = 8
       min_size     = 2
 
-      instance_types = ["c5n.xlarge", "c5d.xlarge", "c5.xlarge"]
+      instance_types = ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
 
       # Node selector
       labels = {
-          dedicated = "staging2"
+          dedicated = "staging"
       }
 
       # Tolerations
