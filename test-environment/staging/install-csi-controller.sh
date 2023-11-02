@@ -59,6 +59,14 @@ aws iam attach-role-policy \
   --role-name ${csi_role_name}
 
 
+## delete role
+aws iam detach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+  --role-name ${csi_role_name}
+aws iam delete-role --role-name ${csi_role_name}
+
+
+
 aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driver \
   --service-account-role-arn arn:aws:iam::${account_id}:role/${csi_role_name}
   

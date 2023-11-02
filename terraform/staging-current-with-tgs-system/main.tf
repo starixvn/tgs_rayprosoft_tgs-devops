@@ -35,8 +35,8 @@ module "eks" {
 
   # Default for all node groups
   eks_managed_node_group_defaults = {
-      disk_size        = 8          # default volume size
-      disk_type        = "gp2"        # gp3 ebs volume
+      disk_size        = 30          # default volume size
+      disk_type        = "gp3"        # gp3 ebs volume
       disk_throughput  = 150          # min throughput
       disk_iops        = 3000         # min iops for gp3
       capacity_type    = "SPOT"       # default spot instance
@@ -77,7 +77,7 @@ module "eks" {
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "staging-devops"
+      name             = "stg-devops"
       use_name_prefix  = true
       capacity_type    = "SPOT"  # default node group to be on-demand
       desired_size = 1
@@ -89,7 +89,7 @@ module "eks" {
     }
 
     staging = {
-      name      = "staging-node"
+      name      = "stg-node"
       use_name_prefix  = true
       capacity_type    = "SPOT"
       desired_size = 1
