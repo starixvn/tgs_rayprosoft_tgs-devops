@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: pod-monitor-ingress-frontend
+  namespace: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+    - ingress-nginx
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: nginx-frontend
+  podMetricsEndpoints:
+  - targetPort: 10254

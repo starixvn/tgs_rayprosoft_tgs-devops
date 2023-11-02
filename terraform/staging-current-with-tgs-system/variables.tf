@@ -24,7 +24,7 @@ variable "aws_auth_users" {
 # Local Variables
 
 locals {
-  name            = "tgs-staging"
+  name            = "tgs-k8s-staging"
   cluster_version = "1.28"
   profile 		  = "tgs"
   region          = "ap-east-1"

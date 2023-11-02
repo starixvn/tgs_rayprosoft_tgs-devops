@@ -36,7 +36,7 @@ module "eks" {
   # Default for all node groups
   eks_managed_node_group_defaults = {
       disk_size        = 8          # default volume size
-      disk_type        = "gp3"        # gp3 ebs volume
+      disk_type        = "gp2"        # gp3 ebs volume
       disk_throughput  = 150          # min throughput
       disk_iops        = 3000         # min iops for gp3
       capacity_type    = "SPOT"       # default spot instance
@@ -77,7 +77,7 @@ module "eks" {
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "tgs-devops"
+      name             = "staging-devops"
       use_name_prefix  = true
       capacity_type    = "SPOT"  # default node group to be on-demand
       desired_size = 1
@@ -89,8 +89,9 @@ module "eks" {
     }
 
     staging = {
-      name      = "tgs-node"
+      name      = "staging-node"
       use_name_prefix  = true
+      capacity_type    = "SPOT"
       desired_size = 1
       max_size     = 8
       min_size     = 1
@@ -115,6 +116,15 @@ module "eks" {
 
   # Cluster Security Group
   cluster_security_group_additional_rules = {
+    ingress_all_443_api = {
+      description = "API all ingress"
+      protocol = "tcp"
+      from_port = 443
+      to_port = 443
+      type = "ingress"
+      cidr_blocks = ["10.139.0.0/16"]
+      ipv6_cidr_blocks = ["::/0"]
+    }
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
       protocol                   = "tcp"

@@ -1,0 +1,17 @@
+kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+metadata:
+ name: service-monitor-postgres
+ namespace: monitoring
+ labels:
+   app: service-monitor-postgres
+   release: prometheus-stack
+spec:
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app: prometheus-postgres-exporter
+  endpoints:
+  - port: http

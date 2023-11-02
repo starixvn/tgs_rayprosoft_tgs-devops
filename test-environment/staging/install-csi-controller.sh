@@ -2,9 +2,9 @@
 # install aws-ebs-csi-driver
 export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
-export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-staging2
+export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-tgs-k8s-staging
 export csi_sa_name=ebs-csi-controller-sa
-export eks_cluster=tgs-taiwan-staging2
+export eks_cluster=tgs-k8s-staging
 export account_id=060812454361
 export region=ap-east-1
 export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
@@ -77,3 +77,16 @@ kubectl rollout restart deploy ebs-csi-controller -n kube-system
 #aws iam detach-role-policy \
 #  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
 #  --role-name ${csi_role_name}
+
+
+
+# install aws-node-termination-handler
+
+# https://ec2spotworkshops.com/using_ec2_spot_instances_with_eks/070_selfmanagednodegroupswithspot/deployhandler.html
+
+
+
+helm install aws-node-termination-handler \
+             --namespace kube-system \
+             eks/aws-node-termination-handler
+  

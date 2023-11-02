@@ -1,0 +1,43 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+ labels:
+   app: kube-prometheus-stack
+   release: prometheus-stack
+ name: lobby-alert-rule
+ namespace: monitoring
+spec:
+ groups:
+ - name: abnormal-lobby-rule-1
+   rules:
+   - alert: abnormal_container_network_receive_bytes_total
+     expr: sum(sum(irate(container_network_receive_bytes_total{image!="",namespace=~"staging",pod=~".*lobby.*"}[3m])) by (pod)* on(pod) group_right kube_pod_container_info) by(container) * 8> 200000
+     for: 1m
+     labels:
+       severity: critical
+       namespace: default
+     annotations:
+       env: "staging"
+       message: "critical: lobby network receive up"
+       summary: "container_network_receive_bytes_total > 200.0KB"
+   - alert: abnormal_container_memory_working_set_bytes
+     expr: sum (container_memory_working_set_bytes{container !="",container!="POD",pod=~".*lobby.*",namespace=~"staging"}) by (container) /1024/1024 > 100
+     for: 1m
+     labels:
+       severity: critical
+       namespace: default
+     annotations:
+       env: "staging"
+       message: "critical: lobby memory up"
+       summary: "container_memory_working_set_bytes > 100MB"
+   - alert: abnormal_container_cpu_usage_seconds_total
+     expr: sum(irate(container_cpu_usage_seconds_total{container !="",container!="POD",pod=~".*lobby.*",namespace=~"staging"}[3m])) by (container) > 0.02
+     for: 1m
+     labels:
+       severity: critical
+       namespace: default
+     annotations:
+       env: "staging"
+       message: "critical: lobby cpu up"
+       summary: "container_cpu_usage_seconds_total > 0.02"
+

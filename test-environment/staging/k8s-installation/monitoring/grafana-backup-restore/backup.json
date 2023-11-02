@@ -1,0 +1,30 @@
+{
+  "general": {
+    "debug": true,
+    "verify_ssl": true,
+    "backup_dir": "_OUTPUT_"
+  },
+  "grafana": {
+    "url": "https://stg-grafana.rpgp.cc",
+    "token": "glsa_VoPHMISh0u1EfLWJ6yGnA6zDUuC8SDH7_29a36082",
+    "search_api_limit": 5000,
+    "default_password": "00000000",
+    "admin_account": "admin",
+    "admin_password": "EvTZYjTJ0eIDrWsIuo9GqGiNdQflRtneQnStkICJ"
+  },
+  "aws": {
+    "s3_bucket_name": "tgs-staging-backup",
+    "s3_bucket_key": "grafana",
+    "default_region": "ap-east-1",
+    "access_key_id": "AKIAQ4KFUNHMUZU6QD2V",
+    "secret_access_key": "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"
+  },
+  "influxdb": {
+    "measurement": "grafana_backup",
+    "host": "localhost",
+    "port": 8086,
+    "username": "root",
+    "password": "root",
+    "database": "db"
+  }
+}

@@ -1,7 +1,7 @@
 #!/bin/bash
-export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-staging2
-export autoscaler_policyname=AmazonEKSClusterAutoscalerPolicy-staging2
-export eks_cluster=tgs-taiwan-staging2
+export autoscaler_rolename=AmazonEKSClusterAutoscalerRole-tgs-k8s-staging
+export autoscaler_policyname=AmazonEKSClusterAutoscalerPolicy-tgs-k8s-staging
+export eks_cluster=tgs-k8s-staging
 export account_id=060812454361
 export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
 echo ${oid}

@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+ labels:
+   app: kube-prometheus-stack
+   release: prometheus-stack
+ name: nginx-controller-alert-rule
+ namespace: monitoring
+spec:
+ groups:
+ - name: abnormal-nginx-ingress-controller-rule
+   rules:
+   - alert: abnormal_nginx_ingress_controller_requests
+     expr: sort_desc(round(sum(irate(nginx_ingress_controller_requests{}[2m])) by (ingress), 0.001)) > 1000
+     for: 1m
+     labels:
+       severity: critical
+       namespace: default
+     annotations:
+       env: "staging"
+       message: "critical: request per minute > 1000"
+       summary: "request per minute > 1000"
+   - alert: abnormal_ingress_failure_rate
+     expr: sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*"}[2m])) by (ingress) / sum(rate(nginx_ingress_controller_requests{}[2m])) by (ingress) < 0.5
+     for: 1m
+     labels:
+       severity: critical
+       namespace: default
+     annotations:
+       env: "staging"
+       message: "critical: failure rate < 50%"
+       summary: "failure rate < 50%"

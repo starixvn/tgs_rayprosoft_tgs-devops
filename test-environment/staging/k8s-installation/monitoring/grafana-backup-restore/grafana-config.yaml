@@ -1,0 +1,35 @@
+# https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+image:
+  repository: grafana/grafana
+  tag: 8.1.3
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  hosts:
+    - stg-grafana2.rpgp.cc
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: gp2
+  accessModes:
+    - ReadWriteOnce
+  size: 20Gi
+  finalizers:
+    - kubernetes.io/pvc-protection
+adminUser: admin
+admin:
+  existingSecret: ""
+  userKey: admin-user
+  passwordKey: admin-password
+
+imageRenderer:
+  enabled: true
+nodeSelector: 
+  dedicated: staging
+tolerations: 
+- effect: NoSchedule
+  key: dedicated
+  operator: Equal
+  value: staging
