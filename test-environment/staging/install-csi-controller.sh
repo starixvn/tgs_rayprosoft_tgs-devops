@@ -77,16 +77,3 @@ kubectl rollout restart deploy ebs-csi-controller -n kube-system
 #aws iam detach-role-policy \
 #  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
 #  --role-name ${csi_role_name}
-
-
-
-# install aws-node-termination-handler
-
-# https://ec2spotworkshops.com/using_ec2_spot_instances_with_eks/070_selfmanagednodegroupswithspot/deployhandler.html
-
-
-
-helm install aws-node-termination-handler \
-             --namespace kube-system \
-             eks/aws-node-termination-handler
-  
