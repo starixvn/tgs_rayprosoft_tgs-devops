@@ -13,3 +13,8 @@ export account_name=raypro-staging-build
 export user_token=$(kubectl -n $namespace get secret/${account_name}-secret -o=go-template='{{.data.token}}' | base64 --decode)
 
 envsubst < kubeconfig > ~/.kube/config2
+
+
+
+
+## https://medium.com/@gowthamshankar09/how-to-create-serviceaccount-secret-in-kubernetes-1-24-36a61bdb73ad
