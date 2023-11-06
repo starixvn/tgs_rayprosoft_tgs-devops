@@ -28,4 +28,4 @@ velero restore create rabbitmq --from-backup rabbitmq-11-02
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 kubectl create ns ingress-nginx
-helm upgrade -i nginx ingress-nginx/ingress-nginx -f values-ingress-controller -n ingress-nginx
+helm upgrade -i nginx ingress-nginx/ingress-nginx -f values-ingress-controller.yaml -n ingress-nginx
