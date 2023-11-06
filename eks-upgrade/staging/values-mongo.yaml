@@ -1,0 +1,19 @@
+## helm repo add bitnami https://charts.bitnami.com/bitnami
+## helm upgrade -i mongodb bitnami/mongodb -f values-mongo.yaml -n staging
+## helm template mongodb bitnami/mongodb -f values-mongo.yaml -n staging
+global:
+  storageClass: gp2
+metrics:
+  enabled: true
+auth:
+  rootPassword: 1qaz2wsx
+  enabled: false
+image:
+  tag: 5.0.9-debian-11-r3
+nodeSelector: 
+  dedicated: staging
+tolerations: 
+- effect: NoSchedule
+  key: dedicated
+  operator: Equal
+  value: staging

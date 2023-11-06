@@ -49,6 +49,11 @@ velero backup create rbac-1106 --include-namespaces staging  --include-resources
 velero backup create rabbitmq-11-02 --include-namespaces rabbitmq,rabbitmq-system
 
 velero backup create monitoring-11-06 --include-namespaces logging,monitoring,observability
+velero backup create svc-1106 --include-namespaces staging  --include-resources ingresses,services,configmaps
+
+velero backup create pvc-1106 --include-namespaces staging  --include-resources pvc
+
+velero backup create deploy-1106 --include-namespaces staging  --include-resources deployments,statefulsets,daemonsets,hpa
 
 
 
@@ -56,26 +61,15 @@ velero restore create clusterrole --from-backup  clusterrole-1106
 velero restore create rbac --from-backup  rbac-1106
 velero restore create rabbitmq --from-backup rabbitmq-11-02  
 velero restore create monitoring --from-backup monitoring-11-06 
+velero restore create svc --from-backup svc-1107
+velero restore create pvc --from-backup pvc-1106
+
+velero restore create deploy --from-backup deploy-1106
 
 
 
 ## remove tls secrets
 for p in $(kubectl get secrets -n $namespace | grep tls | awk '{print $1}');do kubectl delete secrets $p -n $namespace; done;
-
-for p in $(kubectl get sa -n $namespace | awk '{print $1}');do \
-  kubectl apply -o yaml -f - <<EOF
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/service-account-token
-metadata:
-  name: $p
-  namespace: $namespace
-  annotations:
-    kubernetes.io/service-account.name: "$p"
-EOF
-done;
-
-
 
 ns=['staging','logging','monitoring','observability']
 for n in $(ns)
@@ -101,7 +95,69 @@ done;
 
 
 # restore grafana
-
-
 sudo grafana-backup save --config=/home/ubuntu/tgs-deployment/monitoring/staging/grafana-backup-restore/backup.json
 sudo grafana-backup restore --config=grafana-restore.json  202311060654.tar.gz
+
+
+
+# nats Official
+helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+helm upgrade --install nats nats/nats -f nats-values.yaml -n dev
+
+
+### https://github.com/nats-io/k8s/tree/master/helm/charts/stan
+
+# redis, redis exporter
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install redis bitnami/redis --set password=1qaz2wsx,metrics.enabled=true,master.disableCommands=["FLUSHDB"] -n dev
+
+helm upgrade -i redis bitnami/redis -f values-redis.yaml -n staging
+
+
+redis-metrics:9121/metrics 
+https://github.com/bitnami/charts/tree/master/bitnami/redis/#installing-the-chart
+
+
+# redisinsight
+
+helm upgrade -i redisinsight ./redisinsight -f ./redisinsight/values.yaml -n dev
+https://docs.redislabs.com/latest/ri/installing/install-k8s/
+http://dev-redisinsight.rpgp.cc/
+
+
+# mongodb,  and exporter
+helm install mongodb bitnami/mongodb \
+	--set global.storageClass=nfs-provisioner \
+	--set auth.rootPassword=1qaz2wsx \
+	--set auth.enabled=false \
+	--set metrics.enabled=true \
+	--set image.tag=5.0.9-debian-11-r3 -n dev
+
+mongodb-metrics:9216/metrics 
+https://github.com/bitnami/charts/tree/master/bitnami/mongodb#installing-the-chart
+
+mongodb 6.0 版本 更新很大
+https://www.mongodb.com/docs/v6.0/release-notes/6.0-compatibility/#legacy-opcodes-removed
+
+helm upgrade -i mongodb bitnami/mongodb --set auth.rootPassword=1qaz2wsx,auth.enabled=false,metrics.enabled=true,image.tag=5.0.9-debian-11-r3 -n staging
+helm uninstall mongodb -n dev
+	
+go to mongodb pods 
+mongo
+use admin
+db.createUser(
+    {
+        user:"root",
+        pwd:"1qaz2wsx",
+        roles:[
+            {role:"dbOwner", db:"admin"}
+        ]
+    }
+)
+
+# mongodb express
+helm repo add cowboysysop https://cowboysysop.github.io/charts/
+helm repo update
+helm upgrade -i mongodb-express cowboysysop/mongo-express  --set mongodbEnableAdmin=true,mongodbAdminPassword=1qaz2wsx,ingress.enabled=true,ingress.hosts[0].host=mongodb-express.rpgp.cc,ingress.hosts[0].paths[0]=/,ingress.ingressClassName=nginx -n dev
+http://mongodb-express.rpgp.cc
+https://artifacthub.io/packages/helm/cowboysysop/mongo-express
