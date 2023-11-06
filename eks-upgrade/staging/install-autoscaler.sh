@@ -90,7 +90,7 @@ aws iam detach-role-policy \
   --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname} \
   --role-name ${autoscaler_rolename}
   
-# aws iam delete-role --role-name ${autoscaler_rolename} 
+aws iam delete-role --role-name ${autoscaler_rolename} 
 
 curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
 

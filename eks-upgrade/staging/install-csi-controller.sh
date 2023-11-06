@@ -1,7 +1,4 @@
 #!/bin/bash
-# install aws-ebs-csi-driver
-export AWS_ACCESS_KEY_ID=
-export AWS_SECRET_ACCESS_KEY=
 export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-tgs-k8s-staging
 export csi_sa_name=ebs-csi-controller-sa
 export eks_cluster=tgs-k8s-staging
@@ -63,6 +60,7 @@ aws iam attach-role-policy \
 aws iam detach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
   --role-name ${csi_role_name}
+  
 aws iam delete-role --role-name ${csi_role_name}
 
 
@@ -78,10 +76,3 @@ aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driv
 sleep 10
 
 kubectl rollout restart deploy ebs-csi-controller -n kube-system
-
-## for delete-role
-#aws iam delete-role --role-name ${csi_role_name} 
-
-#aws iam detach-role-policy \
-#  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
-#  --role-name ${csi_role_name}
