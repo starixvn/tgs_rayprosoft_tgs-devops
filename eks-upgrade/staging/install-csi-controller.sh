@@ -21,10 +21,6 @@ aws eks describe-cluster \
   --query "cluster.identity.oidc.issuer" \
   --output text
 
-# kubectl create secret generic aws-secret \
-    # --namespace kube-system \
-    # --from-literal "key_id=${AWS_ACCESS_KEY_ID}" \
-    # --from-literal "access_key=${AWS_SECRET_ACCESS_KEY}"
 	
 cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 {
@@ -47,14 +43,6 @@ cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 }
 EOF
 
-aws iam create-role \
-  --role-name ${csi_role_name} \
-  --assume-role-policy-document file://"aws-ebs-csi-driver-trust-policy.json"
-
-aws iam attach-role-policy \
-  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
-  --role-name ${csi_role_name}
-
 
 ## delete role
 aws iam detach-role-policy \
@@ -63,12 +51,17 @@ aws iam detach-role-policy \
   
 aws iam delete-role --role-name ${csi_role_name}
 
+aws iam create-role \
+  --role-name ${csi_role_name} \
+  --assume-role-policy-document file://"aws-ebs-csi-driver-trust-policy.json"
 
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+  --role-name ${csi_role_name}
 
 aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driver \
   --service-account-role-arn arn:aws:iam::${account_id}:role/${csi_role_name}
-  
-  
+    
 # kubectl annotate serviceaccount ${csi_sa_name} \
     # -n kube-system \
     # eks.amazonaws.com/role-arn=arn:aws:iam::${account_id}:role/${csi_role_name}

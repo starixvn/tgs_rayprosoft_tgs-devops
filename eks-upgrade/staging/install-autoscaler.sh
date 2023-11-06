@@ -76,6 +76,13 @@ cat <<EOF | sudo tee ./trust-policy.json
 }
 EOF
 
+
+aws iam detach-role-policy \
+  --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname} \
+  --role-name ${autoscaler_rolename}
+  
+aws iam delete-role --role-name ${autoscaler_rolename} 
+
 aws iam create-role \
   --role-name ${autoscaler_rolename} \
   --assume-role-policy-document file://"trust-policy.json"
@@ -84,14 +91,6 @@ aws iam attach-role-policy \
   --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname} \
   --role-name ${autoscaler_rolename}
   
-## delete role
-# 
-aws iam detach-role-policy \
-  --policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname} \
-  --role-name ${autoscaler_rolename}
-  
-aws iam delete-role --role-name ${autoscaler_rolename} 
-
 curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
 
 ## ADD
@@ -113,5 +112,5 @@ kubectl rollout restart deploy cluster-autoscaler -n kube-system
 #kubectl set image deployment cluster-autoscaler \
 #  -n kube-system \
 #  cluster-autoscaler=registry.k8s.io/autoscaling/cluster-autoscaler:v1.25.n
-sleep 15
-kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
+# sleep 15
+# kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
