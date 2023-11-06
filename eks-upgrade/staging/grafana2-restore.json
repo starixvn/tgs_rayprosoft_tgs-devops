@@ -14,7 +14,7 @@
   },
   "aws": {
     "s3_bucket_name": "tgs-staging-backup",
-    "s3_bucket_key": "grafana2",
+    "s3_bucket_key": "grafana",
     "default_region": "ap-east-1",
     "access_key_id": "AKIAQ4KFUNHMUZU6QD2V",
     "secret_access_key": "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"
