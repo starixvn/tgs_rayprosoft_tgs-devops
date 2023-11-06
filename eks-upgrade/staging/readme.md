@@ -101,3 +101,7 @@ done;
 
 
 # restore grafana
+
+
+sudo grafana-backup save --config=/home/ubuntu/tgs-deployment/monitoring/staging/grafana-backup-restore/backup.json
+sudo grafana-backup restore --config=grafana-restore.json  202311060654.tar.gz
