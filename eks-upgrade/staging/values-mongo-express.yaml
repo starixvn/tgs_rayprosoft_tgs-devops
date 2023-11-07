@@ -1,28 +1,8 @@
-## helm repo add bitnami https://charts.bitnami.com/bitnami
-## helm upgrade -i redis bitnami/redis -f values-redis.yaml -n staging
-
-global:
-  storageClass: gp2
-  redis:
-    password: 1qaz2wsx
-metrics:
+mongodbEnableAdmin: true
+mongodbAdminPassword: 1qaz2wsx
+ingress:
+  ingressClassName: nginx
   enabled: true
-auth:
-  enabled: false
-master:
-  disableCommands: ["FLUSHDB"]
-  nodeSelector: 
-    dedicated: staging
-  tolerations: 
-  - effect: NoSchedule
-    key: dedicated
-    operator: Equal
-    value: staging
-replica: 
-  nodeSelector: 
-    dedicated: staging
-  tolerations: 
-  - effect: NoSchedule
-    key: dedicated
-    operator: Equal
-    value: staging
+  hosts:
+    - host: stg-mongodb-express.rpgp.cc
+      paths: [ "Prefix"]
