@@ -11,3 +11,10 @@ auth:
 useStatefulSet: true
 image:
   tag: 5.0.9-debian-11-r3
+resources:
+  limits:
+    cpu: 1G
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
