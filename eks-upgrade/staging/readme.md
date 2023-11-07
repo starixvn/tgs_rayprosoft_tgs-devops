@@ -94,8 +94,7 @@ EOF
 done;
 
 
-./create-for-secrets.sh
-./kubeconfig-convert.sh
+bash kubeconfig-convert.sh
 
 
 
@@ -151,3 +150,10 @@ helm repo update
 helm upgrade -i mongodb-express cowboysysop/mongo-express -f values-mongo-express.yaml -n staging
 # http://stg-mongodb-express.rpgp.cc
 # https://artifacthub.io/packages/helm/cowboysysop/mongo-express
+
+
+
+# fix rabbitmq setting
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/staging
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
