@@ -68,7 +68,6 @@ velero restore create rbac --from-backup  rbac-1106
 velero restore create rabbitmq --from-backup rabbitmq-11-02  
 velero restore create monitoring --from-backup monitoring-11-06 
 velero restore create svc --from-backup svc-1107
-velero restore create pvc --from-backup pvc-1106
 
 velero restore create deploy --from-backup deploy-1106
 

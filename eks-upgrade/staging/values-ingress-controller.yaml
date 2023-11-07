@@ -1,6 +1,7 @@
 controller:
   config:
     hsts: false
+    allow-snippet-annotations: "true"
     otlp-collector-host: otel-svc.observability
     enable-opentelemetry: "true"
     opentelemetry-operation-name: "HTTP $request_method $uri"
