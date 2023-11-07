@@ -1,12 +1,15 @@
 #!/bin/bash
-sudo ./install-autoscaler.sh
-sudo ./install-csi-controller.sh
-sudo ./install-node-terminate-handler.sh
+aws eks update-kubeconfig --name tgs-k8s-staging
+
+bash install-autoscaler.sh
+bash install-csi-controller.sh
+bash install-node-terminate-handler.sh
 
 # install velero 
 export namespace=staging
 export BUCKET=tgs-staging-backup
 
+cd
 velero install \
   --provider aws \
   --plugins velero/velero-plugin-for-aws:v1.8.0 \
@@ -24,9 +27,10 @@ kubectl create ns ingress-nginx
 helm upgrade -i nginx ingress-nginx/ingress-nginx -f values-ingress-controller.yaml -n ingress-nginx
 
 # cert-manager
-https://cert-manager.io/docs/installation/
+# https://cert-manager.io/docs/installation/
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 
+sleep 10
 # clusterissue
 kubectl apply -f - <<EOF
 apiVersion: cert-manager.io/v1
@@ -54,12 +58,13 @@ velero restore create monitoring --from-backup monitoring-11-06
 
 
 ## remove tls secrets
+namespace=staging
 for p in $(kubectl get secrets -n $namespace | grep tls | awk '{print $1}');do kubectl delete secrets $p -n $namespace; done;
 
 ## create serviceaccount secrets
-ns=['staging','logging','monitoring','observability']
-for n in $(ns)
-for p in $(kubectl get sa -n $namespace | awk '{print $1}');do \
+ns=('staging' 'logging' 'monitoring' 'observability' 'rabbitmq-system' 'rabbitmq')
+for namespace in ${ns[@]};do \
+  for p in $(kubectl get sa -n $namespace | awk '{print $1}');do \
   kubectl apply -o yaml -f - <<EOF
 apiVersion: v1
 kind: Secret
@@ -70,8 +75,9 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: "$p"
 EOF
+  done; \
 done;
 
 
-sudo grafana-backup restore --config=grafana2-restore.json  202311060515.tar.gz
+sudo grafana-backup restore --config=grafana-restore-stack.json  202311060515.tar.gz
 sudo grafana-backup restore --config=grafana-restore.json  202311060654.tar.gz

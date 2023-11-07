@@ -21,7 +21,6 @@ aws eks describe-cluster \
   --query "cluster.identity.oidc.issuer" \
   --output text
 
-	
 cat <<EOF | sudo tee ./aws-ebs-csi-driver-trust-policy.json
 {
   "Version": "2012-10-17",
@@ -69,3 +68,5 @@ aws eks create-addon --cluster-name ${eks_cluster} --addon-name aws-ebs-csi-driv
 sleep 10
 
 kubectl rollout restart deploy ebs-csi-controller -n kube-system
+
+rm aws-ebs-csi-driver-trust-policy.json

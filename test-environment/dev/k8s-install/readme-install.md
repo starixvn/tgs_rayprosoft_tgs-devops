@@ -25,16 +25,21 @@ sed -i 's/# - name: CALICO_IPV4POOL_CIDR/- name: CALICO_IPV4POOL_CIDR\n         
 kubectl apply -f calico.yaml
 
 ### ingress
-https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters
-    
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/baremetal/deploy.yaml
-kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/baremetal/deploy.yaml
+
+#REF: https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters
+
+#REF: https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+kubectl create ns ingress-nginx
+helm -n ingress-nginx upgrade -i nginx-ingress ingress-nginx/ingress-nginx -f values-ingress-controller.yaml
 
 *** 修改 nginx.conf 的 http, https port
 	
 ### cert-manager
 https://cert-manager.io/docs/installation/
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 
 
 # metric-server 
@@ -107,7 +112,7 @@ rabbitmqctl set_user_tags tgs administrator
 https://rabbitmq.rpgp.cc/
 
 ## changing node types 
-
+## 可忽略
 kubectl exec -it mq-server-0 /bin/bash -n rabbitmq
 rabbitmqctl cluster_status
 rabbitmqctl change_cluster_node_type disc

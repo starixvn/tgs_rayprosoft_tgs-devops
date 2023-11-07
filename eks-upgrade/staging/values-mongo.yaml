@@ -8,6 +8,7 @@ metrics:
 auth:
   rootPassword: 1qaz2wsx
   enabled: false
+useStatefulSet: false
 image:
   tag: 5.0.9-debian-11-r3
 nodeSelector: 

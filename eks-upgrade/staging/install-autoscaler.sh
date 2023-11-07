@@ -41,12 +41,12 @@ cat <<EOF | sudo tee ./cluster-autoscaler-policy.json
 }
 EOF
 
+aws iam delete-policy \
+	--policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
+
 aws iam create-policy \
     --policy-name ${autoscaler_policyname} \
     --policy-document file://cluster-autoscaler-policy.json
-
-#aws iam delete-policy \
-#	--policy-arn arn:aws:iam::${account_id}:policy/${autoscaler_policyname}
 
 eksctl create iamserviceaccount \
   --cluster=${eks_cluster} \
@@ -109,6 +109,11 @@ kubectl patch deployment cluster-autoscaler \
   -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
 
 kubectl rollout restart deploy cluster-autoscaler -n kube-system
+
+sudo rm trust-policy.json
+sudo rm cluster-autoscaler-policy.json
+
+
 #kubectl set image deployment cluster-autoscaler \
 #  -n kube-system \
 #  cluster-autoscaler=registry.k8s.io/autoscaling/cluster-autoscaler:v1.25.n

@@ -59,7 +59,7 @@ module "eks" {
         xvda = {
           device_name = "/dev/xvda"
           ebs = {
-            volume_size           = 8
+            volume_size           = 30
             volume_type           = "gp3"
             iops                  = 3000
             throughput            = 150
@@ -70,7 +70,7 @@ module "eks" {
       }
 
       update_config = {
-        max_unavailable_percentage = 10 # or set `max_unavailable`
+        max_unavailable_percentage = 90 # or set `max_unavailable`
       }
   }
 

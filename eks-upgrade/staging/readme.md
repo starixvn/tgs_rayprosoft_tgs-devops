@@ -1,4 +1,10 @@
-# install autoscaler
+# update kubeconfig
+
+cd tgs-devops/eks-upgrade/staging
+
+aws eks update-kubeconfig --name tgs-k8s-staging
+
+bash install-autoscaler.sh
 # install csi-controller
 # install node-terminate-handler
 # install velero 
@@ -71,10 +77,11 @@ velero restore create deploy --from-backup deploy-1106
 ## remove tls secrets
 for p in $(kubectl get secrets -n $namespace | grep tls | awk '{print $1}');do kubectl delete secrets $p -n $namespace; done;
 
-ns=['staging','logging','monitoring','observability']
-for n in $(ns)
-for p in $(kubectl get sa -n $namespace | awk '{print $1}');do \
-  kubectl apply -o yaml -f - <<EOF
+## create serviceaccount secrets
+ns=('staging' 'logging' 'monitoring' 'observability' 'rabbitmq-system' 'rabbitmq')
+for namespace in ${ns[@]};do \
+  for p in $(kubectl get sa -n $namespace | awk '{print $1}');do \
+    kubectl apply -o yaml -f - <<EOF
 apiVersion: v1
 kind: Secret
 type: kubernetes.io/service-account-token
@@ -84,9 +91,8 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: "$p"
 EOF
+  done; \
 done;
-
-
 
 
 ./create-for-secrets.sh
@@ -102,15 +108,14 @@ sudo grafana-backup restore --config=grafana-restore.json  202311060654.tar.gz
 
 # nats Official
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-helm upgrade --install nats nats/nats -f nats-values.yaml -n dev
+helm repo update
+helm upgrade --install nats nats/nats -f values-nats.yaml -n staging
 
 
 ### https://github.com/nats-io/k8s/tree/master/helm/charts/stan
 
 # redis, redis exporter
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install redis bitnami/redis --set password=1qaz2wsx,metrics.enabled=true,master.disableCommands=["FLUSHDB"] -n dev
-
 helm upgrade -i redis bitnami/redis -f values-redis.yaml -n staging
 
 
@@ -120,27 +125,13 @@ https://github.com/bitnami/charts/tree/master/bitnami/redis/#installing-the-char
 
 # redisinsight
 
-helm upgrade -i redisinsight ./redisinsight -f ./redisinsight/values.yaml -n dev
+helm upgrade -i redisinsight ./redisinsight -f ./redisinsight/values.yaml -n staging
 https://docs.redislabs.com/latest/ri/installing/install-k8s/
 http://dev-redisinsight.rpgp.cc/
 
 
 # mongodb,  and exporter
-helm install mongodb bitnami/mongodb \
-	--set global.storageClass=nfs-provisioner \
-	--set auth.rootPassword=1qaz2wsx \
-	--set auth.enabled=false \
-	--set metrics.enabled=true \
-	--set image.tag=5.0.9-debian-11-r3 -n dev
-
-mongodb-metrics:9216/metrics 
-https://github.com/bitnami/charts/tree/master/bitnami/mongodb#installing-the-chart
-
-mongodb 6.0 版本 更新很大
-https://www.mongodb.com/docs/v6.0/release-notes/6.0-compatibility/#legacy-opcodes-removed
-
-helm upgrade -i mongodb bitnami/mongodb --set auth.rootPassword=1qaz2wsx,auth.enabled=false,metrics.enabled=true,image.tag=5.0.9-debian-11-r3 -n staging
-helm uninstall mongodb -n dev
+helm upgrade -i mongodb bitnami/mongodb -f values-mongo.yaml -n staging
 	
 go to mongodb pods 
 mongo
