@@ -59,7 +59,7 @@ velero backup create svc-1106 --include-namespaces staging  --include-resources 
 
 velero backup create pvc-1106 --include-namespaces staging  --include-resources pvc
 
-velero backup create deploy-1106 --include-namespaces staging  --include-resources deployments,statefulsets,daemonsets,hpa
+velero backup create deploy-1107 --include-namespaces staging  --include-resources deployments,daemonsets,hpa,cronjobs
 
 
 
@@ -69,7 +69,7 @@ velero restore create rabbitmq --from-backup rabbitmq-11-02
 velero restore create monitoring --from-backup monitoring-11-06 
 velero restore create svc --from-backup svc-1107
 
-velero restore create deploy --from-backup deploy-1106
+velero restore create deploy --from-backup deploy-1107
 
 
 
