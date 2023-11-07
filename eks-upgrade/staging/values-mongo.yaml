@@ -11,10 +11,3 @@ auth:
 useStatefulSet: true
 image:
   tag: 5.0.9-debian-11-r3
-nodeSelector: 
-  dedicated: staging
-tolerations: 
-- effect: NoSchedule
-  key: dedicated
-  operator: Equal
-  value: staging
