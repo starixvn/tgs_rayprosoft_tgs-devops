@@ -19,6 +19,7 @@ master:
     operator: Equal
     value: staging
 replica: 
+  replicaCount: 0
   nodeSelector: 
     dedicated: staging
   tolerations: 
