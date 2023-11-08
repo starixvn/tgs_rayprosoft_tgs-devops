@@ -11,10 +11,5 @@ auth:
   enabled: false
 master:
   disableCommands: ["FLUSHDB"]
-  nodeSelector: 
-    dedicated: staging
-  tolerations: 
-  - effect: NoSchedule
-    key: dedicated
-    operator: Equal
-    value: staging
+replica: 
+  replicaCount: 0
