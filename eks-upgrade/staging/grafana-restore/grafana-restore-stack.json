@@ -5,8 +5,8 @@
     "backup_dir": "_OUTPUT_"
   },
   "grafana": {
-    "url": "https://stg2-grafana-stack.rpgp.cc",
-    "token": "glsa_4tMmB0a7wzqV5AgoHSJXjIGg795IF1AI_28359bca",
+    "url": "https://stg-grafana-stack.rpgp.cc",
+    "token": "glsa_8bLMZO7fnWnA0oUbVnGy3cdHVp7ttB8h_5f930040",
     "search_api_limit": 5000,
     "default_password": "00000000",
     "admin_account": "admin",
@@ -14,7 +14,7 @@
   },
   "aws": {
     "s3_bucket_name": "tgs-staging-backup",
-    "s3_bucket_key": "grafana",
+    "s3_bucket_key": "grafana-stack",
     "default_region": "ap-east-1",
     "access_key_id": "AKIAQ4KFUNHMUZU6QD2V",
     "secret_access_key": "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"

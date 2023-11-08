@@ -4,8 +4,8 @@ metadata:
   name: grafana-backup
   namespace: monitoring
 data:
-  GRAFANA_URL: "http://stg2-grafana.rpgp.cc"
-  GRAFANA_TOKEN: "eyJrIjoiSlg0ekJqVHMwNkdYc3FNaUcySm5ScjNvMDlkNVg3R3YiLCJuIjoidGVzdCIsImlkIjoxfQ=="
+  GRAFANA_URL: "http://stg-grafana.rpgp.cc"
+  GRAFANA_TOKEN: "eyJrIjoibHBjbmx6V0ZadkRDdElMUVYxczI0Z3RtVkFwN0RNdUQiLCJuIjoiYWRtaW4iLCJpZCI6MX0="
   GRAFANA_ADMIN_ACCOUNT: "admin"
   GRAFANA_ADMIN_PASSWORD: "7NVdAAkk33vqnZj6u4WisilXzvlMYqlFvDe8ZHKf"
   AWS_ENDPOINT_URL: "https://s3.ap-east-1.amazonaws.com"

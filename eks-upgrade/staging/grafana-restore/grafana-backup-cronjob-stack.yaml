@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 data:
   GRAFANA_URL: "http://stg2-grafana-stack.rpgp.cc"
-  GRAFANA_TOKEN: "glsa_KdG4f7LeGzEuGCuAtzIH9dY5P0lSI29J_c9e4e99a"
+  GRAFANA_TOKEN: "glsa_8bLMZO7fnWnA0oUbVnGy3cdHVp7ttB8h_5f930040"
   GRAFANA_ADMIN_ACCOUNT: "admin"
   GRAFANA_ADMIN_PASSWORD: "prom-operator"
   AWS_ENDPOINT_URL: "https://s3.ap-east-1.amazonaws.com"
