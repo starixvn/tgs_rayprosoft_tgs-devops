@@ -56,10 +56,10 @@ velero backup create rabbitmq-11-02 --include-namespaces rabbitmq,rabbitmq-syste
 
 velero backup create monitoring-11-06 --include-namespaces logging,monitoring,observability
 velero backup create svc-1106 --include-namespaces staging  --include-resources ingresses,services,configmaps
-
 velero backup create pvc-1106 --include-namespaces staging  --include-resources pvc
-
 velero backup create deploy-1107 --include-namespaces staging  --include-resources deployments,daemonsets,hpa,cronjobs
+velero backup create deploy-1108 --include-namespaces staging  --include-resources deployments,svc,hpa,cronjobs
+
 
 
 
@@ -129,6 +129,7 @@ http://dev-redisinsight.rpgp.cc/
 
 
 # mongodb,  and exporter
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm upgrade -i mongodb bitnami/mongodb -f values-mongo.yaml -n staging
 	
 go to mongodb pods 
