@@ -18,10 +18,3 @@ resources:
   requests:
     cpu: 100m
     memory: 256Mi
-nodeSelector: 
-  dedicated: staging
-tolerations: 
-- effect: NoSchedule
-  key: dedicated
-  operator: Equal
-  value: staging

@@ -69,7 +69,7 @@ velero restore create rabbitmq --from-backup rabbitmq-11-02
 velero restore create monitoring --from-backup monitoring-11-06 
 velero restore create svc --from-backup svc-1107
 
-velero restore create deploy --from-backup deploy-1107
+velero restore create deploy-1108 --from-backup deploy-1108
 
 
 
@@ -154,7 +154,23 @@ helm upgrade -i mongodb-express cowboysysop/mongo-express -f values-mongo-expres
 
 
 
-# fix rabbitmq setting
+# install rabbitmq
+
+https://www.rabbitmq.com/kubernetes/operator/operator-overview.html
+
+kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
+
+## install krew
+https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+
+kubectl krew install rabbitmq
+kubectl rabbitmq install-cluster-operator
+
+
+kubectl create ns rabbitmq
+kubectl apply -f rabbitmq.yml
+kubectl apply -f ingress.yml
+
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/staging
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
