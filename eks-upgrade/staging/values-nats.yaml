@@ -1,19 +1,13 @@
-metrics:
-  enabled: true
-auth:
-  enabled: false
-
-cluster:
-  enabled: true
-  name: nats
-  replicas: 3
-nats:
-  gomemlimit: "50MiB"
+config:
+  cluster:
+    enabled: true
+    name: nats
+    replicas: 3
   jetstream:
     enabled: true
-    memStorage:
+    memoryStore:
       enabled: false
-    fileStorage:
+    fileStore:
       enabled: true
       size: 10Gi
       storageClassName: gp2
