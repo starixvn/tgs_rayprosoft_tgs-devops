@@ -101,6 +101,7 @@ bash kubeconfig-convert.sh
 # restore grafana
 sudo grafana-backup save --config=/home/ubuntu/tgs-deployment/monitoring/staging/grafana-backup-restore/backup.json
 sudo grafana-backup restore --config=grafana-restore.json  202311060654.tar.gz
+sudo grafana-backup restore --config=grafana-restore-stack.json  202311070807.tar.gz
 
 
 
@@ -108,6 +109,9 @@ sudo grafana-backup restore --config=grafana-restore.json  202311060654.tar.gz
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm repo update
 helm upgrade --install nats nats/nats -f values-nats.yaml -n staging
+
+helm uninstall nats -n staging
+
 
 
 ### https://github.com/nats-io/k8s/tree/master/helm/charts/stan
