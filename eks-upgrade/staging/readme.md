@@ -49,16 +49,16 @@ spec:
           class: nginx
 EOF
 
-# install staging
-velero backup create clusterrole-1106 --include-resources clusterrole,clusterrolebinding
-velero backup create rbac-1106 --include-namespaces staging  --include-resources serviceaccounts,secrets,roles,rolebindings
+# install prod
+velero backup create clusterrole-1113 --include-resources clusterrole,clusterrolebinding
+velero backup create rbac-1113 --include-namespaces prod  --include-resources serviceaccounts,secrets,roles,rolebindings
 velero backup create rabbitmq-11-02 --include-namespaces rabbitmq,rabbitmq-system
 
-velero backup create monitoring-11-06 --include-namespaces logging,monitoring,observability
-velero backup create svc-1106 --include-namespaces staging  --include-resources ingresses,services,configmaps
-velero backup create pvc-1106 --include-namespaces staging  --include-resources pvc
-velero backup create deploy-1107 --include-namespaces staging  --include-resources deployments,daemonsets,hpa,cronjobs
-velero backup create deploy-1108 --include-namespaces staging  --include-resources deployments,svc,hpa,cronjobs
+velero backup create monitoring-1113 --include-namespaces logging,monitoring,observability,eck,elastic-system
+velero backup create svc-ingress-cm-1106 --include-namespaces prod  --include-resources ingresses,services,configmaps
+velero backup create pvc-1106 --include-namespaces prod  --include-resources pvc
+## velero backup create deploy-1107 --include-namespaces prod  --include-resources deployments,daemonsets,hpa,cronjobs
+velero backup create deploy-1108 --include-namespaces prod  --include-resources deployments,svc,hpa,cronjobs
 
 
 
