@@ -69,21 +69,21 @@ module "eks" {
       }
 
       update_config = {
-        max_unavailable_percentage = 90 # or set `max_unavailable`
+        max_unavailable_percentage = 50 # or set `max_unavailable`
       }
   }
 
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "tgs-devops-2"
+      name             = "tgs-devops"
       use_name_prefix  = true
-      capacity_type    = "SPOT"  # default node group to be on-demand
-      desired_size = 2
+      capacity_type    = "on-demand"  # default node group to be on-demand
+      desired_size = 1
       max_size     = 8
-      min_size     = 2
+      min_size     = 1
 
-      instance_types = ["m5.xlarge", "m5d.xlarge", "c5.xlarge","c5d.xlarge","c5n.xlarge"]
+      instance_types = ["m5.xlarge", "m5d.xlarge","c5n.xlarge"]
       max_unavailable_percentage = 80
 
       remote_access = {
@@ -93,13 +93,13 @@ module "eks" {
     }
 
     prod = {
-      name      = "tgs-prod-2"
+      name      = "tgs-prod"
       use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
+      desired_size = 0
+      max_size     = 0
+      min_size     = 0
       max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge", "c5.xlarge","c5d.xlarge","c5n.xlarge"]
+      instance_types = ["m5.xlarge", "m5d.xlarge","c5n.xlarge"]
 
       # Node selector
       labels = {
@@ -122,14 +122,14 @@ module "eks" {
     }
 
     game = {
-      name      = "tgs-game-2"
+      name      = "tgs-game"
       use_name_prefix  = true
       capacity_type    = "SPOT"
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
+      desired_size = 0
+      max_size     = 0
+      min_size     = 0
       max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge", "m5n.xlarge","m5a.xlarge"]
+      instance_types = ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
 
       # Node selector
       labels = {
@@ -152,14 +152,14 @@ module "eks" {
     }
 
     gamewagers = {
-      name      = "tgs-gamewagers-2"
+      name      = "tgs-gamewagers"
       use_name_prefix  = true
       capacity_type    = "SPOT"
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
+      desired_size = 0
+      max_size     = 0
+      min_size     = 0
       max_unavailable_percentage = 80
-      instance_types = ["c5.xlarge", "c5d.xlarge"]
+      instance_types =  ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
 
       # Node selector
       labels = {
@@ -181,14 +181,14 @@ module "eks" {
     }
 
     frontend = {
-      name      = "tgs-frontend-2"
+      name      = "tgs-frontend"
       use_name_prefix  = true
       capacity_type    = "SPOT"
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
+      desired_size = 0
+      max_size     = 0
+      min_size     = 0
       max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge"]
+      instance_types =  ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
 
       # Node selector
       labels = {
@@ -200,34 +200,6 @@ module "eks" {
         {
           key    = "dedicated"
           value  = "frontend"
-          effect = "NO_SCHEDULE"
-        }
-      ]
-      remote_access = {
-        ec2_ssh_key               = local.key 
-        source_security_group_ids = [local.security_group_id]
-      }
-    }
-
-    ondemand = {
-      name      = "tgs-ondemand-2"
-      use_name_prefix  = true
-      desired_size = 2
-      max_size     = 8
-      min_size     = 2
-      max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge"]
-
-      # Node selector
-      labels = {
-          dedicated = "ondemand"
-      }
-
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "ondemand"
           effect = "NO_SCHEDULE"
         }
       ]
