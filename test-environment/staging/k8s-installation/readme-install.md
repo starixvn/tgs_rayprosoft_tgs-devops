@@ -43,12 +43,21 @@ kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/d
 
 ## go to k8s-installation/rabbitmq
 kubectl create ns rabbitmq
+
 kubectl apply -f rabbitmq.yaml
+
 kubectl apply -f ingress.yaml
 
 https://blog.csdn.net/qq_24095055/article/details/97001679
 
 kubectl exec -it  mq-server-0 /bin/bash -n rabbitmq
+
+
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl add_vhost /tgs/staging
+
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
+
+kubectl -n rabbitmq exec -it  mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
 
 rabbitmqctl add_user tgs TgsP@ssw0rd
 
