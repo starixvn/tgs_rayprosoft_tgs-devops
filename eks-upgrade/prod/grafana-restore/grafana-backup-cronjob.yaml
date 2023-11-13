@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-backup
+  namespace: monitoring
+data:
+  GRAFANA_URL: "http://stg-grafana.rpgp.cc"
+  GRAFANA_TOKEN: "eyJrIjoibHBjbmx6V0ZadkRDdElMUVYxczI0Z3RtVkFwN0RNdUQiLCJuIjoiYWRtaW4iLCJpZCI6MX0="
+  GRAFANA_ADMIN_ACCOUNT: "admin"
+  GRAFANA_ADMIN_PASSWORD: "7NVdAAkk33vqnZj6u4WisilXzvlMYqlFvDe8ZHKf"
+  AWS_ENDPOINT_URL: "https://s3.ap-east-1.amazonaws.com"
+  AWS_S3_BUCKET_NAME: "tgs-staging-backup"
+  AWS_S3_BUCKET_KEY: "grafana"
+  AWS_DEFAULT_REGION: "ap-east-1"
+  AWS_ACCESS_KEY_ID: "AKIAQ4KFUNHMUZU6QD2V"
+  AWS_SECRET_ACCESS_KEY: "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"
+---
+# Run grafana-backup-tool daily and store backups in an S3
+# compatible object storage such as minio
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: grafana-backup
+  namespace: monitoring
+  labels:
+    app: grafana-backup
+spec:
+  schedule: "48 8 * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: grafana-backup
+    spec:
+      template:
+        spec:
+          restartPolicy: "Never"
+          containers:
+            - name: grafana-backup
+              image: "ysde/docker-grafana-backup-tool:1.2.4"
+              imagePullPolicy: Always
+              envFrom:
+                - configMapRef:
+                    name: grafana-backup
