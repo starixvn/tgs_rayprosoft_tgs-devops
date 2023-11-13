@@ -27,7 +27,7 @@ variable "private_subnet_ids" {
 
 variable "eks_name" {
   type    = string
-  default = "tgs-taiwan-staging2"  
+  default = "tgs-k8s-prod"  
 }
 
 variable "aws_auth_users" {

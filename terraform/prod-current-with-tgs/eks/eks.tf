@@ -78,7 +78,7 @@ module "eks" {
     default = {
       name             = "tgs-devops"
       use_name_prefix  = true
-      capacity_type    = "on-demand"  # default node group to be on-demand
+      capacity_type    = "ON_DEMAND"  # default node group to be on-demand
       desired_size = 1
       max_size     = 8
       min_size     = 1
@@ -96,7 +96,7 @@ module "eks" {
       name      = "tgs-prod"
       use_name_prefix  = true
       desired_size = 0
-      max_size     = 0
+      max_size     = 1
       min_size     = 0
       max_unavailable_percentage = 80
       instance_types = ["m5.xlarge", "m5d.xlarge","c5n.xlarge"]
@@ -126,7 +126,7 @@ module "eks" {
       use_name_prefix  = true
       capacity_type    = "SPOT"
       desired_size = 0
-      max_size     = 0
+      max_size     = 1
       min_size     = 0
       max_unavailable_percentage = 80
       instance_types = ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
@@ -156,7 +156,7 @@ module "eks" {
       use_name_prefix  = true
       capacity_type    = "SPOT"
       desired_size = 0
-      max_size     = 0
+      max_size     = 1
       min_size     = 0
       max_unavailable_percentage = 80
       instance_types =  ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]
@@ -185,7 +185,7 @@ module "eks" {
       use_name_prefix  = true
       capacity_type    = "SPOT"
       desired_size = 0
-      max_size     = 0
+      max_size     = 1
       min_size     = 0
       max_unavailable_percentage = 80
       instance_types =  ["m5.xlarge", "m5d.xlarge", "c5n.xlarge"]

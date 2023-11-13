@@ -1,7 +1,7 @@
 locals {
   appName = "tgs"
-  name            = "tgs-taiwan-k8s2"
-  cluster_version = "1.24"
+  name            = "tgs-k8s-prod"
+  cluster_version = "1.28"
   region          = "ap-east-1"
   project         = "tgs"
   key             = "tgs-key"
