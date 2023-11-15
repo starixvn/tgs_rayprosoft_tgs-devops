@@ -53,24 +53,28 @@ spec:
 EOF
 
 # install prod
-velero backup create clusterrole-1106 --include-resources clusterrole,clusterrolebinding
-velero backup create rbac-1106 --include-namespaces prod  --include-resources serviceaccounts,secrets,roles,rolebindings
+velero backup create clusterrole-1115 --include-resources clusterrole,clusterrolebinding
+velero backup create rbac-1115 --include-namespaces prod  --include-resources serviceaccounts,secrets,roles,rolebindings
+velero backup create svc-1115 --include-namespaces prod  --include-resources ingresses,services,configmaps
+velero backup create cert-1115 --include-namespaces prod  --include-resources certificate,certificaterequests,orders
+
+
 velero backup create rabbitmq-11-02 --include-namespaces rabbitmq,rabbitmq-system
 
 velero backup create monitoring-1106 --include-namespaces logging,monitoring,observability
-velero backup create svc-1106 --include-namespaces prod  --include-resources ingresses,services,configmaps
+
 velero backup create pvc-1106 --include-namespaces prod  --include-resources pvc
 velero backup create deploy-1107 --include-namespaces prod  --include-resources deployments,daemonsets,hpa,cronjobs
 velero backup create deploy-1108 --include-namespaces prod  --include-resources deployments,svc,hpa,cronjobs
 
 
+velero restore create clusterrole --from-backup  clusterrole-1115
+velero restore create rbac --from-backup  rbac-1115
+velero restore create svc --from-backup svc-1115
 
-
-velero restore create clusterrole --from-backup  clusterrole-1106
-velero restore create rbac --from-backup  rbac-1106
 velero restore create rabbitmq --from-backup rabbitmq-11-02  
 velero restore create monitoring --from-backup monitoring-1113 
-velero restore create svc --from-backup svc-1107
+
 
 velero restore create deploy-1108 --from-backup deploy-1108
 
@@ -80,7 +84,9 @@ velero restore create deploy-1108 --from-backup deploy-1108
 for p in $(kubectl get secrets -n $namespace | grep tls | awk '{print $1}');do kubectl delete secrets $p -n $namespace; done;
 
 ## create serviceaccount secrets
-ns=('staging' 'logging' 'monitoring' 'observability' 'rabbitmq-system' 'rabbitmq' 'eck' 'elastic-system')
+ns=('prod' 'logging' 'monitoring' 'observability' 'rabbitmq-system' 'rabbitmq' 'eck' 'elastic-system')
+ns=('prod')
+
 for namespace in ${ns[@]};do \
   for p in $(kubectl get sa -n $namespace | awk '{print $1}');do \
     kubectl apply -o yaml -f - <<EOF
@@ -109,7 +115,7 @@ sudo grafana-backup restore --config=grafana-restore-stack.json  202311070807.ta
 # nats Official
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm repo update
-helm upgrade --install nats nats/nats -f values-nats.yaml -n staging
+helm upgrade --install nats nats/nats -f values-nats.yaml -n prod
 
 helm uninstall nats -n prod
 
@@ -134,11 +140,9 @@ kubectl apply -f ingress.yml
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/prod
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
-
 kubectl -n rabbitmq exec mq-server-1 -- rabbitmqctl add_vhost /tgs/prod
 kubectl -n rabbitmq exec mq-server-1 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-1 -- rabbitmqctl set_user_tags tgs administrator
-
 kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl add_vhost /tgs/prod
 kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_user_tags tgs administrator
