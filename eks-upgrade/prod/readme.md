@@ -56,6 +56,8 @@ EOF
 velero backup create clusterrole-1115 --include-resources clusterrole,clusterrolebinding
 velero backup create rbac-1115 --include-namespaces prod  --include-resources serviceaccounts,secrets,roles,rolebindings
 velero backup create svc-1115 --include-namespaces prod  --include-resources ingresses,services,configmaps
+
+# 多餘的
 velero backup create cert-1115 --include-namespaces prod  --include-resources certificate,certificaterequests,orders
 
 

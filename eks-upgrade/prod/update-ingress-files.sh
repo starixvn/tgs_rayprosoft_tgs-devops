@@ -15,7 +15,7 @@ replaceIngressClass="\ \ ingressClassName: nginx"
 
 
 #for p in $(kubectl get ing -n $namespace | grep -v -E 'goal3388.com|acme' | awk '{print $1}'); do
-for p in $(ll | awk '{print $9}'); do
+for p in $(ls -l | awk '{print $9}'); do
     #kubectl -n $namespace get ing $p -o yaml >  ${p}.yaml;
     
     endTime=`date +%Y%m%d-%H:%M:%S`
@@ -32,7 +32,7 @@ for p in $(ll | awk '{print $9}'); do
     
     if grep -q "ingressClassName" ${p}
     then 
-       ingressClassLine=$(grep -n "ingressClassName:" ${p}.yaml | awk -F':' '{print $1}')
+       ingressClassLine=$(grep -n "ingressClassName:" ${p} | awk -F':' '{print $1}')
        sed -i "$[ ingressClassLine ]c $replaceIngressClass" ${p}
        echo "ingressClassName modified"
     else 
