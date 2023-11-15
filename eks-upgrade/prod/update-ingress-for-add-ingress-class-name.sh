@@ -12,7 +12,7 @@ declare -i count=0
 
 replaceIngressClass="\ \ ingressClassName: nginx"
 
-for p in $(kubectl get ing -n $namespace | grep -v goal3388.com | awk '{print $1}'); do
+for p in $(kubectl get ing -n $namespace | grep -v -E 'goal3388.com|acme' | awk '{print $1}'); do
     kubectl -n $namespace get ing $p -o yaml >  ${p}.yaml;
     
     endTime=`date +%Y%m%d-%H:%M:%S`
