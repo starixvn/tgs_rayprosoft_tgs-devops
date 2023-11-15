@@ -34,7 +34,7 @@ module "eks" {
 
   # Default for all node groups
   eks_managed_node_group_defaults = {
-      disk_size        = 8          # default volume size
+      disk_size        = 30           # default volume size
       disk_type        = "gp2"        # gp3 ebs volume
       disk_throughput  = 150          # min throughput
       disk_iops        = 3000         # min iops for gp3
@@ -79,9 +79,9 @@ module "eks" {
       name             = "tgs-devops"
       use_name_prefix  = true
       capacity_type    = "ON_DEMAND"  # default node group to be on-demand
-      desired_size = 1
+      desired_size = 3
       max_size     = 8
-      min_size     = 1
+      min_size     = 3
 
       instance_types = ["m5.xlarge", "m5d.xlarge","c5n.xlarge"]
       max_unavailable_percentage = 80

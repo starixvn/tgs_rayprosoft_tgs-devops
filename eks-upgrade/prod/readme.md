@@ -31,7 +31,10 @@ helm upgrade -i nginx ingress-nginx/ingress-nginx -f values-ingress-controller.y
 https://cert-manager.io/docs/installation/
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 
+# metrics
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
+# ClusterIssuer
 kubectl apply -f - <<EOF
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -54,7 +57,7 @@ velero backup create clusterrole-1106 --include-resources clusterrole,clusterrol
 velero backup create rbac-1106 --include-namespaces prod  --include-resources serviceaccounts,secrets,roles,rolebindings
 velero backup create rabbitmq-11-02 --include-namespaces rabbitmq,rabbitmq-system
 
-velero backup create monitoring-11-06 --include-namespaces logging,monitoring,observability
+velero backup create monitoring-1106 --include-namespaces logging,monitoring,observability
 velero backup create svc-1106 --include-namespaces prod  --include-resources ingresses,services,configmaps
 velero backup create pvc-1106 --include-namespaces prod  --include-resources pvc
 velero backup create deploy-1107 --include-namespaces prod  --include-resources deployments,daemonsets,hpa,cronjobs
@@ -66,7 +69,7 @@ velero backup create deploy-1108 --include-namespaces prod  --include-resources 
 velero restore create clusterrole --from-backup  clusterrole-1106
 velero restore create rbac --from-backup  rbac-1106
 velero restore create rabbitmq --from-backup rabbitmq-11-02  
-velero restore create monitoring --from-backup monitoring-11-06 
+velero restore create monitoring --from-backup monitoring-1113 
 velero restore create svc --from-backup svc-1107
 
 velero restore create deploy-1108 --from-backup deploy-1108
@@ -97,12 +100,10 @@ done;
 bash kubeconfig-convert.sh
 
 
-
 # restore grafana
 sudo grafana-backup save --config=/home/ubuntu/tgs-deployment/monitoring/staging/grafana-backup-restore/backup.json
 sudo grafana-backup restore --config=grafana-restore.json  202311060654.tar.gz
 sudo grafana-backup restore --config=grafana-restore-stack.json  202311070807.tar.gz
-
 
 
 # nats Official
@@ -110,52 +111,7 @@ helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm repo update
 helm upgrade --install nats nats/nats -f values-nats.yaml -n staging
 
-helm uninstall nats -n staging
-
-
-
-### https://github.com/nats-io/k8s/tree/master/helm/charts/stan
-
-# redis, redis exporter
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm upgrade -i redis bitnami/redis -f values-redis.yaml -n staging
-
-
-redis-metrics:9121/metrics 
-https://github.com/bitnami/charts/tree/master/bitnami/redis/#installing-the-chart
-
-
-# redisinsight
-
-helm upgrade -i redisinsight ./redisinsight -f ./redisinsight/values.yaml -n staging
-https://docs.redislabs.com/latest/ri/installing/install-k8s/
-http://dev-redisinsight.rpgp.cc/
-
-
-# mongodb,  and exporter
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm upgrade -i mongodb bitnami/mongodb -f values-mongo.yaml -n staging
-	
-go to mongodb pods 
-mongo
-use admin
-db.createUser(
-    {
-        user:"root",
-        pwd:"1qaz2wsx",
-        roles:[
-            {role:"dbOwner", db:"admin"}
-        ]
-    }
-)
-
-# mongodb express
-helm repo add cowboysysop https://cowboysysop.github.io/charts/
-helm repo update
-helm upgrade -i mongodb-express cowboysysop/mongo-express -f values-mongo-express.yaml -n staging
-# http://stg-mongodb-express.rpgp.cc
-# https://artifacthub.io/packages/helm/cowboysysop/mongo-express
-
+helm uninstall nats -n prod
 
 
 # install rabbitmq
@@ -175,6 +131,14 @@ kubectl create ns rabbitmq
 kubectl apply -f rabbitmq.yml
 kubectl apply -f ingress.yml
 
-kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/staging
-kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/staging" "tgs" '.*' '.*' '.*'
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl add_vhost /tgs/prod
+kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-0 -- rabbitmqctl set_user_tags tgs administrator
+
+kubectl -n rabbitmq exec mq-server-1 -- rabbitmqctl add_vhost /tgs/prod
+kubectl -n rabbitmq exec mq-server-1 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
+kubectl -n rabbitmq exec mq-server-1 -- rabbitmqctl set_user_tags tgs administrator
+
+kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl add_vhost /tgs/prod
+kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
+kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_user_tags tgs administrator
