@@ -34,6 +34,18 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 # metrics
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
+# reloader 
+## https://github.com/stakater/Reloader
+
+kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
+
+# Install Elastic Cloud on Kubernetes
+# https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html
+
+kubectl apply -f https://download.elastic.co/downloads/eck/2.9.0/crds.yaml
+kubectl apply -f https://download.elastic.co/downloads/eck/2.9.0/operator.yaml
+
+
 # ClusterIssuer
 kubectl apply -f - <<EOF
 apiVersion: cert-manager.io/v1
@@ -56,8 +68,11 @@ EOF
 velero backup create clusterrole-1115 --include-resources clusterrole,clusterrolebinding
 velero backup create rbac-1115 --include-namespaces prod  --include-resources serviceaccounts,secrets,roles,rolebindings
 velero backup create svc-1115 --include-namespaces prod  --include-resources ingresses,services,configmaps
+velero backup create elasticsearch-1115 --include-namespaces eck,elastic-system,logging,obaservability
 
-# 多餘的
+velero backup create ingress-updated --include-namespaces prod --include-resources ingresses
+
+# 多餘的, 不需要
 velero backup create cert-1115 --include-namespaces prod  --include-resources certificate,certificaterequests,orders
 
 
@@ -73,6 +88,7 @@ velero backup create deploy-1108 --include-namespaces prod  --include-resources 
 velero restore create clusterrole --from-backup  clusterrole-1115
 velero restore create rbac --from-backup  rbac-1115
 velero restore create svc --from-backup svc-1115
+velero restore create elasticsearch --from-backup elasticsearch-1115
 
 velero restore create rabbitmq --from-backup rabbitmq-11-02  
 velero restore create monitoring --from-backup monitoring-1113 
