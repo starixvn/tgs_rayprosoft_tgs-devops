@@ -70,11 +70,12 @@ velero backup create rbac-1115 --include-namespaces prod  --include-resources se
 velero backup create svc-1115 --include-namespaces prod  --include-resources ingresses,services,configmaps
 
 velero backup create cm-1116 --include-namespaces prod  --include-resources configmaps
-
-
 velero backup create elasticsearch-1115 --include-namespaces eck,elastic-system,logging,obaservability
-
 velero backup create ingress-updated --include-namespaces prod --include-resources ingresses
+
+velero backup create cronjobs-1117 --include-namespaces prod --include-resources cronjobs
+velero backup create hpa-1117 --include-namespaces prod --include-resources hpa
+velero backup create monitoring-1117 --include-namespaces monitoring
 
 # 多餘的, 不需要
 velero backup create cert-1115 --include-namespaces prod  --include-resources certificate,certificaterequests,orders
@@ -95,11 +96,22 @@ velero restore create svc --from-backup svc-1115
 velero restore create elasticsearch --from-backup elasticsearch-1115
 
 velero restore create rabbitmq --from-backup rabbitmq-11-02  
-velero restore create monitoring --from-backup monitoring-1113 
+velero restore create monitoring-1117 --from-backup monitoring-1117
 
 
 velero restore create deploy-1108 --from-backup deploy-1108
 velero restore create cm-1116 --from-backup cm-1116
+velero restore create hpa-1117 --from-backup hpa-1117
+
+
+
+velero schedule create monitoring --include-namespaces monitoring --schedule="@daily"  --ttl 2160h0m0s
+velero schedule create observability --include-namespaces observability,logging --schedule="@daily"  --ttl 2160h0m0s
+velero schedule create deployment --include-namespaces prod --include-resources deployments --schedule="@daily"  --ttl 2160h0m0s
+velero schedule create service --include-namespaces prod --include-resources svc --schedule="@daily"  --ttl 2160h0m0s
+velero schedule create ingress --include-namespaces prod --include-resources ingresses --schedule="@daily"  --ttl 2160h0m0s
+velero schedule create cronjobs --include-namespaces prod --include-resources cronjobs --schedule="@daily"  --ttl 2160h0m0s
+velero schedule create hpa --include-namespaces prod --include-resources hpa --schedule="@daily"  --ttl 2160h0m0s
 
 
 
@@ -169,3 +181,9 @@ kubectl -n rabbitmq exec mq-server-1 -- rabbitmqctl set_user_tags tgs administra
 kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl add_vhost /tgs/prod
 kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_permissions -p "/tgs/prod" "tgs" '.*' '.*' '.*'
 kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_user_tags tgs administrator
+
+
+
+# restart deploy
+for p in $(kubectl get deploy -n prod | grep -v -E 'nats|pgpool' | awk '{print $1}');do kubectl rollout restart deploy $p -n prod ;done;
+

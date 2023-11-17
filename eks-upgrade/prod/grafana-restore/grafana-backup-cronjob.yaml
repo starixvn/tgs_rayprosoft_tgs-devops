@@ -4,12 +4,12 @@ metadata:
   name: grafana-backup
   namespace: monitoring
 data:
-  GRAFANA_URL: "http://stg-grafana.rpgp.cc"
-  GRAFANA_TOKEN: "eyJrIjoibHBjbmx6V0ZadkRDdElMUVYxczI0Z3RtVkFwN0RNdUQiLCJuIjoiYWRtaW4iLCJpZCI6MX0="
+  GRAFANA_URL: "http://grafana.yydsgo.xyz"
+  GRAFANA_TOKEN: "eyJrIjoiU1ZKcGFXUXh3NTVETFBockxGbndoNXprdDAwNjVJVkQiLCJuIjoiYXBpa2V5Y3VybCIsImlkIjozfQ=="
   GRAFANA_ADMIN_ACCOUNT: "admin"
-  GRAFANA_ADMIN_PASSWORD: "7NVdAAkk33vqnZj6u4WisilXzvlMYqlFvDe8ZHKf"
+  GRAFANA_ADMIN_PASSWORD: "EvTZYjTJ0eIDrWsIuo9GqGiNdQflRtneQnStkICJ"
   AWS_ENDPOINT_URL: "https://s3.ap-east-1.amazonaws.com"
-  AWS_S3_BUCKET_NAME: "tgs-staging-backup"
+  AWS_S3_BUCKET_NAME: "tgs-prod-backup"
   AWS_S3_BUCKET_KEY: "grafana"
   AWS_DEFAULT_REGION: "ap-east-1"
   AWS_ACCESS_KEY_ID: "AKIAQ4KFUNHMUZU6QD2V"

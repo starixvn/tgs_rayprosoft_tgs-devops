@@ -5,15 +5,15 @@
     "backup_dir": "_OUTPUT_"
   },
   "grafana": {
-    "url": "https://stg-grafana.rpgp.cc",
-    "token": "eyJrIjoibHBjbmx6V0ZadkRDdElMUVYxczI0Z3RtVkFwN0RNdUQiLCJuIjoiYWRtaW4iLCJpZCI6MX0=",
+    "url": "https://prod-grafana.rpgp.cc",
+    "token": "eyJrIjoiUXJhMkxzcXRTUjRlMUw0R1gzb3lWcGFxamkxOG95MG4iLCJuIjoiYWRtaW4iLCJpZCI6MX0=",
     "search_api_limit": 5000,
     "default_password": "00000000",
     "admin_account": "admin",
-    "admin_password": "7NVdAAkk33vqnZj6u4WisilXzvlMYqlFvDe8ZHKf"
+    "admin_password": "AmvoY2nXh0MO6iTEOZA3DMTW8SS1Sux2U7X1RaR3"
   },
   "aws": {
-    "s3_bucket_name": "tgs-staging-backup",
+    "s3_bucket_name": "tgs-prod-backup",
     "s3_bucket_key": "grafana",
     "default_region": "ap-east-1",
     "access_key_id": "AKIAQ4KFUNHMUZU6QD2V",
