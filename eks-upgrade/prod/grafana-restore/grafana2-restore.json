@@ -5,7 +5,7 @@
     "backup_dir": "_OUTPUT_"
   },
   "grafana": {
-    "url": "https://prod-grafana2.yydsgo.xyz",
+    "url": "https://prod-grafana2.rpgp.cc",
     "token": "eyJrIjoiZzlyNXdnV1p2UlBReFZGdWR0cjh4QWNOZ2ZoaTAyejYiLCJuIjoiYWRtaW4iLCJpZCI6MX0=",
     "search_api_limit": 5000,
     "default_password": "00000000",
