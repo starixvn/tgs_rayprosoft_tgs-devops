@@ -68,6 +68,10 @@ EOF
 velero backup create clusterrole-1115 --include-resources clusterrole,clusterrolebinding
 velero backup create rbac-1115 --include-namespaces prod  --include-resources serviceaccounts,secrets,roles,rolebindings
 velero backup create svc-1115 --include-namespaces prod  --include-resources ingresses,services,configmaps
+
+velero backup create cm-1116 --include-namespaces prod  --include-resources configmaps
+
+
 velero backup create elasticsearch-1115 --include-namespaces eck,elastic-system,logging,obaservability
 
 velero backup create ingress-updated --include-namespaces prod --include-resources ingresses
@@ -95,6 +99,7 @@ velero restore create monitoring --from-backup monitoring-1113
 
 
 velero restore create deploy-1108 --from-backup deploy-1108
+velero restore create cm-1116 --from-backup cm-1116
 
 
 
