@@ -43,17 +43,18 @@ https://rabbitmq.rpgp.cc/
 
 ### changing node types 
 
-kubectl exec -it mq-server-0 /bin/bash -n rabbitmq
-
-rabbitmqctl cluster_status
-
-rabbitmqctl change_cluster_node_type disc
-
-rabbitmqctl change_cluster_node_type ram
-
+kubectl exec -it mq-server-1 -- /bin/bash -n rabbitmq
 rabbitmqctl stop_app
-
+rabbitmqctl change_cluster_node_type ram
 rabbitmqctl start_app
 
+
+
+kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl stop_app
+kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl change_cluster_node_type ram
+kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl start_app
+
+rabbitmqctl cluster_status
+rabbitmqctl change_cluster_node_type disc
 
 test

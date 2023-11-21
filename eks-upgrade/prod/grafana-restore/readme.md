@@ -21,8 +21,14 @@ cp examples/grafana-backup.example.json grafana-restore.json
 
 sudo grafana-backup save --config=backup.json
 
-sudo grafana-backup save --config=/home/ubuntu/tgs-deployment/monitoring/staging/grafana-backup-restore/backup.json
+sudo grafana-backup save --config=backup.json
+
+sudo grafana-backup save --config=grafana-backup.json 
 sudo grafana-backup restore --config=/home/ubuntu/tgs-deployment/monitoring/staging/grafana-backup-restore/restore.json  202308300705.tar.gz
+
+sudo grafana-backup restore --config=grafana-restore.json  202311170825.tar.gz
+sudo grafana-backup restore --config=grafana2-restore.json  202311170340.tar.gz
+
 
 ### k8s grafana backup
 

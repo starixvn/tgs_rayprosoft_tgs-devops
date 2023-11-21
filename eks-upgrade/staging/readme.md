@@ -110,6 +110,9 @@ helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 helm repo update
 helm upgrade --install nats nats/nats -f values-nats.yaml -n staging
 
+helm template nats nats/nats -f values-nats.yaml -n staging
+
+
 helm uninstall nats -n staging
 
 

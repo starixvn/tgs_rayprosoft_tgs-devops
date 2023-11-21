@@ -120,7 +120,7 @@ for p in $(kubectl get secrets -n $namespace | grep tls | awk '{print $1}');do k
 
 ## create serviceaccount secrets
 ns=('prod' 'logging' 'monitoring' 'observability' 'rabbitmq-system' 'rabbitmq' 'eck' 'elastic-system')
-ns=('prod')
+ns=('monitoring')
 
 for namespace in ${ns[@]};do \
   for p in $(kubectl get sa -n $namespace | awk '{print $1}');do \
@@ -183,7 +183,26 @@ kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_permissions -p "/tgs/pro
 kubectl -n rabbitmq exec mq-server-2 -- rabbitmqctl set_user_tags tgs administrator
 
 
+kubectl -n rabbitmq exec -it mq-server-1 -- rabbitmqctl stop_app
+kubectl -n rabbitmq exec -it mq-server-1 -- rabbitmqctl change_cluster_node_type ram
+kubectl -n rabbitmq exec -it mq-server-1 -- rabbitmqctl start_app
+
+kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl stop_app
+kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl change_cluster_node_type ram
+kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl start_app
+
+
+# kubectl exec -it mq-server-1 -- /bin/bash -n rabbitmq
+# rabbitmqctl stop_app
+# rabbitmqctl change_cluster_node_type ram
+# rabbitmqctl start_app
+
+# rabbitmqctl cluster_status
+# rabbitmqctl change_cluster_node_type disc
+
 
 # restart deploy
 for p in $(kubectl get deploy -n prod | grep -v -E 'nats|pgpool' | awk '{print $1}');do kubectl rollout restart deploy $p -n prod ;done;
+
+for p in $(kubectl get deploy -n prod | grep -v pgpool | grep -v -E 'lobby|agent' | awk '{print $1}');do kubectl rollout restart deploy $p -n prod; done;
 
