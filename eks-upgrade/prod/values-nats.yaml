@@ -1,13 +1,40 @@
+# https://github.com/nats-io/k8s/blob/main/helm/charts/nats/values.yaml
+metrics:
+  enabled: true
+auth:
+  enabled: false
+global:
+  labels:
+    velero.io/exclude-from-backup: "true"
 config:
   cluster:
     enabled: true
     name: nats
     replicas: 3
+
   jetstream:
     enabled: true
     memoryStore:
       enabled: false
     fileStore:
-      enabled: true
-      size: 10Gi
-      storageClassName: gp2
+      pvc:
+        enabled: true
+        size: 10Gi
+        storageClassName: gp2
+
+  nats:
+    gomemlimit: "50MiB"
+  
+podTemplate:
+  merge:
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - nats
+              topologyKey: "kubernetes.io/hostname"
