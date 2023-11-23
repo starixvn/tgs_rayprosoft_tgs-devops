@@ -115,14 +115,14 @@ spec:
       paths:
       - backend:
           service:
-            name: $agent
+            name: agent-api
             port:
               number: 80
         path: /api
         pathType: Prefix
       - backend:
           service:
-            name: agent-pito7
+            name: $agent
             port:
               number: 80
         path: /
