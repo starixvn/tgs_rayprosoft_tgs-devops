@@ -40,6 +40,7 @@ spec:
           value: red
         - name: SOURCE_URL
           value: https://images.srvptt.com/
+        name: $agent
         image: $image
         imagePullPolicy: IfNotPresent
         livenessProbe:
