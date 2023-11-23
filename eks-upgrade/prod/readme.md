@@ -77,6 +77,9 @@ velero backup create cronjobs-1117 --include-namespaces prod --include-resources
 velero backup create hpa-1117 --include-namespaces prod --include-resources hpa
 velero backup create monitoring-1117 --include-namespaces monitoring
 
+
+velero restore create deploy-1108 --from-backup deploy-1108
+
 # 多餘的, 不需要
 velero backup create cert-1115 --include-namespaces prod  --include-resources certificate,certificaterequests,orders
 
@@ -94,6 +97,7 @@ velero restore create clusterrole --from-backup  clusterrole-1115
 velero restore create rbac --from-backup  rbac-1115
 velero restore create svc --from-backup svc-1115
 velero restore create elasticsearch --from-backup elasticsearch-1115
+velero restore create observability-1121 --from-backup observability-1121
 
 velero restore create rabbitmq --from-backup rabbitmq-11-02  
 velero restore create monitoring-1117 --from-backup monitoring-1117
@@ -199,10 +203,3 @@ kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl start_app
 
 # rabbitmqctl cluster_status
 # rabbitmqctl change_cluster_node_type disc
-
-
-# restart deploy
-for p in $(kubectl get deploy -n prod | grep -v -E 'nats|pgpool' | awk '{print $1}');do kubectl rollout restart deploy $p -n prod ;done;
-
-for p in $(kubectl get deploy -n prod | grep -v pgpool | grep -v -E 'lobby|agent' | awk '{print $1}');do kubectl rollout restart deploy $p -n prod; done;
-
