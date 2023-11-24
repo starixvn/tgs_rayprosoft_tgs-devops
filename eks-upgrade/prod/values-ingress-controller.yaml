@@ -1,3 +1,4 @@
+# https://github.com/kubernetes/ingress-nginx/blob/controller-v1.9.4/deploy/static/provider/aws/nlb-with-tls-termination/deploy.yaml#L342-L350
 controller:
   service:
     type: LoadBalancer
