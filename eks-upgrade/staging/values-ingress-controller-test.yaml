@@ -1,0 +1,39 @@
+# https://github.com/kubernetes/ingress-nginx/blob/controller-v1.9.4/deploy/static/provider/aws/nlb-with-tls-termination/deploy.yaml#L342-L350
+# helm upgrade -i nginx ingress-nginx/ingress-nginx -f values-ingress-controller-test.yaml -n ingress-nginx
+controller:
+  service:
+    type: LoadBalancer
+    targetPorts:
+      https: 80
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+      service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:ap-east-1:060812454361:certificate/91bb0a6b-fa0a-46ef-a5b1-9a9be630be93
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+      service.beta.kubernetes.io/aws-load-balancer-security-groups: true
+      # service.beta.kubernetes.io/aws-load-balancer-type: "external"
+      # service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+      # service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+  config:
+    hsts: false
+    allow-snippet-annotations: "true"
+    otlp-collector-host: otel-svc.observability
+    enable-opentelemetry: "true"
+    opentelemetry-operation-name: "HTTP $request_method $uri"
+    otel-service-name: ingress-nginx-controller
+    enable-real-ip: "true"
+    server-snippet: |
+      real_ip_header CF-Connecting-IP;
+  opentelemetry:
+    enabled: true
+  metrics:
+    enabled: "true"
+    service:
+      annotations:
+        prometheus.io/port: "10254"
+        prometheus.io/scrape: "true"
+  ingressClassResource:
+    name: nginx2
+    controllerValue: "k8s.io/ingress-nginx2"
+  ingressClass: nginx2
