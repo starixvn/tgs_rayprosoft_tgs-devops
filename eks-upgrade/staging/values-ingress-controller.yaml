@@ -1,4 +1,5 @@
 # https://github.com/kubernetes/ingress-nginx/blob/controller-v1.9.4/deploy/static/provider/aws/nlb-with-tls-termination/deploy.yaml#L342-L350
+# helm upgrade -i nginx ingress-nginx/ingress-nginx -f values-ingress-controller.yaml -n ingress-nginx
 controller:
   service:
     type: LoadBalancer
@@ -20,7 +21,7 @@ controller:
     otlp-collector-host: otel-svc.observability
     enable-opentelemetry: "true"
     opentelemetry-operation-name: "HTTP $request_method $uri"
-    otel-service-name: ingress-nginx-controller
+    otel-service-name: ingress-nginx-controller(staging)
     enable-real-ip: "true"
     server-snippet: |
       real_ip_header CF-Connecting-IP;

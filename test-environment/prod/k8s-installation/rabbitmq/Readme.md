@@ -48,8 +48,6 @@ rabbitmqctl stop_app
 rabbitmqctl change_cluster_node_type ram
 rabbitmqctl start_app
 
-
-
 kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl stop_app
 kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl change_cluster_node_type ram
 kubectl -n rabbitmq exec -it mq-server-2 -- rabbitmqctl start_app
