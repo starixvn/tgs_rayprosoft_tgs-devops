@@ -14,7 +14,7 @@ export account_name=raypro-staging-admin
 export user_token=$(kubectl -n $namespace get secret/raypro-staging-build -o=go-template='{{.data.token}}' | base64 --decode)
 export user_token=$(kubectl -n $namespace get secret/raypro-staging-admin -o=go-template='{{.data.token}}' | base64 --decode)
 
-envsubst < kubeconfig > ~/.kube/config-admin
+envsubst < kubeconfig > ~/.kube/config-build
 
 
 

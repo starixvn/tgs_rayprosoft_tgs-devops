@@ -1,0 +1,10 @@
+apiVersion: lobbies.stable.srvptt2.online/v1
+kind: Lobby
+metadata:
+  name: lobby-t1
+  namespace: dev
+spec:
+   replicas: 2
+   image: lobby-t1:latest
+   domain: fdgfdgdfgt
+   token: fddfgdf

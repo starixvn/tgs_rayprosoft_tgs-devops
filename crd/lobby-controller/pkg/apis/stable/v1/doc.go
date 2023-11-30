@@ -1,0 +1,14 @@
+// +k8s:deepcopy-gen-packages
+// +groupName=stable.srvptt2.online
+
+package v1
+
+import (
+
+)
+
+// +k8s:deepcopy-gen=package
+// +groupName=samplecontroller.k8s.io
+
+// Package v1alpha1 is the v1alpha1 version of the API.
+package v1alpha1 // import "k8s.io/sample-controller/pkg/apis/samplecontroller/v1alpha1"

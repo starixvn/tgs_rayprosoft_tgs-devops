@@ -21,6 +21,12 @@ export const options = {
     { target: 50, duration: '30s' },
     { target: 50, duration: '300s'},	  
     { target: 0, duration: '30s' },
+    
+    { target: 100, duration: '60s' },
+    { target: 300, duration: '60s'},	  
+    { target: 600, duration: '60s'}
+    { target: 0, duration: '30s' },
+    
   ],
   tags: {
     testid: `t15-${d.getMonth()+1}/${d.getDate()}-${d.getHours()+8}:${d.getMinutes()}`
