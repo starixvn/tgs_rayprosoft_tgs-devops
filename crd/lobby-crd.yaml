@@ -7,6 +7,17 @@ spec:
   # group name to use for REST API: /apis/<group>/<version>
   group: stable.srvptt2.online
   # list of versions supported by this CustomResourceDefinition
+  names:
+    # plural name to be used in the URL: /apis/<group>/<version>/<plural>
+    plural: lobbies
+    # singular name to be used as an alias on the CLI and for display
+    singular: lobby
+    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    kind: Lobby
+    # shortNames allow shorter string to match your resource on the CLI
+    shortNames:
+    - lb
+  scope: Namespaced
   versions:
     - name: v1
       # Each version can be enabled/disabled by Served flag.
@@ -29,14 +40,4 @@ spec:
                 token:
                   type: string                
   # either Namespaced or Cluster
-  scope: Namespaced
-  names:
-    # plural name to be used in the URL: /apis/<group>/<version>/<plural>
-    plural: lobbies
-    # singular name to be used as an alias on the CLI and for display
-    singular: lobby
-    # kind is normally the CamelCased singular type. Your resource manifests use this.
-    kind: Lobby
-    # shortNames allow shorter string to match your resource on the CLI
-    shortNames:
-    - lb
+  
