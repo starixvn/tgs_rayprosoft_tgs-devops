@@ -7,6 +7,6 @@ spec:
    # finalizers:
      # stable.srvptt2.online/finalizer
    replicas: 2
-   image: lobby-t1:latest
+   image: pgtgs/lobby-t1:latest
    domain: fdgfdgdfgt
    token: fddfgdf

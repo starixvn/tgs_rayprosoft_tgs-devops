@@ -33,6 +33,7 @@ spec:
               properties:
                 image:
                   type: string
+                  pattern: '^pgtgs/*' 
                 replicas:
                   type: integer
                 domain:
