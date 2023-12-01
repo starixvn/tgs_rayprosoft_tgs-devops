@@ -39,6 +39,20 @@ spec:
                 domain:
                   type: string     
                 token:
-                  type: string                
+                  type: string     
+      additionalPrinterColumns:
+      - name: Name
+        type: string 
+        description: The name of lobby
+        jsonPath: .metadata.name
+      - name: Image
+        type: string 
+        description: The image of lobby
+        jsonPath: .spec.image  
+      - name: Domain
+        type: string 
+        description: The domain of lobby
+        jsonPath: .spec.domain         
+               
   # either Namespaced or Cluster
   
