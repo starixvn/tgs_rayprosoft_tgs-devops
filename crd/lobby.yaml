@@ -1,9 +1,11 @@
-apiVersion: lobbies.stable.srvptt2.online/v1
+apiVersion: stable.srvptt2.online/v1
 kind: Lobby
 metadata:
   name: lobby-t1
   namespace: dev
 spec:
+   # finalizers:
+     # stable.srvptt2.online/finalizer
    replicas: 2
    image: lobby-t1:latest
    domain: fdgfdgdfgt
