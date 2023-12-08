@@ -16,13 +16,13 @@ spec:
   containers:
     - env:
       - name: PG_HOSTNAME
-        value: "pgpool"
+        value: pgpool
       - name: PG_PORT
         value: 9999
       - name: PG_USERNAME
-        value: "rpdev"
+        value: rpdev
       - name: PG_PASSWORD
-        value: "abcd1234"
+        value: abcd1234
     - name: postgresql-client
       image: andreswebs/postgresql-client
       imagePullPolicy: Always
