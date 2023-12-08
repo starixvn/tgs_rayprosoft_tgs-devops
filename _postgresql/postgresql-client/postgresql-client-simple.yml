@@ -15,6 +15,15 @@ spec:
     supplementalGroups: [ 10001] 
     fsGroup: 10001    
   containers:
+    - env:
+      - name: PG_HOSTNAME
+        value: "pgpool"
+      - name: PG_PORT
+        value: 9999
+      - name: PG_USERNAME
+        value: "rpdev"
+      - name: PG_PASSWORD
+        value: "abcd1234"
     - name: postgresql-client
       image: andreswebs/postgresql-client
       imagePullPolicy: Always
