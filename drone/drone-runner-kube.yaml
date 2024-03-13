@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drone-runner-gitlab
+  namespace: drone
+  labels:
+    app.kubernetes.io/name: drone-runner-gitlab
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: drone-runner-gitlab
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: drone-runner-gitlab
+    spec:
+      containers:
+      - name: runner
+        image: drone/drone-runner-kube:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DRONE_RPC_HOST
+          value: drone-gitlab.rpgp.cc
+        - name: DRONE_RPC_PROTO
+          value: http
+        - name: DRONE_RPC_SECRET
+          value: 9rd2F6uPED25MHKvqYG9sgZweYBz9XmB

@@ -198,7 +198,7 @@ env:
   ## key via a separately provisioned secret (see existingSecretName above).
   ## Ref: https://docs.drone.io/installation/reference/drone-rpc-secret/
   ##
-  # DRONE_RPC_SECRET:
+  DRONE_RPC_SECRET: 9rd2F6uPED25MHKvqYG9sgZweYBz9XmB
 
   ## If you'd like to use a DB other than SQLite (the default), set a driver + DSN here.
   ## Ref: https://docs.drone.io/installation/storage/database/
