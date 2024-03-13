@@ -235,8 +235,8 @@ env:
   ## GitLab-specific variables. See the provider docs here:
   ## Ref: https://docs.drone.io/installation/providers/gitlab/
   ##
-  DRONE_GITLAB_CLIENT_ID: 902660445e179448d33486d789d0c200d3d58da39a98a97bd4ce7bd657d4a740
-  DRONE_GITLAB_CLIENT_SECRET: gloas-79da82a4457f16482b19a7a76663b071693b26f916794519dec7638481c3d063
+  DRONE_GITLAB_CLIENT_ID: 57fa98dba55b34e6b52deb2a9b9b175ef8916fd424931d5e85b6f733cb0993a1
+  DRONE_GITLAB_CLIENT_SECRET: gloas-ba4a7b73880f974199fa6705801e2d65d5b6e7910c012bd453b041dc726ae75e
   DRONE_GITLAB_SERVER: https://gitlab.com
 
   ## Bitbucket Cloud-specific variables. See the provider docs here:
