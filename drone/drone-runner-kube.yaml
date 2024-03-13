@@ -1,3 +1,44 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: drone
+  name: drone
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/log
+  verbs:
+  - get
+  - create
+  - delete
+  - list
+  - watch
+  - update
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: drone
+  namespace: drone
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: drone
+roleRef:
+  kind: Role
+  name: drone
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,6 +65,6 @@ spec:
         - name: DRONE_RPC_HOST
           value: drone-gitlab.rpgp.cc
         - name: DRONE_RPC_PROTO
-          value: http
+          value: https
         - name: DRONE_RPC_SECRET
           value: 9rd2F6uPED25MHKvqYG9sgZweYBz9XmB
