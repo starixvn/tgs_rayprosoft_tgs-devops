@@ -32,7 +32,7 @@ metadata:
   namespace: default
 subjects:
 - kind: ServiceAccount
-  name: default
+  name: drone
   namespace: default
 roleRef:
   kind: Role
