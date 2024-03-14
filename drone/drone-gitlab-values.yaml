@@ -200,9 +200,12 @@ env:
   ##
   DRONE_RPC_SECRET: 9rd2F6uPED25MHKvqYG9sgZweYBz9XmB
   DRONE_USER_CREATE: username:ly.lester@rayprosoft.com,admin:true
+  DRONE_ADMIN: admin
   DRONE_LOGS_TRACE: true
   DRONE_LOGS_DEBUG: true
   DRONE_DEBUG: true
+  ## fix turst not display
+  ## https://blog.csdn.net/qq_38883889/article/details/131425647?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-131425647-blog-106822191.235%5Ev43%5Epc_blog_bottom_relevance_base7&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-131425647-blog-106822191.235%5Ev43%5Epc_blog_bottom_relevance_base7&utm_relevant_index=2
 
   ## If you'd like to use a DB other than SQLite (the default), set a driver + DSN here.
   ## Ref: https://docs.drone.io/installation/storage/database/
