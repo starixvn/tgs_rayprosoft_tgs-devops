@@ -199,6 +199,10 @@ env:
   ## Ref: https://docs.drone.io/installation/reference/drone-rpc-secret/
   ##
   DRONE_RPC_SECRET: 9rd2F6uPED25MHKvqYG9sgZweYBz9XmB
+  DRONE_USER_CREATE: username:ly.lester@rayprosoft.com,admin:true
+  DRONE_LOGS_TRACE: true
+  DRONE_LOGS_DEBUG: true
+  DRONE_DEBUG: true
 
   ## If you'd like to use a DB other than SQLite (the default), set a driver + DSN here.
   ## Ref: https://docs.drone.io/installation/storage/database/
