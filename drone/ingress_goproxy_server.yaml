@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: go-proxy
+  namespace: drone
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "5000m"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: goproxy.rpgp.cc
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: go-proxy
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-proxy
+spec:
+  ports:
+  - name: app
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  clusterIP: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: go-proxy
+subsets:
+- addresses:
+  - ip: 192.168.50.245
+  ports:
+  - name: app
+    port: 3000
+    protocol: TCP

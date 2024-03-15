@@ -37,3 +37,10 @@ https://github.com/drone/charts/tree/master/charts/drone-runner-docker
 helm upgrade -i drone-runner drone/drone-runner-docker --namespace drone --values drone-runner-values.yaml
 
 https://docs.drone.io/runner/kubernetes/installation/
+
+
+## go module proxy server
+https://www.youtube.com/watch?v=964fZJPVHDI
+https://docs.gomods.io
+
+Run `docker run -d -p '3000:3000' gomods/athens:latest`
