@@ -61,6 +61,8 @@ spec:
         ports:
         - containerPort: 3000
         env:
+        - name: PRIVILEGED
+          value: "true"
         - name: DRONE_RPC_HOST
           value: drone-gitlab.rpgp.cc
         - name: DRONE_RPC_PROTO
