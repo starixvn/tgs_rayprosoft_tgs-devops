@@ -47,6 +47,6 @@ https://github.com/gomods/athens-charts/blob/main/charts/athens-proxy/values.yam
 ```
 helm repo add gomods https://gomods.github.io/athens-charts
 helm repo update
-helm upgrade -i gomods/athens-proxy -n drone -f athens-proxy-values.yaml
+helm upgrade -i athens-proxy gomods/athens-proxy -n drone -f athens-proxy-values.yaml
 
 ```

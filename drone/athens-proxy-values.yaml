@@ -49,7 +49,7 @@ ingress:
   className: "nginx"
   # Provide an array of values for the ingress host mapping
   hosts:
-    - host: goproxy.rpgp.cc
+  - host: goproxy.rpgp.cc
     paths:
       - path: /
         pathType: ImplementationSpecific
