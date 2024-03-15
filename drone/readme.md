@@ -41,6 +41,12 @@ https://docs.drone.io/runner/kubernetes/installation/
 
 ## go module proxy server
 https://www.youtube.com/watch?v=964fZJPVHDI
-https://docs.gomods.io
+https://docs.gomods.io/install/install-on-kubernetes/
+https://github.com/gomods/athens-charts/blob/main/charts/athens-proxy/values.yaml
 
-Run `docker run -d -p '3000:3000' gomods/athens:latest`
+```
+helm repo add gomods https://gomods.github.io/athens-charts
+helm repo update
+helm upgrade -i gomods/athens-proxy -n drone -f athens-proxy-values.yaml
+
+```
