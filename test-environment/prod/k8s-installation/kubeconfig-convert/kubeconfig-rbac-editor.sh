@@ -1,5 +1,5 @@
 #!/bin/bash
-export account=prod-editor
+export account=editor
 export namespace=prod
 
 kubectl -n $namespace create serviceaccount $account
@@ -37,7 +37,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: edit-prod
+  name: edit-${namespace}
 rules:
 - apiGroups: [""]
   resources: ["*"]
@@ -46,7 +46,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: ${account}-edit-prod
+  name: ${account}-edit-${namespace}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
