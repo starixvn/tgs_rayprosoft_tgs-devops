@@ -13,7 +13,7 @@ rules:
   resources:
   - deployments
   - service
-  - configmap
+  - configmaps
   - secrets
   - ingress
   - serviceaccount

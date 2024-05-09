@@ -13,7 +13,7 @@ automountServiceAccountToken: false
 apiVersion: v1
 kind: Secret
 metadata:
-  name: ${account}-token
+  name: ${account}
   namespace: $namespace
   annotations:
     kubernetes.io/service-account.name: "${account}"
