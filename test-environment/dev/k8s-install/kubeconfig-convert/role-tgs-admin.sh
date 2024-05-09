@@ -19,6 +19,7 @@ metadata:
   namespace: $namespace
   annotations:
     kubernetes.io/service-account.name: "${account}"
+type: kubernetes.io/service-account-token
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding

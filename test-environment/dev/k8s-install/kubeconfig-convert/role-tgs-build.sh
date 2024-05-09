@@ -45,6 +45,7 @@ metadata:
   name: ${account}
   namespace: $namespace
 ---
+cat << EOF | kubectl apply -n $namespace -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -52,4 +53,5 @@ metadata:
   namespace: $namespace
   annotations:
     kubernetes.io/service-account.name: "${account}"
+type: kubernetes.io/service-account-token
 EOF
