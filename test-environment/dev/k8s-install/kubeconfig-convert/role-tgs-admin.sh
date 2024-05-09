@@ -2,8 +2,6 @@
 export account=tgs-admin
 export namespace=dev
 
-kubectl -n $namespace create serviceaccount $account
-
 cat << EOF | kubectl apply -n $namespace -f -
 apiVersion: v1
 kind: ServiceAccount
