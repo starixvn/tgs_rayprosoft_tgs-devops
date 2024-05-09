@@ -12,11 +12,14 @@ rules:
   - '*'
   resources:
   - deployments
-  - service
+  - services
   - configmaps
   - secrets
   - ingress
-  - serviceaccount
+  - serviceaccounts
+  - roles
+  - rolebindings
+  - cronjobs
   verbs:
   - get
   - patch
