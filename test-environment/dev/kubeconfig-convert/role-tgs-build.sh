@@ -15,11 +15,12 @@ rules:
   - services
   - configmaps
   - secrets
-  - ingress
+  - ingresses
   - serviceaccounts
   - roles
   - rolebindings
   - cronjobs
+  - jobs
   verbs:
   - get
   - patch
