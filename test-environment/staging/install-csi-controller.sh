@@ -2,9 +2,9 @@
 # install aws-ebs-csi-driver
 export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
-export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-tgs-k8s-staging
+export csi_role_name=AmazonEKS_EBS_CSI_DriverRole-tgs-stag
 export csi_sa_name=ebs-csi-controller-sa
-export eks_cluster=tgs-k8s-staging
+export eks_cluster=tgs-stag
 export account_id=060812454361
 export region=ap-east-1
 export oid=$(aws eks describe-cluster --name ${eks_cluster} --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
