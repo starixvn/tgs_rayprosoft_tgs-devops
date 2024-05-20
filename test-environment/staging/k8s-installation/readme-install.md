@@ -161,11 +161,11 @@ kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-pass
 
 # nats Official
 helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-helm install nats nats/nats --set cluster.enabled=true,auth.enabled=false -n dev
-helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3 -n dev
-helm upgrade --install nats nats/nats -f nats-values.yaml -n dev
+helm install nats nats/nats --set cluster.enabled=true,auth.enabled=false -n staging
+helm upgrade --install nats nats/nats --set metrics.enabled=true,auth.enabled=false,cluster.enabled=true,cluster.name=nats,cluster.replicas=3 -n staging
+helm upgrade --install nats nats/nats -f values-nats.yaml -n staging
 
-helm uninstall nats -n dev
+helm uninstall nats -n staging
 
 ### https://github.com/nats-io/k8s/tree/master/helm/charts/stan
 
@@ -192,11 +192,11 @@ http://dev-redisinsight.rpgp.cc/
 
 # mongodb,  and exporter
 helm install mongodb bitnami/mongodb \
-	--set global.storageClass=nfs-provisioner \
+	--set global.storageClass=gp2 \
 	--set auth.rootPassword=1qaz2wsx \
 	--set auth.enabled=false \
 	--set metrics.enabled=true \
-	--set image.tag=5.0.9-debian-11-r3 -n dev
+	--set image.tag=5.0.9-debian-11-r3 -n staging
 
 mongodb-metrics:9216/metrics 
 https://github.com/bitnami/charts/tree/master/bitnami/mongodb#installing-the-chart
