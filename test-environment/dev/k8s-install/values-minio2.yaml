@@ -1,0 +1,240 @@
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: ""
+
+nameOverride: ""
+fullnameOverride: ""
+commonLabels: {}
+commonAnnotations: {}
+kubeVersion: ""
+clusterDomain: cluster.local
+extraDeploy: []
+
+image:
+  registry: docker.io
+  repository: bitnami/minio
+  tag: 2022.3.8-debian-10-r0
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  debug: false
+
+clientImage:
+  registry: docker.io
+  repository: bitnami/minio-client
+  tag: 2022.3.3-debian-10-r5
+
+mode: standalone
+
+auth:
+  rootUser: admin
+  rootPassword: ""
+  existingSecret: ""
+  forcePassword: false
+  useCredentialsFiles: false
+  forceNewKeys: false
+
+defaultBuckets: ""
+disableWebUI: false
+
+tls:
+  enabled: false
+  existingSecret: ""
+  mountPath: ""
+
+extraEnvVars: []
+
+extraEnvVarsCM: ""
+extraEnvVarsSecret: ""
+
+command: []
+args: []
+
+deployment:
+  updateStrategy:
+    type: Recreate
+
+statefulset:
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
+  replicaCount: 4
+  zones: 1
+  drivesPerNode: 1
+
+hostAliases: []
+
+containerPorts:
+  api: 9000
+  console: 9001
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+  runAsNonRoot: true
+
+podLabels: {}
+podAnnotations: {}
+
+podAffinityPreset: ""
+podAntiAffinityPreset: soft
+
+nodeAffinityPreset:
+  type: ""
+  key: ""
+  values: []
+
+affinity: {}
+nodeSelector: {}
+tolerations: []
+topologySpreadConstraints: []
+
+priorityClassName: ""
+
+resources:
+  limits: {}
+  requests: {}
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 5
+
+startupProbe:
+  enabled: false
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 60
+
+service:
+  type: ClusterIP
+  ports:
+    api: 9000
+    console: 9001
+  nodePorts:
+    api: ""
+    console: ""
+  clusterIP: ""
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  externalTrafficPolicy: Cluster
+  extraPorts: []
+  annotations: {}
+
+ingress:
+  enabled: true
+  apiVersion: ""
+  ingressClassName: "nginx"
+  hostname: minio.rpgp.cc
+  path: /
+  pathType: Prefix
+  servicePort: 9000
+  annotations: {}
+  tls: false
+  selfSigned: false
+  extraHosts: []
+  extraPaths: []
+  extraTls: []
+  secrets: []
+
+apiIngress:
+  enabled: true
+  apiVersion: ""
+  ingressClassName: "nginx"
+  hostname: minio-api.rpgp.cc
+  path: /
+  pathType: Prefix
+  servicePort: minio-api
+  annotations: {}
+  tls: false
+  selfSigned: false
+  extraHosts: []
+  extraPaths: []
+  extraTls: []
+  secrets: []
+
+networkPolicy:
+  enabled: false
+  allowExternal: true
+  extraFromClauses: {}
+
+persistence:
+  enabled: true
+  storageClass: "nfs-provisioner"
+  mountPath: /data
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+  annotations: {}
+  existingClaim: ""
+
+volumePermissions:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: bitnami/bitnami-shell
+    tag: 10-debian-10-r359
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+  resources:
+    limits: {}
+    requests: {}
+  containerSecurityContext:
+    runAsUser: 0
+
+serviceAccount:
+  create: true
+  name: ""
+  automountServiceAccountToken: true
+  annotations: {}
+
+pdb:
+  create: false
+  minAvailable: 1
+  maxUnavailable: ""
+
+metrics:
+  prometheusAuthType: public
+  serviceMonitor:
+    enabled: false
+    namespace: ""
+    labels: {}
+    jobLabel: ""
+    path: /minio/v2/metrics/cluster
+    interval: 30s
+    scrapeTimeout: ""
+    metricRelabelings: []
+    relabelings: []
+    honorLabels: false
+    selector: {}
+
+gateway:
+  enabled: false
+  type: s3
+  replicaCount: 4
+  updateStrategy:
+    type: Recreate
+  autoscaling:
+    enabled: false
+  auth:
+    s3:
+      accessKey: "AKIAQ4KFUNHMWDQG7BVC"
+      secretKey: "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"
+      serviceEndpoint: https://s3.amazonaws.com

@@ -257,7 +257,6 @@ https://hub.docker.com/r/grafana/grafana/tags
 
 kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
-
 # minio 
 kubectl create ns minio
 helm upgrade --install  minio bitnami/minio -f values-minio.yaml  --set auth.rootPassword=B4pCvrXfaz  -n minio
@@ -280,3 +279,25 @@ helm repo add hashicorp https://helm.releases.hashicorp.com
 helm search repo hashicorp/consul
 helm install consul hashicorp/consul -f values-consul.yaml --create-namespace -n consul
 helm uninstall consul -n consul
+
+
+# new minio 
+https://min.io/docs/minio/kubernetes/upstream/operations/installation.html
+
+```
+curl https://github.com/minio/operator/releases/download/v5.0.15/kubectl-minio_5.0.15_linux_amd64 -o kubectl-minio
+chmod +x kubectl-minio
+mv kubectl-minio /usr/local/bin/
+```
+
+https://min.io/docs/minio/kubernetes/upstream/reference/kubectl-minio-plugin/kubectl-minio-tenant-create.html#
+
+```
+kubectl minio tenant create                             \
+                     minio-tenant-1                     \
+                     --servers          1               \
+                     --volumes          2               \
+                     --capacity         32Gi            \
+                     --namespace        minio           \
+					 --storage-class    nfs-provisioner
+```
