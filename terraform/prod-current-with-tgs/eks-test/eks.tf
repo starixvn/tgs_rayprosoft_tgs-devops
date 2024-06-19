@@ -76,12 +76,12 @@ module "eks" {
   eks_managed_node_groups = {
     # default node group
     default = {
-      name             = "tgs-devops"
+      name             = "tgs-devops-test"
       use_name_prefix  = true
-      capacity_type    = "ON_DEMAND"  # default node group to be on-demand
-      desired_size = 3
-      max_size     = 8
-      min_size     = 3
+      capacity_type    = "SPOT"  # default node group to be on-demand
+      desired_size = 1
+      max_size     = 1
+      min_size     = 0
 
       instance_types = ["m5.xlarge", "m5d.xlarge","c5n.xlarge"]
       max_unavailable_percentage = 80
@@ -93,7 +93,7 @@ module "eks" {
     }
 
     prod = {
-      name      = "tgs-prod"
+      name      = "tgs-prod-test"
       use_name_prefix  = true
       desired_size = 0
       max_size     = 1
