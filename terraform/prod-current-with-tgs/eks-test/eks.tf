@@ -83,37 +83,8 @@ module "eks" {
       max_size     = 1
       min_size     = 0
 
-      instance_types = ["m5.xlarge", "m5d.xlarge","c5n.xlarge"]
-      max_unavailable_percentage = 80
-
-      remote_access = {
-        ec2_ssh_key               = local.key 
-        source_security_group_ids = [local.security_group_id]
-      }
-    }
-
-    prod = {
-      name      = "tgs-prod-test"
-      use_name_prefix  = true
-      desired_size = 0
-      max_size     = 1
-      min_size     = 0
-      max_unavailable_percentage = 80
-      instance_types = ["m5.xlarge", "m5d.xlarge","c5n.xlarge"]
-
-      # Node selector
-      labels = {
-          dedicated = "prod"
-      }
-
-      # Tolerations
-      taints = [
-        {
-          key    = "dedicated"
-          value  = "prod"
-          effect = "NO_SCHEDULE"
-        }
-      ]
+      instance_types = ["m5.small", "m5d.small","c5n.small"]
+      max_unavailable_percentage = 30
 
       remote_access = {
         ec2_ssh_key               = local.key 
