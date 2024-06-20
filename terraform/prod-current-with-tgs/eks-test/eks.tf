@@ -83,7 +83,7 @@ module "eks" {
       max_size     = 1
       min_size     = 0
 
-      instance_types = ["t3.small","m5.large","c5.large"]
+      instance_types = ["t3.small","t3.nano","t3.micro"]
       max_unavailable_percentage = 30
 
       remote_access = {
