@@ -10,6 +10,6 @@ create-dns:
   stage: dns
   script:
     - |
-      create_dns "staging" "t123.rpgp.cc"
+      create_dns "prod" "t123.srvptt.com"
   only:
     - main
