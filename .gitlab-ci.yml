@@ -10,6 +10,7 @@ create-dns:
   stage: dns
   script:
     - |
+      echo "test1"
       create_dns "prod" "t123.srvptt.com"
   only:
     - main
