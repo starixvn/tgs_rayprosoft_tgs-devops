@@ -8,6 +8,7 @@ https://gitlab.com/gitlab-org/charts/gitlab-runner/-/blob/main/values.yaml
 
 ## 前置作業
 ```
+helm repo add gitlab https://charts.gitlab.io
 kubectl create ns gitlab-runner
 kubectl create secret generic kubeconfig --from-file=/home/ubuntu/.kube/config -n gitlab-runner
 ```
