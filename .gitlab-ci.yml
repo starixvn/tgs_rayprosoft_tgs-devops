@@ -1,0 +1,16 @@
+include:
+  - project: 'inwoker/tgs/tgs-gitlab-ci-jobs'
+    ref: main
+    file: '/jobs/.create_dns.yaml'
+
+stages:
+  - dns
+
+create-dns:
+  stage: dns
+  script:
+    - |
+      echo "test1"
+      create_dns "prod" "t123.srvptt.com"
+  only:
+    - main
