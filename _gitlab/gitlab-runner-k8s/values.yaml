@@ -1,0 +1,38 @@
+gitlabUrl: https://gitlab.com/
+runnerRegistrationToken: "$token"
+replicas: 3
+concurrency: 3
+rbac:
+  create: true
+  generatedServiceAccountName: "gitlab-runner"
+  rules:
+    - resources: ["secrets", "pods", "pods/exec", "pods/attach"]
+      verbs: ["get", "delete", "create", "update"]
+serviceAccount:
+  create: true
+volumeMounts:
+  - name: kubeconfig
+    mountPath: "/root/.kube"
+    readOnly: true
+volumes:
+  - name: kubeconfig
+    secret:
+      secretName: kubeconfig
+runners:
+  config: |
+    concurrent = 3
+    check_interval = 5
+
+    [[runners]]
+      name = "k8s-runner"
+      url = "https://gitlab.com/"
+      token = "$token"
+      executor = "kubernetes"
+      [runners.kubernetes]
+        namespace = "gitlab-runner"
+        privileged = true
+        [runners.kubernetes.volumes]
+          [[runners.kubernetes.volumes.secret]]
+            name = "kubeconfig"
+            mount_path = "/root/.kube"
+            secret_name = "kubeconfig"
