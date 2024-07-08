@@ -1,0 +1,37 @@
+# Use the official Node.js image as the base image
+FROM node:16.6.1 AS build
+
+# Set environment variables for non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y \
+    git \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && \
+    apt-get install -y docker-ce-cli && \
+    npm install -g yq && \
+    # Clean up
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install yq
+RUN YQ_VERSION="v4.13.3" && \
+    wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/bin/yq && \
+    chmod +x /usr/bin/yq
+# Verify installations
+RUN node -v
+RUN npm -v
+RUN git --version
+RUN docker --version
+RUN yq --version
+
+# Set the working directory (optional, can be any directory you prefer)
+WORKDIR /workspace
