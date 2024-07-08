@@ -2,7 +2,10 @@ gitlabUrl: https://gitlab.com/
 runnerRegistrationToken: "$token"
 replicas: 3
 concurrency: 3
-image: pgtgs/tgs-backend-deploy:latest
+image:
+  registry: pgtgs
+  image: tgs-backend-deploy
+  tag: latest
 rbac:
   create: true
   generatedServiceAccountName: "gitlab-runner"

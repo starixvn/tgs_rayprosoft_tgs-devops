@@ -58,6 +58,7 @@ runners:
 ```
 export token="glrt-rDijy5CKWtzLsxueyDLJ"
 envsubst < values.yaml | helm install -n gitlab-runner -f - backend gitlab/gitlab-runner
+envsubst < values_helm.yaml | helm template -n gitlab-runner -f - backend-api-deploy gitlab/gitlab-runner
 envsubst < values_helm.yaml | helm install -n gitlab-runner -f - backend-api-deploy gitlab/gitlab-runner
 ```
 
