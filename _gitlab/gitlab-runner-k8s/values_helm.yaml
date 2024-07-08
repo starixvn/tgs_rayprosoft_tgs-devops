@@ -6,6 +6,8 @@ image:
   registry: pgtgs
   image: tgs-backend-deploy
   tag: latest
+imagePullSecrets: 
+  - dockerhub
 rbac:
   create: true
   generatedServiceAccountName: "gitlab-runner"
