@@ -10,9 +10,14 @@ https://gitlab.com/gitlab-org/charts/gitlab-runner/-/blob/main/values.yaml
 ```
 helm repo add gitlab https://charts.gitlab.io
 kubectl create ns gitlab-runner
+
 kubectl create secret generic kubeconfig --from-file=/home/ubuntu/.kube/config -n gitlab-runner
+
+kubectl delete secrets kubeconfig  -n gitlab-runner
+kubectl create secret generic kubeconfig --from-file=/root/kubeconfig -n gitlab-runner
+
 ```
-## values.yaml
+## values.yaml  kubeconfig version
 ```
 gitlabUrl: https://gitlab.com/
 runnerRegistrationToken: "$token"
@@ -52,8 +57,38 @@ runners:
             name = "kubeconfig"
             mount_path = "/root/.kube"
             secret_name = "kubeconfig"
-
 ```
+
+
+## values.yaml  serviceaccount version
+```
+gitlabUrl: https://gitlab.com/
+runnerRegistrationToken: "$token"
+replicas: 3
+concurrency: 3
+rbac:
+  create: true
+  generatedServiceAccountName: "gitlab-runner"
+  rules:
+    - resources: ["secrets", "pods", "pods/exec", "pods/attach"]
+      verbs: ["get", "delete", "create", "update"]
+serviceAccount:
+  create: true    //外面那一層gitlab-runner 的 serviceAccount
+runners:
+  config: |
+    concurrent = 3
+    check_interval = 5
+    [[runners]]
+      name = "k8s-runner"
+      url = "https://gitlab.com/"
+      token = "$token"
+      executor = "kubernetes"
+      [runners.kubernetes]
+        namespace = "dev"
+        privileged = true
+		service_account = "build"   //指定image 所使用的service account
+```
+
 ## 安裝
 ```
 export token="glrt-rDijy5CKWtzLsxueyDLJ"
