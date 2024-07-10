@@ -17,7 +17,7 @@ kubectl delete secrets kubeconfig  -n gitlab-runner
 kubectl create secret generic kubeconfig --from-file=/root/kubeconfig -n gitlab-runner
 
 ```
-## values.yaml  kubeconfig version
+## values.yaml  kubeconfig version (已廢棄)
 ```
 gitlabUrl: https://gitlab.com/
 runnerRegistrationToken: "$token"
@@ -86,7 +86,7 @@ runners:
       [runners.kubernetes]
         namespace = "dev"
         privileged = true
-		service_account = "build"   //指定image 所使用的service account
+		service_account = "tgs-build"   //指定image 所使用的service account
 ```
 
 ## 安裝
@@ -99,30 +99,54 @@ envsubst < values_helm.yaml | helm install -n gitlab-runner -f - backend-api-dep
 
 ## rbac.yaml 
 ```
-export namespace=staging
+export namespace=prod
 cat << EOF | kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  name: tgs-build-gitlab-runner
   namespace: $namespace
-  name: gitlab-runner-role
 rules:
-- apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - services
+  - ingresses
+  - serviceaccounts
+  - secrets
+  - pods
+  - pods/exec
+  - pods/attach
+  verbs:
+  - create
+  - update
+  - delete
+  - get
+  - patch
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - get
+  - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: gitlab-runner-rolebinding
+  name: tgs-build-gitlab-runner
   namespace: $namespace
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tgs-build-gitlab-runner
 subjects:
 - kind: ServiceAccount
-  name: default
+  name: backend-gitlab-runner
   namespace: gitlab-runner
-roleRef:
-  kind: Role
-  name: gitlab-runner-role
-  apiGroup: rbac.authorization.k8s.io
 EOF
 ```
