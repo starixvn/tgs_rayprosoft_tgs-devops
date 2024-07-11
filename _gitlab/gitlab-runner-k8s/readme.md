@@ -11,8 +11,8 @@ https://gitlab.com/gitlab-org/charts/gitlab-runner/-/blob/main/values.yaml
 helm repo add gitlab https://charts.gitlab.io
 kubectl create ns gitlab-runner
 
+## 已廢棄 kubeconfig
 kubectl create secret generic kubeconfig --from-file=/home/ubuntu/.kube/config -n gitlab-runner
-
 kubectl delete secrets kubeconfig  -n gitlab-runner
 kubectl create secret generic kubeconfig --from-file=/root/kubeconfig -n gitlab-runner
 
