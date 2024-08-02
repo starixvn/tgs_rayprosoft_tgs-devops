@@ -99,12 +99,12 @@ envsubst < values_helm.yaml | helm install -n gitlab-runner -f - backend-api-dep
 
 ## rbac.yaml 
 ```
-export namespace=prod
+export namespace=staging
 cat << EOF | kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: tgs-build-gitlab-runner
+  name: gitlab-runner
   namespace: $namespace
 rules:
 - apiGroups:
@@ -138,7 +138,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: tgs-build-gitlab-runner
+  name: gitlab-runner
   namespace: $namespace
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -146,7 +146,7 @@ roleRef:
   name: tgs-build-gitlab-runner
 subjects:
 - kind: ServiceAccount
-  name: backend-gitlab-runner
+  name: gitlab-runner
   namespace: gitlab-runner
 EOF
 ```
