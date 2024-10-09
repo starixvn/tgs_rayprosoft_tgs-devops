@@ -3,7 +3,7 @@ FROM alpine:latest
 
 # 更新包清單並安裝基本工具
 RUN apk update && \
-    apk add --no-cache curl bash jq
+    apk add --no-cache curl bash jq gettext
 
 # 安裝 kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
